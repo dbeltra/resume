@@ -16,7 +16,7 @@ const Header = () => {
         <div className="relative z-10 text-left text-gray-100 w-screen">
             <div className="p-9">
                 <div className="text-left animate-reveal">
-                    <span className="header-small">I'm a </span>
+                    <span className="header-small text-orange-300">I'm a </span>
                     <span className="header-big animate-underline"><span data-text="FULL-STACK">FULL-STACK</span></span>
                 </div>
                 <div className="text-right animate-reveal">

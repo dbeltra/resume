@@ -34,6 +34,7 @@ const Navbar = () => {
         <div className="text-2xl font-bold">
           <a
             href="#"
+            className="hover:text-orange-300 transition-colors"
           >
             David Beltrà
           </a>
@@ -43,19 +44,19 @@ const Navbar = () => {
         <div className="flex space-x-6">
           <a 
             href="#about" 
-            className="hover:text-gray-300 transition-colors"
+            className="hover:text-orange-300 transition-colors"
           >
             About
           </a>
           <a 
             href="#experience" 
-            className="hover:text-gray-300 transition-colors"
+            className="hover:text-orange-300 transition-colors"
           >
             Experience
           </a>
           <a 
             href="#skills" 
-            className="hover:text-gray-300 transition-colors"
+            className="hover:text-orange-300 transition-colors"
           >
             Skills
           </a>
