@@ -71,13 +71,15 @@ const Resume = () => {
 
     <div className="bg-black min-h-screen flex items-center justify-center p-6 ">
       <div className="p-6">
+        {/* Contact Information */}
+        <section className="text-center mb-6 mt-4 text-gray-200">
+        <a class="anchor" id="about"></a>
+
         <div className="text-center">
           <h1 className="text-3xl font-bold">{personalInfo.name}</h1>
           <p className="text-xl text-gray-400">{personalInfo.title}</p>
         </div>
 
-        {/* Contact Information */}
-        <section className="text-center mb-6 mt-4 text-gray-200">
           <p>{personalInfo.contact.email}</p>
           <p>{personalInfo.contact.location}</p>
           <div className="flex justify-center space-x-4 mt-2">
@@ -102,6 +104,7 @@ const Resume = () => {
 
         {/* Work Experience */}
         <section className="mb-6">
+          <a class="anchor" id="experience"></a>
           <h2 className="text-2xl font-semibold border-b-2 border-gray-600 mb-4">Work Experience</h2>
           {workExperience.map((job, index) => (
             <div key={index} className="mb-4">
@@ -118,6 +121,7 @@ const Resume = () => {
 
         {/* Education */}
         <section className="mb-6">
+          <a class="anchor" id="education"></a>
           <h2 className="text-2xl font-semibold border-b-2 border-gray-600 mb-4">Education</h2>
           {education.map((edu, index) => (
             <div key={index}>
@@ -130,6 +134,7 @@ const Resume = () => {
 
         {/* Skills */}
         <section>
+          <a class="anchor" id="skills"></a>
           <h2 className="text-2xl font-semibold border-b-2 border-gray-600 mb-4">Skills</h2>
           <div className="flex">
             <div className="w-1/2">

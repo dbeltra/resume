@@ -32,7 +32,11 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center px-4">
         {/* Logo */}
         <div className="text-2xl font-bold">
-          David Beltrà
+          <a
+            href="#"
+          >
+            David Beltrà
+          </a>
         </div>
 
         {/* Navigation Links */}

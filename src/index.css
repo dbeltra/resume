@@ -4,6 +4,10 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 @import url('https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy');
 
+html{
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Poppins";
   background: black;
@@ -92,4 +96,11 @@ body {
   overflow: hidden;
   transition: 1s;
   height: 100%;
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -250px;
+  visibility: hidden;
 }
