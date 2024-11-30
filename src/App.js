@@ -6,7 +6,6 @@ const Resume = () => {
 
   const personalInfo = {
     name: "David Beltrà Tejero",
-    title: "Full stack developer",
     contact: {
       email: "dbeltra@gmail.com",
       location: "Barcelona, Spain",
@@ -27,7 +26,7 @@ const Resume = () => {
       ]
     },{
       title: "Web and Python developer",
-      company: "pEp Security / Planck Security",
+      company: "pEp Security → Planck Security",
       dates: "2018 - 2024",
       responsibilities: [
         "Development of Python-based apps and tools like a command line interface or an API for our testing framework.",
@@ -77,7 +76,6 @@ const Resume = () => {
 
         <div className="text-center">
           <h1 className="text-3xl font-bold">{personalInfo.name}</h1>
-          <p className="text-xl text-gray-400">{personalInfo.title}</p>
         </div>
 
           <p>{personalInfo.contact.email}</p>
@@ -87,7 +85,7 @@ const Resume = () => {
               href={`https://${personalInfo.contact.linkedin}`} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-blue-400 hover:underline"
+              className="text-orange-300 hover:underline"
             >
               LinkedIn
             </a>
@@ -95,7 +93,7 @@ const Resume = () => {
               href={`https://${personalInfo.contact.github}`} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-blue-400 hover:underline"
+              className="text-orange-300 hover:underline"
             >
               GitHub
             </a>
