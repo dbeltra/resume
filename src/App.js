@@ -73,7 +73,7 @@ const Resume = () => {
       <div className="p-6">
         {/* Contact Information */}
         <section className="text-center mb-6 mt-4 text-gray-200">
-        <a class="anchor" id="about"></a>
+        <span class="anchor" id="about"></span>
 
         <div className="text-center">
           <h1 className="text-3xl font-bold">{personalInfo.name}</h1>
@@ -104,7 +104,7 @@ const Resume = () => {
 
         {/* Work Experience */}
         <section className="mb-6">
-          <a class="anchor" id="experience"></a>
+          <span class="anchor" id="experience"></span>
           <h2 className="text-2xl font-semibold border-b-2 border-gray-600 mb-4">Work Experience</h2>
           {workExperience.map((job, index) => (
             <div key={index} className="mb-4">
@@ -121,7 +121,7 @@ const Resume = () => {
 
         {/* Education */}
         <section className="mb-6">
-          <a class="anchor" id="education"></a>
+          <span class="anchor" id="education"></span>
           <h2 className="text-2xl font-semibold border-b-2 border-gray-600 mb-4">Education</h2>
           {education.map((edu, index) => (
             <div key={index}>
@@ -134,7 +134,7 @@ const Resume = () => {
 
         {/* Skills */}
         <section>
-          <a class="anchor" id="skills"></a>
+          <span class="anchor" id="skills"></span>
           <h2 className="text-2xl font-semibold border-b-2 border-gray-600 mb-4">Skills</h2>
           <div className="flex">
             <div className="w-1/2">
