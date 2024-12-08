@@ -91,22 +91,22 @@ const Resume = () => {
 
 
   return (
-    <div className='flex justify-center items-center h-screen bg-page-bg bg-cover bg-center'>
-      <div className=' w-10/12 min-h-20 bg-gray-800/80 rounded-lg text-gray-200 flex aspect-video overflow-hidden relative'>
-        <div className='w-60 py-4 px-6'>
+    <div className='flex justify-center items-center md:h-screen bg-gray-800 md:bg-page-bg bg-cover bg-center'>
+      <div className='md:m-20 xl:m-40 bg-gray-800/80 rounded-lg text-gray-200 flex relative flex-col md:flex-row'>
+        <div className='w-full md:w-60 p-2 md:py-4 md:px-6'>
           <div className='flex items-center'>
             <span className='bg-red-600 w-3 h-3 rounded-full mr-2'></span>
             <span className='bg-yellow-400 w-3 h-3 rounded-full mr-2'></span>
             <span className='bg-green-600 w-3 h-3 rounded-full mr-3'></span>
             <span>Resumé</span>
           </div>
-          <div className='flex justify-between py-4'>
+          <div className='hidden md:flex justify-between py-4'>
             <i className="material-icons text-blue-400">folder</i> 
             <i className="material-icons">search</i> 
             <i className="material-icons">widgets</i> 
             <i className="material-icons">settings</i> 
           </div>
-          <div className='flex flex-col gap-2 text-sm'>
+          <div className='hidden md:flex flex-col gap-2 text-sm'>
             <div className='flex items-center justify-start gap-3'>
               <i className="material-icons-outlined">folder</i><b>Resumeé</b>
             </div>
@@ -142,8 +142,8 @@ const Resume = () => {
               <i className="material-icons-outlined text-sm mr-2">javascript</i>Education.js
             </div>
           </div>
-          <div className='flex h-full'>
-            <div className='code-font w-3 p-4 text-gray-400'>
+          <div className='flex flex-grow'>
+            <div className='code-font p-4 text-gray-400'>
             {lineNumbers.map((lineNumber) => (
                 <div key={lineNumber}>{lineNumber}</div>
               ))}
@@ -151,19 +151,19 @@ const Resume = () => {
             <div className='code-font p-4'>
               <div dangerouslySetInnerHTML={{ __html: marked(aboutMe) }} />
             </div>
-            <div className='bg-gray-700 w-full p-4'>
-              <div className='border-b'>Who am I?</div>
-              <div className='p-2'>
-                <div className='text-5xl mt-4 uppercase font-bold'>{personalInfo.name}</div>
-                <div className='text-2xl uppercase mb-4'>{personalInfo.role}</div>
-                <div>
-                  <p>I'm currently based in Barcelona, and I have have worked with a wide range of technologies, both frontend and backend, such as Python, Django, Rust, Javascript or React.</p>
-                  <p>I enjoy challenges and finding ways to learn news skills or improve my current ones.</p>
-                </div>
-                <div className='flex justify-left py-6 gap-6'>
-                  <a href={`https://${personalInfo.contact.github}`} role='button' className='bg-gray-400 text-gray-800 rounded px-4 py-2'>Github</a>
-                  <a href={`https://${personalInfo.contact.linkedin}`} role='button' className='bg-gray-400 text-gray-800 rounded px-4 py-2'>Linkedin</a>
-                </div>
+          </div>
+          <div className='bg-gray-700 p-4'>
+            <div className='border-b'>Who am I?</div>
+            <div className='p-2'>
+              <div className='text-5xl mt-4 uppercase font-bold'>{personalInfo.name}</div>
+              <div className='text-2xl uppercase mb-4'>{personalInfo.role}</div>
+              <div>
+                <p>I'm currently based in Barcelona, and I have have worked with a wide range of technologies, both frontend and backend, such as Python, Django, Rust, Javascript or React.</p>
+                <p>I enjoy challenges and finding ways to learn news skills or improve my current ones.</p>
+              </div>
+              <div className='flex justify-left py-6 gap-6'>
+                <a href={`https://${personalInfo.contact.github}`} role='button' className='bg-gray-400 text-gray-800 rounded px-4 py-2'>Github</a>
+                <a href={`https://${personalInfo.contact.linkedin}`} role='button' className='bg-gray-400 text-gray-800 rounded px-4 py-2'>Linkedin</a>
               </div>
             </div>
           </div>

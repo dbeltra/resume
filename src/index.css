@@ -6,6 +6,12 @@
 
 html{
   scroll-behavior: smooth;
+  background-color: #1f2937;
+}
+@media (min-width: 768px) {
+  html{
+    background-color: #FFFFFF;
+  }
 }
 
 body {
