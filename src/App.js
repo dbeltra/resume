@@ -3,6 +3,7 @@ import "highlight.js/styles/nnfx-dark.css";
 import hljs from "highlight.js";
 import { marked } from "marked";
 import { useEffect } from "react";
+import avatarImg from "./assets/images/avatar.png"
 
 const Resume = () => {
   useEffect(() => {
@@ -92,7 +93,7 @@ const Resume = () => {
 
   return (
     <div className='flex justify-center items-center md:h-screen bg-gray-800 md:bg-page-bg bg-cover bg-center'>
-      <div className='md:m-20 xl:m-40 bg-gray-800/80 rounded-lg text-gray-200 flex relative flex-col md:flex-row'>
+      <div className='md:m-20 xl:m-40 bg-gray-800/80 rounded-t-lg text-gray-200 flex relative flex-col md:flex-row'>
         <div className='w-full md:w-60 p-2 md:py-4 md:px-6'>
           <div className='flex items-center'>
             <span className='bg-red-600 w-3 h-3 rounded-full mr-2'></span>
@@ -130,8 +131,8 @@ const Resume = () => {
             </div>
           </div>
         </div>
-        <div className=' bg-gray-800'>
-          <div className='flex bg-gray-900 text-xs'>
+        <div className=' bg-gray-800 rounded-tr-lg'>
+          <div className='flex bg-gray-900 text-xs rounded-tr-lg'>
             <div className= 'bg-gray-700 border-r border-gray-700 px-3 py-2'>
               <i className="material-icons-outlined text-sm">html</i>About.html
             </div>
@@ -143,18 +144,19 @@ const Resume = () => {
             </div>
           </div>
           <div className='flex flex-grow'>
-            <div className='code-font p-4 text-gray-400'>
+            <div className='code-font hidden md:block p-4 text-gray-400'>
             {lineNumbers.map((lineNumber) => (
                 <div key={lineNumber}>{lineNumber}</div>
               ))}
             </div>
-            <div className='code-font p-4'>
+            <div className='code-font p-4 hidden md:block'>
               <div dangerouslySetInnerHTML={{ __html: marked(aboutMe) }} />
             </div>
-          </div>
-          <div className='bg-gray-700 p-4'>
+
+            <div className='bg-gray-700 p-4'>
             <div className='border-b'>Who am I?</div>
             <div className='p-2'>
+              <img className='h-32' src={avatarImg}></img>
               <div className='text-5xl mt-4 uppercase font-bold'>{personalInfo.name}</div>
               <div className='text-2xl uppercase mb-4'>{personalInfo.role}</div>
               <div>
@@ -167,8 +169,11 @@ const Resume = () => {
               </div>
             </div>
           </div>
+
+
+          </div>
         </div>
-        <div className='absolute bottom-0 w-full h-5 bg-gray-600 text-gray-400 text-xs flex gap-4 justify-end px-4'>
+        <div className='absolute -bottom-5 w-full h-5 bg-gray-600 text-gray-400 text-xs hidden md:flex gap-4 justify-end px-4 rounded-b-lg'>
           <span>Line 4/20</span>
           <span>Spaces: 2</span>
           <span>UTF-8</span>
