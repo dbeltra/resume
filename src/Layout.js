@@ -30,11 +30,11 @@ const Layout = () => {
 
   return (
     <div className="bg-center flex justify-center items-center md:h-screen bg-gray-800 md:bg-page-bg bg-cover ">
-      <div className="md:mx-20 xl:m-40 bg-gray-800/80 rounded-t-lg text-gray-200 flex relative flex-col lg:flex-row">
-        <div className="w-full md:w-60 p-2 md:py-4 md:px-6">
+      <div className="md:mx-20 xl:mx-40 bg-gray-800/80 rounded-t-lg text-gray-200 flex relative flex-col lg:flex-row h-[90vh] w-[90vw]">
+        <div className="w-1/3 md:w-60 p-2 md:py-4 md:px-6">
           <Sidebar></Sidebar>
         </div>
-        <div className=" bg-gray-800 rounded-tr-lg">
+        <div className=" bg-gray-800 rounded-tr-lg h-full w-[90vw]">
           <NavTabs></NavTabs>
           <Outlet></Outlet>
         </div>

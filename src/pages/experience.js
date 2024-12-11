@@ -65,7 +65,12 @@ const Code = `\`\`\`json
 \`\`\``;
 
 const ExperienceContent = () => {
-  return <div></div>;
+  return (
+    <div>
+      Lorem ipsum dolor set amet orem ipsum dolor set amet orem ipsum dolor set
+      amet orem ipsum
+    </div>
+  );
 };
 
 const Experience = () => {
