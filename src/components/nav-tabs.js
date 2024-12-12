@@ -10,7 +10,7 @@ const NavTabs = () => {
       <Link
         to="/"
         className={`
-          border-r border-gray-700 h-full px-3 py-2 
+          border-r border-gray-700 h-full px-3 
           ${isActive("/") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
@@ -20,7 +20,7 @@ const NavTabs = () => {
       <Link
         to="/experience"
         className={`
-          border-r border-gray-700 h-full px-3 py-2 
+          border-r border-gray-700 h-full px-3 
           ${isActive("/experience") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
@@ -30,7 +30,7 @@ const NavTabs = () => {
       <Link
         to="/skills"
         className={`
-          border-r border-gray-700 h-full px-3 py-2 
+          border-r border-gray-700 h-full px-3 
           ${isActive("/skills") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
