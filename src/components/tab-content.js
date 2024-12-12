@@ -15,18 +15,19 @@ const TabContent = ({ code, Title, Content }) => {
   );
 
   return (
-    <div className="flex relative h-full overflow-hidden">
-      <div className="flex w-1/2">
-        <div className="code-font hidden md:block p-4 text-gray-400">
+    <div className="col-start-2 col-span-2 row-start-2 grid grid-rows-subgrid grid-cols-subgrid">
+      <div className="bg-gray-600 grid grid-cols-[20px_1fr] overflow-x-hidden overflow-y-scroll">
+        <div className="code-font text-gray-400 px-2 py-4">
           {lineNumbers.map((lineNumber) => (
             <div key={lineNumber}>{lineNumber}</div>
           ))}
         </div>
-        <div className="code-font p-4 hidden md:block">
+        <div className="code-font p-4">
           <div dangerouslySetInnerHTML={{ __html: marked(code) }} />
         </div>
       </div>
-      <div className="bg-gray-700 w-1/2 p-4 md:absolute md:right-0 md:top-0 md:h-[calc(100%-1.25rem)]">
+
+      <div className="bg-gray-700 p-4 overflow-y-scroll">
         <div className="border-b">{Title}</div>
         <div className="p-2">
           <Content />

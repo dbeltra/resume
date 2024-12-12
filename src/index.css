@@ -1,16 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css?family=Cutive+Mono');
-@import url('https://fonts.googleapis.com/css?family=Roboto:wght@400;700');
+@import url("https://fonts.googleapis.com/css?family=Cutive+Mono");
+@import url("https://fonts.googleapis.com/css?family=Roboto:wght@400;700");
 
-html{
+html {
   scroll-behavior: smooth;
   background-color: #1f2937;
 }
 @media (min-width: 768px) {
-  html{
-    background-color: #FFFFFF;
+  html {
+    background-color: #ffffff;
   }
 }
 
@@ -18,13 +18,18 @@ body {
   font-family: "Roboto";
 }
 
-.code-font{
-  font-family: "Cutive Mono";
+code {
+  white-space: pre-wrap;
 }
 
-.hljs{
+.code-font {
+  font-family: "Cutive Mono";
+  font-size: 0.7rem;
+}
+
+.hljs {
   background-color: transparent !important;
 }
-pre code.hljs{
+pre code.hljs {
   padding: 0em !important;
 }

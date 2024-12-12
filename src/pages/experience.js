@@ -61,7 +61,29 @@ const Code = `\`\`\`json
     "Development of a Rust API and a React frontend to manage a Rust 
     decryption solution.",
   ]
-}
+},{
+  title: "Web and Python developer",
+  company: "pEp Security → Planck Security",
+  dates: "2018 - 2024",
+  responsibilities: [
+    "Development of Python-based apps and tools like a command line interface or an API for our testing framework.",
+    "Migration of static HTML websites to a customised CMS (Django/Mezzanine)",
+    "Development of a shop integrated with different payment platforms and custom invoicing options.",
+    "Design and implementation of a web/python interface to an MQ queue system.",
+    "Implementation of a CLI tool and a Docker solution to decrypt email traffic.",
+  ]
+},{
+    title: "Full Stack developer",
+    company: "Ancora Dual",
+    dates: "2014 - 2018",
+    responsibilities: [
+      "Website design and development",
+      "Development of a customizable CMS adaptable to all kind of business, based on Django and Backbone.",
+      "Design and development of Autopractik, a driving school management and booking system and multi-platform APP.",
+      "Design and development of Backbone/Phonegap system to generate customized APPs for our customers.",
+      "Implementation of agile-based working methodology on the company.",
+    ]
+  }
 \`\`\``;
 
 const ExperienceContent = () => {

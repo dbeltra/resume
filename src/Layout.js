@@ -29,18 +29,12 @@ const Layout = () => {
   };
 
   return (
-    <div className="bg-center flex justify-center items-center md:h-screen bg-gray-800 md:bg-page-bg bg-cover ">
-      <div className="md:mx-20 xl:mx-40 bg-gray-800/80 rounded-t-lg text-gray-200 flex relative flex-col lg:flex-row h-[90vh] w-[90vw]">
-        <div className="w-1/3 md:w-60 p-2 md:py-4 md:px-6">
-          <Sidebar></Sidebar>
-        </div>
-        <div className=" bg-gray-800 rounded-tr-lg h-full w-[90vw]">
-          <NavTabs></NavTabs>
-          <Outlet></Outlet>
-        </div>
-        <div className="absolute -bottom-5 w-full ">
-          <Footer></Footer>
-        </div>
+    <div className="bg-center flex justify-center items-center h-screen bg-gray-800 bg-page-bg bg-cover">
+      <div className=" bg-gray-800/80 text-gray-200 h-[80vh] w-[80vw] grid grid-cols-[250px_1fr_1fr] grid-rows-[50px_1fr_20px] rounded-xl overflow-hidden">
+        <Sidebar></Sidebar>
+        <NavTabs></NavTabs>
+        <Outlet></Outlet>
+        <Footer></Footer>
       </div>
     </div>
   );
