@@ -1,5 +1,4 @@
 import React from "react";
-import "highlight.js/styles/nnfx-dark.css";
 import Sidebar from "./components/sidebar";
 import NavTabs from "./components/nav-tabs";
 import Footer from "./components/footer";

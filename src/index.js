@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import About from "./pages/about";
 import Experience from "./pages/experience";
+import Skills from "./pages/skills";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<About />} />
           <Route path="experience" element={<Experience />} />
+          <Route path="skills" element={<Skills />} />
         </Route>
       </Routes>
     </BrowserRouter>

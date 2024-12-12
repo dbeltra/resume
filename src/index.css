@@ -18,10 +18,6 @@ body {
   font-family: "Roboto";
 }
 
-code {
-  white-space: pre-wrap;
-}
-
 .code-font {
   font-family: "Cutive Mono";
   font-size: 0.7rem;
@@ -32,4 +28,8 @@ code {
 }
 pre code.hljs {
   padding: 0em !important;
+}
+
+code {
+  white-space: pre-wrap;
 }

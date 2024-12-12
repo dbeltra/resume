@@ -1,10 +1,10 @@
 import { marked } from "marked";
+import "highlight.js/styles/nnfx-dark.css";
 import hljs from "highlight.js";
 import { useEffect } from "react";
 import React from "react";
 
 const TabContent = ({ code, Title, Content }) => {
-  console.log(Content);
   useEffect(() => {
     hljs.highlightAll();
   }, []);

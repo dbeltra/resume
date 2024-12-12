@@ -4,10 +4,16 @@ import TabContent from "../components/tab-content";
 
 const Code = `\`\`\`xml
 <!-- About me -->
-<hello>
+<hello to="everyone">
   My name is <David_Beltrà/>,
   I'm a full-stack developer
   with more than 10 years of experience
+  <frontend>
+    It will look and behave nice
+  </frontend>
+  <backend>
+    It will work easy and fast
+  </backend>
 </hello>
   \`\`\``;
 
