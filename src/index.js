@@ -13,9 +13,9 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<About />} />
-          <Route path="experience" element={<Experience />} />
-          <Route path="skills" element={<Skills />} />
+          <Route path="/" element={<About />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/skills" element={<Skills />} />
         </Route>
       </Routes>
     </HashRouter>
