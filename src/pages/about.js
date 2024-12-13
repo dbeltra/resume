@@ -1,6 +1,9 @@
 import avatarImg from "../assets/images/avatar.png";
 import React from "react";
 import TabContent from "../components/tab-content";
+import Button from "../components/button";
+import GithubIcon from "../assets/icons/github.png";
+import LinkedinIcon from "../assets/icons/linkedin.png";
 
 const Code = `\`\`\`xml
 <!-- About me -->
@@ -44,20 +47,17 @@ const AboutContent = () => {
         ))}
       </div>
       <div className="flex justify-left py-6 gap-6">
-        <a
-          href={`https://${personalInfo.contact.github}`}
-          role="button"
-          className="bg-gray-400 text-gray-800 rounded px-4 py-2"
-        >
-          Github
-        </a>
-        <a
-          href={`https://${personalInfo.contact.linkedin}`}
-          role="button"
-          className="bg-gray-400 text-gray-800 rounded px-4 py-2"
-        >
-          Linkedin
-        </a>
+        <Button
+          url={personalInfo.contact.github}
+          text="Github"
+          image={GithubIcon}
+        ></Button>
+        <Button
+          variant="secondary"
+          url={personalInfo.contact.linkedin}
+          text="Linkedin"
+          image={LinkedinIcon}
+        ></Button>
       </div>
     </div>
   );
