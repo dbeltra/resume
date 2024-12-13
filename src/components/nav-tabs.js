@@ -24,7 +24,7 @@ const NavTabs = () => {
           ${isActive("/experience") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
-        <i className="material-icons-outlined text-sm mr-2 p-1">css</i>
+        <i className="material-icons-outlined text-sm p-1">html</i>
         Experience.json
       </Link>
       <Link

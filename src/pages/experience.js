@@ -12,7 +12,7 @@ const Code = `\`\`\`json
   responsibilities: [
     "Migration of part of the tech stack from Python to Rust.",
     "Development and maintenance of a Rust Dockerized solution, able to manage decrypt and store email messages.",
-    "Development of a Rust API and a React frontend to manage a Rust decryption solution.",
+    "Development of a Rust API and a React frontend to manage a decryption solution.",
   ]
 },{
   title: "Web and Python developer",
@@ -26,17 +26,17 @@ const Code = `\`\`\`json
     "Implementation of a CLI tool and a Docker solution to decrypt email traffic.",
   ]
 },{
-    title: "Full Stack developer",
-    company: "Ancora Dual",
-    dates: "2014 - 2018",
-    responsibilities: [
-      "Website design and development",
-      "Development of a customizable CMS adaptable to all kind of business, based on Django and Backbone.",
-      "Design and development of Autopractik, a driving school management and booking system and multi-platform APP.",
-      "Design and development of Backbone/Phonegap system to generate customized APPs for our customers.",
-      "Implementation of agile-based working methodology on the company.",
-    ]
-  }
+  title: "Full Stack developer",
+  company: "Ancora Dual",
+  dates: "2014 - 2018",
+  responsibilities: [
+    "Website design and development",
+    "Development of a customizable CMS adaptable to all kind of business, based on Django and Backbone.",
+    "Design and development of Autopractik, a driving school management and booking system and multi-platform APP.",
+    "Design and development of Backbone/Phonegap system to generate customized APPs for our customers.",
+    "Implementation of agile-based working methodology on the company.",
+  ]
+}
 \`\`\``;
 
 const experiences = [
@@ -79,117 +79,6 @@ const experiences = [
   },
 ];
 
-// const ExperienceContent = () => {
-//   const [currentSlide, setCurrentSlide] = useState(0);
-//   const [direction, setDirection] = useState(null);
-
-//   const nextSlide = () => {
-//     setDirection("left");
-//     setTimeout(() => {
-//       setCurrentSlide((prev) => (prev + 1) % experiences.length);
-//       setDirection(null);
-//     }, 500);
-//   };
-
-//   const prevSlide = () => {
-//     setDirection("right");
-//     setTimeout(() => {
-//       setCurrentSlide(
-//         (prev) => (prev - 1 + experiences.length) % experiences.length,
-//       );
-//       setDirection(null);
-//     }, 500);
-//   };
-
-//   return (
-//     <div className="mx-auto">
-//       <div className="overflow-hidden relative py-4">
-//         {/* Image Container */}
-//         <div className="h-36 overflow-hidden relative">
-//           <div
-//             className={`
-//             absolute top-0 left-0 w-full h-full flex transition-transform duration-500 ease-in-out
-//             ${
-//               direction === "left"
-//                 ? "-translate-x-full"
-//                 : direction === "right"
-//                   ? "translate-x-full"
-//                   : "translate-x-0"
-//             }
-//           `}
-//           >
-//             <img
-//               src={experiences[currentSlide].image}
-//               alt={`${experiences[currentSlide].company} logo`}
-//               className="w-full h-full object-contain"
-//             />
-//           </div>
-
-//           {/* Navigation Buttons */}
-//           <div className="absolute top-1/2 transform -translate-y-1/2 w-full flex justify-between px-4">
-//             <button
-//               onClick={prevSlide}
-//               className="p-2 rounded hover:bg-gray-500 transition"
-//             >
-//               <i className="material-icons">chevron_left</i>
-//             </button>
-//             <button
-//               onClick={nextSlide}
-//               className="p-2 rounded hover:bg-gray-500 transition"
-//             >
-//               <i className="material-icons">chevron_right</i>
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Slide Indicators */}
-//         <div className="flex justify-center mt-4">
-//           {experiences.map((_, index) => (
-//             <div
-//               key={index}
-//               className={`h-2 w-2 mx-1 rounded-full ${
-//                 index === currentSlide ? "bg-secondary" : "bg-gray-300"
-//               }`}
-//             />
-//           ))}
-//         </div>
-
-//         {/* Experience Details */}
-//         <div
-//           className={`
-//           py-4 transition-transform duration-500 ease-in-out
-//           ${
-//             direction === "left"
-//               ? "-translate-x-full"
-//               : direction === "right"
-//                 ? "translate-x-full"
-//                 : "translate-x-0"
-//           }
-//         `}
-//         >
-//           <h3 className="text-xl font-bold">
-//             {experiences[currentSlide].title}
-//           </h3>
-//           <div className="mb-2">
-//             <span>{experiences[currentSlide].company}</span>
-//             <span className="ml-4 text-sm">
-//               ({experiences[currentSlide].dates})
-//             </span>
-//           </div>
-
-//           <ul className="">
-//             {experiences[currentSlide].responsibilities.map((resp, index) => (
-//               <li key={index} className="text-sm">
-//                 {resp}
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
 const ExperienceContent = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(null);
@@ -221,7 +110,7 @@ const ExperienceContent = () => {
 
   const getSlideClass = (index) => {
     if (index === currentSlide && !animating) {
-      return "opacity-100"; // Keep the current slide visible after animation
+      return "opacity-100";
     }
     if (direction === "next") {
       if (index === currentSlide) return "animate-slide-out-left";
@@ -235,7 +124,7 @@ const ExperienceContent = () => {
       )
         return "animate-slide-in-left";
     }
-    return "opacity-0"; // Hide slides not currently in view or animating
+    return "opacity-0";
   };
 
   return (
@@ -292,7 +181,7 @@ const ExperienceContent = () => {
           {experiences[currentSlide].company} ({experiences[currentSlide].dates}
           )
         </p>
-        <ul className="mt-4 space-y-2 text-sm max-w-xl mx-auto text-left">
+        <ul className="mt-4 space-y-2 text-sm">
           {experiences[currentSlide].responsibilities.map((resp, index) => (
             <li key={index} className="">
               {resp}
