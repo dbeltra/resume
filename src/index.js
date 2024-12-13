@@ -2,15 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
-import About from "./pages/about";
-import Experience from "./pages/experience";
-import Skills from "./pages/skills";
+import About from "./pages/About";
+import Experience from "./pages/Experience";
+import Skills from "./pages/Skills";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<About />} />
@@ -18,7 +18,7 @@ export default function App() {
           <Route path="skills" element={<Skills />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 const root = ReactDOM.createRoot(document.getElementById("root"));
