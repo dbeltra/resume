@@ -15,7 +15,7 @@ const TabContent = ({ code, Title, Content }) => {
   );
 
   return (
-    <div className="col-start-2 col-span-2 row-start-2 grid grid-rows-subgrid grid-cols-subgrid">
+    <div className="col-start-2 col-span-2 row-start-2 flex flex-col-reverse lg:grid grid-rows-subgrid grid-cols-subgrid">
       <div className="bg-gray-600 grid grid-cols-[20px_1fr] overflow-x-hidden overflow-y-scroll">
         <div className="code-font text-gray-400 px-2 py-4">
           {lineNumbers.map((lineNumber) => (
