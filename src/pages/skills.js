@@ -1,10 +1,9 @@
 import React from "react";
 import TabContent from "../components/tab-content";
 
-const Code = `\`\`\`Python
-# This is what I can do!
+const Code = `# This is what I can do!
 
-hard_skills = {
+skills = {
     "Python": "🐍",
     "Rust": "🦀",
     "Javascript": "👨🏼‍💻",
@@ -14,11 +13,10 @@ hard_skills = {
     "Github": "🐙",
 }
 
-def show_skills(myskills):
-    """
-    Show some love for the skills
-    """
-    for skill, icon in myskills.items(): 
+def show_skills(skills):
+    """Show some love for the skills"""
+    
+    for skill, icon in skills.items(): 
         print(f"I ♥️ {skill}! {icon}")
 
 def main():
@@ -26,8 +24,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-\`\`\``;
+`;
 
 const SkillsContent = () => {
   return (
@@ -42,6 +39,7 @@ const Skills = () => {
   return (
     <TabContent
       code={Code}
+      language="python"
       Title="My Skills"
       Content={SkillsContent}
     ></TabContent>

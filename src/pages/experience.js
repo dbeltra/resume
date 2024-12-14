@@ -4,8 +4,7 @@ import PlanckImg from "../assets/images/planck.png";
 import PepImg from "../assets/images/pep.png";
 import AncoraImg from "../assets/images/ancora.png";
 
-const Code = `\`\`\`json
-{
+const Code = `{
   title: "Rust and React developer",
   company: "Planck Security",
   dates: "2024 - 2025",
@@ -37,7 +36,7 @@ const Code = `\`\`\`json
     "Implementation of agile-based working methodology on the company.",
   ]
 }
-\`\`\``;
+`;
 
 const experiences = [
   {
@@ -197,6 +196,7 @@ const Experience = () => {
   return (
     <TabContent
       code={Code}
+      language="json"
       Title="My Experience"
       Content={ExperienceContent}
     ></TabContent>

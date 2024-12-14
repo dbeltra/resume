@@ -23,17 +23,6 @@ body {
   font-size: 0.7rem;
 }
 
-.hljs {
-  background-color: transparent !important;
-}
-pre code.hljs {
-  padding: 0em !important;
-}
-
-code {
-  white-space: pre-wrap;
-}
-
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
@@ -92,4 +81,28 @@ code {
 
 .animate-slide-out-right {
   animation: slideOutRight 0.5s ease-out;
+}
+
+.hljs {
+  background-color: transparent !important;
+}
+pre code.hljs {
+  padding: 0em !important;
+  overflow: visible;
+}
+
+code {
+  white-space: pre-wrap;
+}
+.code-line {
+  margin-bottom: -1rem;
+  display: flex;
+}
+.code-line:hover {
+  background-color: #434c59; /* Optional hover effect for each line */
+}
+
+.code-line.line-number,
+.code-line.line-code {
+  display: inline-block;
 }

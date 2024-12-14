@@ -5,8 +5,7 @@ import Button from "../components/button";
 import GithubIcon from "../assets/icons/github.png";
 import LinkedinIcon from "../assets/icons/linkedin.png";
 
-const Code = `\`\`\`xml
-<!-- About me -->
+const Code = `<!-- About me -->
 <hello to="everyone">
   My name is <David_Beltrà/>,
   I'm a full-stack developer
@@ -18,7 +17,7 @@ const Code = `\`\`\`xml
     It will work easy and fast
   </backend>
 </hello>
-  \`\`\``;
+`;
 
 const AboutContent = () => {
   const personalInfo = {
@@ -36,7 +35,11 @@ const AboutContent = () => {
 
   return (
     <div>
-      <img className="h-32" src={avatarImg}></img>
+      <img
+        className="h-32"
+        src={avatarImg}
+        alt={`Avatar for ${personalInfo.name}`}
+      ></img>
       <div className="text-5xl mt-4 uppercase font-bold">
         {personalInfo.name}
       </div>
@@ -67,6 +70,7 @@ const About = () => {
   return (
     <TabContent
       code={Code}
+      language="xml"
       Title="About Me"
       Content={AboutContent}
     ></TabContent>
