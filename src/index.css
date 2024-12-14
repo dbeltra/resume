@@ -102,7 +102,51 @@ code {
   background-color: #434c59; /* Optional hover effect for each line */
 }
 
+.code-line.highlighted {
+  background-color: #546072;
+}
+
+.code-line.highlighted .line-code {
+  border-left: 4px solid #7094db;
+}
+
+.code-line.highlighted .line-code:after {
+  content: "";
+  display: block;
+  height: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: -3px;
+  border-right: 1.5px solid white;
+  animation: blink 1s step-end infinite;
+}
+
+.code-line .line-code {
+  border-left: 4px solid transparent;
+  position: relative;
+}
+
+.code-line .line-number {
+  margin-right: 4px;
+}
+
+.code-line.highlighted .line-number {
+  color: white;
+}
+
 .code-line.line-number,
 .code-line.line-code {
   display: inline-block;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
