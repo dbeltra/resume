@@ -15,12 +15,12 @@ const Code = `{
   ]
 },{
   title: "Web and Python developer",
-  company: "pEp Security → Planck Security",
+  company: "pEp Security & Planck Security",
   dates: "2018 - 2024",
   responsibilities: [
-    "Development of Python-based apps and tools like a command line interface or an API for our testing framework.",
-    "Migration of static HTML websites to a customised CMS (Django/Mezzanine)",
-    "Development of a shop integrated with different payment platforms and custom invoicing options.",
+    "Migration of static HTML websites to a customised CMS",
+    "Development of a CLI and an API for our testing framework.",
+    "Development of a custom shop with invoicing options.",
     "Design and implementation of a web/python interface to an MQ queue system.",
     "Implementation of a CLI tool and a Docker solution to decrypt email traffic.",
   ]
@@ -29,12 +29,11 @@ const Code = `{
   company: "Ancora Dual",
   dates: "2014 - 2018",
   responsibilities: [
-    "Website design and development",
-    "Development of a customizable CMS adaptable to all kind of business, based on Django and Backbone.",
-    "Design and development of Autopractik, a driving school management and booking system and multi-platform APP.",
-    "Design and development of Backbone/Phonegap system to generate customized APPs for our customers.",
-    "Implementation of agile-based working methodology on the company.",
-  ]
+    "I worked as a web designer and developer.",
+    "Created a customizable CRUD business solution.",
+    "Development of a web-based management tool for driving schools.",
+    "I also enforced agile methodologies to our team workflow.",
+  ],
 }
 `;
 
@@ -45,11 +44,9 @@ const experiences = [
     company: "Ancora Dual",
     dates: "2014 - 2018",
     responsibilities: [
-      "Website design and development",
-      "Development of a customizable CMS adaptable to all kind of business, based on Django and Backbone.",
-      "Design and development of Autopractik, a driving school management and booking system and multi-platform APP.",
-      "Design and development of Backbone/Phonegap system to generate customized APPs for our customers.",
-      "Implementation of agile-based working methodology on the company.",
+      "I worked as a web designer and developer. We created a customizable CRUD business solution, based on Django and Backbone.",
+      "I took a main role on developing Autopractick, a web-based management tool for driving schools, whith a Phonegap partner app.",
+      "I also enforced agile methodologies to our team workflow.",
     ],
   },
   {
@@ -58,11 +55,10 @@ const experiences = [
     company: "pEp Security → Planck Security",
     dates: "2018 - 2024",
     responsibilities: [
-      "Development of Python-based apps and tools like a command line interface or an API for our testing framework.",
-      "Migration of static HTML websites to a customised CMS (Django/Mezzanine)",
-      "Development of a shop integrated with different payment platforms and custom invoicing options.",
-      "Design and implementation of a web/python interface to an MQ queue system.",
-      "Implementation of a CLI tool and a Docker solution to decrypt email traffic.",
+      "I joined the company as a fronted developer in charge of the website, my task was migrating a static HTML system to Mezzanine, a Django based CMS. The website ended including a custom payment and invoicing system",
+      "I also created a Python based CLI toolchain that worked with the company's decryption backend",
+      "I created a decryption demo solution for our presentations, combining an MQ system for the messages and a Django frontend",
+      "I took a main role on the development of a CLI tool and a Docker solution to decrypt email traffic.",
     ],
   },
   {
@@ -71,9 +67,9 @@ const experiences = [
     company: "Planck Security",
     dates: "2024 - 2025",
     responsibilities: [
-      "Migration of part of the tech stack from Python to Rust.",
-      "Development and maintenance of a Rust Dockerized solution, able to manage decrypt and store email messages.",
-      "Development of a Rust API and a React frontend to manage a Rust decryption solution.",
+      "I was in charge of developing the Security Hub, migrating our previous Python CLI tool to a Rust solution.",
+      "This project combined several Docker services which interacted through APIs to decrypt, scan and store encrypted email through a Postfix mail filter",
+      "All the settings and initial configuration could be managed from the browser through a react frontend.",
     ],
   },
 ];
