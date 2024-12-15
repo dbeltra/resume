@@ -1,14 +1,7 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import ExpandableFolder from "./expandable-folder";
 
 const Sidebar = () => {
-  const location = useLocation();
-  const [isSrcExpanded, setIsSrcExpanded] = useState(true);
-
-  const isActive = (path) => location.pathname === path;
-
-  const toggleSrc = () => setIsSrcExpanded((prev) => !prev);
-
   return (
     <div className="row-span-2 px-4 py-2 lg:p-4">
       <div className="flex items-center">
@@ -30,53 +23,32 @@ const Sidebar = () => {
             <i className="material-icons-outlined">folder</i>
             <b>Resumeé</b>
           </div>
-          <div className="flex items-center justify-start gap-3 p-1">
-            <i className="material-icons">chevron_right</i>
-            <i className="material-icons">folder</i> .github
-          </div>
-          <div className="flex items-center justify-start gap-3 p-1">
-            <i className="material-icons">chevron_right</i>
-            <i className="material-icons">folder</i> node_modules
-          </div>
-          <div
-            className="flex items-center justify-start gap-3 p-1 cursor-pointer"
-            onClick={toggleSrc}
-          >
-            <i className={`material-icons ${isSrcExpanded ? "rotate-90" : ""}`}>
-              chevron_right
-            </i>
-            <i className="material-icons-outlined">folder</i> src
-          </div>
-          {isSrcExpanded && (
-            <div className="ml-6">
-              <Link
-                to="/"
-                className={`flex items-center justify-start gap-3 p-1 ${
-                  isActive("/") ? "bg-gray-500" : "hover:bg-gray-600"
-                }`}
-              >
-                <i className="material-icons-outlined">description</i>{" "}
-                About.html
-              </Link>
-              <Link
-                to="/experience"
-                className={`flex items-center justify-start gap-3 p-1 ${
-                  isActive("/experience") ? "bg-gray-500" : "hover:bg-gray-600"
-                }`}
-              >
-                <i className="material-icons-outlined">description</i>{" "}
-                Experience.json
-              </Link>
-              <Link
-                to="/skills"
-                className={`flex items-center justify-start gap-3 p-1 ${
-                  isActive("/skills") ? "bg-gray-500" : "hover:bg-gray-600"
-                }`}
-              >
-                <i className="material-icons-outlined">description</i> Skills.py
-              </Link>
-            </div>
-          )}
+          <ExpandableFolder
+            title=".git"
+            links={[{ to: "", label: "index", icon: "description" }]}
+          />
+          <ExpandableFolder
+            title="public"
+            links={[
+              { to: "", label: "index.html", icon: "description" },
+              { to: "", label: "favicon.ico", icon: "description" },
+              { to: "", label: "manifest.json", icon: "description" },
+              { to: "", label: "robots.txt", icon: "description" },
+            ]}
+          />
+          <ExpandableFolder
+            expanded={true}
+            title="src"
+            links={[
+              { to: "/", label: "About.html", icon: "description" },
+              {
+                to: "/experience",
+                label: "Experience.json",
+                icon: "description",
+              },
+              { to: "/skills", label: "Skills.py", icon: "description" },
+            ]}
+          />
         </div>
       </div>
     </div>
