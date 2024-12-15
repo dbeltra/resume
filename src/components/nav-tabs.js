@@ -6,36 +6,33 @@ const NavTabs = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className=" bg-gray-900 text-xs col-start-2 col-span-2 flex">
+    <nav className=" bg-gray-900 text-xs col-start-2 col-span-2 flex h-full">
       <Link
         to="/"
         className={`
-          border-r border-gray-700 h-full px-3 
+          border-r border-gray-700 h-full px-3 flex items-center
           ${isActive("/") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
-        <i className="material-icons-outlined text-sm p-1">html</i>
-        About.xml
+        <span className="">About.xml</span>
       </Link>
       <Link
         to="/experience"
         className={`
-          border-r border-gray-700 h-full px-3 
+          border-r border-gray-700 h-full px-3 flex items-center
           ${isActive("/experience") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
-        <i className="material-icons-outlined text-sm p-1">html</i>
-        Experience.json
+        <span className="">Experience.json</span>
       </Link>
       <Link
         to="/skills"
         className={`
-          border-r border-gray-700 h-full px-3 
+          border-r border-gray-700 h-full px-3 flex items-center
           ${isActive("/skills") ? "bg-gray-700" : "hover:bg-gray-800"}
         `}
       >
-        <i className="material-icons-outlined text-sm mr-2 p-1">css</i>
-        Skills.py
+        <span className="">Skills.py</span>
       </Link>
     </nav>
   );

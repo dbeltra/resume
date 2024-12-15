@@ -2,8 +2,8 @@ import avatarImg from "../assets/images/avatar.png";
 import React from "react";
 import TabContent from "../components/tab-content";
 import Button from "../components/button";
-import GithubIcon from "../assets/icons/github.png";
-import LinkedinIcon from "../assets/icons/linkedin.png";
+import GithubIcon from "../assets/icons/mono/github.png";
+import LinkedinIcon from "../assets/icons/mono/linkedin.png";
 
 const Code = `<!-- About me -->
 <hello to="everyone">

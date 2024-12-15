@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css?family=Cutive+Mono");
-@import url("https://fonts.googleapis.com/css?family=Roboto:wght@400;700");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 html {
   scroll-behavior: smooth;
