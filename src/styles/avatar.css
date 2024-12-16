@@ -1,0 +1,66 @@
+.avatar {
+  position: absolute;
+  height: 150px;
+  bottom: -23px;
+  left: -6px;
+}
+
+.avatar-eb-l,
+.avatar-eb-r {
+  position: absolute;
+}
+
+.avatar-eb-l {
+  bottom: 77px;
+  left: 55px;
+  height: 10px;
+  width: 16px;
+  transform-origin: left bottom;
+  animation: raise-brow 2s linear paused;
+  --rotate: -8deg;
+}
+
+.avatar-eb-r {
+  bottom: 78px;
+  left: 80px;
+  height: 8px;
+  transform-origin: right bottom;
+  animation: raise-brow 1s linear paused;
+  --rotate: 8deg;
+}
+
+@keyframes raise-brow {
+  0%,
+  60% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  70% {
+    transform: rotate(var(--rotate)) translate(0, -1px);
+  }
+  80% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+  90% {
+    transform: rotate(var(--rotate)) translate(0, -1px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+}
+
+.avatar-eye-l,
+.avatar-eye-r {
+  position: absolute;
+}
+
+.avatar-eye-l {
+  height: 5px;
+  bottom: 71px;
+  left: 59px;
+}
+
+.avatar-eye-r {
+  height: 4px;
+  bottom: 70.5px;
+  left: 79px;
+}

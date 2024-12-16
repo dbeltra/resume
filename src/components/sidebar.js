@@ -14,14 +14,14 @@ const Sidebar = () => {
       </div>
       <div className="hidden lg:block">
         <div className="flex justify-between py-4">
-          <i className="material-icons text-primary">folder</i>
-          <i className="material-icons">search</i>
-          <i className="material-icons">widgets</i>
-          <i className="material-icons">settings</i>
+          <i className="material-symbols-filled text-primary">folder</i>
+          <i className="material-symbols-outlined">search</i>
+          <i className="material-symbols-outlined">widgets</i>
+          <i className="material-symbols-outlined">settings</i>
         </div>
         <div className="flex flex-col text-sm">
           <div className="flex items-center justify-start gap-3 p-1">
-            <i className="material-icons-outlined">folder</i>
+            <i className="material-symbols-filled">folder</i>
             <b>Resumé</b>
           </div>
           <ExpandableFolder

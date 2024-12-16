@@ -145,13 +145,13 @@ const ExperienceContent = () => {
             onClick={handlePrevSlide}
             className="bg-white/10 rounded-sm p-2 hover:bg-white/10 transition"
           >
-            <i className="material-icons">chevron_left</i>
+            <i className="material-symbols-outlined">chevron_left</i>
           </button>
           <button
             onClick={handleNextSlide}
             className="bg-white/10 rounded-sm p-2 hover:bg-white/20 transition"
           >
-            <i className="material-icons">chevron_right</i>
+            <i className="material-symbols-outlined">chevron_right</i>
           </button>
         </div>
       </div>

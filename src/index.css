@@ -1,8 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import url("https://fonts.googleapis.com/css?family=Cutive+Mono");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+@import "styles/avatar.css";
+@import "styles/caroussel.css";
+@import "styles/code.css";
+@import "styles/material-icons.css";
 
 html {
   scroll-behavior: smooth;
@@ -18,203 +25,6 @@ body {
   font-family: "Roboto";
 }
 
-.code-font {
-  font-family: "Cutive Mono";
-  font-size: 0.7rem;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.5s ease-out;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.5s ease-out;
-}
-
-.animate-slide-out-left {
-  animation: slideOutLeft 0.5s ease-out;
-}
-
-.animate-slide-out-right {
-  animation: slideOutRight 0.5s ease-out;
-}
-
-.hljs {
-  background-color: transparent !important;
-}
-pre code.hljs {
-  padding: 0em !important;
-  overflow: visible;
-}
-
-code {
-  white-space: pre-wrap;
-}
-.code-line {
-  margin-bottom: -1rem;
-  display: flex;
-}
-.code-line:hover {
-  background-color: #434c59; /* Optional hover effect for each line */
-}
-
-.code-line.highlighted {
-  background-color: #546072;
-}
-
-.code-line.highlighted .line-code {
-  border-left: 4px solid #7094db;
-}
-
-.code-line.highlighted .line-code:after {
-  content: "";
-  display: block;
-  height: 1rem;
-  position: absolute;
-  bottom: 0;
-  right: -3px;
-  border-right: 1.5px solid white;
-  animation: blink 1s step-end infinite;
-}
-
-.code-line .line-code {
-  border-left: 4px solid transparent;
-  position: relative;
-}
-
-.code-line .line-number {
-  margin-right: 4px;
-  width: 1rem;
-}
-
-.code-line.highlighted .line-number {
-  color: white;
-}
-
-.code-line.line-number,
-.code-line.line-code {
-  display: inline-block;
-}
-
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.avatar {
-  position: absolute;
-  height: 150px;
-  bottom: -23px;
-  left: -6px;
-}
-
-.avatar-eb-l,
-.avatar-eb-r {
-  position: absolute;
-}
-
-.avatar-eb-l {
-  bottom: 77px;
-  left: 55px;
-  height: 10px;
-  width: 16px;
-  transform-origin: left bottom;
-  animation: raise-brow 2s linear paused;
-  --rotate: -8deg;
-}
-
-.avatar-eb-r {
-  bottom: 78px;
-  left: 80px;
-  height: 8px;
-  transform-origin: right bottom;
-  animation: raise-brow 1s linear paused;
-  --rotate: 8deg;
-}
-
-@keyframes raise-brow {
-  0%,
-  60% {
-    transform: rotate(0deg) translate(0, 0);
-  }
-  70% {
-    transform: rotate(var(--rotate)) translate(0, -1px);
-  }
-  80% {
-    transform: rotate(0deg) translate(0, 0);
-  }
-  90% {
-    transform: rotate(var(--rotate)) translate(0, -1px);
-  }
-  100% {
-    transform: rotate(0deg) translate(0, 0);
-  }
-}
-
-.avatar-eye-l,
-.avatar-eye-r {
-  position: absolute;
-}
-
-.avatar-eye-l {
-  height: 5px;
-  bottom: 71px;
-  left: 59px;
-}
-
-.avatar-eye-r {
-  height: 4px;
-  bottom: 70.5px;
-  left: 79px;
+.footer-icon {
+  font-size: 15px;
 }

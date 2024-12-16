@@ -16,12 +16,14 @@ const ExpandableFolder = ({ expanded = false, title, links }) => {
         onClick={toggleExpand}
       >
         <i
-          className={`material-icons transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
+          className={`material-symbols-outlined transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
         >
           chevron_right
         </i>
         <i
-          className={isExpanded ? "material-icons-outlined" : "material-icons"}
+          className={
+            isExpanded ? "material-symbols-outlined" : "material-symbols-filled"
+          }
         >
           folder
         </i>{" "}
@@ -42,7 +44,7 @@ const ExpandableFolder = ({ expanded = false, title, links }) => {
                 isActive(to) ? "bg-gray-500" : "hover:bg-gray-600"
               }`}
             >
-              <i className={`material-icons-outlined`}>{icon}</i> {label}
+              <i className={`material-symbols-outlined`}>{icon}</i> {label}
             </Link>
           ))}
         </div>
