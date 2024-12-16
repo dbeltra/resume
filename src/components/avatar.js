@@ -88,7 +88,7 @@ const Avatar = () => {
   }, []);
 
   return (
-    <div className="bg-gray-400 h-32 w-32 overflow-hidden rounded-full relative mt-4">
+    <div className="bg-gray-400 h-32 w-32 overflow-hidden rounded-full relative">
       <img
         className="avatar"
         src={avatarImg}

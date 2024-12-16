@@ -50,6 +50,7 @@ const Sidebar = () => {
                 icon: "description",
               },
               { to: "/skills", label: "Skills.py", icon: "description" },
+              { to: "/contact", label: "Contact.rs", icon: "description" },
             ]}
           />
         </div>

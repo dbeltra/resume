@@ -34,6 +34,15 @@ const NavTabs = () => {
       >
         <span className="">Skills.py</span>
       </Link>
+      <Link
+        to="/contact"
+        className={`
+          border-r border-gray-700 h-full px-3 flex items-center
+          ${isActive("/contact") ? "bg-gray-700" : "hover:bg-gray-800"}
+        `}
+      >
+        <span className="">Contact.rs</span>
+      </Link>
     </nav>
   );
 };

@@ -71,7 +71,7 @@ const TabContent = ({ code, language, Title, Content }) => {
 
       <div className="bg-gray-700 p-4 overflow-y-scroll">
         <div className="border-b">{Title}</div>
-        <div className="p-2">
+        <div className="p-2 mt-4">
           <Content />
         </div>
       </div>
