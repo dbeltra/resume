@@ -154,8 +154,8 @@ code {
 .avatar {
   position: absolute;
   height: 150px;
-  bottom: -20px;
-  left: -5px;
+  bottom: -23px;
+  left: -6px;
 }
 
 .avatar-eb-l,
@@ -199,4 +199,21 @@ code {
   100% {
     transform: rotate(0deg) translate(0, 0);
   }
+}
+
+.avatar-eye-l,
+.avatar-eye-r {
+  position: absolute;
+}
+
+.avatar-eye-l {
+  height: 5px;
+  bottom: 71px;
+  left: 59px;
+}
+
+.avatar-eye-r {
+  height: 4px;
+  bottom: 70.5px;
+  left: 79px;
 }
