@@ -1,5 +1,6 @@
 import React from "react";
 import ExpandableFolder from "./expandable-folder";
+import { routesList } from "../routes";
 
 const Sidebar = () => {
   return (
@@ -42,16 +43,11 @@ const Sidebar = () => {
             key={"src"}
             expanded={true}
             title="src"
-            links={[
-              { to: "/", label: "About.xml", icon: "description" },
-              {
-                to: "/experience",
-                label: "Experience.json",
-                icon: "description",
-              },
-              { to: "/skills", label: "Skills.py", icon: "description" },
-              { to: "/contact", label: "Contact.rs", icon: "description" },
-            ]}
+            links={routesList.map((route) => ({
+              to: route.path,
+              label: route.title,
+              icon: route.icon,
+            }))}
           />
         </div>
       </div>
