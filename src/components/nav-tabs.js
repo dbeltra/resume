@@ -6,7 +6,7 @@ const NavTabs = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className=" bg-gray-900 text-xs col-start-2 col-span-2 flex h-full">
+    <nav className=" bg-gray-900 text-xs col-start-2 col-span-2 flex lg:h-full h-8">
       <Link
         to="/"
         className={`

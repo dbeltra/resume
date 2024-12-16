@@ -43,7 +43,7 @@ const Sidebar = () => {
             expanded={true}
             title="src"
             links={[
-              { to: "/", label: "About.html", icon: "description" },
+              { to: "/", label: "About.xml", icon: "description" },
               {
                 to: "/experience",
                 label: "Experience.json",
