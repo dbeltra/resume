@@ -24,10 +24,12 @@ const Sidebar = () => {
             <b>Resumeé</b>
           </div>
           <ExpandableFolder
+            key={"git"}
             title=".git"
             links={[{ to: "", label: "index", icon: "description" }]}
           />
           <ExpandableFolder
+            key={"public"}
             title="public"
             links={[
               { to: "", label: "index.html", icon: "description" },
@@ -37,6 +39,7 @@ const Sidebar = () => {
             ]}
           />
           <ExpandableFolder
+            key={"src"}
             expanded={true}
             title="src"
             links={[

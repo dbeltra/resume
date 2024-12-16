@@ -36,7 +36,7 @@ const ExpandableFolder = ({ expanded = false, title, links }) => {
         <div className="ml-9">
           {links.map(({ to, label, icon }) => (
             <Link
-              key={to}
+              key={label}
               to={to}
               className={`flex items-center justify-start gap-3 p-1 ${
                 isActive(to) ? "bg-gray-500" : "hover:bg-gray-600"
