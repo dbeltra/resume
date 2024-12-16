@@ -1,6 +1,4 @@
 import React from "react";
-import Button from "../components/button";
-
 import ImgNotFound from "../assets/images/notfound.webp";
 
 const NotFound = () => {
@@ -12,7 +10,11 @@ const NotFound = () => {
         <p className="text-xl mb-6">
           Sorry, but it looks like you're a bit lost.
         </p>
-        <img className="" src={ImgNotFound}></img>
+        <img
+          className=""
+          alt="Jack from Lost saying: We have to go back!"
+          src={ImgNotFound}
+        ></img>
         <button
           className="bg-primary  hover:bg-primary-700 inline-flex items-center justify-center 
           rounded px-4 py-2 transition-colors duration-200 w-1/3 mt-4"
