@@ -22,7 +22,7 @@ const Sidebar = () => {
         <div className="flex flex-col text-sm">
           <div className="flex items-center justify-start gap-3 p-1">
             <i className="material-icons-outlined">folder</i>
-            <b>Resumeé</b>
+            <b>Resumé</b>
           </div>
           <ExpandableFolder
             key={"git"}

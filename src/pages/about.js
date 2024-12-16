@@ -41,7 +41,7 @@ const AboutContent = () => {
       github: "github.com/dbeltra",
     },
     description: [
-      "I'm currently based in Barcelona, and I have have worked with a  wide range of technologies, both frontend and backend, such as Python, Django, Rust, Javascript or React.",
+      "I'm currently based in Barcelona, and I have worked with a  wide range of technologies, both frontend and backend, such as Python, Django, Rust, Javascript or React.",
       "I enjoy challenges and finding ways to learn news skills or improve my current ones.",
     ],
   };
