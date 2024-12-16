@@ -9,13 +9,13 @@ export const ROUTES = {
     path: "/",
     component: About,
     title: "About.xml",
-    icon: "description",
+    icon: "code",
   },
   EXPERIENCE: {
     path: "/experience",
     component: Experience,
     title: "Experience.json",
-    icon: "description",
+    icon: "data_object",
   },
   SKILLS: {
     path: "/skills",

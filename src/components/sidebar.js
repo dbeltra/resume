@@ -33,9 +33,9 @@ const Sidebar = () => {
             key={"public"}
             title="public"
             links={[
-              { to: "", label: "index.html", icon: "description" },
-              { to: "", label: "favicon.ico", icon: "description" },
-              { to: "", label: "manifest.json", icon: "description" },
+              { to: "", label: "index.html", icon: "code" },
+              { to: "", label: "favicon.ico", icon: "star" },
+              { to: "", label: "manifest.json", icon: "data_object" },
               { to: "", label: "robots.txt", icon: "description" },
             ]}
           />
