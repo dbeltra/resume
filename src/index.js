@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import Layout from "./Layout";
 import { ROUTES } from "./routes";
+import Layout from "./Layout";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             />
           ))}
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
   );

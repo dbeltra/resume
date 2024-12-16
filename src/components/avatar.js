@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import avatarImg from "../assets/images/avatar_base.png";
 import eyebrowLeftImg from "../assets/images/avatar_eb_left.png";
 import eyebrowRightImg from "../assets/images/avatar_eb_right.png";
@@ -15,17 +15,17 @@ const Avatar = () => {
   const randomDelay = (min, max) => Math.random() * (max - min) + min;
 
   // Function to trigger the animation
-  const triggerAnimation = () => {
+  const triggerAnimation = useCallback(() => {
     const elements = [leftEyebrowRef.current, rightEyebrowRef.current];
     elements.forEach((element) => {
       element.style.animation = "none";
       void element.offsetHeight;
       element.style.animation = `raise-brow 1s linear 0s 1`;
     });
-  };
+  }, []);
 
   // Start the animation cycle
-  const startAnimationSequence = () => {
+  const startAnimationSequence = useCallback(() => {
     const delay = randomDelay(5, 10);
     triggerAnimation();
 
@@ -36,7 +36,7 @@ const Avatar = () => {
       },
       (2 + delay) * 1000,
     );
-  };
+  }, [triggerAnimation]);
 
   // Cleanup function to clear timeouts
   const cleanup = () => {
@@ -52,9 +52,9 @@ const Avatar = () => {
     return () => {
       cleanup();
     };
-  }, []);
+  }, [startAnimationSequence]);
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = useCallback((event) => {
     const avatar = leftEyeRef.current.parentNode;
     const avatarRect = avatar.getBoundingClientRect();
     const mouseX = event.clientX;
@@ -75,7 +75,7 @@ const Avatar = () => {
 
     leftEyeRef.current.style.left = `${leftEyePosition}px`;
     rightEyeRef.current.style.left = `${rightEyePosition}px`;
-  };
+  }, []);
 
   // Add mouse move event listener to the window
   useEffect(() => {
@@ -85,7 +85,7 @@ const Avatar = () => {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [handleMouseMove]);
 
   return (
     <div className="bg-gray-400 h-32 w-32 overflow-hidden rounded-full relative">

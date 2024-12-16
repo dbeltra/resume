@@ -28,9 +28,7 @@ const Code = `<!-- About me -->
       applications for robust and reliable systems.
     </description>
   </backend>
-</hello>
-
-`;
+</hello>`;
 
 const AboutContent = () => {
   const personalInfo = {

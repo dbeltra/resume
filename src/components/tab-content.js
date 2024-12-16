@@ -1,47 +1,59 @@
-import { marked } from "marked";
 import "highlight.js/styles/nnfx-dark.css";
 import hljs from "highlight.js";
-import { useEffect, useState } from "react";
-import React from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const TabContent = ({ code, language, Title, Content }) => {
   const { setLineCount, setSelectedLine: setGlobalSelectedLine } =
     useOutletContext();
-  const lineCount = code.split("\n").length;
+
+  const lineCount = useMemo(() => code.split("\n").length, [code]);
 
   const [selectedLine, setSelectedLine] = useState(1); // Local state for the selected line
 
-  const processCodeWithLineNumbers = (code, language) => {
-    const highlighted = hljs.highlight(code, { language }).value;
-    const lines = highlighted.split("\n");
+  const processCodeWithLineNumbers = useCallback(
+    (code, language, selectedLine) => {
+      const highlighted = hljs.highlight(code, { language }).value;
+      const lines = highlighted.split("\n");
 
-    const processedLines = lines
-      .map(
-        (line, idx) =>
-          `<div 
+      const processedLines = lines
+        .map(
+          (line, idx) =>
+            `<div 
             class="code-line ${selectedLine === idx + 1 ? "highlighted" : ""}" 
             data-line="${idx + 1}">
             <span class="line-number code-font text-gray-400">${idx + 1}</span>
             <span class="line-code">${line}</span>
           </div>`,
-      )
-      .join("\n");
+        )
+        .join("\n");
 
-    return `<pre><code class="language-${language}">${processedLines}</code></pre>`;
-  };
+      return `<pre><code class="language-${language}">${processedLines}</code></pre>`;
+    },
+    [],
+  );
 
   const [processedCode, setProcessedCode] = useState("");
 
   useEffect(() => {
     setLineCount(lineCount);
-    setProcessedCode(processCodeWithLineNumbers(code, language));
-  }, [code, language, lineCount, setLineCount, selectedLine]);
+    setProcessedCode(processCodeWithLineNumbers(code, language, selectedLine));
+  }, [
+    code,
+    language,
+    lineCount,
+    setLineCount,
+    selectedLine,
+    processCodeWithLineNumbers,
+  ]);
 
-  const handleLineClick = (lineNumber) => {
-    setSelectedLine(lineNumber); // Update local state
-    setGlobalSelectedLine(lineNumber); // Update global state for the footer
-  };
+  const handleLineClick = useCallback(
+    (lineNumber) => {
+      setSelectedLine(lineNumber); // Update local state
+      setGlobalSelectedLine(lineNumber); // Update global state for the footer
+    },
+    [setGlobalSelectedLine],
+  );
 
   useEffect(() => {
     const codeLines = document.querySelectorAll(".code-line");
@@ -61,7 +73,7 @@ const TabContent = ({ code, language, Title, Content }) => {
         line.removeEventListener("click", handleClick),
       );
     };
-  }, [processedCode]);
+  }, [processedCode, handleLineClick]);
 
   return (
     <div className="col-start-2 col-span-2 row-start-2 flex flex-col-reverse lg:grid grid-rows-subgrid grid-cols-subgrid">
