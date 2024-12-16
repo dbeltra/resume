@@ -36,6 +36,22 @@ if __name__ == "__main__":
     main()
 `;
 
+const Languages = [
+  { icon: PythonLogo, name: "Python + Django" },
+  { icon: JavascriptLogo, name: "Javascript + React" },
+  { icon: RustLogo, name: "Rust" },
+  { icon: HTMLLogo, name: "HTML" },
+  { icon: CSSLogo, name: "CSS, Tailwind, Bootsrtap, Bulma" },
+];
+
+const Tools = [
+  { icon: GitLogo, name: "Git, Github, Mercurial" },
+  { icon: GithubLogo, name: "Github Actions" },
+  { icon: DockerLogo, name: "Docker" },
+  { icon: DBLogo, name: "SQL, Redis" },
+  { icon: SassLogo, name: "Sass, Stylus, Scss" },
+];
+
 const SkillsContent = () => {
   return (
     <>
@@ -54,71 +70,27 @@ const SkillsContent = () => {
         <div className="w-1/2">
           <div className="font-bold mb-4">Languages & Frameworks</div>
           <ul className="text-sm">
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={PythonLogo} className="h-5"></img>
-              </span>
-              <span> Python + Django</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={JavascriptLogo} className="h-5"></img>
-              </span>
-              <span> Javascript + React</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={RustLogo} className="h-5"></img>
-              </span>
-              <span> Rust</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={HTMLLogo} className="h-5"></img>
-              </span>
-              <span> HTML</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={CSSLogo} className="h-5"></img>
-              </span>
-              <span> CSS, Tailwind, Bootsrap, Bulma</span>
-            </li>
+            {Languages.map(({ name, icon }) => (
+              <li className="flex items-center mt-2" key={name}>
+                <span className="w-8">
+                  <img src={icon} className="h-5" alt={name}></img>
+                </span>
+                <span>{name}</span>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="w-1/2">
           <div className="font-bold mb-4">Tools</div>
-          <ul>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={GitLogo} className="h-5"></img>
-              </span>
-              <span>Git, Github, Mercurial</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={GithubLogo} className="h-5"></img>
-              </span>
-              <span>Github Actions</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={DockerLogo} className="h-5"></img>
-              </span>
-              <span>Docker</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={DBLogo} className="h-5"></img>
-              </span>
-              <span>SQL, Redis</span>
-            </li>
-            <li className="flex items-center mt-2">
-              <span className="w-8">
-                <img src={SassLogo} className="h-5"></img>
-              </span>
-              <span>Sass, Stylus, Scss</span>
-            </li>
+          <ul className="text-sm">
+            {Tools.map(({ name, icon }) => (
+              <li className="flex items-center mt-2" key={name}>
+                <span className="w-8">
+                  <img src={icon} className="h-5" alt={name}></img>
+                </span>
+                <span>{name}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
