@@ -53,10 +53,10 @@ const ContactContent = () => {
       <div className="mt-4">
         <div className="text-lg">Email</div>
         <div>
-          📧 [
+          📧 [{" "}
           <a href="mailto:dbeltra@gmail.com" className="text-primary">
             dbeltra@gmail.com
-          </a>
+          </a>{" "}
           ]
         </div>
         <div>For the quickest response, send me an email!</div>
@@ -64,20 +64,40 @@ const ContactContent = () => {
       <div className="mt-4">
         <div className="text-lg">LinkedIn</div>
         <div>
-          🔗 [
+          🔗 [{" "}
           <a
             href="https://www.linkedin.com/in/dbeltra/"
             className="text-primary"
           >
-            https://www.linkedin.com/in/dbeltra/
-          </a>
+            linkedin.com/in/dbeltra/
+          </a>{" "}
           ]
         </div>
         <div>Let’s connect professionally and grow our networks.</div>
       </div>
       <div className="mt-4">
+        <div className="text-lg">Github</div>
+        <div>
+          🐙 [{" "}
+          <a href="https://github.com/dbeltra" className="text-primary">
+            github.com/dbeltra
+          </a>{" "}
+          ]
+        </div>
+        <div>Check out my projects, repositories, and contributions.</div>
+      </div>
+      <div className="mt-4">
         <div className="text-lg">Location</div>
-        <div>🌍 Based in [Barcelona, Spain]</div>
+        <div>
+          🌍 Based in [{" "}
+          <a
+            href="https://maps.app.goo.gl/24XNJgR73jtXfqDq9/"
+            className="text-primary"
+          >
+            Barcelona, Spain
+          </a>{" "}
+          ]
+        </div>
         <div>Available for remote work.</div>
       </div>
     </div>
