@@ -56,14 +56,19 @@ const SkillsContent = () => {
   return (
     <>
       <div className="text-sm mb-4">
-        <p>
+        <p className="">
           I enjoy the development world where there's always room to grow and
           explore new things. I like <b>team environments</b> where I get to
           both learn from my colleagues and help them with my expertise.
         </p>
-        <p>
-          I consider myself a <b>comunicative and proactive</b> person with the
-          ability to manage problem solving.
+        <p className="mt-2">
+          I consider myself a <b>comunicative and proactive</b> person with a
+          good ability to manage time and resources, as well as solving
+          problems.
+        </p>
+        <p className="mt-2">
+          I'm committed to delivering clean, well-documented code with a focus
+          on maintainability and scalability.
         </p>
       </div>
       <div className="flex flex-wrap">

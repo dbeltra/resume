@@ -7,16 +7,29 @@ import Avatar from "../components/avatar";
 
 const Code = `<!-- About me -->
 <hello to="everyone">
-  My name is <David_Beltrà/>,
-  I'm a full-stack developer
-  with more than 10 years of experience
+  <introduction>
+    <name>David Beltrà</name>
+    <profession>Full-stack Developer</profession>
+    <experience>
+      <years>10</years>
+    </experience>
+  </introduction>
+
   <frontend>
-    It will look and behave nice
+    <description>
+      I specialize in building modern, responsive UIs
+      with an emphasis on accessibility for all users.
+    </description>
   </frontend>
+
   <backend>
-    It will work easy and fast
+    <description>
+      I develop fast, scalable, and maintainable backend
+      applications for robust and reliable systems.
+    </description>
   </backend>
 </hello>
+
 `;
 
 const AboutContent = () => {

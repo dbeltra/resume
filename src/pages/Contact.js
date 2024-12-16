@@ -43,7 +43,45 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 `;
 
 const ContactContent = () => {
-  return <div></div>;
+  return (
+    <div>
+      <p className="text-sm">
+        Whether you want to discuss a new project, need help with Rust
+        development, or have a general inquiry, feel free to reach out! I’m
+        always open to networking and exploring exciting opportunities.
+      </p>
+      <div className="mt-4">
+        <div className="text-lg">Email</div>
+        <div>
+          📧 [
+          <a href="mailto:dbeltra@gmail.com" className="text-primary">
+            dbeltra@gmail.com
+          </a>
+          ]
+        </div>
+        <div>For the quickest response, send me an email!</div>
+      </div>
+      <div className="mt-4">
+        <div className="text-lg">LinkedIn</div>
+        <div>
+          🔗 [
+          <a
+            href="https://www.linkedin.com/in/dbeltra/"
+            className="text-primary"
+          >
+            https://www.linkedin.com/in/dbeltra/
+          </a>
+          ]
+        </div>
+        <div>Let’s connect professionally and grow our networks.</div>
+      </div>
+      <div className="mt-4">
+        <div className="text-lg">Location</div>
+        <div>🌍 Based in [Barcelona, Spain]</div>
+        <div>Available for remote work.</div>
+      </div>
+    </div>
+  );
 };
 
 const Contact = () => {
