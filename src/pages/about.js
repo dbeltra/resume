@@ -1,9 +1,9 @@
-import avatarImg from "../assets/images/avatar.png";
 import React from "react";
 import TabContent from "../components/tab-content";
 import Button from "../components/button";
 import GithubIcon from "../assets/icons/mono/github.png";
 import LinkedinIcon from "../assets/icons/mono/linkedin.png";
+import Avatar from "../components/avatar";
 
 const Code = `<!-- About me -->
 <hello to="everyone">
@@ -35,11 +35,7 @@ const AboutContent = () => {
 
   return (
     <div>
-      <img
-        className="h-32"
-        src={avatarImg}
-        alt={`Avatar for ${personalInfo.name}`}
-      ></img>
+      <Avatar></Avatar>
       <div className="text-5xl mt-4 uppercase font-bold">
         {personalInfo.name}
       </div>

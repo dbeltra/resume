@@ -150,3 +150,28 @@ code {
     opacity: 1;
   }
 }
+
+.avatar {
+  position: absolute;
+  height: 150px;
+  bottom: -20px;
+  left: -5px;
+}
+
+.avatar-eb-l,
+.avatar-eb-r {
+  position: absolute;
+}
+
+.avatar-eb-l {
+  bottom: 77px;
+  left: 55px;
+  height: 10px;
+  width: 16px;
+}
+
+.avatar-eb-r {
+  bottom: 78px;
+  left: 80px;
+  height: 8px;
+}
