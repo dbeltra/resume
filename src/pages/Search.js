@@ -55,8 +55,8 @@ const Search = () => {
   };
 
   return (
-    <div className="grid grid-rows-subgrid grid-cols-1 col-span-2 px-4">
-      <div className="m-4 mb-4 w-1/2">
+    <div className="col-start-2 col-span-2 row-start-2 flex flex-col lg:grid grid-rows-subgrid grid-cols-subgrid min-h-screen">
+      <div className="m-4 mb-4 lg:w-1/2 col-span-2">
         <form
           onSubmit={handleSearchSubmit}
           className="relative flex items-center"
@@ -97,27 +97,29 @@ const Search = () => {
       </div>
 
       {loading && (
-        <div className="mt-20 text-left ml-4">
+        <div className="mt-6 lg:mt-16 text-left p-4 col-span-2">
           <p>Searching...</p>
         </div>
       )}
 
       {!loading && searchResults && (
-        <div className="mt-20 overflow-y-scroll pb-4 pl-4 w-3/4">
+        <div className="mt-6 lg:mt-16 overflow-y-scroll p-4 lg:w-3/4 col-span-2">
           <h2 className="text-xl mb-2">
             {`Search Results for "${placeholderText}"`}:
           </h2>
           <div className="border p-2 mb-4 rounded border-gray-500 flex items-center">
             <i className="material-symbols-filled mr-1">info</i>
-            Looks like I'm the developer you're looking for! Maybe you should{" "}
-            <Link
-              key={"Contact"}
-              to={"/files/contact"}
-              className={`text-secondary ml-1`}
-            >
-              <span>contact me</span>
-            </Link>
-            ?
+            <div>
+              Looks like I'm the developer you're looking for! Maybe you should{" "}
+              <Link
+                key={"Contact"}
+                to={"/files/contact"}
+                className={`text-secondary ml-1`}
+              >
+                <span>contact me</span>
+              </Link>
+              ?
+            </div>
           </div>
           <ul className="list-none ">
             {searchResults.map((result, index) => (

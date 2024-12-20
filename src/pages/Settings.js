@@ -82,8 +82,8 @@ const Settings = () => {
   };
 
   return (
-    <div className="p-4 col-start-2 col-span-2">
-      <div className="grid grid-rows-subgrid grid-cols-2 gap-4">
+    <div className="col-start-2 col-span-2 row-start-2 flex flex-col lg:grid grid-rows-subgrid grid-cols-subgrid min-h-screen">
+      <div className="grid grid-rows-subgrid grid-cols-subgrid gap-4">
         <SettingsSection
           icon="format_size"
           title="Interface Appearance"

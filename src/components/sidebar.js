@@ -50,8 +50,8 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation and Folders */}
-      <div className="hidden lg:block">
-        <div className="flex justify-between py-4">
+      <div className="">
+        <div className="flex justify-between py-2 lg:py-4">
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -65,7 +65,7 @@ const Sidebar = () => {
           ))}
         </div>
 
-        <div className="flex flex-col text-sm">
+        <div className="hidden lg:flex flex-col text-sm">
           <div className="flex items-center gap-3 p-1">
             <i className="material-symbols-filled">folder</i>
             <b>Resumé</b>
