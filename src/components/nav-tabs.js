@@ -6,9 +6,13 @@ const NavTabs = () => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
+  const fileRoutes = Object.values(ROUTES).filter((route) =>
+    route.path.startsWith("/files/"),
+  );
+
   return (
     <nav className="bg-gray-900 text-xs col-start-2 col-span-2 flex lg:h-full h-8">
-      {Object.values(ROUTES).map((route) => (
+      {fileRoutes.map((route) => (
         <Link
           key={route.path}
           to={route.path}
