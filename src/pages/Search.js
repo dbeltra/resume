@@ -119,9 +119,12 @@ const Search = () => {
             </Link>
             ?
           </div>
-          <ul className="list-none">
+          <ul className="list-none ">
             {searchResults.map((result, index) => (
-              <li key={index} className="mb-2">
+              <li
+                key={index}
+                className=" hover:bg-gray-600 transition-colors cursor-pointer p-2"
+              >
                 <h3 className="text-md font-bold">{result.title}</h3>
                 <p className="text-sm">{result.text}</p>
               </li>
