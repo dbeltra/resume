@@ -97,13 +97,13 @@ const Search = () => {
       </div>
 
       {loading && (
-        <div className="mt-6 lg:mt-16 text-left p-4 col-span-2">
+        <div className="lg:mt-16 text-left p-4 col-span-2">
           <p>Searching...</p>
         </div>
       )}
 
       {!loading && searchResults && (
-        <div className="mt-6 lg:mt-16 overflow-y-scroll p-4 lg:w-3/4 col-span-2">
+        <div className="lg:mt-16 overflow-y-scroll p-4 lg:w-3/4 col-span-2">
           <h2 className="text-xl mb-2">
             {`Search Results for "${placeholderText}"`}:
           </h2>
