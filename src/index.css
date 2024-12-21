@@ -28,3 +28,16 @@ body {
 .footer-icon {
   font-size: 15px;
 }
+
+.spin-animation {
+  animation: spin 1s linear 2; /* Spins 3 times with 0.3s duration each */
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
