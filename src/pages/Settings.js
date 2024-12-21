@@ -1,57 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useOutletContext } from "react-router-dom";
-
-const RangeInput = ({
-  label,
-  helperText,
-  value,
-  onChange,
-  min = 0,
-  max = 100,
-  step = 1,
-  formatValue = (val) => `${val}%`,
-}) => (
-  <div>
-    <div className="flex items-center justify-between mb-1">
-      <span>{label}</span>
-      {helperText && (
-        <span className="text-xs text-gray-400">{helperText}</span>
-      )}
-    </div>
-    <div className="flex items-center justify-between">
-      <div className="flex items-center w-full">
-        <input
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={onChange}
-          className="w-full mr-2 
-            appearance-none 
-            h-2 
-            bg-gray-700 
-            rounded-full 
-            outline-none
-            [&::-webkit-slider-thumb]:appearance-none
-            [&::-webkit-slider-thumb]:w-4
-            [&::-webkit-slider-thumb]:h-4
-            [&::-webkit-slider-thumb]:bg-primary-500
-            [&::-webkit-slider-thumb]:rounded-full
-            [&::-webkit-slider-thumb]:cursor-pointer
-            [&::-moz-range-thumb]:w-4
-            [&::-moz-range-thumb]:h-4
-            [&::-moz-range-thumb]:bg-primary-500
-            [&::-moz-range-thumb]:rounded-full
-            [&::-moz-range-thumb]:cursor-pointer"
-        />
-        <span className="text-gray-400 w-16 text-right">
-          {formatValue(value)}
-        </span>
-      </div>
-    </div>
-  </div>
-);
+import RangeInput from "../components/rangeinput";
 
 const SettingsSection = ({ icon, title, helperText, children }) => (
   <div className=" p-4 text-sm">
@@ -69,7 +18,14 @@ const SettingsSection = ({ icon, title, helperText, children }) => (
 );
 
 const Settings = () => {
-  const { bgOpacity, setBgOpacity, scale, setScale } = useOutletContext();
+  const {
+    bgOpacity,
+    setBgOpacity,
+    scale,
+    setScale,
+    fontFamily,
+    setFontFamily,
+  } = useOutletContext();
 
   const handleOpacityChange = (e) => {
     const newValue = parseInt(e.target.value, 10) / 100;
@@ -79,6 +35,10 @@ const Settings = () => {
   const handleScaleChange = (e) => {
     const newScale = parseInt(e.target.value, 10);
     setScale(newScale);
+  };
+
+  const handleFontChange = (e) => {
+    setFontFamily(e.target.value);
   };
 
   return (
@@ -115,6 +75,26 @@ const Settings = () => {
               <option value={100}>Default</option>
               <option value={90}>Small</option>
               <option value={75}>Tiny</option>
+            </select>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <span>Font Family</span>
+              <span className="text-xs text-gray-400">
+                Choose the app's font
+              </span>
+            </div>
+            <select
+              value={fontFamily}
+              onChange={handleFontChange}
+              className="w-full bg-gray-700 text-white p-2 rounded outline-none cursor-pointer hover:bg-gray-500"
+            >
+              <option value="Roboto">Roboto</option>
+              <option value="Cutive Mono">Cutive Mono</option>
+              <option value="Arial">Arial</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Tahoma">Tahoma</option>
             </select>
           </div>
         </SettingsSection>
