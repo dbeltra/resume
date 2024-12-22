@@ -109,7 +109,7 @@ const Layout = () => {
   }, [isMobile]);
 
   return (
-    <div className="bg-center justify-center items-center h-screen bg-page-bg bg-cover">
+    <div className="bg-center justify-center items-center lg:h-screen bg-page-bg bg-cover">
       <div
         ref={dragRef}
         style={{
