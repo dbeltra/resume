@@ -41,7 +41,7 @@ const ExpandableFolder = ({ expanded = false, title, links }) => {
               key={label}
               to={to}
               className={`flex items-center justify-start gap-3 p-1 ${
-                isActive(to) ? "bg-gray-500" : "hover:bg-gray-600"
+                isActive(to) ? "bg-black/15" : "hover:bg-black/10"
               }`}
             >
               <i className={`material-symbols-outlined`}>{icon}</i> {label}

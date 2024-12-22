@@ -11,7 +11,7 @@ const NavTabs = () => {
   );
 
   return (
-    <nav className="bg-gray-900 text-xs col-start-2 col-span-2 flex lg:h-full h-8">
+    <nav className="bg-gray-900 text-xs col-start-2 col-span-2 flex lg:h-full h-8 drag-area">
       {fileRoutes.map((route) => (
         <Link
           key={route.path}

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import ExpandableFolder from "./expandable-folder";
 import { routesList } from "../routes";
 
-const Sidebar = () => {
+const Sidebar = ({ onMinimize, isMinimized }) => {
   const { pathname } = useLocation();
 
   const navLinks = [
@@ -39,47 +39,52 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="row-span-2 px-4 py-2 lg:p-4">
+    <div className="px-4 mt-2 lg:mt-0">
       {/* Top Section */}
-      <div className="flex items-center">
-        <span className="bg-red-600 w-3 h-3 rounded-full mr-2"></span>
-        <span className="bg-yellow-400 w-3 h-3 rounded-full mr-2"></span>
-        <span className="bg-green-600 w-3 h-3 rounded-full mr-2"></span>
+      <div className="flex items-center drag-area h-full">
+        <span className="bg-red-600 w-3 h-3 rounded-full mr-2 hover:opacity-80"></span>
+        <span
+          className="bg-yellow-400 w-3 h-3 rounded-full mr-2 hover:opacity-80 cursor-pointer"
+          onClick={onMinimize}
+        ></span>
+        <span className="bg-green-600 w-3 h-3 rounded-full mr-2 hover:opacity-80"></span>
         <span>Resumé</span>
         <span className="lg:hidden pl-1">- David Beltrà</span>
       </div>
 
-      {/* Navigation and Folders */}
-      <div className="">
-        <div className="flex justify-between py-2 lg:py-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`material-symbols-filled ${
-                pathname.startsWith(link.to) ? "text-primary" : ""
-              }`}
-            >
-              {link.icon}
-            </Link>
-          ))}
-        </div>
-
-        <div className="hidden lg:flex flex-col text-sm">
-          <div className="flex items-center gap-3 p-1">
-            <i className="material-symbols-filled">folder</i>
-            <b>Resumé</b>
+      {/* Only show the rest of the sidebar if not minimized */}
+      {!isMinimized && (
+        <div className="mt-2 lg:mt-0">
+          <div className="flex justify-between py-2 lg:py-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`material-symbols-filled ${
+                  pathname.startsWith(link.to) ? "text-primary" : ""
+                }`}
+              >
+                {link.icon}
+              </Link>
+            ))}
           </div>
-          {folders.map(({ title, links, expanded }) => (
-            <ExpandableFolder
-              key={title}
-              title={title}
-              expanded={expanded}
-              links={links}
-            />
-          ))}
+
+          <div className="hidden lg:flex flex-col text-sm">
+            <div className="flex items-center gap-3 p-1">
+              <i className="material-symbols-filled">folder</i>
+              <b>Resumé</b>
+            </div>
+            {folders.map(({ title, links, expanded }) => (
+              <ExpandableFolder
+                key={title}
+                title={title}
+                expanded={expanded}
+                links={links}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

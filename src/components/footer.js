@@ -9,7 +9,7 @@ const Footer = ({ lineCount = 20, selectedLine = 1 }) => {
   };
 
   return (
-    <div className="bg-gray-500 text-gray-300 text-xs row-start-3 col-span-3 flex justify-between gap-3 px-4">
+    <div className="bg-white/10 text-gray-300 text-xs row-start-3 col-span-3 flex justify-between gap-3 px-4">
       <span className="flex items-center">
         <span
           className="flex content-center flex-wrap h-full hover:bg-gray-600 transition-colors cursor-pointer px-2"

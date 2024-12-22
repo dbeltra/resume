@@ -22,11 +22,11 @@ code {
 }
 
 .code-line:hover {
-  background-color: #434c59;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .code-line.highlighted {
-  background-color: #546072;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 .code-line.highlighted .line-code {

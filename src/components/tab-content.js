@@ -4,15 +4,19 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useOutletContext } from "react-router-dom";
 
 const TabContent = ({ code, language, Title, Content }) => {
-  const { setLineCount, setSelectedLine: setGlobalSelectedLine } =
-    useOutletContext();
+  const {
+    setLineCount,
+    setSelectedLine: setGlobalSelectedLine,
+    isMinimized,
+  } = useOutletContext();
 
-  const lineCount = useMemo(() => code.split("\n").length, [code]);
+  const lineCount = useMemo(() => (code ? code.split("\n").length : 0), [code]);
 
   const [selectedLine, setSelectedLine] = useState(1); // Local state for the selected line
 
   const processCodeWithLineNumbers = useCallback(
     (code, language, selectedLine) => {
+      if (!code) return "";
       const highlighted = hljs.highlight(code, { language }).value;
       const lines = highlighted.split("\n");
 
@@ -36,8 +40,12 @@ const TabContent = ({ code, language, Title, Content }) => {
   const [processedCode, setProcessedCode] = useState("");
 
   useEffect(() => {
-    setLineCount(lineCount);
-    setProcessedCode(processCodeWithLineNumbers(code, language, selectedLine));
+    if (code) {
+      setLineCount(lineCount);
+      setProcessedCode(
+        processCodeWithLineNumbers(code, language, selectedLine),
+      );
+    }
   }, [
     code,
     language,
@@ -56,6 +64,7 @@ const TabContent = ({ code, language, Title, Content }) => {
   );
 
   useEffect(() => {
+    if (!code) return;
     const codeLines = document.querySelectorAll(".code-line");
 
     const handleClick = (event) => {
@@ -73,19 +82,24 @@ const TabContent = ({ code, language, Title, Content }) => {
         line.removeEventListener("click", handleClick),
       );
     };
-  }, [processedCode, handleLineClick]);
+  }, [processedCode, handleLineClick, code]);
 
   return (
-    <div className="col-start-2 col-span-2 row-start-2 flex flex-col-reverse lg:grid grid-rows-subgrid grid-cols-subgrid">
-      <div className="bg-gray-600 code-font p-4 overflow-y-scroll">
-        <div dangerouslySetInnerHTML={{ __html: processedCode }} />
-      </div>
-
-      <div className="bg-gray-700 p-4 overflow-y-scroll">
-        <div className="border-b">{Title}</div>
-        <div className="p-2 mt-4">
-          <Content />
+    <div
+      className={`col-start-2 col-span-2 row-start-2 
+      flex-col-reverse grid-rows-subgrid grid-cols-subgrid w-full
+      ${isMinimized ? "hidden" : "flex lg:grid"}
+      `}
+    >
+      {code && (
+        <div className="bg-black/10 code-font p-4 overflow-y-scroll">
+          <div dangerouslySetInnerHTML={{ __html: processedCode }} />
         </div>
+      )}
+
+      <div className={`p-4 overflow-y-scroll ${!code ? "col-span-2" : ""}`}>
+        {Title && <div className="border-b mb-4">{Title}</div>}
+        <Content />
       </div>
     </div>
   );
