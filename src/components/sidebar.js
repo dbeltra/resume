@@ -3,7 +3,21 @@ import { Link, useLocation } from "react-router-dom";
 import ExpandableFolder from "./expandable-folder";
 import { routesList } from "../routes";
 
-const Sidebar = ({ onMinimize, isMinimized }) => {
+const WindowControl = ({ color, onClick, disabled }) => (
+  <span
+    className={`
+      w-3 h-3 rounded-full mr-2 
+      ${
+        disabled
+          ? "bg-gray-400 cursor-not-allowed"
+          : `bg-${color} hover:opacity-80 ${onClick ? "cursor-pointer" : ""}`
+      }
+    `}
+    onClick={disabled ? undefined : onClick}
+  />
+);
+
+const Sidebar = ({ onMinimize, onMaximize, isMinimized, isMaximized }) => {
   const { pathname } = useLocation();
 
   const navLinks = [
@@ -42,12 +56,13 @@ const Sidebar = ({ onMinimize, isMinimized }) => {
     <div className="px-4 mt-2 lg:mt-0">
       {/* Top Section */}
       <div className="flex items-center drag-area h-full">
-        <span className="bg-red-600 w-3 h-3 rounded-full mr-2 hover:opacity-80"></span>
-        <span
-          className="bg-yellow-400 w-3 h-3 rounded-full mr-2 hover:opacity-80 cursor-pointer"
+        <WindowControl color="red-600" />
+        <WindowControl
+          color="yellow-400"
           onClick={onMinimize}
-        ></span>
-        <span className="bg-green-600 w-3 h-3 rounded-full mr-2 hover:opacity-80"></span>
+          disabled={isMaximized}
+        />
+        <WindowControl color={"green-600"} onClick={onMaximize} />
         <span>Resumé</span>
         <span className="lg:hidden pl-1">- David Beltrà</span>
       </div>

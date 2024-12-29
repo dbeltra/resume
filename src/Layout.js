@@ -12,7 +12,9 @@ const Layout = () => {
   const [fontFamily, setFontFamily] = useState("Roboto");
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [previousPosition, setPreviousPosition] = useState({ x: 0, y: 0 });
   const dragRef = useRef(null);
   const isDragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
@@ -22,8 +24,9 @@ const Layout = () => {
     setIsMobile(isNowMobile);
 
     if (isNowMobile) {
-      setPosition({ x: 0, y: 0 }); // Move to the top-left corner
-      setIsMinimized(false); // Ensure it’s not minimized
+      setPosition({ x: 0, y: 0 });
+      setIsMinimized(false);
+      setIsMaximized(false);
     }
   };
 
@@ -35,7 +38,7 @@ const Layout = () => {
 
   useEffect(() => {
     const centerWindow = () => {
-      if (isMobile) return;
+      if (isMobile || isMaximized) return;
       if (dragRef.current) {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
@@ -51,7 +54,7 @@ const Layout = () => {
     centerWindow();
     window.addEventListener("resize", centerWindow);
     return () => window.removeEventListener("resize", centerWindow);
-  }, []);
+  }, [isMaximized]);
 
   const getScaleClass = (scaleValue) => {
     const scaleMap = {
@@ -63,7 +66,7 @@ const Layout = () => {
   };
 
   const handleMouseDown = (e) => {
-    if (isMobile) return; // Disable dragging on mobile
+    if (isMobile || isMaximized) return;
     const isDragArea = e.target.closest(".drag-area");
     if (!isDragArea) return;
 
@@ -78,7 +81,7 @@ const Layout = () => {
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging.current || isMobile) return;
+    if (!isDragging.current || isMobile || isMaximized) return;
 
     const newX = e.clientX - offset.current.x;
     const newY = e.clientY - offset.current.y;
@@ -93,8 +96,24 @@ const Layout = () => {
   };
 
   const handleMinimize = () => {
-    if (isMobile) return; // Disable minimize on mobile
+    if (isMobile) return;
     setIsMinimized(!isMinimized);
+  };
+
+  const handleMaximize = () => {
+    if (isMobile) return;
+
+    if (!isMaximized) {
+      // Store current position before maximizing
+      setPreviousPosition(position);
+      setPosition({ x: 0, y: 0 });
+      setIsMaximized(true);
+      setIsMinimized(false);
+    } else {
+      // Restore to previous position
+      setPosition(previousPosition);
+      setIsMaximized(false);
+    }
   };
 
   useEffect(() => {
@@ -106,7 +125,7 @@ const Layout = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isMobile]);
+  }, [isMobile, isMaximized]);
 
   return (
     <div className="bg-center justify-center items-center lg:h-screen bg-page-bg bg-cover">
@@ -116,28 +135,34 @@ const Layout = () => {
           backgroundColor: `rgb(31 41 55 / ${bgOpacity})`,
           fontFamily: fontFamily,
           position: isMobile ? "absolute" : "fixed",
-          left: `${position.x}px`,
-          top: `${position.y}px`,
+          left: isMaximized ? "0" : `${position.x}px`,
+          top: isMaximized ? "0" : `${position.y}px`,
+          width: isMaximized ? "100%" : undefined,
+          height: isMaximized ? "100%" : undefined,
         }}
         className={`
+          z-10
           ${getScaleClass(scale)}
           origin-center 
           text-gray-200 
           w-full
-          lg:w-[80vw] 
+          ${!isMaximized && "lg:w-[80vw]"}
           lg:grid 
           lg:grid-cols-[250px_1fr_1fr] 
-          lg:rounded-lg 
+          ${!isMaximized && "lg:rounded-lg"}
           lg:overflow-hidden
-          transition-[grid-template-rows] 
-          duration-200 
-          ease-in-out
           ${isMobile ? "h-full" : ""}
           ${isMinimized && !isMobile ? "lg:grid-rows-[35px_0fr_25px]" : "lg:grid-rows-[35px_1fr_25px] lg:h-[80vh]"}
+          ${isMaximized ? "!h-screen" : ""}
         `}
         onMouseDown={handleMouseDown}
       >
-        <Sidebar onMinimize={handleMinimize} isMinimized={isMinimized} />
+        <Sidebar
+          onMinimize={handleMinimize}
+          onMaximize={handleMaximize}
+          isMinimized={isMinimized}
+          isMaximized={isMaximized}
+        />
         <NavTabs />
 
         <Outlet
@@ -153,6 +178,7 @@ const Layout = () => {
             fontFamily,
             setFontFamily,
             isMinimized,
+            isMaximized,
           }}
         />
         <Footer lineCount={lineCount} selectedLine={selectedLine} />
