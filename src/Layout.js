@@ -8,12 +8,7 @@ import ImgOops from "./assets/images/oops.webp";
 
 const RestoreMessage = ({ onRestore }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-page-bg bg-cover bg-center">
-    <div
-      style={{
-        backgroundColor: `rgb(31 41 55 / 50)`,
-      }}
-      className=" p-8 rounded-lg shadow-lg text-center"
-    >
+    <div className=" p-8 rounded-lg shadow-lg text-center bg-black/10">
       <h2 className="text-xl text-gray-200 mb-4">
         Don't worry, everything is under control!
       </h2>
