@@ -1,7 +1,7 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
-import RangeInput from "../components/rangeinput";
-import TabContent from "../components/tab-content";
+import RangeInput from "../components/RangeInput";
+import TabContent from "../components/TabContent";
 
 const SettingsSection = ({ icon, title, helperText, children }) => (
   <div className="text-sm">

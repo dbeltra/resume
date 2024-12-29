@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import searchData from "../assets/searchResults.json";
-import TabContent from "../components/tab-content";
+import TabContent from "../components/TabContent";
 
 // Helper function to shuffle an array
 const shuffleArray = (array) => {

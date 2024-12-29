@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TabContent from "../components/tab-content";
+import TabContent from "../components/TabContent";
 import PlanckImg from "../assets/images/planck.png";
 import PepImg from "../assets/images/pep.png";
 import AncoraImg from "../assets/images/ancora.png";

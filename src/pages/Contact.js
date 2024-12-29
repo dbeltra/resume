@@ -1,5 +1,5 @@
 import React from "react";
-import TabContent from "../components/tab-content";
+import TabContent from "../components/TabContent";
 
 const Code = `use lettre::{Message, SmtpTransport, Transport};
 use lettre::transport::smtp::authentication::Credentials;

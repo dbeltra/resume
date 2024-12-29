@@ -1,5 +1,5 @@
 import React from "react";
-import TabContent from "../components/tab-content";
+import TabContent from "../components/TabContent";
 import PythonLogo from "../assets/icons/color/python.png";
 import JavascriptLogo from "../assets/icons/color/js.png";
 import RustLogo from "../assets/icons/color/rust.png";

@@ -1,5 +1,5 @@
 import React from "react";
-import TabContent from "../components/tab-content";
+import TabContent from "../components/TabContent";
 import Button from "../components/button";
 import GithubIcon from "../assets/icons/mono/github.png";
 import LinkedinIcon from "../assets/icons/mono/linkedin.png";
