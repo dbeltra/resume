@@ -54,7 +54,7 @@ const SettingsContent = () => {
           helperText="Adjust the transparency of the main interface"
           value={bgOpacity * 100}
           onChange={handleOpacityChange}
-          min={0}
+          min={50}
           max={100}
           step={1}
           formatValue={(val) => `${Math.round(val)}%`}
