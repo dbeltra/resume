@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import ExpandableFolder from "./expandable-folder";
 import { routesList } from "../routes";
 
-const WindowControl = ({ color, onClick, disabled }) => (
+const WindowControl = ({ color, onClick, disabled, icon }) => (
   <span
     className={`
-      w-3 h-3 rounded-full mr-2 
+      w-3 h-3 rounded-full mr-2 relative
       ${
         disabled
           ? "bg-gray-400 cursor-not-allowed"
@@ -14,10 +14,23 @@ const WindowControl = ({ color, onClick, disabled }) => (
       }
     `}
     onClick={disabled ? undefined : onClick}
-  />
+  >
+    <span
+      className="material-symbols-outlined text-xs absolute -top-[0.15rem] left-0
+     text-gray-800 opacity-0 group-hover:opacity-100"
+    >
+      {icon}
+    </span>
+  </span>
 );
 
-const Sidebar = ({ onMinimize, onMaximize, isMinimized, isMaximized }) => {
+const Sidebar = ({
+  onMinimize,
+  onMaximize,
+  onClose,
+  isMinimized,
+  isMaximized,
+}) => {
   const { pathname } = useLocation();
 
   const navLinks = [
@@ -56,13 +69,20 @@ const Sidebar = ({ onMinimize, onMaximize, isMinimized, isMaximized }) => {
     <div className="px-4 mt-2 lg:mt-0">
       {/* Top Section */}
       <div className="flex items-center drag-area h-full">
-        <WindowControl color="red-600" />
-        <WindowControl
-          color="yellow-400"
-          onClick={onMinimize}
-          disabled={isMaximized}
-        />
-        <WindowControl color={"green-600"} onClick={onMaximize} />
+        <div className="flex items-center group">
+          <WindowControl color="red-600" onClick={onClose} icon="close" />
+          <WindowControl
+            color="yellow-400"
+            onClick={onMinimize}
+            disabled={isMaximized}
+            icon={isMaximized ? "" : "remove"}
+          />
+          <WindowControl
+            color="green-600"
+            onClick={onMaximize}
+            icon={isMaximized ? "collapse_content" : "expand_content"}
+          />
+        </div>
         <span>Resumé</span>
         <span className="lg:hidden pl-1">- David Beltrà</span>
       </div>

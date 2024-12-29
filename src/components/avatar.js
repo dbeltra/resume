@@ -55,6 +55,9 @@ const Avatar = () => {
   }, [startAnimationSequence]);
 
   const handleMouseMove = useCallback((event) => {
+    if (!leftEyeRef.current) {
+      return;
+    }
     const avatar = leftEyeRef.current.parentNode;
     const avatarRect = avatar.getBoundingClientRect();
     const mouseX = event.clientX;

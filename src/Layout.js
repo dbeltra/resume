@@ -3,6 +3,29 @@ import Sidebar from "./components/sidebar";
 import NavTabs from "./components/nav-tabs";
 import Footer from "./components/footer";
 import { Outlet } from "react-router-dom";
+import Button from "./components/button";
+import ImgOops from "./assets/images/oops.webp";
+
+const RestoreMessage = ({ onRestore }) => (
+  <div className="fixed inset-0 flex items-center justify-center bg-page-bg bg-cover bg-center">
+    <div
+      style={{
+        backgroundColor: `rgb(31 41 55 / 50)`,
+      }}
+      className=" p-8 rounded-lg shadow-lg text-center"
+    >
+      <h2 className="text-xl text-gray-200 mb-4">
+        Don't worry, everything is under control!
+      </h2>
+      <img
+        className="mb-4"
+        alt="Jack from Lost saying: We have to go back!"
+        src={ImgOops}
+      ></img>
+      <Button onClick={onRestore} text="Restore window"></Button>
+    </div>
+  </div>
+);
 
 const Layout = () => {
   const [lineCount, setLineCount] = useState(0);
@@ -15,6 +38,7 @@ const Layout = () => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const [previousPosition, setPreviousPosition] = useState({ x: 0, y: 0 });
+  const [isWindowClosed, setIsWindowClosed] = useState(false);
   const dragRef = useRef(null);
   const isDragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
@@ -104,16 +128,23 @@ const Layout = () => {
     if (isMobile) return;
 
     if (!isMaximized) {
-      // Store current position before maximizing
       setPreviousPosition(position);
       setPosition({ x: 0, y: 0 });
       setIsMaximized(true);
       setIsMinimized(false);
     } else {
-      // Restore to previous position
       setPosition(previousPosition);
       setIsMaximized(false);
     }
+  };
+
+  const handleClose = () => {
+    if (isMobile) return;
+    setIsWindowClosed(true);
+  };
+
+  const handleRestore = () => {
+    setIsWindowClosed(false);
   };
 
   useEffect(() => {
@@ -126,6 +157,10 @@ const Layout = () => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isMobile, isMaximized]);
+
+  if (isWindowClosed) {
+    return <RestoreMessage onRestore={handleRestore} />;
+  }
 
   return (
     <div className="bg-center justify-center items-center lg:h-screen bg-page-bg bg-cover">
@@ -160,6 +195,7 @@ const Layout = () => {
         <Sidebar
           onMinimize={handleMinimize}
           onMaximize={handleMaximize}
+          onClose={handleClose}
           isMinimized={isMinimized}
           isMaximized={isMaximized}
         />
