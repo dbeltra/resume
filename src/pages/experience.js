@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import TabContent from "../components/TabContent";
 import PlanckImg from "../assets/images/planck.png";
 import PepImg from "../assets/images/pep.png";
@@ -37,44 +38,22 @@ const Code = `{
 }
 `;
 
-const experiences = [
-  {
-    image: AncoraImg,
-    title: "Full Stack developer",
-    company: "Ancora Dual",
-    dates: "2014 - 2018",
-    responsibilities: [
-      "I worked as a web designer and developer. We created a customizable CRUD business solution, based on Django and Backbone.",
-      "I took a main role on developing Autopractick, a web-based management tool for driving schools, whith a Phonegap partner app.",
-      "I also enforced agile methodologies to our team workflow.",
-    ],
-  },
-  {
-    image: PepImg,
-    title: "Web and Python developer",
-    company: "pEp Security → Planck Security",
-    dates: "2018 - 2024",
-    responsibilities: [
-      "I joined the company as a fronted developer in charge of the website, my task was migrating a static HTML system to Mezzanine, a Django based CMS. The website ended including a custom payment and invoicing system",
-      "I also created a Python based CLI toolchain that worked with the company's decryption backend",
-      "I created a decryption demo solution for our presentations, combining an MQ system for the messages and a Django frontend",
-      "I took a main role on the development of a CLI tool and a Docker solution to decrypt email traffic.",
-    ],
-  },
-  {
-    image: PlanckImg,
-    title: "Rust and React developer",
-    company: "Planck Security",
-    dates: "2024 - 2025",
-    responsibilities: [
-      "I was in charge of developing the Security Hub, migrating our previous Python CLI tool to a Rust solution.",
-      "This project combined several Docker services which interacted through APIs to decrypt, scan and store encrypted email through a Postfix mail filter",
-      "All the settings and initial configuration could be managed from the browser through a react frontend.",
-    ],
-  },
-];
-
 const ExperienceContent = () => {
+  const { t } = useTranslation();
+
+  const staticExperiences = [
+    { image: AncoraImg },
+    { image: PepImg },
+    { image: PlanckImg },
+  ];
+  const translatedExperiences = t("experienceExperiences", {
+    returnObjects: true,
+  });
+  const experiences = translatedExperiences.map((exp, index) => ({
+    ...exp,
+    ...staticExperiences[index],
+  }));
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [direction, setDirection] = useState(null);
   const [animating, setAnimating] = useState(false); // Tracks if an animation is in progress
@@ -189,11 +168,12 @@ const ExperienceContent = () => {
 };
 
 const Experience = () => {
+  const { t } = useTranslation();
   return (
     <TabContent
       code={Code}
       language="json"
-      Title="My Experience"
+      Title={t("experienceTitle")}
       Content={ExperienceContent}
     ></TabContent>
   );

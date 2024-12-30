@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import TabContent from "../components/TabContent";
 import Button from "../components/Button";
 import GithubIcon from "../assets/icons/mono/github.png";
@@ -31,17 +32,15 @@ const Code = `<!-- About me -->
 </hello>`;
 
 const AboutContent = () => {
+  const { t } = useTranslation();
   const personalInfo = {
     name: "David Beltrà",
-    role: "Full stack developer",
+    role: t("aboutRole"),
     contact: {
       linkedin: "linkedin.com/in/dbeltra/",
       github: "github.com/dbeltra",
     },
-    description: [
-      "I'm currently based in Barcelona, and I have worked with a  wide range of technologies, both frontend and backend, such as Python, Django, Rust, Javascript or React.",
-      "I enjoy challenges and finding ways to learn news skills or improve my current ones.",
-    ],
+    description: t("aboutDescription", { returnObjects: true }),
   };
 
   return (
@@ -74,11 +73,12 @@ const AboutContent = () => {
 };
 
 const About = () => {
+  const { t } = useTranslation();
   return (
     <TabContent
       code={Code}
       language="xml"
-      Title="About Me"
+      Title={t("aboutTitle")}
       Content={AboutContent}
     ></TabContent>
   );

@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import TabContent from "../components/TabContent";
 import PythonLogo from "../assets/icons/color/python.png";
 import JavascriptLogo from "../assets/icons/color/js.png";
@@ -53,27 +55,23 @@ const Tools = [
 ];
 
 const SkillsContent = () => {
+  const { t } = useTranslation();
+
+  const skills = t("skillsDescription", {
+    returnObjects: true,
+  });
   return (
     <>
       <div className="text-sm mb-4">
-        <p className="">
-          I enjoy the development world where there's always room to grow and
-          explore new things. I like <b>team environments</b> where I get to
-          both learn from my colleagues and help them with my expertise.
-        </p>
-        <p className="mt-2">
-          I consider myself a <b>comunicative and proactive</b> person with a
-          good ability to manage time and resources, as well as solving
-          problems.
-        </p>
-        <p className="mt-2">
-          I'm committed to delivering clean, well-documented code with a focus
-          on maintainability and scalability.
-        </p>
+        {skills.map((skill, index) => (
+          <p key={index} className="mt-2">
+            {skill}
+          </p>
+        ))}
       </div>
       <div className="flex flex-wrap">
         <div className="w-1/2">
-          <div className="font-bold mb-4">Languages & Frameworks</div>
+          <div className="font-bold mb-4">{t("skillsLanguages")}</div>
           <ul className="text-sm">
             {Languages.map(({ name, icon }) => (
               <li className="flex items-center mt-2" key={name}>
@@ -86,7 +84,7 @@ const SkillsContent = () => {
           </ul>
         </div>
         <div className="w-1/2">
-          <div className="font-bold mb-4">Tools</div>
+          <div className="font-bold mb-4">{t("skillsTools")}</div>
           <ul className="text-sm">
             {Tools.map(({ name, icon }) => (
               <li className="flex items-center mt-2" key={name}>
@@ -104,11 +102,13 @@ const SkillsContent = () => {
 };
 
 const Skills = () => {
+  const { t } = useTranslation();
+
   return (
     <TabContent
       code={Code}
       language="python"
-      Title="My Skills"
+      Title={t("skillsTitle")}
       Content={SkillsContent}
     ></TabContent>
   );

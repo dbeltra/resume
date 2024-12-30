@@ -6,6 +6,7 @@ import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ROUTES } from "./routes";
 import Layout from "./Layout";
 import NotFound from "./pages/NotFound";
+import "./i18n";
 
 export default function App() {
   return (

@@ -1,10 +1,11 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import RangeInput from "../components/RangeInput";
 import TabContent from "../components/TabContent";
 
-const SettingsSection = ({ icon, title, helperText, children }) => (
-  <div className="text-sm">
+const SettingsSection = ({ icon, title, helperText, children, className }) => (
+  <div className={`text-sm w-1/2 ${className}`}>
     <div className="mb-3">
       <div className="flex items-center border-b">
         <span className="material-symbols-outlined mr-2 text-primary-500 mb-1">
@@ -19,6 +20,8 @@ const SettingsSection = ({ icon, title, helperText, children }) => (
 );
 
 const SettingsContent = () => {
+  const { t, i18n } = useTranslation();
+
   const {
     bgOpacity,
     setBgOpacity,
@@ -42,12 +45,34 @@ const SettingsContent = () => {
     setFontFamily(e.target.value);
   };
 
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    i18n.changeLanguage(selectedLanguage); // Change the language dynamically
+  };
+
   return (
     <div className="">
+      <SettingsSection
+        icon="translate"
+        title="Language settings"
+        helperText="Customize the language"
+      >
+        <div>
+          <select
+            value={i18n.language}
+            onChange={handleLanguageChange}
+            className="w-full bg-gray-700 text-white p-2 rounded outline-none cursor-pointer hover:bg-gray-500"
+          >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+          </select>
+        </div>
+      </SettingsSection>
       <SettingsSection
         icon="format_size"
         title="Interface Appearance"
         helperText="Customize the visual appearance of the interface"
+        className="mt-4"
       >
         <RangeInput
           label="Background Opacity"
