@@ -27,10 +27,20 @@ export const useWindowPosition = (isMobile, isMaximized) => {
     return () => window.removeEventListener("resize", centerWindow);
   }, [isMaximized, isMobile]);
 
+  const addNoSelectClass = () => {
+    document.body.classList.add("no-select");
+  };
+
+  const removeNoSelectClass = () => {
+    document.body.classList.remove("no-select");
+  };
+
   const handleMouseDown = (e) => {
     if (isMobile || isMaximized) return;
     const isDragArea = e.target.closest(".drag-area");
     if (!isDragArea) return;
+
+    e.preventDefault();
 
     isDragging.current = true;
     const rect = dragRef.current.getBoundingClientRect();
@@ -40,11 +50,13 @@ export const useWindowPosition = (isMobile, isMaximized) => {
     };
 
     document.body.style.cursor = "grabbing";
+    addNoSelectClass();
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging.current || isMobile || isMaximized) return;
 
+    e.preventDefault();
     const newX = e.clientX - offset.current.x;
     const newY = e.clientY - offset.current.y;
 
@@ -55,7 +67,14 @@ export const useWindowPosition = (isMobile, isMaximized) => {
     if (isMobile) return;
     isDragging.current = false;
     document.body.style.cursor = "auto";
+    removeNoSelectClass();
   };
+
+  useEffect(() => {
+    return () => {
+      removeNoSelectClass();
+    };
+  }, []);
 
   return {
     position,

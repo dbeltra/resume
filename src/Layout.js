@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import NavTabs from "./components/NavTabs";
 import Footer from "./components/Footer";
-import { RestoreMessage } from "./components/RestoreMessage";
+import RestoreWindow from "./pages/RestoreWindow";
 import { WindowWrapper } from "./components/WindowWrapper";
 import { WindowControls } from "./components/WindowControls";
 import { useWindowPosition } from "./hooks/useWindowPosition";
@@ -60,7 +60,7 @@ const Layout = () => {
   }, [isMobile, isMaximized, handleMouseMove, handleMouseUp]);
 
   if (isWindowClosed) {
-    return <RestoreMessage onRestore={() => setIsWindowClosed(false)} />;
+    return <RestoreWindow onRestore={() => setIsWindowClosed(false)} />;
   }
 
   return (

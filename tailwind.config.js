@@ -4,6 +4,7 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}", "./src/styles/**/*.css"],
+  safelist: ["bg-red-600", "bg-yellow-400", "bg-green-600"],
   theme: {
     extend: {
       backgroundImage: {
