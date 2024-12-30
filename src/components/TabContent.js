@@ -87,7 +87,9 @@ const TabContent = ({ code, language, Title, Content }) => {
   return (
     <div
       className={`col-start-2 col-span-2 row-start-2 
-      flex-col-reverse grid-rows-subgrid grid-cols-subgrid w-full
+      grid-rows-subgrid grid-cols-subgrid w-full
+      min-h-screen
+      ${code ? "flex-col-reverse" : "flex-col"}
       ${isMinimized ? "hidden" : "flex lg:grid"}
       `}
     >

@@ -64,7 +64,7 @@ const Layout = () => {
   }
 
   return (
-    <div className="bg-center justify-center items-center lg:h-screen bg-page-bg bg-cover">
+    <div className="bg-center justify-center items-center h-max lg:h-screen bg-page-bg bg-cover">
       <WindowWrapper
         dragRef={dragRef}
         bgOpacity={bgOpacity}

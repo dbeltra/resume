@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import ExpandableFolder from "./expandable-folder";
+import ExpandableFolder from "./ExpandableFolder";
 import { routesList } from "../routes";
 
 const WindowControl = ({ color, onClick, disabled, icon }) => (

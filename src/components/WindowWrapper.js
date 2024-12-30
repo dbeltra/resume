@@ -27,9 +27,9 @@ export const WindowWrapper = ({
       style={{
         backgroundColor: `rgb(31 41 55 / ${bgOpacity})`,
         fontFamily: fontFamily,
-        position: isMobile ? "absolute" : "fixed",
+        position: isMobile ? "relative" : "fixed",
         left: isMaximized ? "0" : `${position.x}px`,
-        top: isMaximized ? "0" : `${position.y}px`,
+        top: !isMinimized ? (isMaximized ? "0" : `${position.y}px`) : undefined,
         width: isMaximized ? "100%" : undefined,
         height: isMaximized ? "100%" : undefined,
       }}
@@ -44,8 +44,8 @@ export const WindowWrapper = ({
         lg:grid-cols-[250px_1fr_1fr] 
         ${!isMaximized && "lg:rounded-lg"}
         lg:overflow-hidden
-        ${isMobile ? "h-full" : ""}
-        ${isMinimized && !isMobile ? "lg:grid-rows-[35px_0fr_25px]" : "lg:grid-rows-[35px_1fr_25px] lg:h-[80vh]"}
+        ${isMobile ? "h-max" : ""}
+        ${isMinimized && !isMobile ? "grid-rows-[35px_0fr_25px] bottom-0" : "grid-rows-[35px_1fr_25px] h-[80vh]"}
         ${isMaximized ? "!h-screen" : ""}
       `}
       onMouseDown={handleMouseDown}
