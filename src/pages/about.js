@@ -1,9 +1,9 @@
 import React from "react";
 import TabContent from "../components/TabContent";
-import Button from "../components/button";
+import Button from "../components/Button";
 import GithubIcon from "../assets/icons/mono/github.png";
 import LinkedinIcon from "../assets/icons/mono/linkedin.png";
-import Avatar from "../components/avatar";
+import Avatar from "../components/Avatar";
 
 const Code = `<!-- About me -->
 <hello to="everyone">

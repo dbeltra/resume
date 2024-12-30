@@ -46,9 +46,9 @@ const ContactContent = () => {
   return (
     <div>
       <p className="text-sm">
-        Whether you want to discuss a new project, need help with Rust
-        development, or have a general inquiry, feel free to reach out! I’m
-        always open to networking and exploring exciting opportunities.
+        Whether you want to discuss a new project, need help with development,
+        or have a general inquiry, feel free to reach out! I’m always open to
+        networking and exploring exciting opportunities.
       </p>
       <div className="mt-4">
         <div className="text-lg">Email</div>

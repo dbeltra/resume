@@ -36,7 +36,6 @@ const SearchContent = () => {
   const placeholderText = "an awesome developer";
 
   const handleSearchChange = (e) => {
-    const input = e.target.value;
     const currentLength = searchTerm.length;
     if (currentLength < placeholderText.length) {
       setSearchTerm(placeholderText.slice(0, currentLength + 1));
