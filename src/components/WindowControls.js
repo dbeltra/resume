@@ -1,3 +1,5 @@
+import React from "react";
+
 export const WindowControls = ({
   isMinimized,
   setIsMinimized,
@@ -36,3 +38,26 @@ export const WindowControls = ({
 
   return { handleMinimize, handleMaximize, handleClose };
 };
+
+const WindowControlButton = ({ color, onClick, disabled, icon }) => (
+  <span
+    className={`
+      w-3 h-3 rounded-full mr-2 relative
+      ${
+        disabled
+          ? "bg-gray-400 cursor-not-allowed"
+          : `bg-${color} hover:opacity-80 ${onClick ? "cursor-pointer" : ""}`
+      }
+    `}
+    onClick={disabled ? undefined : onClick}
+  >
+    <span
+      className="material-symbols-outlined text-xs absolute -top-[0.15rem] left-0
+     text-gray-800 opacity-0 group-hover:opacity-100"
+    >
+      {icon}
+    </span>
+  </span>
+);
+
+export default WindowControlButton;
