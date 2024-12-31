@@ -69,7 +69,7 @@ const SettingsContent = () => {
         </div>
       </SettingsSection>
       <SettingsSection
-        icon="format_size"
+        icon="brand_family"
         title="Interface Appearance"
         helperText="Customize the visual appearance of the interface"
         className="mt-4"

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import TabContent from "../components/TabContent";
 
 const Code = `use lettre::{Message, SmtpTransport, Transport};
@@ -43,15 +44,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 `;
 
 const ContactContent = () => {
+  const { t } = useTranslation();
+  const contactText = t("contactDescription", {
+    returnObjects: true,
+  });
+
   return (
     <div>
-      <p className="text-sm">
-        Whether you want to discuss a new project, need help with development,
-        or have a general inquiry, feel free to reach out! I’m always open to
-        networking and exploring exciting opportunities.
-      </p>
-      <div className="mt-4">
-        <div className="text-lg">Email</div>
+      <div className="text-sm mb-4">
+        {contactText.map((paragraph, index) => (
+          <p
+            key={index}
+            className="mt-2"
+            dangerouslySetInnerHTML={{ __html: paragraph }}
+          ></p>
+        ))}
+      </div>
+      <div className="">
+        <div className="text-lg">{t("contactEmail")}</div>
         <div>
           📧 [{" "}
           <a href="mailto:dbeltra@gmail.com" className="text-primary">
@@ -59,10 +69,10 @@ const ContactContent = () => {
           </a>{" "}
           ]
         </div>
-        <div>For the quickest response, send me an email!</div>
+        <div>{t("contactEmailText")}</div>
       </div>
       <div className="mt-4">
-        <div className="text-lg">LinkedIn</div>
+        <div className="text-lg">{t("contactLinkedin")}</div>
         <div>
           🔗 [{" "}
           <a
@@ -73,10 +83,10 @@ const ContactContent = () => {
           </a>{" "}
           ]
         </div>
-        <div>Let’s connect professionally and grow our networks.</div>
+        <div>{t("contactLinkedinText")}</div>
       </div>
       <div className="mt-4">
-        <div className="text-lg">Github</div>
+        <div className="text-lg">{t("contactGithub")}</div>
         <div>
           🐙 [{" "}
           <a href="https://github.com/dbeltra" className="text-primary">
@@ -84,32 +94,25 @@ const ContactContent = () => {
           </a>{" "}
           ]
         </div>
-        <div>Check out my projects, repositories, and contributions.</div>
+        <div>{t("contactGithubText")}</div>
       </div>
       <div className="mt-4">
-        <div className="text-lg">Location</div>
-        <div>
-          🌍 Based in [{" "}
-          <a
-            href="https://maps.app.goo.gl/24XNJgR73jtXfqDq9/"
-            className="text-primary"
-          >
-            Barcelona, Spain
-          </a>{" "}
-          ]
-        </div>
-        <div>Available for remote work.</div>
+        <div className="text-lg">{t("contactLocation")}</div>
+        <div>🌍 {t("contactLocationPlace")}</div>
+        <div>{t("contactLocationText")}</div>
       </div>
     </div>
   );
 };
 
 const Contact = () => {
+  const { t } = useTranslation();
+
   return (
     <TabContent
       code={Code}
       language="rust"
-      Title="Contact Me"
+      Title={t("contactTitle")}
       Content={ContactContent}
     ></TabContent>
   );

@@ -52,6 +52,21 @@ const resources = {
       ],
       skillsLanguages: "Languages & Frameworks",
       skillsTools: "Tools",
+      contactTitle: "Contact Me",
+      contactDescription: [
+        "Whether you want to discuss a new project, need help with development, or have a general inquiry, feel free to reach out! I’m always open to networking and exploring exciting opportunities.",
+      ],
+      contactEmail: "Email",
+      contactEmailText: "For the quickest response, send me an email!",
+      contactLinkedin: "Linkedin",
+      contactLinkedinText:
+        "Let’s connect professionally and grow our networks.",
+      contactGithub: "Github",
+      contactGithubText:
+        "Check out my projects, repositories, and contributions.",
+      contactLocation: "Based in",
+      contactLocationPlace: "Barcelona, Spain",
+      contactLocationText: "Available for remote work.",
     },
   },
   es: {
@@ -104,6 +119,20 @@ const resources = {
       ],
       skillsLanguages: "Lenguajes y Frameworks",
       skillsTools: "Herramientas",
+      contactTitle: "Contáctame",
+      contactDescription: [
+        "Ya sea que quieras discutir un nuevo proyecto, necesites ayuda con desarrollo, o tengas una consulta general, ¡no dudes en contactarme! Siempre estoy abierto a hacer networking y explorar oportunidades emocionantes.",
+      ],
+      contactEmail: "Correo Electrónico",
+      contactEmailText: "¡Para una respuesta más rápida, envíame un correo!",
+      contactLinkedin: "Linkedin",
+      contactLinkedinText:
+        "Conectemos profesionalmente y hagamos crecer nuestras redes.",
+      contactGithub: "Github",
+      contactGithubText: "Revisa mis proyectos, repositorios y contribuciones.",
+      contactLocation: "Residencia",
+      contactLocationPlace: "Barcelona, España",
+      contactLocationText: "Disponible para trabajo remoto.",
     },
   },
 };

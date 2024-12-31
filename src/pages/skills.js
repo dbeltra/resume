@@ -64,9 +64,11 @@ const SkillsContent = () => {
     <>
       <div className="text-sm mb-4">
         {skills.map((skill, index) => (
-          <p key={index} className="mt-2">
-            {skill}
-          </p>
+          <p
+            key={index}
+            className="mt-2"
+            dangerouslySetInnerHTML={{ __html: skill }}
+          ></p>
         ))}
       </div>
       <div className="flex flex-wrap">
