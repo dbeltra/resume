@@ -30,13 +30,13 @@ const SearchContent = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [searchInitiated, setSearchInitiated] = useState(false); // Track if search is initiated
   const [caseSensitive, setCaseSensitive] = useState(false);
   const [wholeWord, setWholeWord] = useState(false);
   const [regex, setRegex] = useState(false);
 
   const placeholderText = t("searchPlaceholderText");
 
-  // Load search data dynamically based on language
   const fetchSearchData = async (language) => {
     setLoading(true);
     try {
@@ -65,6 +65,7 @@ const SearchContent = () => {
     e.preventDefault();
     setSearchTerm(placeholderText);
     setLoading(true);
+    setSearchInitiated(true); // Mark search as initiated
 
     setTimeout(() => {
       if (searchResults) {
@@ -123,7 +124,7 @@ const SearchContent = () => {
         </div>
       )}
 
-      {!loading && searchResults && (
+      {!loading && searchInitiated && searchResults && (
         <div className="lg:mt-2 overflow-y-scroll  lg:w-3/4 col-span-2">
           <h2 className="text-lg mb-2">
             {t("searchResultsTitle", { placeholderText })}
