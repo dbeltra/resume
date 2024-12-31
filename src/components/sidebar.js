@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import ExpandableFolder from "./ExpandableFolder";
 import { routesList } from "../routes";
@@ -11,6 +12,8 @@ const Sidebar = ({
   isMinimized,
   isMaximized,
 }) => {
+  const { t } = useTranslation();
+
   const { pathname } = useLocation();
 
   const navLinks = [
@@ -63,7 +66,7 @@ const Sidebar = ({
             icon={isMaximized ? "collapse_content" : "expand_content"}
           />
         </div>
-        <span>Resumé</span>
+        <span>{t("sidebarTitle")}</span>
         <span className="lg:hidden pl-1">- David Beltrà</span>
       </div>
 
@@ -87,7 +90,7 @@ const Sidebar = ({
           <div className="hidden lg:flex flex-col text-sm">
             <div className="flex items-center gap-3 p-1">
               <i className="material-symbols-filled">folder</i>
-              <b>Resumé</b>
+              <b>{t("sidebarTitle")}</b>
             </div>
             {folders.map(({ title, links, expanded }) => (
               <ExpandableFolder

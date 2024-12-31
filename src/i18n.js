@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      sidebarTitle: "Resumé",
       aboutTitle: "About Me",
       aboutRole: "Full stack developer",
       aboutDescription: [
@@ -67,10 +68,30 @@ const resources = {
       contactLocation: "Based in",
       contactLocationPlace: "Barcelona, Spain",
       contactLocationText: "Available for remote work.",
+      settingsLanguageTitle: "Language settings",
+      settingsLanguageHelper: "Customize the language",
+      settingsAppearanceTitle: "Interface Appearance",
+      settingsAppearanceHelper:
+        "Customize the visual appearance of the interface",
+      settingsAppearanceOpacityTitle: "Background Opacity",
+      settingsAppearanceOpacityHelper:
+        "Adjust the transparency of the main interface",
+      settingsAppearanceScaleTitle: "Interface Scale",
+      settingsAppearanceScaleHelper: "Adjust the overall size of the interface",
+      settingsAppearanceScaleOptions: ["Big", "Default", "Small", "Tiny"],
+      settingsAppearanceFontTitle: "Font Family",
+      searchPlaceholderText: "an awesome developer",
+      searchPlaceholder: "Search for...",
+      searchSearchingText: "Searching...",
+      searchResultsTitle: 'Search Results for "{{placeholderText}}":',
+      searchResultsInfo:
+        "Looks like I'm the developer you're looking for! Maybe you should",
+      searchResultsContact: "contact me",
     },
   },
   es: {
     translation: {
+      sidebarTitle: "Currículum",
       aboutTitle: "Sobre Mí",
       aboutRole: "Desarrollador Full Stack",
       aboutDescription: [
@@ -111,7 +132,7 @@ const resources = {
           ],
         },
       ],
-      skillsTitle: "Mis Habilidades",
+      skillsTitle: "Mis Aptitudes",
       skillsDescription: [
         "Disfruto del mundo del desarrollo donde siempre hay espacio para crecer y explorar cosas nuevas. Me gustan los <b>entornos de equipo</b> donde puedo tanto aprender de mis colegas como ayudarlos con mi experiencia.",
         "Me considero una persona <b>comunicativa y proactiva</b> con una buena capacidad para gestionar tiempo y recursos, además de resolver problemas.",
@@ -133,6 +154,123 @@ const resources = {
       contactLocation: "Residencia",
       contactLocationPlace: "Barcelona, España",
       contactLocationText: "Disponible para trabajo remoto.",
+      settingsLanguageTitle: "Configuración de Idioma",
+      settingsLanguageHelper: "Personaliza el idioma",
+      settingsAppearanceTitle: "Apariencia de la Interfaz",
+      settingsAppearanceHelper:
+        "Personaliza la apariencia visual de la interfaz",
+      settingsAppearanceOpacityTitle: "Opacidad del Fondo",
+      settingsAppearanceOpacityHelper:
+        "Ajusta la transparencia de la interfaz principal",
+      settingsAppearanceScaleTitle: "Escala de la Interfaz",
+      settingsAppearanceScaleHelper: "Ajusta el tamaño general de la interfaz",
+      settingsAppearanceScaleOptions: [
+        "Grande",
+        "Por Defecto",
+        "Pequeña",
+        "Minúscula",
+      ],
+      settingsAppearanceFontTitle: "Familia Tipográfica",
+      searchPlaceholderText: "un desarrollador fantástico",
+      searchPlaceholder: "Buscar...",
+      searchSearchingText: "Buscando...",
+      searchResultsTitle: 'Resultados de búsqueda para "{{placeholderText}}":',
+      searchResultsInfo:
+        "¡Parece que soy el desarrollador que buscas! Quizás deberías",
+      searchResultsContact: "contactarme",
+    },
+  },
+  ca: {
+    translation: {
+      sidebarTitle: "Currículum",
+      aboutTitle: "Sobre Mi",
+      aboutRole: "Desenvolupador Full Stack",
+      aboutDescription: [
+        "Actualment visc a Barcelona i he treballat amb un ampli ventall de tecnologies, tant de frontend com de backend, com Python, Django, Rust, Javascript o React.",
+        "M'agraden els reptes i trobar maneres d'aprendre noves habilitats o millorar les meves actuals.",
+      ],
+      experienceTitle: "La Meva Experiència",
+      experienceExperiences: [
+        {
+          title: "Desenvolupador Full Stack",
+          company: "Ancora Dual",
+          dates: "2014 - 2018",
+          responsibilities: [
+            "Vaig treballar com a dissenyador i desenvolupador web. Vam crear una solució empresarial CRUD personalitzable, basada en Django i Backbone.",
+            "Vaig assumir un paper principal en el desenvolupament d'Autopractick, una eina de gestió basada en web per a autoescoles, amb una aplicació per a socis de Phonegap.",
+            "També vaig aplicar metodologies àgils al nostre flux de treball en equip.",
+          ],
+        },
+        {
+          title: "Desenvolupador Web i Python",
+          company: "pEp Security → Planck Security",
+          dates: "2018 - 2024",
+          responsibilities: [
+            "Em vaig incorporar a l'empresa com a desenvolupador frontend a càrrec del lloc web. La meva tasca era migrar un sistema HTML estàtic a Mezzanine, un CMS basat en Django. El lloc web va incloure un sistema de pagament i facturació personalitzat.",
+            "També vaig crear una cadena d'eines CLI basada en Python que funcionava amb el backend de desxifrat de l'empresa.",
+            "Vaig crear una solució de demostració de desxifrat per a les nostres presentacions, combinant un sistema MQ per als missatges i una interfície de Django.",
+            "Vaig assumir un paper principal en el desenvolupament d'una eina CLI i una solució Docker per desxifrar el trànsit de correu electrònic.",
+          ],
+        },
+        {
+          title: "Desenvolupador Rust i React",
+          company: "Planck Security",
+          dates: "2024 - 2025",
+          responsibilities: [
+            "Vaig ser l'encarregat de desenvolupar el Security Hub, migrant la nostra eina CLI de Python anterior a una solució Rust.",
+            "Aquest projecte va combinar diversos serveis de Docker que van interactuar mitjançant API per desxifrar, escanejar i emmagatzemar el correu electrònic xifrat mitjançant un filtre de correu Postfix.",
+            "Tots els paràmetres i la configuració inicial es podrien gestionar des del navegador mitjançant una interfície de React.",
+          ],
+        },
+      ],
+      skillsTitle: "Les Meves Habilitats",
+      skillsDescription: [
+        "M'agrada el món del desenvolupament on sempre hi ha espai per créixer i explorar coses noves. M'agraden els <b>entorns de treball en equip</b> on puc aprendre dels meus companys i ajudar-los amb la meva experiència.",
+        "Em considero una persona <b>comunicativa i proactiva</b> amb una bona capacitat per gestionar el temps i els recursos, així com per resoldre problemes.",
+        "Estic compromès a oferir codi net i ben documentat, amb un enfocament en el manteniment i l'escalabilitat.",
+      ],
+      skillsLanguages: "Llenguatges i Frameworks",
+      skillsTools: "Eines",
+      contactTitle: "Contacta Amb Mi",
+      contactDescription: [
+        "Si vols parlar d'un projecte nou, necessites ajuda amb el teu codi o tenss una consulta general, no dubtis a posar-te en contacte! Sempre estic obert a fer xarxa i explorar oportunitats emocionants.",
+      ],
+      contactEmail: "Correu Electrònic",
+      contactEmailText:
+        "Per a una resposta més ràpida, envieu-me un correu electrònic!",
+      contactLinkedin: "Linkedin",
+      contactLinkedinText:
+        "Connectem-nos professionalment i fem créixer les nostres xarxes.",
+      contactGithub: "Github",
+      contactGithubText:
+        "Consulta els meus projectes, repositoris i contribucions.",
+      contactLocation: "Ubicació",
+      contactLocationPlace: "Barcelona, Espanya",
+      contactLocationText: "Disponible per a treball remot.",
+      settingsLanguageTitle: "Configuració de l'Idioma",
+      settingsLanguageHelper: "Personalitza l'idioma",
+      settingsAppearanceTitle: "Aspecte de la Interfície",
+      settingsAppearanceHelper:
+        "Personalitza l'aspecte visual de la interfície.",
+      settingsAppearanceOpacityTitle: "Opacitat del Fons",
+      settingsAppearanceOpacityHelper:
+        "Ajusta la transparència de la interfície principal.",
+      settingsAppearanceScaleTitle: "Escala de la Interfície",
+      settingsAppearanceScaleHelper: "Ajusta la mida general de la interfície.",
+      settingsAppearanceScaleOptions: [
+        "Gran",
+        "Predeterminat",
+        "Petit",
+        "Diminut",
+      ],
+      settingsAppearanceFontTitle: "Família de Fonts",
+      searchPlaceholderText: "un desenvolupador fantàstic",
+      searchPlaceholder: "Cerca...",
+      searchSearchingText: "Cercant...",
+      searchResultsTitle: 'Resultats de la cerca per a "{{placeholderText}}":',
+      searchResultsInfo:
+        "Sembla que sóc el desenvolupador que estàs buscant! Potser hauries de",
+      searchResultsContact: "contactar amb mi",
     },
   },
 };

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import searchData from "../assets/searchResults.json";
+import { useTranslation } from "react-i18next";
 import TabContent from "../components/TabContent";
 
 // Helper function to shuffle an array
@@ -26,6 +26,7 @@ const SearchButton = ({ children, isActive, onClick }) => (
 );
 
 const SearchContent = () => {
+  const { t, i18n } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,7 +34,25 @@ const SearchContent = () => {
   const [wholeWord, setWholeWord] = useState(false);
   const [regex, setRegex] = useState(false);
 
-  const placeholderText = "an awesome developer";
+  const placeholderText = t("searchPlaceholderText");
+
+  // Load search data dynamically based on language
+  const fetchSearchData = async (language) => {
+    setLoading(true);
+    try {
+      const data = await import(`../assets/searchResults.${language}.json`);
+      setSearchResults(data.results);
+    } catch (error) {
+      console.error("Error loading search data:", error);
+      setSearchResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSearchData(i18n.language);
+  }, [i18n.language]);
 
   const handleSearchChange = (e) => {
     const currentLength = searchTerm.length;
@@ -48,8 +67,10 @@ const SearchContent = () => {
     setLoading(true);
 
     setTimeout(() => {
-      const randomResults = shuffleArray(searchData.results).slice(0, 4);
-      setSearchResults(randomResults);
+      if (searchResults) {
+        const randomResults = shuffleArray(searchResults).slice(0, 4);
+        setSearchResults(randomResults);
+      }
       setLoading(false);
     }, 1000);
   };
@@ -66,7 +87,7 @@ const SearchContent = () => {
               type="text"
               value={searchTerm}
               onChange={handleSearchChange}
-              placeholder="Search for..."
+              placeholder={t("searchPlaceholder")}
               className="w-full p-2 pr-32 bg-gray-700 text-white rounded-s"
             />
             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
@@ -98,25 +119,25 @@ const SearchContent = () => {
 
       {loading && (
         <div className="lg:mt-2 text-left  col-span-2">
-          <p>Searching...</p>
+          <p>{t("searchSearchingText")}</p>
         </div>
       )}
 
       {!loading && searchResults && (
         <div className="lg:mt-2 overflow-y-scroll  lg:w-3/4 col-span-2">
           <h2 className="text-lg mb-2">
-            {`Search Results for "${placeholderText}"`}:
+            {t("searchResultsTitle", { placeholderText })}
           </h2>
           <div className="border p-2 mb-4 rounded border-gray-500 flex items-center">
             <i className="material-symbols-filled mr-1">info</i>
             <div>
-              Looks like I'm the developer you're looking for! Maybe you should{" "}
+              {t("searchResultsInfo")}{" "}
               <Link
                 key={"Contact"}
                 to={"/files/contact"}
                 className={`text-secondary ml-1`}
               >
-                <span>contact me</span>
+                <span>{t("searchResultsContact")}</span>
               </Link>
               ?
             </div>
@@ -125,7 +146,7 @@ const SearchContent = () => {
             {searchResults.map((result, index) => (
               <li
                 key={index}
-                className=" hover:bg-black/5 transition-colors cursor-pointer p-2"
+                className="hover:bg-black/5 transition-colors cursor-pointer p-2"
               >
                 <h3 className="text-md font-bold">{result.title}</h3>
                 <p className="text-sm">{result.text}</p>

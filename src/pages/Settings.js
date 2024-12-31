@@ -5,7 +5,7 @@ import RangeInput from "../components/RangeInput";
 import TabContent from "../components/TabContent";
 
 const SettingsSection = ({ icon, title, helperText, children, className }) => (
-  <div className={`text-sm w-1/2 ${className}`}>
+  <div className={`text-sm lg:w-1/2 ${className}`}>
     <div className="mb-3">
       <div className="flex items-center border-b">
         <span className="material-symbols-outlined mr-2 text-primary-500 mb-1">
@@ -47,15 +47,15 @@ const SettingsContent = () => {
 
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
-    i18n.changeLanguage(selectedLanguage); // Change the language dynamically
+    i18n.changeLanguage(selectedLanguage);
   };
 
   return (
     <div className="">
       <SettingsSection
         icon="translate"
-        title="Language settings"
-        helperText="Customize the language"
+        title={t("settingsLanguageTitle")}
+        helperText={t("settingsLanguageHelper")}
       >
         <div>
           <select
@@ -65,18 +65,19 @@ const SettingsContent = () => {
           >
             <option value="en">English</option>
             <option value="es">Español</option>
+            <option value="ca">Català</option>
           </select>
         </div>
       </SettingsSection>
       <SettingsSection
         icon="brand_family"
-        title="Interface Appearance"
-        helperText="Customize the visual appearance of the interface"
+        title={t("settingsAppearanceTitle")}
+        helperText={t("settingsAppearanceHelper")}
         className="mt-4"
       >
         <RangeInput
-          label="Background Opacity"
-          helperText="Adjust the transparency of the main interface"
+          label={t("settingsAppearanceOpacityTitle")}
+          helperText={t("settingsAppearanceOpacityHelper")}
           value={bgOpacity * 100}
           onChange={handleOpacityChange}
           min={50}
@@ -87,9 +88,9 @@ const SettingsContent = () => {
 
         <div>
           <div className="flex items-center justify-between mb-1">
-            <span>Interface Scale</span>
+            <span>{t("settingsAppearanceScaleTitle")}</span>
             <span className="text-xs text-gray-400">
-              Adjust the overall size of the interface
+              {t("settingsAppearanceScaleHelper")}
             </span>
           </div>
           <select
@@ -97,16 +98,33 @@ const SettingsContent = () => {
             onChange={handleScaleChange}
             className="w-full bg-gray-700 text-white p-2 rounded outline-none cursor-pointer hover:bg-gray-500"
           >
-            <option value={100}>Default</option>
-            <option value={90}>Small</option>
-            <option value={75}>Tiny</option>
+            {t("settingsAppearanceScaleOptions", { returnObjects: true }).map(
+              (option, index) => (
+                <option
+                  key={index}
+                  value={
+                    index === 0
+                      ? 110
+                      : index === 1
+                        ? 100
+                        : index === 2
+                          ? 90
+                          : 75
+                  }
+                >
+                  {option}
+                </option>
+              ),
+            )}
           </select>
         </div>
 
         <div>
           <div className="flex items-center justify-between mb-1">
-            <span>Font Family</span>
-            <span className="text-xs text-gray-400">Choose the app's font</span>
+            <span>{t("settingsAppearanceFontTitle")}</span>
+            <span className="text-xs text-gray-400">
+              {t("settingsAppearanceHelper")}
+            </span>
           </div>
           <select
             value={fontFamily}

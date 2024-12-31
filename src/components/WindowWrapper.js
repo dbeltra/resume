@@ -17,6 +17,7 @@ export const WindowWrapper = ({
       75: "scale-75",
       90: "scale-90",
       100: "scale-100",
+      110: "scale-110",
     };
     return scaleMap[scaleValue] || "scale-100";
   };

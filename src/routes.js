@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import About from "./pages/About";
 import Experience from "./pages/Experience";
 import Skills from "./pages/Skills";
