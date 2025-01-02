@@ -64,7 +64,11 @@ const ContactContent = () => {
         <div className="text-lg">{t("contactEmail")}</div>
         <div>
           📧 [{" "}
-          <a href="mailto:dbeltra@gmail.com" className="text-primary">
+          <a
+            href="mailto:dbeltra@gmail.com"
+            className="text-primary"
+            target="_blank"
+          >
             dbeltra@gmail.com
           </a>{" "}
           ]
@@ -78,6 +82,7 @@ const ContactContent = () => {
           <a
             href="https://www.linkedin.com/in/dbeltra/"
             className="text-primary"
+            target="_blank"
           >
             linkedin.com/in/dbeltra/
           </a>{" "}
@@ -89,7 +94,11 @@ const ContactContent = () => {
         <div className="text-lg">{t("contactGithub")}</div>
         <div>
           🐙 [{" "}
-          <a href="https://github.com/dbeltra" className="text-primary">
+          <a
+            href="https://github.com/dbeltra"
+            className="text-primary"
+            target="_blank"
+          >
             github.com/dbeltra
           </a>{" "}
           ]
