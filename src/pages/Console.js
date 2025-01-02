@@ -14,8 +14,16 @@ const ConsoleContent = () => {
   // Show welcome message once
   useEffect(() => {
     if (!welcomeMessageShown.current) {
-      const welcomeMessage =
-        "Welcome to my personal console!\nType 'help' for a list of commands, you can use tab for autocomplete.\n";
+      const welcomeMessage = (
+        <>
+          Welcome to my personal console!
+          <br />
+          Type <span className="text-secondary-400">'help'</span> for a list of
+          commands, you can use tab for autocomplete.
+          <br />
+          <br />
+        </>
+      );
       setOutput((prevOutput) => [
         ...prevOutput,
         { command: "", response: welcomeMessage },
@@ -41,15 +49,53 @@ const ConsoleContent = () => {
   const executeCommand = (cmd) => {
     switch (cmd.toLowerCase()) {
       case "about":
-        return "I'm a passionate frontend developer specializing in React and JavaScript!";
+        return (
+          <>
+            I'm a passionate frontend developer specializing in React and
+            JavaScript!
+          </>
+        );
       case "skills":
-        return "React, JavaScript, CSS, HTML, Node.js, Git, TypeScript, and more!";
+        return <>React, JavaScript, CSS and more!</>;
       case "contact":
-        return "You can reach me at dbeltra@gmail.com or on LinkedIn.";
+        return (
+          <>
+            You can reach me at{" "}
+            <a
+              className="text-secondary-400 hover:underline"
+              href="mailto:dbeltra@gmail.com"
+              target="_blank"
+            >
+              dbeltra@gmail.com
+            </a>{" "}
+            or on{" "}
+            <a
+              className="text-secondary-400 hover:underline"
+              href="https://www.linkedin.com/in/dbeltra/"
+              target="_blank"
+            >
+              LinkedIn
+            </a>
+            .
+          </>
+        );
       case "help":
-        return "Commands: about, skills, contact, help";
+        return (
+          <>
+            Commands: <span className="text-secondary-400">about</span>,{" "}
+            <span className="text-secondary-400">skills</span>,{" "}
+            <span className="text-secondary-400">contact</span>,{" "}
+            <span className="text-secondary-400">help</span>
+          </>
+        );
       default:
-        return `"${cmd}" is not a recognized command. Type 'help' for a list of commands.`;
+        return (
+          <>
+            <span className="text-red-500">"{cmd}"</span> is not a recognized
+            command. Type <span className="text-secondary-400">'help'</span> for
+            a list of commands.
+          </>
+        );
     }
   };
 
@@ -95,7 +141,7 @@ const ConsoleContent = () => {
   };
 
   return (
-    <div className="code-font text-sm bg-black/10 h-full p-4 overflow-y-scroll relative">
+    <div className="code-font text-sm  h-full p-4 overflow-y-scroll relative">
       <div>
         {/* Displaying previous commands and their output */}
         {output.map((entry, index) => (
