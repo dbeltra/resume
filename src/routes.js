@@ -1,10 +1,9 @@
-import { useTranslation } from "react-i18next";
 import About from "./pages/About";
 import Experience from "./pages/Experience";
 import Skills from "./pages/Skills";
 import Contact from "./pages/Contact";
 import Search from "./pages/Search";
-import Widgets from "./pages/Widgets";
+import Console from "./pages/Console";
 import Settings from "./pages/Settings";
 
 export const ROUTES = {
@@ -38,11 +37,11 @@ export const ROUTES = {
     title: "Search.txt",
     icon: "search",
   },
-  WIDGETS: {
-    path: "/widgets",
-    component: Widgets,
-    title: "Widgets.md",
-    icon: "widgets",
+  CONSOLE: {
+    path: "/console",
+    component: Console,
+    title: "console.md",
+    icon: "terminal",
   },
   SETTINGS: {
     path: "/settings",

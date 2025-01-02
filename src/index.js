@@ -31,7 +31,7 @@ export default function App() {
               ))}
           </Route>
           <Route path="search" element={<ROUTES.SEARCH.component />} />
-          <Route path="widgets" element={<ROUTES.WIDGETS.component />} />
+          <Route path="console" element={<ROUTES.CONSOLE.component />} />
           <Route path="settings" element={<ROUTES.SETTINGS.component />} />
         </Route>
         <Route path="*" element={<NotFound />} />

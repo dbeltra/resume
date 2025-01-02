@@ -19,7 +19,7 @@ const Sidebar = ({
   const navLinks = [
     { to: "/files", icon: "folder" },
     { to: "/search", icon: "search" },
-    { to: "/widgets", icon: "widgets" },
+    { to: "/console", icon: "terminal" },
     { to: "/settings", icon: "settings" },
   ];
 
