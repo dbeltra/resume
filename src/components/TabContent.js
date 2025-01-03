@@ -99,8 +99,8 @@ const TabContent = ({ code, language, Title, Content }) => {
         </div>
       )}
 
-      <div className={`p-4 overflow-y-scroll ${!code ? "col-span-2" : ""}`}>
-        {Title && <div className="border-b mb-4">{Title}</div>}
+      <div className={`py-4 overflow-y-scroll ${!code ? "col-span-2" : ""}`}>
+        {Title && <div className="border-b mb-4 px-4">{Title}</div>}
         <Content />
       </div>
     </div>

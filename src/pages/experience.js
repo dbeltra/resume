@@ -102,7 +102,7 @@ const ExperienceContent = () => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto">
+    <div className="relative w-full max-w-4xl mx-auto px-4">
       {/* Image Container */}
       <div className="relative h-36 overflow-hidden">
         {experiences.map((exp, index) => (

@@ -77,7 +77,7 @@ const SearchContent = () => {
   };
 
   return (
-    <div className="">
+    <div className="px-4">
       <div className="lg:w-1/2 ">
         <form
           onSubmit={handleSearchSubmit}

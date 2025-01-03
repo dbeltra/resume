@@ -44,7 +44,7 @@ const AboutContent = () => {
   };
 
   return (
-    <div>
+    <div className="px-4">
       <Avatar></Avatar>
       <div className="text-5xl mt-4 uppercase font-bold">
         {personalInfo.name}

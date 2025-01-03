@@ -61,7 +61,7 @@ const SkillsContent = () => {
     returnObjects: true,
   });
   return (
-    <>
+    <div className="px-4">
       <div className="text-sm mb-4">
         {skills.map((skill, index) => (
           <p
@@ -99,7 +99,7 @@ const SkillsContent = () => {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -51,7 +51,7 @@ const SettingsContent = () => {
   };
 
   return (
-    <div className="">
+    <div className="px-4">
       <SettingsSection
         icon="translate"
         title={t("settingsLanguageTitle")}

@@ -50,7 +50,7 @@ const ContactContent = () => {
   });
 
   return (
-    <div>
+    <div className="px-4">
       <div className="text-sm mb-4">
         {contactText.map((paragraph, index) => (
           <p
