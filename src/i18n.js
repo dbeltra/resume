@@ -92,6 +92,7 @@ const resources = {
         "* Type {{helpCommand}} for a list of commands.",
         "* Push tab for autocomplete.",
       ],
+      consoleInputPlaceholder: "Type a command...",
       consoleHelp: "Available commands",
       consoleUnrecognizedCommand:
         "is not a recognized command. Type {{helpCommand}} for a list of commands.",
@@ -191,6 +192,7 @@ const resources = {
         "* Escribe {{helpCommand}} para una lista de los comandos disponibles.",
         "* Presiona tab para autocompletar.",
       ],
+      consoleInputPlaceholder: "Escribe un comando...",
       consoleHelp: "Comandos disponibles",
       consoleUnrecognizedCommand:
         "no es un comando reconocido. Escribe {{helpCommand}} para una lista de los comandos disponibles.",
@@ -292,6 +294,7 @@ const resources = {
         "* Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",
         "* Pressiona tab per a autocompletar.",
       ],
+      consoleInputPlaceholder: "Escriu una comanda...",
       consoleHelp: "Comandes disponibles",
       consoleUnrecognizedCommand:
         "no es una comanda reconegura. Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",

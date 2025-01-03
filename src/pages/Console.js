@@ -254,7 +254,7 @@ const ConsoleContent = () => {
           onChange={(e) => setCommand(e.target.value)}
           onKeyDown={handleCommand}
           className="flex-1 bg-transparent border-none outline-none"
-          placeholder="Type a command..."
+          placeholder={t("consoleInputPlaceholder")}
           aria-label="Console input field"
         />
 
