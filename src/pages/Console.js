@@ -4,45 +4,61 @@ import TabContent from "../components/TabContent";
 const ConsoleContent = () => {
   const [command, setCommand] = useState("");
   const [output, setOutput] = useState([]);
-  const [suggestions, setSuggestions] = useState([]); // For storing command suggestions
+  const [suggestions, setSuggestions] = useState([]);
   const welcomeMessageShown = useRef(false);
+  const inputRef = useRef(null);
+  const textLineRef = useRef(null);
 
-  const commands = ["about", "skills", "contact", "help"]; // List of valid commands
-  const inputRef = useRef(null); // Reference to the input element
-  const textLineRef = useRef(null); // Reference to the textLine element
+  const commands = ["about", "skills", "contact", "help", "clear"];
 
-  // Show welcome message once
+  const textLineContent = (
+    <span className="font-black" aria-hidden="true">
+      <span className="text-primary-500">david@ubuntu</span>
+      <span className="text-white">:</span>
+      <span className="text-primary-500">~</span>
+      <span className="text-white mr-2">$</span>
+    </span>
+  );
+
   useEffect(() => {
     if (!welcomeMessageShown.current) {
       const welcomeMessage = (
         <>
-          Welcome to my personal console!
+          <div className="-mb-1">
+            ▗▄▄▄{"  "}▗▄▖ ▗▖{"  "}▗▖▗▄▄▄▖▗▄▄▄{" "}
+          </div>
+          <div className="-mb-1">
+            ▐▌{"  "}█▐▌ ▐▌▐▌{"  "}▐▌{"  "}█{"  "}▐▌{"  "}█
+          </div>
+          <div className="-mb-1">
+            ▐▌{"  "}█▐▛▀▜▌▐▌{"  "}▐▌{"  "}█{"  "}▐▌{"  "}█
+          </div>
+          <div className="-mb-1">▐▙▄▄▀▐▌ ▐▌ ▝▚▞▘ ▗▄█▄▖▐▙▄▄▀</div>
           <br />
-          Type <span className="text-secondary-400">'help'</span> for a list of
-          commands, you can use tab for autocomplete.
+          Welcome to my personal console!
+          <br />* Type <span className="text-secondary-400">'help'</span> for a
+          list of commands.
+          <br />* Push tab for autocomplete.
           <br />
           <br />
         </>
       );
-      setOutput((prevOutput) => [
-        ...prevOutput,
-        { command: "", response: welcomeMessage },
-      ]);
+      setOutput([{ command: "", response: welcomeMessage }]);
       welcomeMessageShown.current = true;
     }
-
-    // Set focus on the input field as soon as the component mounts
     inputRef.current?.focus();
   }, []);
 
   const handleCommand = (e) => {
     if (e.key === "Enter") {
-      let response = executeCommand(command);
-      setOutput((prevOutput) => [...prevOutput, { command, response }]);
-      setCommand(""); // Clear input after entering command
+      const response = executeCommand(command);
+      if (command.toLowerCase() !== "clear") {
+        setOutput((prevOutput) => [...prevOutput, { command, response }]);
+      }
+      setCommand("");
     } else if (e.key === "Tab") {
-      e.preventDefault(); // Prevent default tab behavior (focus shift)
-      completeCommand(); // Try to autocomplete the command
+      e.preventDefault();
+      completeCommand();
     }
   };
 
@@ -65,6 +81,7 @@ const ConsoleContent = () => {
               className="text-secondary-400 hover:underline"
               href="mailto:dbeltra@gmail.com"
               target="_blank"
+              aria-label="Send an email to dbeltra@gmail.com"
             >
               dbeltra@gmail.com
             </a>{" "}
@@ -73,6 +90,7 @@ const ConsoleContent = () => {
               className="text-secondary-400 hover:underline"
               href="https://www.linkedin.com/in/dbeltra/"
               target="_blank"
+              aria-label="Visit my LinkedIn profile"
             >
               LinkedIn
             </a>
@@ -82,12 +100,18 @@ const ConsoleContent = () => {
       case "help":
         return (
           <>
-            Commands: <span className="text-secondary-400">about</span>,{" "}
-            <span className="text-secondary-400">skills</span>,{" "}
-            <span className="text-secondary-400">contact</span>,{" "}
-            <span className="text-secondary-400">help</span>
+            Commands:{" "}
+            {commands.map((command, index) => (
+              <span className="text-secondary-400" key={index}>
+                {command}
+                {index < commands.length - 1 && ", "}
+              </span>
+            ))}
           </>
         );
+      case "clear":
+        setOutput([]);
+        return null;
       default:
         return (
           <>
@@ -99,40 +123,27 @@ const ConsoleContent = () => {
     }
   };
 
-  // Update suggestions when the command input changes
   const updateSuggestions = (input) => {
-    const matches = commands.filter((cmd) =>
-      cmd.toLowerCase().startsWith(input.toLowerCase()),
-    );
-    setSuggestions(matches);
+    if (input.length > 0) {
+      const matches = commands.filter((cmd) =>
+        cmd.toLowerCase().startsWith(input.toLowerCase()),
+      );
+      setSuggestions(matches);
+    } else {
+      setSuggestions([]);
+    }
   };
 
-  // Autocomplete the current command
   const completeCommand = () => {
     if (suggestions.length > 0) {
-      setCommand(suggestions[0]); // Auto-complete with the first matching suggestion
+      setCommand(suggestions[0]);
     }
   };
 
-  // Update suggestions on every change in the command input
   useEffect(() => {
-    if (command.length > 0) {
-      updateSuggestions(command);
-    } else {
-      setSuggestions([]); // Clear suggestions when input is empty
-    }
+    updateSuggestions(command);
   }, [command]);
 
-  const textLine = (
-    <span ref={textLineRef} className="font-black">
-      <span className="text-primary-500">david@ubuntu</span>
-      <span className="text-white">:</span>
-      <span className="text-primary-500">~</span>
-      <span className="text-white mr-2">$</span>
-    </span>
-  );
-
-  // Function to get the width of the textLine
   const getTextLineWidth = () => {
     if (textLineRef.current) {
       return textLineRef.current.getBoundingClientRect().width;
@@ -141,46 +152,51 @@ const ConsoleContent = () => {
   };
 
   return (
-    <div className="code-font text-sm  h-full p-4 overflow-y-scroll relative">
+    <div
+      className="code-font text-sm h-full p-4 overflow-y-scroll relative"
+      aria-label="Console Output"
+    >
+      <div ref={textLineRef} className="fixed top-0 left-0 visibility-hidden">
+        {textLineContent}
+      </div>
+
       <div>
-        {/* Displaying previous commands and their output */}
         {output.map((entry, index) => (
           <div key={index} className="mt-1">
-            {entry.command === "" && entry.response !== "" ? (
-              <p>{entry.response}</p>
+            {entry.command === "" ? (
+              <div>{entry.response}</div>
             ) : (
               <div>
-                <span>{textLine}</span>
+                {textLineContent}
                 <span>{entry.command}</span>
-                <p>{entry.response}</p>
+                <div>{entry.response}</div>
               </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* Input field for user commands */}
       <div className="relative flex items-center mt-1">
-        <span>{textLine}</span>
+        {textLineContent}
         <input
           type="text"
-          ref={inputRef} // Reference to the input element
+          ref={inputRef}
           value={command}
           onChange={(e) => setCommand(e.target.value)}
           onKeyDown={handleCommand}
           className="flex-1 bg-transparent border-none outline-none"
           placeholder="Type a command..."
+          aria-label="Console input field"
         />
 
-        {/* Suggestions for the commands, only show when there's at least one character typed */}
-        {command.length > 0 && suggestions.length > 0 && (
+        {suggestions.length > 0 && (
           <div
-            className="text-gray-400 absolute z-10"
+            className="text-gray-400 absolute z-10 top-0"
             style={{
-              left: `${getTextLineWidth()}px`, // Use the dynamic width of textLine to offset suggestions
+              left: `${getTextLineWidth()}px`,
             }}
+            aria-label="Command suggestions"
           >
-            {/* Displaying the suggestions in gray */}
             {suggestions.map((suggestion, index) => (
               <div key={index}>{suggestion}</div>
             ))}
