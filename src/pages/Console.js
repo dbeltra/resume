@@ -142,6 +142,7 @@ const ConsoleContent = () => {
               className="text-secondary-400 hover:underline"
               href="mailto:dbeltra@gmail.com"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label={t("contactEmail")}
             >
               dbeltra@gmail.com
@@ -151,6 +152,7 @@ const ConsoleContent = () => {
               className="text-secondary-400 hover:underline"
               href="https://www.linkedin.com/in/dbeltra/"
               target="_blank"
+              rel="noopener noreferrer"
               aria-label={t("contactLinkedin")}
             >
               LinkedIn

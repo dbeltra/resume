@@ -68,6 +68,7 @@ const ContactContent = () => {
             href="mailto:dbeltra@gmail.com"
             className="text-primary"
             target="_blank"
+            rel="noopener noreferrer"
           >
             dbeltra@gmail.com
           </a>{" "}
@@ -83,6 +84,7 @@ const ContactContent = () => {
             href="https://www.linkedin.com/in/dbeltra/"
             className="text-primary"
             target="_blank"
+            rel="noopener noreferrer"
           >
             linkedin.com/in/dbeltra/
           </a>{" "}
@@ -98,6 +100,7 @@ const ContactContent = () => {
             href="https://github.com/dbeltra"
             className="text-primary"
             target="_blank"
+            rel="noopener noreferrer"
           >
             github.com/dbeltra
           </a>{" "}
