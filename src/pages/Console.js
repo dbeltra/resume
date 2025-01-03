@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { useTranslation } from "react-i18next";
 import TabContent from "../components/TabContent";
 
@@ -15,7 +21,11 @@ const ConsoleContent = () => {
 
   const { t } = useTranslation();
 
-  const commands = ["about", "skills", "contact", "help", "clear"];
+  const commands = useMemo(
+    () => ["about", "skills", "contact", "help", "clear"],
+    [],
+  );
+
   const consoleWelcomeMessage = t("consoleWelcomeMessage", {
     returnObjects: true,
     helpCommand: "<span class=\"text-secondary-400\">'help'</span>",
@@ -32,11 +42,25 @@ const ConsoleContent = () => {
     </span>
   );
 
+  const updateSuggestions = useCallback(
+    (input) => {
+      if (input.length > 0) {
+        const matches = commands.filter((cmd) =>
+          cmd.toLowerCase().startsWith(input.toLowerCase()),
+        );
+        setSuggestions(matches);
+      } else {
+        setSuggestions([]);
+      }
+    },
+    [commands],
+  );
+
   useEffect(() => {
     if (consoleRef.current) {
       consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
     }
-  }, [output]); // Scroll whenever output changes
+  }, [output]);
 
   useEffect(() => {
     if (!welcomeMessageShown.current) {
@@ -71,7 +95,7 @@ const ConsoleContent = () => {
       welcomeMessageShown.current = true;
     }
     inputRef.current?.focus();
-  }, []);
+  }, [consoleWelcomeMessage]); // Add consoleWelcomeMessage to dependencies
 
   const handleCommand = (e) => {
     if (e.key === "Enter") {
@@ -82,7 +106,6 @@ const ConsoleContent = () => {
         }
         setCommandHistory((prevHistory) => [...prevHistory, command]);
       } else {
-        // Add an empty line with the command prompt
         setOutput((prevOutput) => [
           ...prevOutput,
           { command: " ", response: null },
@@ -193,17 +216,6 @@ const ConsoleContent = () => {
     }
   };
 
-  const updateSuggestions = (input) => {
-    if (input.length > 0) {
-      const matches = commands.filter((cmd) =>
-        cmd.toLowerCase().startsWith(input.toLowerCase()),
-      );
-      setSuggestions(matches);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
   const completeCommand = () => {
     if (suggestions.length > 0) {
       setCommand(suggestions[0]);
@@ -212,7 +224,7 @@ const ConsoleContent = () => {
 
   useEffect(() => {
     updateSuggestions(command);
-  }, [command]);
+  }, [command, updateSuggestions]); // Add updateSuggestions to dependencies
 
   const getTextLineWidth = () => {
     if (textLineRef.current) {
