@@ -1,15 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import TabContent from "../components/TabContent";
 
 const ConsoleContent = () => {
   const [command, setCommand] = useState("");
   const [output, setOutput] = useState([]);
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(null); // Null indicates not navigating history
   const [suggestions, setSuggestions] = useState([]);
   const welcomeMessageShown = useRef(false);
   const inputRef = useRef(null);
   const textLineRef = useRef(null);
 
+  const { t } = useTranslation();
+
   const commands = ["about", "skills", "contact", "help", "clear"];
+  const consoleWelcomeMessage = t("consoleWelcomeMessage", {
+    returnObjects: true,
+    helpCommand: "<span class=\"text-secondary-400\">'help'</span>",
+  });
+
+  console.log(consoleWelcomeMessage);
 
   const textLineContent = (
     <span className="font-black" aria-hidden="true">
@@ -35,14 +46,20 @@ const ConsoleContent = () => {
           </div>
           <div className="-mb-1">▐▙▄▄▀▐▌ ▐▌ ▝▚▞▘ ▗▄█▄▖▐▙▄▄▀</div>
           <br />
-          Welcome to my personal console!
-          <br />* Type <span className="text-secondary-400">'help'</span> for a
-          list of commands.
-          <br />* Push tab for autocomplete.
-          <br />
+          {consoleWelcomeMessage.map((line, index) => {
+            return (
+              <div
+                key={index}
+                dangerouslySetInnerHTML={{
+                  __html: line,
+                }}
+              />
+            );
+          })}
           <br />
         </>
       );
+
       setOutput([{ command: "", response: welcomeMessage }]);
       welcomeMessageShown.current = true;
     }
@@ -51,56 +68,89 @@ const ConsoleContent = () => {
 
   const handleCommand = (e) => {
     if (e.key === "Enter") {
-      const response = executeCommand(command);
-      if (command.toLowerCase() !== "clear") {
-        setOutput((prevOutput) => [...prevOutput, { command, response }]);
+      if (command.trim()) {
+        const response = executeCommand(command);
+        if (command.toLowerCase() !== "clear") {
+          setOutput((prevOutput) => [...prevOutput, { command, response }]);
+        }
+        setCommandHistory((prevHistory) => [...prevHistory, command]);
+        setCommand("");
+        setHistoryIndex(null); // Reset history index
       }
-      setCommand("");
     } else if (e.key === "Tab") {
       e.preventDefault();
       completeCommand();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      navigateHistory(-1);
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      navigateHistory(1);
+    }
+  };
+
+  const navigateHistory = (direction) => {
+    if (commandHistory.length === 0) return;
+
+    const newIndex =
+      historyIndex === null
+        ? commandHistory.length - 1
+        : Math.min(
+            Math.max(historyIndex + direction, 0),
+            commandHistory.length - 1,
+          );
+
+    if (newIndex !== historyIndex) {
+      setHistoryIndex(newIndex);
+      setCommand(commandHistory[newIndex]);
+    } else if (direction === 1 && historyIndex === commandHistory.length - 1) {
+      // Reset to an empty input if navigating past the most recent command
+      setHistoryIndex(null);
+      setCommand("");
     }
   };
 
   const executeCommand = (cmd) => {
     switch (cmd.toLowerCase()) {
       case "about":
-        return (
-          <>
-            I'm a passionate frontend developer specializing in React and
-            JavaScript!
-          </>
-        );
+        return <>{t("aboutDescription", { joinArrays: " " })}</>;
       case "skills":
-        return <>React, JavaScript, CSS and more!</>;
+        return (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: t("skillsDescription", { joinArrays: " " }),
+            }}
+          ></span>
+        );
       case "contact":
         return (
           <>
-            You can reach me at{" "}
+            {t("contactDescription", { joinArrays: " " })}
             <a
               className="text-secondary-400 hover:underline"
               href="mailto:dbeltra@gmail.com"
               target="_blank"
-              aria-label="Send an email to dbeltra@gmail.com"
+              aria-label={t("contactEmail")}
             >
               dbeltra@gmail.com
             </a>{" "}
-            or on{" "}
+            |{" "}
             <a
               className="text-secondary-400 hover:underline"
               href="https://www.linkedin.com/in/dbeltra/"
               target="_blank"
-              aria-label="Visit my LinkedIn profile"
+              aria-label={t("contactLinkedin")}
             >
               LinkedIn
             </a>
-            .
           </>
         );
       case "help":
         return (
           <>
-            Commands:{" "}
+            {t("consoleHelp")}
+            :
+            <br />
             {commands.map((command, index) => (
               <span className="text-secondary-400" key={index}>
                 {command}
@@ -115,9 +165,15 @@ const ConsoleContent = () => {
       default:
         return (
           <>
-            <span className="text-red-500">"{cmd}"</span> is not a recognized
-            command. Type <span className="text-secondary-400">'help'</span> for
-            a list of commands.
+            <span className="text-red-500">"{cmd}"</span>{" "}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: t("consoleUnrecognizedCommand", {
+                  helpCommand:
+                    "<span class=\"text-secondary-400\">'help'</span>",
+                }),
+              }}
+            />
           </>
         );
     }
@@ -156,7 +212,7 @@ const ConsoleContent = () => {
       className="code-font text-sm h-full p-4 overflow-y-scroll relative"
       aria-label="Console Output"
     >
-      <div ref={textLineRef} className="fixed top-0 left-0 visibility-hidden">
+      <div ref={textLineRef} className="fixed top-0 left-0 invisible">
         {textLineContent}
       </div>
 

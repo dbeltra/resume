@@ -87,6 +87,14 @@ const resources = {
       searchResultsInfo:
         "Looks like I'm the developer you're looking for! Maybe you should",
       searchResultsContact: "contact me",
+      consoleWelcomeMessage: [
+        "Welcome to my personal console!",
+        "* Type {{helpCommand}} for a list of commands.",
+        "* Push tab for autocomplete.",
+      ],
+      consoleHelp: "Available commands",
+      consoleUnrecognizedCommand:
+        "is not a recognized command. Type {{helpCommand}} for a list of commands.",
     },
   },
   es: {
@@ -178,6 +186,14 @@ const resources = {
       searchResultsInfo:
         "¡Parece que soy el desarrollador que buscas! Quizás deberías",
       searchResultsContact: "contactarme",
+      consoleWelcomeMessage: [
+        "Bienvenido/a a mi consola personal!",
+        "* Escribe {{helpCommand}} para una lista de los comandos disponibles.",
+        "* Presiona tab para autocompletar.",
+      ],
+      consoleHelp: "Comandos disponibles",
+      consoleUnrecognizedCommand:
+        "no es un comando reconocido. Escribe {{helpCommand}} para una lista de los comandos disponibles.",
     },
   },
   ca: {
@@ -271,6 +287,14 @@ const resources = {
       searchResultsInfo:
         "Sembla que sóc el desenvolupador que estàs buscant! Potser hauries de",
       searchResultsContact: "contactar amb mi",
+      consoleWelcomeMessage: [
+        "Bienvingut/da a la meva consola personal!",
+        "* Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",
+        "* Pressiona tab per a autocompletar.",
+      ],
+      consoleHelp: "Comandes disponibles",
+      consoleUnrecognizedCommand:
+        "no es una comanda reconegura. Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",
     },
   },
 };
