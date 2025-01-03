@@ -6,11 +6,12 @@ const ConsoleContent = () => {
   const [command, setCommand] = useState("");
   const [output, setOutput] = useState([]);
   const [commandHistory, setCommandHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(null); // Null indicates not navigating history
+  const [historyIndex, setHistoryIndex] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const welcomeMessageShown = useRef(false);
   const inputRef = useRef(null);
   const textLineRef = useRef(null);
+  const consoleRef = useRef(null);
 
   const { t } = useTranslation();
 
@@ -30,6 +31,12 @@ const ConsoleContent = () => {
       <span className="text-white mr-2">$</span>
     </span>
   );
+
+  useEffect(() => {
+    if (consoleRef.current) {
+      consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
+    }
+  }, [output]); // Scroll whenever output changes
 
   useEffect(() => {
     if (!welcomeMessageShown.current) {
@@ -74,9 +81,15 @@ const ConsoleContent = () => {
           setOutput((prevOutput) => [...prevOutput, { command, response }]);
         }
         setCommandHistory((prevHistory) => [...prevHistory, command]);
-        setCommand("");
-        setHistoryIndex(null); // Reset history index
+      } else {
+        // Add an empty line with the command prompt
+        setOutput((prevOutput) => [
+          ...prevOutput,
+          { command: " ", response: null },
+        ]);
       }
+      setCommand("");
+      setHistoryIndex(null);
     } else if (e.key === "Tab") {
       e.preventDefault();
       completeCommand();
@@ -104,7 +117,6 @@ const ConsoleContent = () => {
       setHistoryIndex(newIndex);
       setCommand(commandHistory[newIndex]);
     } else if (direction === 1 && historyIndex === commandHistory.length - 1) {
-      // Reset to an empty input if navigating past the most recent command
       setHistoryIndex(null);
       setCommand("");
     }
@@ -209,7 +221,8 @@ const ConsoleContent = () => {
 
   return (
     <div
-      className="code-font text-sm h-full p-4 overflow-y-scroll relative"
+      ref={consoleRef}
+      className="code-font text-sm h-full p-4 overflow-y-scroll relative bg-black/10"
       aria-label="Console Output"
     >
       <div ref={textLineRef} className="fixed top-0 left-0 invisible">
@@ -225,7 +238,7 @@ const ConsoleContent = () => {
               <div>
                 {textLineContent}
                 <span>{entry.command}</span>
-                <div>{entry.response}</div>
+                {entry.response && <div>{entry.response}</div>}
               </div>
             )}
           </div>
