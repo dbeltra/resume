@@ -1,15 +1,17 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import ImgNotFound from "../assets/images/notfound.webp";
 import MessageWindow from "../components/MessageWindow";
 
 const NotFound = () => {
+  const { t } = useTranslation();
   return (
     <MessageWindow
-      message="Sorry, but it looks like you're a bit lost."
+      message={t("notFoundTitle")}
       image={ImgNotFound}
-      imgAlt="Jack from Lost saying: We have to go back!"
+      imgAlt={t("notFoundImg")}
       buttonAction={() => window.history.back()}
-      buttonText="Go back"
+      buttonText={t("notFoundButton")}
     />
   );
 };

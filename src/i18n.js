@@ -96,6 +96,13 @@ const resources = {
       consoleHelp: "Available commands",
       consoleUnrecognizedCommand:
         "is not a recognized command. Type {{helpCommand}} for a list of commands.",
+      notFoundTitle: "Sorry, but it looks like you're a bit lost.",
+      notFoundImg: "Jack from Lost saying: We have to go back!",
+      notFoundButton: "Go Back",
+      restoreWindowTitle: "Don't worry, everything is under control!",
+      restoreWindowImg:
+        "'This is fine' meme image, with a dog sitting in a room on fire",
+      restoreWindowButton: "Restore window",
     },
   },
   es: {
@@ -196,6 +203,13 @@ const resources = {
       consoleHelp: "Comandos disponibles",
       consoleUnrecognizedCommand:
         "no es un comando reconocido. Escribe {{helpCommand}} para una lista de los comandos disponibles.",
+      notFoundTitle: "Disculpa, pero pareces un poco perdido.",
+      notFoundImg: "Jack de Perdicos diciendo: We have to go back!",
+      notFoundButton: "Volver",
+      restoreWindowTitle: "Tranquilo, está todo bajo control!",
+      restoreWindowImg:
+        "Imagen del meme 'This is fine', con un perro sentado en una habitación en llamas",
+      restoreWindowButton: "Restaurar ventana",
     },
   },
   ca: {
@@ -298,6 +312,13 @@ const resources = {
       consoleHelp: "Comandes disponibles",
       consoleUnrecognizedCommand:
         "no es una comanda reconegura. Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",
+      notFoundTitle: "Disculpa, pro sembles una mica perdut.",
+      notFoundImg: "Jack de Lost dient: We have to go back!",
+      notFoundButton: "Tornar",
+      restoreWindowTitle: "Tranquil, està tot controlat!",
+      restoreWindowImg:
+        "Imatge del meme 'This is fine', amb un gos assegut en una habitació en flames",
+      restoreWindowButton: "Restaurar finestra",
     },
   },
 };

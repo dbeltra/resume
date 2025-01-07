@@ -1,15 +1,17 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import ImgOops from "../assets/images/oops.webp";
 import MessageWindow from "../components/MessageWindow";
 
 const RestoreMessage = ({ onRestore }) => {
+  const { t } = useTranslation();
   return (
     <MessageWindow
-      message="Don't worry, everything is under control!"
+      message={t("restoreWindowTitle")}
       image={ImgOops}
-      imgAlt="This is fine meme image, with a dog sitting in a room on fire"
+      imgAlt={t("restoreWindowImg")}
       buttonAction={onRestore}
-      buttonText="Restore window"
+      buttonText={t("restoreWindowButton")}
     />
   );
 };
