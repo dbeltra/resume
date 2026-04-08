@@ -44,6 +44,15 @@ const resources = {
             "All the settings and initial configuration could be managed from the browser through a React frontend.",
           ],
         },
+        {
+          title: "Full Stack developer",
+          company: "011h",
+          dates: "2026 - Present",
+          responsibilities: [
+            "My team is in charge of the Builder, a React and FastAPI web application that allows construction workers to organize schedules and tasks for people working on a construction site.",
+            "We also develop the Procurement module, another part of the same platform, which handles budgeting, contract management and financial oversight of construction projects.",
+          ],
+        },
       ],
       skillsTitle: "My Skills",
       skillsDescription: [
@@ -145,6 +154,15 @@ const resources = {
             "Estuve a cargo de desarrollar el Security Hub, migrando nuestra herramienta CLI en Python a una solución en Rust.",
             "Este proyecto combinó varios servicios Docker que interactuaban a través de APIs para desencriptar, escanear y almacenar correos electrónicos cifrados a través de un filtro de correo Postfix.",
             "Todos los ajustes y la configuración inicial podían gestionarse desde el navegador a través de un frontend en React.",
+          ],
+        },
+        {
+          title: "Desarrollador Full Stack",
+          company: "011h",
+          dates: "2026 - Actualidad",
+          responsibilities: [
+            "Mi equipo se encarga del Builder, una aplicación web con React y FastAPI que permite a los trabajadores de la construcción organizar horarios y tareas para las personas que trabajan en una obra.",
+            "También desarrollamos el módulo de Procurement, otra parte de la misma plataforma, que gestiona presupuestos, contratos y la gestión financiera de proyectos de construcción.",
           ],
         },
       ],
@@ -252,6 +270,15 @@ const resources = {
             "Vaig ser l'encarregat de desenvolupar el Security Hub, migrant la nostra eina CLI de Python anterior a una solució Rust.",
             "Aquest projecte va combinar diversos serveis de Docker que van interactuar mitjançant API per desxifrar, escanejar i emmagatzemar el correu electrònic xifrat mitjançant un filtre de correu Postfix.",
             "Tots els paràmetres i la configuració inicial es podrien gestionar des del navegador mitjançant una interfície de React.",
+          ],
+        },
+        {
+          title: "Desenvolupador Full Stack",
+          company: "011h",
+          dates: "2026 - Actualitat",
+          responsibilities: [
+            "El meu equip s'encarrega del Builder, una aplicació web amb React i FastAPI que permet als treballadors de la construcció organitzar horaris i tasques per a les persones que treballen en una obra.",
+            "També desenvolupem el mòdul de Procurement, una altra part de la mateixa plataforma, que gestiona pressupostos, contractes i la gestió financera de projectes de construcció.",
           ],
         },
       ],
