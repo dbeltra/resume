@@ -4,8 +4,17 @@ import TabContent from "../components/TabContent";
 import PlanckImg from "../assets/images/planck.png";
 import PepImg from "../assets/images/pep.png";
 import AncoraImg from "../assets/images/ancora.png";
+import O11hImg from "../assets/images/011h.png";
 
 const Code = `{
+  title: "Full Stack developer",
+  company: "011h",
+  dates: "2026 - Present",
+  responsibilities: [
+    "Development of a React + FastAPI web platform for construction site management.",
+    "Development of a procurement module for budgeting, contracts and financial management.",
+  ]
+},{
   title: "Rust and React developer",
   company: "Planck Security",
   dates: "2024 - 2025",
@@ -45,6 +54,7 @@ const ExperienceContent = () => {
     { image: AncoraImg },
     { image: PepImg },
     { image: PlanckImg },
+    { image: O11hImg },
   ];
   const translatedExperiences = t("experienceExperiences", {
     returnObjects: true,
