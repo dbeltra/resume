@@ -8,12 +8,19 @@ import Layout from "./Layout";
 import NotFound from "./pages/NotFound";
 import "./i18n";
 
+const {
+  ABOUT: { component: About },
+  SEARCH: { component: Search },
+  CONSOLE: { component: Console },
+  SETTINGS: { component: Settings },
+} = ROUTES;
+
 export default function App() {
   return (
     <HashRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<ROUTES.ABOUT.component />} />
+          <Route index element={<About />} />
           <Route path="files">
             <Route index element={<Navigate to="/files/about" replace />} />
             {Object.values(ROUTES)
@@ -30,9 +37,9 @@ export default function App() {
                 />
               ))}
           </Route>
-          <Route path="search" element={<ROUTES.SEARCH.component />} />
-          <Route path="console" element={<ROUTES.CONSOLE.component />} />
-          <Route path="settings" element={<ROUTES.SETTINGS.component />} />
+          <Route path="search" element={<Search />} />
+          <Route path="console" element={<Console />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

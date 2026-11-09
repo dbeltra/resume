@@ -30,7 +30,7 @@ const Button = ({
         rel="noopener noreferrer"
         className={baseStyles}
       >
-        {image && <img src={image} alt="" className="mr-2 h-5 w-5" />}
+        {image && <img src={image} alt={text} className="mr-2 h-5 w-5" />}
         {text}
       </a>
     );
@@ -39,7 +39,7 @@ const Button = ({
   // Otherwise render a button
   return (
     <button type={type} onClick={onClick} className={baseStyles}>
-      {image && <img src={image} alt="" className="mr-2 h-5 w-5" />}
+      {image && <img src={image} alt={text} className="mr-2 h-5 w-5" />}
       {text}
     </button>
   );

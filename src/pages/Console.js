@@ -31,8 +31,6 @@ const ConsoleContent = () => {
     helpCommand: "<span class=\"text-secondary-400\">'help'</span>",
   });
 
-  console.log(consoleWelcomeMessage);
-
   const textLineContent = (
     <span className="font-black" aria-hidden="true">
       <span className="text-primary-500">david@ubuntu</span>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Footer = ({ lineCount = 20, selectedLine = 1 }) => {
+const Footer = ({ lineCount = 0, selectedLine = 1 }) => {
   const [spin, setSpin] = useState(false);
 
   const handleClick = () => {
@@ -11,7 +11,9 @@ const Footer = ({ lineCount = 20, selectedLine = 1 }) => {
   return (
     <div className="bg-white/10 text-gray-300 text-xs row-start-3 col-span-3 flex justify-between gap-3 px-4">
       <span className="flex items-center">
-        <span
+        <button
+          type="button"
+          aria-label="Sync"
           className="flex content-center flex-wrap h-full hover:bg-gray-600 transition-colors cursor-pointer px-2"
           onClick={handleClick}
         >
@@ -24,7 +26,7 @@ const Footer = ({ lineCount = 20, selectedLine = 1 }) => {
           >
             sync
           </i>
-        </span>
+        </button>
         <span className="flex items-center gap-1 mx-1">
           <i className="material-symbols-outlined footer-icon">cancel</i>0
           <i className="material-symbols-outlined footer-icon">warning</i>0

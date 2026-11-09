@@ -64,12 +64,7 @@ const ContactContent = () => {
         <div className="text-lg">{t("contactEmail")}</div>
         <div>
           📧 [{" "}
-          <a
-            href="mailto:dbeltra@gmail.com"
-            className="text-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="mailto:dbeltra@gmail.com" className="text-primary">
             dbeltra@gmail.com
           </a>{" "}
           ]

@@ -8,7 +8,7 @@ const resources = {
       aboutTitle: "About Me",
       aboutRole: "Full stack developer",
       aboutDescription: [
-        "I'm currently based in Barcelona, and I have worked with a wide range of technologies, both frontend and backend, such as Python, Django, Rust, Javascript or React.",
+        "I'm currently based in Barcelona, and I have worked with a wide range of technologies, both frontend and backend, such as Python, Django, FastAPI, Rust, Javascript or React.",
         "I enjoy challenges and finding ways to learn new skills or improve my current ones.",
       ],
       experienceTitle: "My Experience",
@@ -57,7 +57,7 @@ const resources = {
       skillsTitle: "My Skills",
       skillsDescription: [
         "I enjoy the development world where there's always room to grow and explore new things. I like <b>team environments</b> where I get to both learn from my colleagues and help them with my expertise.",
-        "I consider myself a <b>comunicative and proactive</b> person with a good ability to manage time and resources, as well as solving problems.",
+        "I consider myself a <b>communicative and proactive</b> person with a good ability to manage time and resources, as well as solving problems.",
         "I'm committed to delivering clean, well-documented code with a focus on maintainability and scalability.",
       ],
       skillsLanguages: "Languages & Frameworks",
@@ -89,6 +89,7 @@ const resources = {
       settingsAppearanceScaleHelper: "Adjust the overall size of the interface",
       settingsAppearanceScaleOptions: ["Big", "Default", "Small", "Tiny"],
       settingsAppearanceFontTitle: "Font Family",
+      settingsAppearanceFontHelper: "Choose the font for the interface",
       searchPlaceholderText: "an awesome developer",
       searchPlaceholder: "Search for...",
       searchSearchingText: "Searching...",
@@ -120,7 +121,7 @@ const resources = {
       aboutTitle: "Sobre Mí",
       aboutRole: "Desarrollador Full Stack",
       aboutDescription: [
-        "Actualmente resido en Barcelona y he trabajado con una amplia gama de tecnologías, tanto de frontend como de backend, como Python, Django, Rust, Javascript o React.",
+        "Actualmente resido en Barcelona y he trabajado con una amplia gama de tecnologías, tanto de frontend como de backend, como Python, Django, FastAPI, Rust, Javascript o React.",
         "Disfruto de los desafíos y busco formas de aprender nuevas habilidades o mejorar las actuales.",
       ],
       experienceTitle: "Mi Experiencia",
@@ -205,6 +206,7 @@ const resources = {
         "Minúscula",
       ],
       settingsAppearanceFontTitle: "Familia Tipográfica",
+      settingsAppearanceFontHelper: "Elige la fuente de la interfaz",
       searchPlaceholderText: "un desarrollador fantástico",
       searchPlaceholder: "Buscar...",
       searchSearchingText: "Buscando...",
@@ -236,7 +238,7 @@ const resources = {
       aboutTitle: "Sobre Mi",
       aboutRole: "Desenvolupador Full Stack",
       aboutDescription: [
-        "Actualment visc a Barcelona i he treballat amb un ampli ventall de tecnologies, tant de frontend com de backend, com Python, Django, Rust, Javascript o React.",
+        "Actualment visc a Barcelona i he treballat amb un ampli ventall de tecnologies, tant de frontend com de backend, com Python, Django, FastAPI, Rust, Javascript o React.",
         "M'agraden els reptes i trobar maneres d'aprendre noves habilitats o millorar les meves actuals.",
       ],
       experienceTitle: "La Meva Experiència",
@@ -292,7 +294,7 @@ const resources = {
       skillsTools: "Eines",
       contactTitle: "Contacta Amb Mi",
       contactDescription: [
-        "Si vols parlar d'un projecte nou, necessites ajuda amb el teu codi o tenss una consulta general, no dubtis a posar-te en contacte! Sempre estic obert a fer xarxa i explorar oportunitats emocionants.",
+        "Si vols parlar d'un projecte nou, necessites ajuda amb el teu codi o tens una consulta general, no dubtis a posar-te en contacte! Sempre estic obert a fer xarxa i explorar oportunitats emocionants.",
       ],
       contactEmail: "Correu Electrònic",
       contactEmailText:
@@ -323,6 +325,7 @@ const resources = {
         "Diminut",
       ],
       settingsAppearanceFontTitle: "Família de Fonts",
+      settingsAppearanceFontHelper: "Tria la font de la interfície",
       searchPlaceholderText: "un desenvolupador fantàstic",
       searchPlaceholder: "Cerca...",
       searchSearchingText: "Cercant...",
@@ -338,8 +341,8 @@ const resources = {
       consoleInputPlaceholder: "Escriu una comanda...",
       consoleHelp: "Comandes disponibles",
       consoleUnrecognizedCommand:
-        "no es una comanda reconegura. Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",
-      notFoundTitle: "Disculpa, pro sembles una mica perdut.",
+        "no es una comanda reconeguda. Escriu {{helpCommand}} per veure una llista de les comandes disponibles.",
+      notFoundTitle: "Disculpa, però sembles una mica perdut.",
       notFoundImg: "Jack de Lost dient: We have to go back!",
       notFoundButton: "Tornar",
       restoreWindowTitle: "Tranquil, està tot controlat!",

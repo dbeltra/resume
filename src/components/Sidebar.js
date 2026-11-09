@@ -53,16 +53,23 @@ const Sidebar = ({
       {/* Top Section */}
       <div className="flex items-center drag-area h-full pt-4 lg:pt-0">
         <div className="flex items-center group">
-          <WindowControlButton color="red-600" onClick={onClose} icon="close" />
+          <WindowControlButton
+            color="red-600"
+            onClick={onClose}
+            icon="close"
+            label="Close"
+          />
           <WindowControlButton
             color="yellow-400"
             onClick={onMinimize}
             disabled={isMaximized}
+            label="Minimize"
             icon={isMaximized ? "" : "remove"}
           />
           <WindowControlButton
             color="green-600"
             onClick={onMaximize}
+            label={isMaximized ? "Restore" : "Maximize"}
             icon={isMaximized ? "collapse_content" : "expand_content"}
           />
         </div>

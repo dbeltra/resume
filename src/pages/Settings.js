@@ -123,7 +123,7 @@ const SettingsContent = () => {
           <div className="flex items-center justify-between mb-1">
             <span>{t("settingsAppearanceFontTitle")}</span>
             <span className="text-xs text-gray-400">
-              {t("settingsAppearanceHelper")}
+              {t("settingsAppearanceFontHelper")}
             </span>
           </div>
           <select

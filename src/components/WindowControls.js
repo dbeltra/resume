@@ -39,8 +39,11 @@ export const WindowControls = ({
   return { handleMinimize, handleMaximize, handleClose };
 };
 
-const WindowControlButton = ({ color, onClick, disabled, icon }) => (
-  <span
+const WindowControlButton = ({ color, onClick, disabled, icon, label }) => (
+  <button
+    type="button"
+    aria-label={label}
+    disabled={disabled}
     className={`
       w-3 h-3 rounded-full mr-2 relative
       ${
@@ -49,15 +52,16 @@ const WindowControlButton = ({ color, onClick, disabled, icon }) => (
           : `bg-${color} hover:opacity-80 ${onClick ? "cursor-pointer" : ""}`
       }
     `}
-    onClick={disabled ? undefined : onClick}
+    onClick={onClick}
   >
     <span
+      aria-hidden="true"
       className="material-symbols-outlined text-xs absolute -top-[0.15rem] left-0
      text-gray-800 opacity-0 group-hover:opacity-100"
     >
       {icon}
     </span>
-  </span>
+  </button>
 );
 
 export default WindowControlButton;

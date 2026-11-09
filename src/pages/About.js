@@ -12,7 +12,7 @@ const Code = `<!-- About me -->
     <name>David Beltrà</name>
     <profession>Full-stack Developer</profession>
     <experience>
-      <years>10</years>
+      <years>${new Date().getFullYear() - 2014}</years>
     </experience>
   </introduction>
 

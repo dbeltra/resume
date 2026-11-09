@@ -64,7 +64,7 @@ const ExperienceContent = () => {
     ...staticExperiences[index],
   }));
 
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(experiences.length - 1); // newest job first
   const [direction, setDirection] = useState(null);
   const [animating, setAnimating] = useState(false); // Tracks if an animation is in progress
 
@@ -132,15 +132,21 @@ const ExperienceContent = () => {
         <div className="absolute top-1/2 transform -translate-y-1/2 w-full flex justify-between px-4">
           <button
             onClick={handlePrevSlide}
-            className="bg-white/10 rounded-sm p-2 hover:bg-white/10 transition"
+            aria-label="Previous"
+            className="bg-white/10 rounded-sm p-2 hover:bg-white/20 transition"
           >
-            <i className="material-symbols-outlined">chevron_left</i>
+            <i className="material-symbols-outlined" aria-hidden="true">
+              chevron_left
+            </i>
           </button>
           <button
             onClick={handleNextSlide}
+            aria-label="Next"
             className="bg-white/10 rounded-sm p-2 hover:bg-white/20 transition"
           >
-            <i className="material-symbols-outlined">chevron_right</i>
+            <i className="material-symbols-outlined" aria-hidden="true">
+              chevron_right
+            </i>
           </button>
         </div>
       </div>
@@ -150,7 +156,9 @@ const ExperienceContent = () => {
         {experiences.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentSlide(index)}
+            onClick={() => !animating && setCurrentSlide(index)}
+            aria-label={experiences[index].company}
+            aria-current={index === currentSlide}
             className={`w-2 h-2 rounded-full ${
               index === currentSlide ? "bg-secondary-500" : "bg-gray-300"
             }`}

@@ -11,9 +11,11 @@ const ExpandableFolder = ({ expanded = false, title, links }) => {
 
   return (
     <div>
-      <div
-        className="flex items-center justify-start gap-3 p-1 cursor-pointer"
+      <button
+        type="button"
+        className="flex items-center justify-start gap-3 p-1 cursor-pointer w-full text-left"
         onClick={toggleExpand}
+        aria-expanded={isExpanded}
       >
         <i
           className={`material-symbols-outlined transition-transform duration-300 ${isExpanded ? "rotate-90" : ""}`}
@@ -28,7 +30,7 @@ const ExpandableFolder = ({ expanded = false, title, links }) => {
           folder
         </i>{" "}
         {title}
-      </div>
+      </button>
       <div
         className={`transition-all duration-300 overflow-hidden ${
           isExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
