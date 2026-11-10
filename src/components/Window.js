@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { genieFrames, prefersReducedMotion } from "./genie";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { genie as playGenie, prefersReducedMotion } from "./genie";
 import { useTranslation } from "react-i18next";
 
 const MENU_BAR = 32;
@@ -14,7 +14,8 @@ const Window = ({
   toolbar,
   z,
   minimized,
-  dockId, // which dock icon to minimize into
+  dockId, // which dock icon to minimize into / open out of
+  animateOpen = false, // genie out of the dock icon when it first appears
   onFocus,
   onClose,
   onMinimize,
@@ -39,32 +40,46 @@ const Window = ({
   const genie = useRef(null);
   const [gone, setGone] = useState(false); // hidden after the minimize animation
 
-  useEffect(() => {
+  // open: the minimize warp played backwards, out of the dock icon.
+  // Layout effect so the first painted frame is already at the icon.
+  useLayoutEffect(() => {
     const el = self.current;
+    const icon = document.querySelector(`[data-dock="${dockId}"] img`);
+    if (phone || !animateOpen || !el || !icon || prefersReducedMotion()) return;
+    genie.current = playGenie(el, icon, {
+      reverse: true,
+      onDone: () => (genie.current = null),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wasMinimized = useRef(minimized);
+  useEffect(() => {
+    if (wasMinimized.current === minimized) return; // mount / dock change
+    wasMinimized.current = minimized;
+    const el = self.current;
+    const icon = document.querySelector(`[data-dock="${dockId}"] img`);
+    const from = genie.current?.p; // pick up mid-flight if interrupted
+    genie.current?.cancel();
+    genie.current = null;
     if (minimized) {
-      const icon = document.querySelector(`[data-dock="${dockId}"] img`);
       if (!el || !icon || prefersReducedMotion()) return setGone(true);
-      el.style.transformOrigin = "50% 0";
-      const a = el.animate(genieFrames(el, icon), {
-        duration: 550,
-        easing: "cubic-bezier(0.45, 0, 0.75, 0.3)",
-        fill: "forwards",
+      genie.current = playGenie(el, icon, {
+        from,
+        onDone: () => setGone(true),
       });
-      a.onfinish = () => setGone(true);
-      genie.current = a;
-    } else if (genie.current) {
-      // restore: play the same warp backwards, then drop it
-      const a = genie.current;
-      setGone(false);
-      a.onfinish = () => {
-        a.cancel();
-        el.style.transformOrigin = "";
-        genie.current = null;
-      };
-      a.reverse();
     } else {
       setGone(false);
+      if (!el) return;
+      if (!icon || prefersReducedMotion()) return (el.style.opacity = "");
+      // restore: same warp backwards, out of the icon
+      genie.current = playGenie(el, icon, {
+        reverse: true,
+        from,
+        onDone: () => (genie.current = null),
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minimized, dockId]);
 
   const onPointerDown = (e) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import MenuBar from "./components/MenuBar";
@@ -48,6 +48,10 @@ const Desktop = ({ phone }) => {
   }, [page]);
 
   const { i18n } = useTranslation();
+  const booted = useRef(false);
+  useEffect(() => {
+    booted.current = true;
+  }, []);
   const open = (id, tab) => {
     // phones: embedded PDFs are unreliable in mobile browsers, so hand the
     // CV to the phone's own viewer instead of the Preview sheet
@@ -69,6 +73,8 @@ const Desktop = ({ phone }) => {
     onMinimize: () => dispatch({ type: "minimize", id }),
     minimized: !!state.min[id],
     dockId: id,
+    // windows already open on page load just appear; later ones genie in
+    animateOpen: booted.current,
     cascade: state.slot[id] || 0,
     phone,
   });
