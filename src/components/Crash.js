@@ -1,13 +1,24 @@
 import React from "react";
 
 // rm -rf / -> "panic" (kernel panic screen) -> "boot" (logo + progress bar).
+// Shut Down -> "off" (click to wake) -> "boot".
 // Desktop drives the phases and resets itself when the boot finishes.
-const Crash = ({ phase }) => (
+const Crash = ({ phase, offText, onWake }) => (
   <div
     role="alert"
     className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black p-8 font-mono text-[13px] text-[#d7dae0]"
   >
-    {phase === "panic" ? (
+    {phase === "off" ? (
+      <button
+        type="button"
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        onClick={onWake}
+        className="absolute inset-0 cursor-default text-[#6b7080] outline-none"
+      >
+        <span className="animate-[caret_2s_steps(1)_infinite]">{offText}</span>
+      </button>
+    ) : phase === "panic" ? (
       <pre className="max-w-2xl whitespace-pre-wrap">
         {`panic(cpu 0 caller 0xffffff8012a4b2c1): "rm -rf /" issued by recruiter
 Kernel version: DavidOS 12.0.0 (coffee-powered)

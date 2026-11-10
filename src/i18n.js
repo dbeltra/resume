@@ -143,6 +143,10 @@ const resources = {
           restore: "Restore {{name}}",
         },
         menu: {
+          system: "System menu",
+          about: "About This Developer",
+          restart: "Restart…",
+          shutDown: "Shut Down…",
           label: "Menu",
           file: "File",
           go: "Go",
@@ -261,6 +265,58 @@ const resources = {
           deniedTitle: "Permission denied",
           deniedBody:
             "This candidate is too good to throw away. The CV has been backed up in 3 clouds.",
+        },
+        off: "It's now safe to turn off your computer. (Click to turn it back on.)",
+        aboutDev: {
+          close: "Close",
+          more: "More Info…",
+          model: "Full Stack Developer, 2014 edition",
+          specs: [
+            {
+              k: "Chip",
+              v: "Coffee-powered, {{years}} cores (one per year)",
+            },
+            {
+              k: "Memory",
+              v: "Remembers every bug since 2014",
+            },
+            {
+              k: "Graphics",
+              v: "React 18 + Tailwind CSS",
+            },
+            {
+              k: "Startup Disk",
+              v: "Python, Rust, JavaScript",
+            },
+            {
+              k: "Location",
+              v: "Barcelona, CET",
+            },
+            {
+              k: "Serial number",
+              v: "DB-2014-HIRE-ME",
+            },
+            {
+              k: "OS",
+              v: "DavidOS 12 (Barcelona)",
+            },
+          ],
+        },
+        notify: {
+          now: "now",
+          dismiss: "Dismiss",
+          mail: {
+            title: "Mail",
+            body: "A recruiter wants to chat 👀 Write to David before someone else does.",
+          },
+          term: {
+            title: "Terminal",
+            body: "Build passed ✅ npm install david: 0 vulnerabilities.",
+          },
+          agents: {
+            title: "Code",
+            body: "Reminder: you haven't read Agents.md yet. It's short, promise.",
+          },
         },
         mail: {
           hireSubject: "Let's talk about a role",
@@ -422,6 +478,10 @@ const resources = {
           restore: "Restaurar {{name}}",
         },
         menu: {
+          system: "Menú del sistema",
+          about: "Acerca de este desarrollador",
+          restart: "Reiniciar…",
+          shutDown: "Apagar…",
           label: "Menú",
           file: "Archivo",
           go: "Ir",
@@ -540,6 +600,58 @@ const resources = {
           deniedTitle: "Permiso denegado",
           deniedBody:
             "Este candidato es demasiado bueno para tirarlo. El CV tiene copia en 3 nubes.",
+        },
+        off: "Ya puedes apagar el ordenador con seguridad. (Haz clic para encenderlo.)",
+        aboutDev: {
+          close: "Cerrar",
+          more: "Más información…",
+          model: "Desarrollador full stack, edición 2014",
+          specs: [
+            {
+              k: "Chip",
+              v: "Funciona con café, {{years}} núcleos (uno por año)",
+            },
+            {
+              k: "Memoria",
+              v: "Recuerda cada bug desde 2014",
+            },
+            {
+              k: "Gráficos",
+              v: "React 18 + Tailwind CSS",
+            },
+            {
+              k: "Disco de arranque",
+              v: "Python, Rust, JavaScript",
+            },
+            {
+              k: "Ubicación",
+              v: "Barcelona, CET",
+            },
+            {
+              k: "Número de serie",
+              v: "DB-2014-HIRE-ME",
+            },
+            {
+              k: "SO",
+              v: "DavidOS 12 (Barcelona)",
+            },
+          ],
+        },
+        notify: {
+          now: "ahora",
+          dismiss: "Descartar",
+          mail: {
+            title: "Mail",
+            body: "Un recruiter quiere hablar 👀 Escribe a David antes que otro.",
+          },
+          term: {
+            title: "Terminal",
+            body: "Build correcto ✅ npm install david: 0 vulnerabilidades.",
+          },
+          agents: {
+            title: "Code",
+            body: "Recordatorio: aún no has leído Agents.md. Es corto, prometido.",
+          },
         },
         mail: {
           hireSubject: "Hablemos de un puesto",
@@ -703,6 +815,10 @@ const resources = {
           restore: "Restaurar {{name}}",
         },
         menu: {
+          system: "Menú del sistema",
+          about: "Quant a aquest desenvolupador",
+          restart: "Reinicia…",
+          shutDown: "Apaga…",
           label: "Menú",
           file: "Fitxer",
           go: "Anar",
@@ -821,6 +937,58 @@ const resources = {
           deniedTitle: "Permís denegat",
           deniedBody:
             "Aquest candidat és massa bo per llençar-lo. El CV té còpia a 3 núvols.",
+        },
+        off: "Ja pots apagar l'ordinador amb seguretat. (Fes clic per tornar-lo a encendre.)",
+        aboutDev: {
+          close: "Tanca",
+          more: "Més informació…",
+          model: "Desenvolupador full stack, edició 2014",
+          specs: [
+            {
+              k: "Xip",
+              v: "Funciona amb cafè, {{years}} nuclis (un per any)",
+            },
+            {
+              k: "Memòria",
+              v: "Recorda cada bug des del 2014",
+            },
+            {
+              k: "Gràfics",
+              v: "React 18 + Tailwind CSS",
+            },
+            {
+              k: "Disc d'arrencada",
+              v: "Python, Rust, JavaScript",
+            },
+            {
+              k: "Ubicació",
+              v: "Barcelona, CET",
+            },
+            {
+              k: "Número de sèrie",
+              v: "DB-2014-HIRE-ME",
+            },
+            {
+              k: "SO",
+              v: "DavidOS 12 (Barcelona)",
+            },
+          ],
+        },
+        notify: {
+          now: "ara",
+          dismiss: "Descarta",
+          mail: {
+            title: "Mail",
+            body: "Un recruiter vol parlar 👀 Escriu al David abans que un altre.",
+          },
+          term: {
+            title: "Terminal",
+            body: "Build correcte ✅ npm install david: 0 vulnerabilitats.",
+          },
+          agents: {
+            title: "Code",
+            body: "Recordatori: encara no has llegit Agents.md. És curt, promès.",
+          },
         },
         mail: {
           hireSubject: "Parlem d'una feina",

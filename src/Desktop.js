@@ -15,6 +15,8 @@ import AppTile, { APPS } from "./components/AppTile";
 import PhoneHome from "./PhoneHome";
 import Crash from "./components/Crash";
 import ShakeCursor from "./desktop/ShakeCursor";
+import AboutDialog from "./desktop/AboutDialog";
+import Notifications from "./desktop/Notifications";
 import TrashDialog from "./desktop/TrashDialog";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
@@ -80,20 +82,27 @@ const Desktop = ({ phone }) => {
     open("mail");
   };
 
-  // rm -rf /: glitch -> kernel panic -> boot screen -> fresh desktop
+  // rm -rf /: glitch -> kernel panic -> boot screen -> fresh desktop.
+  // Restart / Shut Down in the system menu reuse the same screens.
   const [crash, setCrash] = useState(null);
-  const rmrf = () => {
-    setCrash("glitch");
-    setTimeout(() => setCrash("panic"), 1400);
-    setTimeout(() => setCrash("boot"), 4400);
-    setTimeout(() => {
+  const later = (fn, ms) => setTimeout(fn, ms);
+  const restart = () => {
+    setCrash("boot");
+    later(() => {
       booted.current = false; // windows just appear after a reboot
       dispatch({ type: "closeAll" });
       go("about");
       setCrash(null);
-      setTimeout(() => (booted.current = true));
-    }, 7000);
+      later(() => (booted.current = true));
+    }, 2600);
   };
+  const rmrf = () => {
+    setCrash("glitch");
+    later(() => setCrash("panic"), 1400);
+    later(restart, 4400);
+  };
+  const [about, setAbout] = useState(false);
+
   // drag CV.pdf onto the Trash
   const [trashCv, setTrashCv] = useState(false);
   const [overTrash, setOverTrash] = useState(false);
@@ -229,7 +238,9 @@ const Desktop = ({ phone }) => {
           <PhoneHome onOpen={open} onGo={go} page={page} />
           {apps}
         </div>
-        {crash && crash !== "glitch" && <Crash phase={crash} />}
+        {crash && crash !== "glitch" && (
+          <Crash phase={crash} offText={t("desktop.off")} onWake={restart} />
+        )}
       </>
     );
   }
@@ -238,7 +249,9 @@ const Desktop = ({ phone }) => {
     <main
       className={`relative h-screen w-screen overflow-hidden ${crash === "glitch" ? "glitch" : ""} bg-page-bg bg-cover bg-center font-sans text-ink-text`}
     >
-      {crash && crash !== "glitch" && <Crash phase={crash} />}
+      {crash && crash !== "glitch" && (
+        <Crash phase={crash} offText={t("desktop.off")} onWake={restart} />
+      )}
       <MenuBar
         appName={front ? t(`desktop.apps.${front}`) : "David Beltrà"}
         menu={state.menu}
@@ -246,6 +259,18 @@ const Desktop = ({ phone }) => {
         onOpen={open}
         onGo={go}
         onCloseAll={() => dispatch({ type: "closeAll" })}
+        onAbout={() => {
+          dispatch({ type: "menu", id: null });
+          setAbout(true);
+        }}
+        onRestart={() => {
+          dispatch({ type: "menu", id: null });
+          restart();
+        }}
+        onShutDown={() => {
+          dispatch({ type: "menu", id: null });
+          setCrash("off");
+        }}
       />
 
       <nav
@@ -305,6 +330,16 @@ const Desktop = ({ phone }) => {
       {apps}
       {trashCv && <TrashDialog onClose={() => setTrashCv(false)} />}
       <ShakeCursor />
+      <Notifications onOpen={open} />
+      {about && (
+        <AboutDialog
+          onClose={() => setAbout(false)}
+          onMore={() => {
+            setAbout(false);
+            go("about");
+          }}
+        />
+      )}
 
       <nav
         aria-label={t("desktop.labels.dock")}

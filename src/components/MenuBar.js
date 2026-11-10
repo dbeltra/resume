@@ -3,11 +3,31 @@ import { useTranslation } from "react-i18next";
 
 const LANGS = { en: "English", es: "Español", ca: "Català" };
 
-const MenuBar = ({ appName, menu, onMenu, onOpen, onGo, onCloseAll }) => {
+const MenuBar = ({
+  appName,
+  menu,
+  onMenu,
+  onOpen,
+  onGo,
+  onCloseAll,
+  onAbout,
+  onRestart,
+  onShutDown,
+}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage || i18n.language;
 
   const menus = [
+    {
+      // the Apple-menu spot, with the site's logo square instead
+      id: "system",
+      logo: true,
+      items: [
+        { label: t("desktop.menu.about"), act: onAbout },
+        { label: t("desktop.menu.restart"), act: onRestart },
+        { label: t("desktop.menu.shutDown"), act: onShutDown },
+      ],
+    },
     {
       id: "file",
       items: [
@@ -72,21 +92,26 @@ const MenuBar = ({ appName, menu, onMenu, onOpen, onGo, onCloseAll }) => {
           aria-label={t("desktop.menu.label")}
           className="flex items-center gap-0.5"
         >
-          <span className="flex items-center gap-2 pl-1 pr-2.5 font-bold">
-            <span aria-hidden="true" className="h-3.5 w-3.5 rounded bg-lilac" />
-            {appName}
-          </span>
           {menus.map((m) => (
-            <div key={m.id} className="relative">
+            <div
+              key={m.id}
+              className="relative"
+              style={{ order: m.logo ? -2 : undefined }}
+            >
               <button
                 type="button"
                 aria-haspopup="menu"
+                aria-label={m.logo ? t("desktop.menu.system") : undefined}
                 aria-expanded={menu === m.id}
                 onClick={() => onMenu(menu === m.id ? null : m.id)}
                 onMouseEnter={() => menu && menu !== m.id && onMenu(m.id)}
                 className={`h-[26px] rounded-md px-2.5 font-medium ${menu === m.id ? "bg-ink-400" : "hover:bg-ink-600"}`}
               >
-                {t(`desktop.menu.${m.id}`)}
+                {m.logo ? (
+                  <span className="block h-3.5 w-3.5 rounded bg-lilac" />
+                ) : (
+                  t(`desktop.menu.${m.id}`)
+                )}
               </button>
               {menu === m.id && (
                 <div
@@ -111,6 +136,7 @@ const MenuBar = ({ appName, menu, onMenu, onOpen, onGo, onCloseAll }) => {
               )}
             </div>
           ))}
+          <span className="-order-1 pl-1 pr-2.5 font-bold">{appName}</span>
         </nav>
         <div className="flex items-center gap-3.5 text-ink-soft">
           <span className="flex items-center gap-1.5">
