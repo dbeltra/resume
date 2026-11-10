@@ -177,6 +177,7 @@ const resources = {
           site: "Site",
         },
         code: {
+          folded: "{{n}} hidden lines",
           files: "Source files",
         },
         experience: { current: "Current" },
@@ -331,6 +332,15 @@ const resources = {
             command: "Command",
             language: "Language",
           },
+        },
+        ctx: {
+          newFolder: "New Folder",
+          getInfo: "Get Info on David",
+          wallpaper: "Change Wallpaper…",
+          spotlight: "Spotlight…",
+          untitled: "untitled folder",
+          emptyTitle: "“{{name}}” is empty",
+          emptyBody: "The perfect spot for an interview invite 📅",
         },
         mail: {
           hireSubject: "Let's talk about a role",
@@ -526,6 +536,7 @@ const resources = {
           site: "Sitio",
         },
         code: {
+          folded: "{{n}} líneas ocultas",
           files: "Archivos fuente",
         },
         experience: { current: "Actual" },
@@ -680,6 +691,15 @@ const resources = {
             command: "Comando",
             language: "Idioma",
           },
+        },
+        ctx: {
+          newFolder: "Nueva carpeta",
+          getInfo: "Obtener información de David",
+          wallpaper: "Cambiar fondo de pantalla…",
+          spotlight: "Spotlight…",
+          untitled: "carpeta sin título",
+          emptyTitle: "«{{name}}» está vacía",
+          emptyBody: "El sitio perfecto para una invitación a entrevista 📅",
         },
         mail: {
           hireSubject: "Hablemos de un puesto",
@@ -877,6 +897,7 @@ const resources = {
           site: "Lloc",
         },
         code: {
+          folded: "{{n}} línies ocultes",
           files: "Fitxers font",
         },
         experience: { current: "Actual" },
@@ -1031,6 +1052,15 @@ const resources = {
             command: "Ordre",
             language: "Idioma",
           },
+        },
+        ctx: {
+          newFolder: "Carpeta nova",
+          getInfo: "Obtén informació del David",
+          wallpaper: "Canvia el fons de pantalla…",
+          spotlight: "Spotlight…",
+          untitled: "carpeta sense títol",
+          emptyTitle: "«{{name}}» és buida",
+          emptyBody: "El lloc perfecte per a una invitació a entrevista 📅",
         },
         mail: {
           hireSubject: "Parlem d'una feina",

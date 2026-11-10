@@ -19,12 +19,23 @@ import AboutDialog from "./desktop/AboutDialog";
 import Notifications from "./desktop/Notifications";
 import Spotlight from "./desktop/Spotlight";
 import TrashDialog from "./desktop/TrashDialog";
+import Alert from "./desktop/Alert";
+import ContextMenu from "./desktop/ContextMenu";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
 import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
 import TrashIcon from "./assets/icons/apps/trash.png";
+
+// Change Wallpaper cycles these; 0 is the default image from the CSS.
+const WALLPAPERS = [
+  null,
+  "linear-gradient(135deg, #1e1b4b, #7e22ce 50%, #f472b6)",
+  "radial-gradient(circle at 30% 20%, #7094db, #1b2440 70%)",
+  "linear-gradient(160deg, #0f172a, #134e4a 60%, #a3e635)",
+  "linear-gradient(180deg, #fde68a, #f97316 45%, #7c2d12)",
+];
 
 const usePageParam = () => {
   const { page } = useParams();
@@ -103,6 +114,34 @@ const Desktop = ({ phone }) => {
     later(restart, 4400);
   };
   const [about, setAbout] = useState(false);
+
+  // right-click on the desktop
+  const [ctx, setCtx] = useState(null);
+  const [folders, setFolders] = useState([]);
+  const [folderAlert, setFolderAlert] = useState(null);
+  const newFolder = () =>
+    setFolders((f) =>
+      f.length >= 5 // ponytail: cap so the icon column never runs off screen
+        ? f
+        : f.concat(
+            t("desktop.ctx.untitled") + (f.length ? ` ${f.length + 1}` : ""),
+          ),
+    );
+  const [wall, setWall] = useState(() => {
+    try {
+      return Number(localStorage.getItem("wallpaper")) || 0;
+    } catch {
+      return 0;
+    }
+  });
+  const nextWall = () =>
+    setWall((w) => {
+      const n = (w + 1) % WALLPAPERS.length;
+      try {
+        localStorage.setItem("wallpaper", n);
+      } catch {}
+      return n;
+    });
 
   // Spotlight: ⌘K / ctrl+K / ctrl+space, or the magnifier in the menu bar
   const [spot, setSpot] = useState(false);
@@ -295,6 +334,11 @@ const Desktop = ({ phone }) => {
       icon: FileIcon,
       act: () => open("code", "agents"),
     },
+    ...folders.map((name) => ({
+      label: name,
+      icon: FolderIcon,
+      act: () => setFolderAlert(name),
+    })),
   ];
 
   const apps = (
@@ -347,6 +391,16 @@ const Desktop = ({ phone }) => {
   return (
     <main
       className={`relative h-screen w-screen overflow-hidden ${crash === "glitch" ? "glitch" : ""} bg-page-bg bg-cover bg-center font-sans text-ink-text`}
+      style={
+        WALLPAPERS[wall] ? { backgroundImage: WALLPAPERS[wall] } : undefined
+      }
+      onContextMenu={(e) => {
+        // only the bare desktop; windows, dock and icons keep the browser's menu
+        if (e.target.closest("section, header, nav, aside, [role=dialog]"))
+          return;
+        e.preventDefault();
+        setCtx({ x: e.clientX, y: e.clientY });
+      }}
     >
       {crash && crash !== "glitch" && (
         <Crash phase={crash} offText={t("desktop.off")} onWake={restart} />
@@ -432,6 +486,33 @@ const Desktop = ({ phone }) => {
       )}
       {apps}
       {trashCv && <TrashDialog onClose={() => setTrashCv(false)} />}
+      {folderAlert && (
+        <Alert
+          icon={FolderIcon}
+          title={t("desktop.ctx.emptyTitle", { name: folderAlert })}
+          body={t("desktop.ctx.emptyBody")}
+          buttons={[
+            { label: "OK", act: () => setFolderAlert(null), primary: true },
+          ]}
+          onClose={() => setFolderAlert(null)}
+        />
+      )}
+      {ctx && (
+        <ContextMenu
+          x={ctx.x}
+          y={ctx.y}
+          onClose={() => setCtx(null)}
+          items={[
+            { label: t("desktop.ctx.newFolder"), act: newFolder },
+            "-",
+            { label: t("desktop.ctx.getInfo"), act: () => setAbout(true) },
+            { label: t("desktop.ctx.wallpaper"), act: nextWall },
+            "-",
+            { label: "Mission Control", act: enterMc },
+            { label: t("desktop.ctx.spotlight"), act: () => setSpot(true) },
+          ]}
+        />
+      )}
       <ShakeCursor />
       <Notifications onOpen={open} />
       {spot && <Spotlight items={spotItems()} onClose={() => setSpot(false)} />}

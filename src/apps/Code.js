@@ -8,7 +8,7 @@ import markdown from "highlight.js/lib/languages/markdown";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
-import { CODE, SOURCES } from "../data";
+import { AGENTS_NOTE, CODE, SOURCES } from "../data";
 
 hljs.registerLanguage("xml", xml);
 hljs.registerLanguage("json", json);
@@ -33,6 +33,8 @@ const FOLDERS = [
 
 const Code = ({ win, tab, onTab }) => {
   const [openDirs, setOpenDirs] = useState({ src: true });
+  const [unfolded, setUnfolded] = useState(false); // Agents.md hidden note
+  const note = (src) => (src.id === "agents" ? AGENTS_NOTE.split("\n") : []);
   const { t } = useTranslation();
   const src = SOURCES.find((s) => s.id === tab) || SOURCES[0];
   const lines = useMemo(
@@ -129,7 +131,7 @@ const Code = ({ win, tab, onTab }) => {
           </div>
           <pre className="m-0 min-h-0 flex-1 overflow-auto bg-ink-900 py-3.5 font-mono text-[13px] leading-[1.8]">
             <code>
-              {lines.map((html, i) => (
+              {lines.concat(note(src).length ? [""] : []).map((html, i) => (
                 <div key={i} className="flex gap-[18px] px-4">
                   <span className="w-[22px] flex-none select-none text-right text-[#4f5664]">
                     {i + 1}
@@ -140,6 +142,44 @@ const Code = ({ win, tab, onTab }) => {
                   />
                 </div>
               ))}
+              {note(src).length > 0 &&
+                (unfolded ? (
+                  note(src).map((l, i) => (
+                    <div
+                      key={`n${i}`}
+                      className="flex animate-[app-open_0.3s_ease-out] gap-[18px] bg-lilac/10 px-4"
+                    >
+                      <span className="w-[22px] flex-none select-none text-right text-[#4f5664]">
+                        {lines.length + 2 + i}
+                      </span>
+                      <span className="whitespace-pre italic text-[#7f848e]">
+                        {l}
+                      </span>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex gap-[18px] px-4">
+                    <span className="w-[22px] flex-none select-none text-right text-[#4f5664]">
+                      {lines.length + 2}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        const pre = e.currentTarget.closest("pre");
+                        setUnfolded(true);
+                        requestAnimationFrame(() =>
+                          pre.scrollTo({
+                            top: pre.scrollHeight,
+                            behavior: "smooth",
+                          }),
+                        );
+                      }}
+                      className="rounded bg-ink-600 px-2 text-[12px] text-ink-soft hover:bg-ink-500 hover:text-white"
+                    >
+                      ⋯ {t("desktop.code.folded", { n: note(src).length })}
+                    </button>
+                  </div>
+                ))}
             </code>
           </pre>
           <div className="flex h-6 flex-none items-center justify-between border-t border-ink-500 bg-ink-950 px-3 font-mono text-[11px] text-ink-muted">
