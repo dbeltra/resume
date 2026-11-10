@@ -247,7 +247,7 @@ const Desktop = ({ phone }) => {
   const [trashCv, setTrashCv] = useState(false);
   const [overTrash, setOverTrash] = useState(false);
 
-  // Mission Control: hot corners (or ctrl+↑) tile every open window
+  // Mission Control: top-right hot corner (or ctrl+↑) tiles every open window
   const [mc, setMc] = useState(null);
   const mcOn = useRef(false);
   mcOn.current = !!mc;
@@ -272,8 +272,7 @@ const Desktop = ({ phone }) => {
     const move = (e) => {
       const edge = 3;
       const corner =
-        (e.clientX <= edge || e.clientX >= window.innerWidth - edge - 1) &&
-        (e.clientY <= edge || e.clientY >= window.innerHeight - edge - 1);
+        e.clientX >= window.innerWidth - edge - 1 && e.clientY <= edge;
       if (!corner) {
         clearTimeout(timer);
         timer = null;
@@ -283,6 +282,8 @@ const Desktop = ({ phone }) => {
     };
     const key = (e) => {
       if (e.key === "Escape") setMc(null);
+      // top-right only: the other corners hold the system menu, the dock
+      // and the credits link, so they'd fire by accident
       if (e.ctrlKey && e.key === "ArrowUp") {
         e.preventDefault();
         mcOn.current ? setMc(null) : enterMc();
