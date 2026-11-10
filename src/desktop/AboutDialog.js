@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import AvatarImg from "../assets/images/avatar_base.png";
+import Avatar from "../components/Avatar";
 
 // "About This Mac", for a person.
 const AboutDialog = ({ onClose, onMore }) => {
@@ -30,11 +30,9 @@ const AboutDialog = ({ onClose, onMore }) => {
           aria-label={t("desktop.aboutDev.close")}
           className="absolute left-3 top-3 h-3 w-3 rounded-full bg-[#e5534b] hover:brightness-110"
         />
-        <img
-          src={AvatarImg}
-          alt=""
-          className="mb-4 h-28 w-28 rounded-full bg-lilac/30"
-        />
+        <div className="mb-4">
+          <Avatar />
+        </div>
         <h2 id="about-title" className="text-[22px] font-bold">
           David Beltrà
         </h2>
