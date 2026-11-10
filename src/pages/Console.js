@@ -200,7 +200,7 @@ const ConsoleContent = () => {
       default:
         return (
           <>
-            <span className="text-red-500">"{cmd}"</span>{" "}
+            <span className="text-red-500">&quot;{cmd}&quot;</span>{" "}
             <span
               dangerouslySetInnerHTML={{
                 __html: t("consoleUnrecognizedCommand", {

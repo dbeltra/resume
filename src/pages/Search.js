@@ -54,7 +54,7 @@ const SearchContent = () => {
     fetchSearchData(i18n.language);
   }, [i18n.language]);
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = () => {
     const currentLength = searchTerm.length;
     if (currentLength < placeholderText.length) {
       setSearchTerm(placeholderText.slice(0, currentLength + 1));

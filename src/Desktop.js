@@ -141,7 +141,9 @@ const Desktop = ({ phone }) => {
       const n = (w + 1) % WALLPAPERS.length;
       try {
         localStorage.setItem("wallpaper", n);
-      } catch {}
+      } catch {
+        // storage blocked (private mode): the wallpaper just isn't remembered
+      }
       return n;
     });
 

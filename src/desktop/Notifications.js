@@ -32,7 +32,9 @@ const Notifications = ({ onOpen }) => {
         if (k === SCHEDULE.length - 1)
           try {
             sessionStorage.setItem(KEY, "1");
-          } catch {}
+          } catch {
+            // storage blocked: they may replay after a reload, harmless
+          }
       }, n.at),
     );
     return () => timers.forEach(clearTimeout);
