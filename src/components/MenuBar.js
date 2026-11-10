@@ -13,6 +13,7 @@ const MenuBar = ({
   onAbout,
   onRestart,
   onShutDown,
+  onSpotlight,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage || i18n.language;
@@ -146,6 +147,20 @@ const MenuBar = ({
             />
             {t("desktop.status.open")}
           </span>
+          <button
+            type="button"
+            onClick={onSpotlight}
+            aria-label={t("desktop.spotlight.label")}
+            title="⌘K"
+            className="flex h-[26px] items-center rounded-md px-1.5 hover:bg-ink-600"
+          >
+            <i
+              className="material-symbols-outlined text-[18px]"
+              aria-hidden="true"
+            >
+              search
+            </i>
+          </button>
           <span className="font-semibold uppercase">{lang}</span>
           <span>
             {new Date().toLocaleString(lang, {

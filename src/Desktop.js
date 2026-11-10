@@ -10,13 +10,14 @@ import Mail from "./apps/Mail";
 import Trash from "./apps/Trash";
 import { desktopReducer, initialState, currentPage } from "./desktopState";
 import { useResponsive } from "./hooks/useResponsive";
-import { PAGES } from "./data";
+import { PAGES, SKILLS, CODE } from "./data";
 import AppTile, { APPS } from "./components/AppTile";
 import PhoneHome from "./PhoneHome";
 import Crash from "./components/Crash";
 import ShakeCursor from "./desktop/ShakeCursor";
 import AboutDialog from "./desktop/AboutDialog";
 import Notifications from "./desktop/Notifications";
+import Spotlight from "./desktop/Spotlight";
 import TrashDialog from "./desktop/TrashDialog";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
@@ -102,6 +103,104 @@ const Desktop = ({ phone }) => {
     later(restart, 4400);
   };
   const [about, setAbout] = useState(false);
+
+  // Spotlight: ⌘K / ctrl+K / ctrl+space, or the magnifier in the menu bar
+  const [spot, setSpot] = useState(false);
+  useEffect(() => {
+    if (phone) return;
+    const key = (e) => {
+      const k = e.key.toLowerCase();
+      if (((e.metaKey || e.ctrlKey) && k === "k") || (e.ctrlKey && k === " ")) {
+        e.preventDefault();
+        setSpot((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, [phone]);
+  const spotItems = () => [
+    ...PAGES.map((p) => ({
+      id: `page-${p}`,
+      kind: "page",
+      app: "browser",
+      label: t(`desktop.pages.${p}`),
+      keywords: `${p} davidbeltra.com/${p}`,
+      act: () => go(p),
+    })),
+    ...["browser", "code", "term", "pdf", "mail", "trash"].map((id) => ({
+      id: `app-${id}`,
+      kind: "app",
+      app: id === "trash" ? undefined : id,
+      icon: "delete",
+      label: t(`desktop.dock.${id}`),
+      act: () => (id === "browser" ? go(page) : open(id)),
+    })),
+    ...JSON.parse(CODE.experience).map((j) => ({
+      id: `job-${j.company}-${j.dates}`,
+      kind: "job",
+      icon: "work",
+      label: `${j.title} @ ${j.company}`,
+      keywords: `${j.dates} ${j.stack.join(" ")}`,
+      act: () => go("experience"),
+    })),
+    ...Object.values(SKILLS)
+      .flat()
+      .flatMap((sk) => (sk.name ? sk.name.split(" · ") : [t(sk.nameKey)]))
+      .map((name) => ({
+        id: `skill-${name}`,
+        kind: "skill",
+        icon: "bolt",
+        label: name,
+        act: () => go("skills"),
+      })),
+    ...files.map((f) => ({
+      id: `file-${f.label}`,
+      kind: "file",
+      icon: f.label.includes(".") ? "description" : "folder",
+      label: f.label,
+      act: f.act,
+    })),
+    {
+      id: "cmd-about",
+      kind: "command",
+      icon: "person",
+      label: t("desktop.menu.about"),
+      act: () => setAbout(true),
+    },
+    {
+      id: "cmd-mc",
+      kind: "command",
+      icon: "grid_view",
+      label: "Mission Control",
+      act: enterMc,
+    },
+    {
+      id: "cmd-restart",
+      kind: "command",
+      icon: "restart_alt",
+      label: t("desktop.menu.restart"),
+      act: restart,
+    },
+    {
+      id: "cmd-off",
+      kind: "command",
+      icon: "power_settings_new",
+      label: t("desktop.menu.shutDown"),
+      act: () => setCrash("off"),
+    },
+    ...[
+      ["en", "English"],
+      ["es", "Español"],
+      ["ca", "Català"],
+    ].map(([code, name]) => ({
+      id: `lang-${code}`,
+      kind: "language",
+      icon: "translate",
+      label: name,
+      keywords: "language idioma",
+      act: () => i18n.changeLanguage(code),
+    })),
+  ];
 
   // drag CV.pdf onto the Trash
   const [trashCv, setTrashCv] = useState(false);
@@ -267,6 +366,10 @@ const Desktop = ({ phone }) => {
           dispatch({ type: "menu", id: null });
           restart();
         }}
+        onSpotlight={() => {
+          dispatch({ type: "menu", id: null });
+          setSpot(true);
+        }}
         onShutDown={() => {
           dispatch({ type: "menu", id: null });
           setCrash("off");
@@ -331,6 +434,7 @@ const Desktop = ({ phone }) => {
       {trashCv && <TrashDialog onClose={() => setTrashCv(false)} />}
       <ShakeCursor />
       <Notifications onOpen={open} />
+      {spot && <Spotlight items={spotItems()} onClose={() => setSpot(false)} />}
       {about && (
         <AboutDialog
           onClose={() => setAbout(false)}

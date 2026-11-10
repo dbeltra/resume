@@ -318,6 +318,20 @@ const resources = {
             body: "Reminder: you haven't read Agents.md yet. It's short, promise.",
           },
         },
+        spotlight: {
+          label: "Spotlight Search",
+          placeholder: "Spotlight Search",
+          none: "No results",
+          kinds: {
+            page: "Page",
+            app: "App",
+            job: "Experience",
+            skill: "Skill",
+            file: "File",
+            command: "Command",
+            language: "Language",
+          },
+        },
         mail: {
           hireSubject: "Let's talk about a role",
           hireBody:
@@ -651,6 +665,20 @@ const resources = {
           agents: {
             title: "Code",
             body: "Recordatorio: aún no has leído Agents.md. Es corto, prometido.",
+          },
+        },
+        spotlight: {
+          label: "Búsqueda de Spotlight",
+          placeholder: "Búsqueda de Spotlight",
+          none: "Sin resultados",
+          kinds: {
+            page: "Página",
+            app: "App",
+            job: "Experiencia",
+            skill: "Habilidad",
+            file: "Archivo",
+            command: "Comando",
+            language: "Idioma",
           },
         },
         mail: {
@@ -988,6 +1016,20 @@ const resources = {
           agents: {
             title: "Code",
             body: "Recordatori: encara no has llegit Agents.md. És curt, promès.",
+          },
+        },
+        spotlight: {
+          label: "Cerca de Spotlight",
+          placeholder: "Cerca de Spotlight",
+          none: "Cap resultat",
+          kinds: {
+            page: "Pàgina",
+            app: "App",
+            job: "Experiència",
+            skill: "Habilitat",
+            file: "Fitxer",
+            command: "Ordre",
+            language: "Idioma",
           },
         },
         mail: {
