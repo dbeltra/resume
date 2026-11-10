@@ -24,6 +24,7 @@ import ContextMenu from "./desktop/ContextMenu";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
 import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
+import { prefersReducedMotion } from "./components/genie";
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
 import TrashIcon from "./assets/icons/apps/trash.png";
@@ -109,9 +110,10 @@ const Desktop = ({ phone }) => {
     }, 2600);
   };
   const rmrf = () => {
-    setCrash("glitch");
-    later(() => setCrash("panic"), 1400);
-    later(restart, 4400);
+    const glitch = prefersReducedMotion() ? 0 : 1400; // straight to the panic
+    if (glitch) setCrash("glitch");
+    later(() => setCrash("panic"), glitch);
+    later(restart, glitch + 3000);
   };
   const [about, setAbout] = useState(false);
 
