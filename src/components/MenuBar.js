@@ -88,7 +88,7 @@ const MenuBar = ({
 
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-[1000] flex h-8 items-center justify-between bg-ink-950/85 px-3 text-[13px] text-ink-text backdrop-blur-md">
+      <header className="absolute inset-x-0 top-0 z-[1000] flex h-8 items-center justify-between border-b border-white/10 bg-ink-950/55 px-3 text-[13px] text-white backdrop-blur-2xl backdrop-saturate-150 [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
         <nav
           aria-label={t("desktop.menu.label")}
           className="flex items-center gap-0.5"
@@ -106,7 +106,7 @@ const MenuBar = ({
                 aria-expanded={menu === m.id}
                 onClick={() => onMenu(menu === m.id ? null : m.id)}
                 onMouseEnter={() => menu && menu !== m.id && onMenu(m.id)}
-                className={`h-[26px] rounded-md px-2.5 font-medium ${menu === m.id ? "bg-ink-400" : "hover:bg-ink-600"}`}
+                className={`flex h-[26px] items-center rounded-md px-2.5 font-medium ${menu === m.id ? "bg-ink-400" : "hover:bg-ink-600"}`}
               >
                 {m.logo ? (
                   <span className="block h-3.5 w-3.5 rounded bg-lilac" />
@@ -117,7 +117,7 @@ const MenuBar = ({
               {menu === m.id && (
                 <div
                   role="menu"
-                  className="absolute left-0 top-[30px] min-w-[270px] rounded-[9px] border border-ink-400 bg-ink-700 p-1.5 shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
+                  className="absolute left-0 top-[30px] min-w-[270px] rounded-[9px] border border-ink-400 bg-ink-700 p-1.5 [text-shadow:none] shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
                 >
                   {m.items.map((it) => (
                     <button
@@ -139,14 +139,7 @@ const MenuBar = ({
           ))}
           <span className="-order-1 pl-1 pr-2.5 font-bold">{appName}</span>
         </nav>
-        <div className="flex items-center gap-3.5 text-ink-soft">
-          <span className="flex items-center gap-1.5">
-            <span
-              aria-hidden="true"
-              className="h-[7px] w-[7px] rounded-full bg-lilac"
-            />
-            {t("desktop.status.open")}
-          </span>
+        <div className="flex items-center gap-3.5 text-white/90">
           <button
             type="button"
             onClick={onSpotlight}

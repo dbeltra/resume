@@ -161,7 +161,6 @@ const resources = {
           readAgentsMd: "Read Agents.md",
         },
         status: {
-          open: "Currently at 011h",
           roles: "Currently at 011h",
           where: "Full stack · Barcelona · CET",
         },
@@ -538,7 +537,6 @@ const resources = {
           readAgentsMd: "Leer Agents.md",
         },
         status: {
-          open: "Actualmente en 011h",
           roles: "Actualmente en 011h",
           where: "Full stack · Barcelona · CET",
         },
@@ -917,7 +915,6 @@ const resources = {
           readAgentsMd: "Llegir Agents.md",
         },
         status: {
-          open: "Actualment a 011h",
           roles: "Actualment a 011h",
           where: "Full stack · Barcelona · CET",
         },
