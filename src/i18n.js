@@ -243,6 +243,9 @@ const resources = {
         },
         credits: "Icons from Flaticon",
         trashApp: {
+          quickLook: "Quick Look",
+          close: "Close",
+          hint: "Space or double-click to Quick Look",
           empty: "Empty",
           isEmpty: "Trash is empty",
           favorites: "Favorites",
@@ -602,6 +605,9 @@ const resources = {
         },
         credits: "Iconos de Flaticon",
         trashApp: {
+          quickLook: "Vista rápida",
+          close: "Cerrar",
+          hint: "Espacio o doble clic para la vista rápida",
           empty: "Vaciar",
           isEmpty: "La papelera está vacía",
           favorites: "Favoritos",
@@ -963,6 +969,9 @@ const resources = {
         },
         credits: "Icones de Flaticon",
         trashApp: {
+          quickLook: "Visualització ràpida",
+          close: "Tanca",
+          hint: "Espai o doble clic per a la visualització ràpida",
           empty: "Buidar",
           isEmpty: "La paperera és buida",
           favorites: "Preferits",

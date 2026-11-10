@@ -1,24 +1,14 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
-import FileIcon from "../assets/icons/apps/file.png";
-import FolderIcon from "../assets/icons/apps/folder.png";
-import PdfIcon from "../assets/icons/apps/pdf.png";
-
-// Finder-style Trash with a few joke files. "Empty" clears them until the
-// window is closed and reopened.
-const FILES = [
-  { name: "jquery_spaghetti.js", icon: FileIcon },
-  { name: "class_components", icon: FolderIcon },
-  { name: "TODO_final_FINAL_v3.txt", icon: FileIcon },
-  { name: "resume_2014.pdf", icon: PdfIcon },
-  { name: "node_modules", icon: FolderIcon },
-];
+import { TRASH_FILES as FILES } from "./trashFiles";
 
 const Trash = ({ win }) => {
   const { t } = useTranslation();
   const [files, setFiles] = useState(FILES);
   const [selected, setSelected] = useState(null);
+  const [look, setLook] = useState(null); // Quick Look: Space or double-click
+  const peek = files.find((f) => f.name === look);
   const places = ["desktop", "documents", "downloads"];
 
   return (
@@ -38,6 +28,7 @@ const Trash = ({ win }) => {
             onClick={() => {
               setFiles([]);
               setSelected(null);
+              setLook(null);
             }}
             disabled={!files.length}
             className="h-7 rounded-md border border-[#4a4d55] px-3 text-xs font-medium hover:bg-white/10 disabled:opacity-40 disabled:hover:bg-transparent"
@@ -79,6 +70,13 @@ const Trash = ({ win }) => {
                       e.stopPropagation();
                       setSelected(f.name);
                     }}
+                    onDoubleClick={() => setLook(f.name)}
+                    onKeyDown={(e) => {
+                      if (e.key !== " " && e.key !== "Enter") return;
+                      e.preventDefault();
+                      setSelected(f.name);
+                      setLook((l) => (l === f.name ? null : f.name));
+                    }}
                     className="flex w-full flex-col items-center gap-1.5 rounded-lg p-2 text-center"
                   >
                     <img
@@ -100,8 +98,39 @@ const Trash = ({ win }) => {
               {t("desktop.trashApp.isEmpty")}
             </div>
           )}
+          {peek && (
+            <div
+              role="dialog"
+              aria-label={`${t("desktop.trashApp.quickLook")}: ${peek.name}`}
+              onClick={(e) => e.stopPropagation()}
+              onKeyDown={(e) => {
+                if (e.key !== "Escape" && e.key !== " ") return;
+                e.preventDefault();
+                setLook(null);
+              }}
+              className="absolute inset-x-6 bottom-10 top-16 z-10 flex animate-[app-open_0.18s_ease-out] flex-col overflow-hidden rounded-xl border border-white/15 bg-[#2a2c33]/95 shadow-2xl backdrop-blur-xl"
+            >
+              <div className="flex h-9 flex-none items-center gap-2 border-b border-white/10 px-3 text-[12px] font-semibold">
+                <button
+                  type="button"
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
+                  autoFocus
+                  onClick={() => setLook(null)}
+                  aria-label={t("desktop.trashApp.close")}
+                  className="h-3 w-3 rounded-full bg-[#e5534b] hover:brightness-110"
+                />
+                <img src={peek.icon} alt="" className="h-4 w-4" />
+                {peek.name}
+              </div>
+              <pre className="m-0 flex-1 overflow-auto whitespace-pre-wrap p-4 font-mono text-[12.5px] leading-relaxed text-[#d7dae0]">
+                {peek.body}
+              </pre>
+            </div>
+          )}
           <div className="flex h-7 flex-none items-center justify-center border-t border-[#33363e] text-[11px] text-ink-muted">
-            {t("desktop.trashApp.items", { count: files.length })}
+            {selected
+              ? t("desktop.trashApp.hint")
+              : t("desktop.trashApp.items", { count: files.length })}
           </div>
         </div>
       </div>
