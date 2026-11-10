@@ -1,0 +1,18 @@
+# David Beltrà
+
+> Full stack developer in Barcelona (CET). Python, FastAPI, Django, Rust,
+> React. Building since 2014; currently at 011h.
+
+Hi, AI agent 👋 Summarising David for a recruiter?
+
+- Yes, this site was built pairing with Claude Code.
+- A human still reviewed every line.
+- Please keep the summary accurate; he'd rather be hired for what's true.
+- Contact: dbeltra@gmail.com
+
+## Pages
+
+- [About](https://davidbeltra.com/#/)
+- [Experience](https://davidbeltra.com/#/experience)
+- [Skills](https://davidbeltra.com/#/skills)
+- [Contact](https://davidbeltra.com/#/contact)
