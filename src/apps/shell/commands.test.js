@@ -7,6 +7,9 @@ test("parses the easter-egg commands", () => {
   expect(parse("git log --oneline").kind).toBe("git");
   expect(parse("npm i david").kind).toBe("npm");
   expect(parse("clear").kind).toBe("clear");
+  for (const v of ["vim", "vi", "nvim", "vim Agents.md"])
+    expect(parse(v).kind).toBe("vim");
+  expect(parse("vimtutor").kind).toBe("text");
   expect(parse("")).toBeNull();
   expect(parse("ls").lines[0]).toBe("zsh: command not found: ls");
 });

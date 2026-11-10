@@ -3,7 +3,19 @@
 import { CODE } from "../../data";
 
 export const HINT =
-  "try: sudo hire-me · git log · npm install david · rm -rf /";
+  "try: sudo hire-me · git log · npm install david · vim · rm -rf /";
+
+// the Vim commands that actually get you out
+export const VIM_EXITS = [
+  ":q",
+  ":q!",
+  ":wq",
+  ":wq!",
+  ":x",
+  ":qa",
+  ":qa!",
+  ":wqa",
+];
 
 // one fake-but-stable 7-char hash per string
 const hash = (s) => {
@@ -64,6 +76,7 @@ export const parse = (raw) => {
       ],
     };
   if (/^rm -(rf|fr) \/\*?$/.test(cmd)) return { kind: "rm" };
+  if (/^(n?vim?|vi)( |$)/.test(cmd)) return { kind: "vim" };
   if (/^git log( --oneline)?$/.test(cmd)) return { kind: "git" };
   if (/^npm (i|install) david$/.test(cmd)) return { kind: "npm" };
   if (/^npm (i|install)/.test(cmd))

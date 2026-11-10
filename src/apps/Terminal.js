@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
 import { RUNS } from "../data";
 import { parse, gitLog, NPM_STEPS, RM_LINES } from "./shell/commands";
+import Vim from "./shell/Vim";
 
 const STEP_MS = 650;
 const DOT = { Plan: "#e0a46e" };
@@ -75,6 +76,21 @@ const Terminal = ({ win, onHire, onCrash }) => {
   const [cmd, setCmd] = useState("");
   const [shell, setShell] = useState([]); // typed commands and their output
   const [askPw, setAskPw] = useState(false); // sudo is waiting for a password
+  const [vim, setVim] = useState(false);
+  const leaveVim = (secs) => {
+    setVim(false);
+    setShell((s) => [
+      ...s,
+      {
+        id: Date.now(),
+        kind: "text",
+        lines: [
+          `🏆 You escaped Vim in ${secs}s. Plenty of developers never have.`,
+        ],
+      },
+    ]);
+    setTimeout(() => input.current?.focus());
+  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -88,6 +104,7 @@ const Terminal = ({ win, onHire, onCrash }) => {
       if (out?.kind === "clear") setShell([]);
       else if (out) setShell((s) => [...s, { id, cmd: cmd.trim(), ...out }]);
       if (out?.kind === "sudo") setAskPw(true);
+      if (out?.kind === "vim") setVim(true);
     }
     setCmd("");
   };
@@ -231,6 +248,7 @@ const Terminal = ({ win, onHire, onCrash }) => {
           </div>
         </div>
       </div>
+      {vim && <Vim onExit={leaveVim} />}
     </Window>
   );
 };
