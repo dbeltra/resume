@@ -7,6 +7,7 @@ import Code from "./apps/Code";
 import Terminal from "./apps/Terminal";
 import Preview, { cvFile } from "./apps/Preview";
 import Mail from "./apps/Mail";
+import Spotify from "./apps/Spotify";
 import Trash from "./apps/Trash";
 import { desktopReducer, initialState, currentPage } from "./desktopState";
 import { useResponsive } from "./hooks/useResponsive";
@@ -23,17 +24,17 @@ import Alert from "./desktop/Alert";
 import ContextMenu from "./desktop/ContextMenu";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
-import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
 import { prefersReducedMotion } from "./components/genie";
+import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
 import TrashIcon from "./assets/icons/apps/trash.png";
-
 import BarcelonaWall from "./assets/wallpapers/barcelona.jpg";
 import StarsWall from "./assets/wallpapers/stars.jpg";
 import ShoreWall from "./assets/wallpapers/shore.jpg";
 import ForestWall from "./assets/wallpapers/forest.jpg";
 import CanyonWall from "./assets/wallpapers/canyon.jpg";
+
 // Change Wallpaper cycles these; the first is the default (also the
 // `page-bg` image in tailwind.config.js). Unsplash, credited bottom-right.
 const WALLPAPERS = [
@@ -177,14 +178,16 @@ const Desktop = ({ phone }) => {
       keywords: `${p} davidbeltra.com/${p}`,
       act: () => go(p),
     })),
-    ...["browser", "code", "term", "pdf", "mail", "trash"].map((id) => ({
-      id: `app-${id}`,
-      kind: "app",
-      app: id === "trash" ? undefined : id,
-      icon: "delete",
-      label: t(`desktop.dock.${id}`),
-      act: () => (id === "browser" ? go(page) : open(id)),
-    })),
+    ...["browser", "code", "term", "spotify", "pdf", "mail", "trash"].map(
+      (id) => ({
+        id: `app-${id}`,
+        kind: "app",
+        app: id === "trash" ? undefined : id,
+        icon: "delete",
+        label: t(`desktop.dock.${id}`),
+        act: () => (id === "browser" ? go(page) : open(id)),
+      }),
+    ),
     ...JSON.parse(CODE.experience).map((j) => ({
       id: `job-${j.company}-${j.dates}`,
       kind: "job",
@@ -280,6 +283,8 @@ const Desktop = ({ phone }) => {
     let timer;
     const move = (e) => {
       const edge = 3;
+      // top-right only: the other corners hold the system menu, the dock
+      // and the credits link, so they'd fire by accident
       const corner =
         e.clientX >= window.innerWidth - edge - 1 && e.clientY <= edge;
       if (!corner) {
@@ -291,8 +296,6 @@ const Desktop = ({ phone }) => {
     };
     const key = (e) => {
       if (e.key === "Escape") setMc(null);
-      // top-right only: the other corners hold the system menu, the dock
-      // and the credits link, so they'd fire by accident
       if (e.ctrlKey && e.key === "ArrowUp") {
         e.preventDefault();
         mcOn.current ? setMc(null) : enterMc();
@@ -378,6 +381,7 @@ const Desktop = ({ phone }) => {
         <Terminal win={win("term")} onHire={hire} onCrash={rmrf} />
       )}
       {state.open.pdf && <Preview win={win("pdf")} />}
+      {state.open.spotify && <Spotify win={win("spotify")} />}
       {state.open.mail && (
         <Mail key={draft} win={win("mail")} draft={draft > 0} />
       )}

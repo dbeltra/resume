@@ -121,6 +121,7 @@ const resources = {
           dock: "Apps",
         },
         apps: {
+          spotify: "Spotify",
           browser: "Browser",
           trash: "Trash",
           code: "Code",
@@ -129,6 +130,7 @@ const resources = {
           mail: "Mail",
         },
         dock: {
+          spotify: "Spotify: what I'm listening to",
           browser: "Browser: davidbeltra.com",
           trash: "Trash",
           code: "Code: site source",
@@ -242,9 +244,9 @@ const resources = {
           review: "Agent-assisted code review",
         },
         credits: "Icons from Flaticon",
+        photoBy: "Photo: {{name}} / Unsplash",
         trashApp: {
           quickLook: "Quick Look",
-        photoBy: "Photo: {{name}} / Unsplash",
           close: "Close",
           hint: "Space or double-click to Quick Look",
           empty: "Empty",
@@ -345,6 +347,18 @@ const resources = {
           untitled: "untitled folder",
           emptyTitle: "“{{name}}” is empty",
           emptyBody: "The perfect spot for an interview invite 📅",
+        },
+        spotify: {
+          live: "Listening now",
+          onRepeat: "On repeat this week",
+          plays_one: "{{count}} play",
+          plays_other: "{{count}} plays",
+          open: "Open in Spotify",
+          recent: "Recently played",
+          topWeek: "Top tracks this week",
+          loading: "Loading…",
+          error: "Couldn't reach Last.fm right now.",
+          source: "Scrobbled on Last.fm · last.fm/user/dbeltra",
         },
         mail: {
           hireSubject: "Let's talk about a role",
@@ -484,6 +498,7 @@ const resources = {
           dock: "Aplicaciones",
         },
         apps: {
+          spotify: "Spotify",
           browser: "Navegador",
           trash: "Papelera",
           code: "Código",
@@ -492,6 +507,7 @@ const resources = {
           mail: "Correo",
         },
         dock: {
+          spotify: "Spotify: lo que estoy escuchando",
           browser: "Navegador: davidbeltra.com",
           trash: "Papelera",
           code: "Código: fuente del sitio",
@@ -605,6 +621,7 @@ const resources = {
           review: "Revisión de código asistida por agentes",
         },
         credits: "Iconos de Flaticon",
+        photoBy: "Foto: {{name}} / Unsplash",
         trashApp: {
           quickLook: "Vista rápida",
           close: "Cerrar",
@@ -621,7 +638,6 @@ const resources = {
         phone: { home: "Inicio" },
         preview: {
           page: "Página 1 de 1",
-        photoBy: "Foto: {{name}} / Unsplash",
           download: "Descargar CV",
           open: "Abrir en una pestaña nueva",
         },
@@ -708,6 +724,18 @@ const resources = {
           untitled: "carpeta sin título",
           emptyTitle: "«{{name}}» está vacía",
           emptyBody: "El sitio perfecto para una invitación a entrevista 📅",
+        },
+        spotify: {
+          live: "Escuchando ahora",
+          onRepeat: "En bucle esta semana",
+          plays_one: "{{count}} reproducción",
+          plays_other: "{{count}} reproducciones",
+          open: "Abrir en Spotify",
+          recent: "Escuchado recientemente",
+          topWeek: "Lo más escuchado esta semana",
+          loading: "Cargando…",
+          error: "Ahora mismo no se puede conectar con Last.fm.",
+          source: "Scrobbles en Last.fm · last.fm/user/dbeltra",
         },
         mail: {
           hireSubject: "Hablemos de un puesto",
@@ -849,6 +877,7 @@ const resources = {
           dock: "Aplicacions",
         },
         apps: {
+          spotify: "Spotify",
           browser: "Navegador",
           trash: "Paperera",
           code: "Codi",
@@ -857,6 +886,7 @@ const resources = {
           mail: "Correu",
         },
         dock: {
+          spotify: "Spotify: el que estic escoltant",
           browser: "Navegador: davidbeltra.com",
           trash: "Paperera",
           code: "Codi: font del lloc",
@@ -970,6 +1000,7 @@ const resources = {
           review: "Revisió de codi assistida per agents",
         },
         credits: "Icones de Flaticon",
+        photoBy: "Foto: {{name}} / Unsplash",
         trashApp: {
           quickLook: "Visualització ràpida",
           close: "Tanca",
@@ -1000,7 +1031,6 @@ const resources = {
         },
         off: "Ja pots apagar l'ordinador amb seguretat. (Fes clic per tornar-lo a encendre.)",
         aboutDev: {
-        photoBy: "Foto: {{name}} / Unsplash",
           close: "Tanca",
           more: "Més informació…",
           model: "Desenvolupador full stack, edició 2014",
@@ -1073,6 +1103,18 @@ const resources = {
           untitled: "carpeta sense títol",
           emptyTitle: "«{{name}}» és buida",
           emptyBody: "El lloc perfecte per a una invitació a entrevista 📅",
+        },
+        spotify: {
+          live: "Escoltant ara",
+          onRepeat: "En bucle aquesta setmana",
+          plays_one: "{{count}} reproducció",
+          plays_other: "{{count}} reproduccions",
+          open: "Obre a Spotify",
+          recent: "Escoltat recentment",
+          topWeek: "El més escoltat aquesta setmana",
+          loading: "Carregant…",
+          error: "Ara mateix no es pot connectar amb Last.fm.",
+          source: "Scrobbles a Last.fm · last.fm/user/dbeltra",
         },
         mail: {
           hireSubject: "Parlem d'una feina",

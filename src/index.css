@@ -136,3 +136,13 @@ body {
   filter: none !important;
   backdrop-filter: none !important;
 }
+
+/* now-playing equalizer bars */
+@keyframes eq {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}

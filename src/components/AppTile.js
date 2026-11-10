@@ -4,6 +4,7 @@ import CodeIcon from "../assets/icons/apps/code.png";
 import TerminalIcon from "../assets/icons/apps/terminal.png";
 import AdobeIcon from "../assets/icons/apps/adobe.png";
 import MailIcon from "../assets/icons/apps/mail.png";
+import SpotifyIcon from "../assets/icons/apps/spotify.png"; // Spotify brand asset
 
 // App icons: Flaticon, free licence with attribution (see the credit link).
 // Every app sits on the same rounded-square tile, like macOS/iOS.
@@ -17,6 +18,7 @@ export const APPS = {
     tile: "bg-black",
     img: "h-[105%] w-[105%] max-w-none",
   },
+  spotify: { icon: SpotifyIcon, tile: "bg-black", img: "h-[72%] w-[72%]" },
   pdf: { icon: AdobeIcon, tile: "", img: "h-[102%] w-[102%] max-w-none" },
   mail: { icon: MailIcon, tile: "bg-white", img: "h-[76%] w-[76%]" },
 };
