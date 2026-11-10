@@ -20,7 +20,7 @@ const resources = {
           responsibilities: [
             "I worked as a web designer and developer. We created a customizable CRUD business solution, based on Django and Backbone.",
             "I took a main role on developing Autopractick, a web-based management tool for driving schools, with a Phonegap partner app.",
-            "I also enforced agile methodologies to our team workflow.",
+            "I also brought agile into our team's workflow.",
           ],
         },
         {
@@ -28,7 +28,7 @@ const resources = {
           company: "pEp Security → Planck Security",
           dates: "2018 - 2024",
           responsibilities: [
-            "I joined the company as a frontend developer in charge of the website. My task was migrating a static HTML system to Mezzanine, a Django-based CMS. The website ended including a custom payment and invoicing system.",
+            "I joined the company as a frontend developer in charge of the website. My task was migrating a static HTML system to Mezzanine, a Django-based CMS. The website ended up including a custom payment and invoicing system.",
             "I also created a Python-based CLI toolchain that worked with the company's decryption backend.",
             "I created a decryption demo solution for our presentations, combining an MQ system for the messages and a Django frontend.",
             "I took a main role in the development of a CLI tool and a Docker solution to decrypt email traffic.",
@@ -57,8 +57,7 @@ const resources = {
       skillsTitle: "My Skills",
       skillsDescription: [
         "I enjoy the development world where there's always room to grow and explore new things. I like <b>team environments</b> where I get to both learn from my colleagues and help them with my expertise.",
-        "I consider myself a <b>communicative and proactive</b> person with a good ability to manage time and resources, as well as solving problems.",
-        "I'm committed to delivering clean, well-documented code with a focus on maintainability and scalability.",
+        "I'm a <b>communicative and proactive</b> person. I'm a fast learner with new tools and skills, and I have lots of experience with agentic workflows, always keeping a balance between efficiency and code quality.",
       ],
       skillsLanguages: "Languages & Frameworks",
       skillsTools: "Tools",
@@ -201,7 +200,7 @@ const resources = {
                 "David Beltrà, full stack developer in Barcelona.",
                 "React frontends; Python, FastAPI and Rust backends.",
                 "Now at 011h: React + FastAPI for construction sites.",
-                "Uses agents as a tool, not a crutch.",
+                "Uses agents daily; still reads MRs before approving.",
                 "",
                 "Say hi: dbeltra@gmail.com",
               ],
@@ -232,6 +231,7 @@ const resources = {
                 "- I plan first, then let the agent implement",
                 "- small diffs; tests and lint pass before it stops",
                 "- custom skills, hooks and MCP for the team's tools",
+                "- built a sprint autopilot: Jira board in, reviewed MRs out, live dashboard",
                 "- a person reviews and merges. Always.",
               ],
             },
@@ -314,11 +314,11 @@ const resources = {
           dismiss: "Dismiss",
           mail: {
             title: "Mail",
-            body: "A recruiter wants to chat 👀 Write to David before someone else does.",
+            body: "A recruiter wants to chat. Write to David before someone else does.",
           },
           term: {
             title: "Terminal",
-            body: "Build passed ✅ npm install david: 0 vulnerabilities.",
+            body: "Build passed. npm install david: 0 vulnerabilities.",
           },
           agents: {
             title: "Code",
@@ -346,7 +346,7 @@ const resources = {
           spotlight: "Spotlight…",
           untitled: "untitled folder",
           emptyTitle: "“{{name}}” is empty",
-          emptyBody: "The perfect spot for an interview invite 📅",
+          emptyBody: "The perfect spot for an interview invite.",
         },
         spotify: {
           live: "Listening now",
@@ -430,8 +430,7 @@ const resources = {
       skillsTitle: "Mis Aptitudes",
       skillsDescription: [
         "Disfruto del mundo del desarrollo donde siempre hay espacio para crecer y explorar cosas nuevas. Me gustan los <b>entornos de equipo</b> donde puedo tanto aprender de mis colegas como ayudarlos con mi experiencia.",
-        "Me considero una persona <b>comunicativa y proactiva</b> con una buena capacidad para gestionar tiempo y recursos, además de resolver problemas.",
-        "Estoy comprometido a entregar código limpio y bien documentado, con un enfoque en la mantenibilidad y escalabilidad.",
+        "Soy una persona <b>comunicativa y proactiva</b>. Aprendo rápido nuevas herramientas y habilidades, y tengo mucha experiencia con flujos de trabajo agénticos, siempre manteniendo el equilibrio entre eficiencia y calidad del código.",
       ],
       skillsLanguages: "Lenguajes y Frameworks",
       skillsTools: "Herramientas",
@@ -578,7 +577,7 @@ const resources = {
                 "David Beltrà, desarrollador full stack en Barcelona.",
                 "Frontends en React; backends en Python, FastAPI y Rust.",
                 "Ahora en 011h: React + FastAPI para obras de construcción.",
-                "Usa agentes como herramienta, no como muleta.",
+                "Usa agentes a diario; aun así lee los MRs antes de aprobarlos.",
                 "",
                 "Escríbeme: dbeltra@gmail.com",
               ],
@@ -609,6 +608,7 @@ const resources = {
                 "- primero planifico, luego el agente implementa",
                 "- diffs pequeños; tests y lint antes de parar",
                 "- skills, hooks y MCP a medida para las herramientas del equipo",
+                "- hice un piloto automático de sprints: entra el tablero de Jira, salen MRs revisados, con dashboard en vivo",
                 "- una persona revisa y hace el merge. Siempre.",
               ],
             },
@@ -691,11 +691,11 @@ const resources = {
           dismiss: "Descartar",
           mail: {
             title: "Mail",
-            body: "Un recruiter quiere hablar 👀 Escribe a David antes que otro.",
+            body: "Un recruiter quiere hablar. Escribe a David antes que otro.",
           },
           term: {
             title: "Terminal",
-            body: "Build correcto ✅ npm install david: 0 vulnerabilidades.",
+            body: "Build correcto. npm install david: 0 vulnerabilidades.",
           },
           agents: {
             title: "Code",
@@ -723,7 +723,7 @@ const resources = {
           spotlight: "Spotlight…",
           untitled: "carpeta sin título",
           emptyTitle: "«{{name}}» está vacía",
-          emptyBody: "El sitio perfecto para una invitación a entrevista 📅",
+          emptyBody: "El sitio perfecto para una invitación a entrevista.",
         },
         spotify: {
           live: "Escuchando ahora",
@@ -807,8 +807,7 @@ const resources = {
       skillsTitle: "Les Meves Habilitats",
       skillsDescription: [
         "M'agrada el món del desenvolupament on sempre hi ha espai per créixer i explorar coses noves. M'agraden els <b>entorns de treball en equip</b> on puc aprendre dels meus companys i ajudar-los amb la meva experiència.",
-        "Em considero una persona <b>comunicativa i proactiva</b> amb una bona capacitat per gestionar el temps i els recursos, així com per resoldre problemes.",
-        "Estic compromès a oferir codi net i ben documentat, amb un enfocament en el manteniment i l'escalabilitat.",
+        "Soc una persona <b>comunicativa i proactiva</b>. Aprenc ràpid noves eines i habilitats, i tinc molta experiència amb fluxos de treball agèntics, sempre mantenint l'equilibri entre eficiència i qualitat del codi.",
       ],
       skillsLanguages: "Llenguatges i Frameworks",
       skillsTools: "Eines",
@@ -957,7 +956,7 @@ const resources = {
                 "David Beltrà, desenvolupador full stack a Barcelona.",
                 "Frontends en React; backends en Python, FastAPI i Rust.",
                 "Ara a 011h: React + FastAPI per a obres de construcció.",
-                "Fa servir agents com a eina, no com a crossa.",
+                "Fa servir agents cada dia; tot i així llegeix els MRs abans d'aprovar-los.",
                 "",
                 "Escriu-me: dbeltra@gmail.com",
               ],
@@ -988,6 +987,7 @@ const resources = {
                 "- primer planifico, després l'agent implementa",
                 "- diffs petits; tests i lint abans d'aturar-se",
                 "- skills, hooks i MCP a mida per a les eines de l'equip",
+                "- he fet un pilot automàtic d'sprints: entra el tauler de Jira, surten MRs revisats, amb dashboard en directe",
                 "- una persona revisa i fa el merge. Sempre.",
               ],
             },
@@ -1070,11 +1070,11 @@ const resources = {
           dismiss: "Descarta",
           mail: {
             title: "Mail",
-            body: "Un recruiter vol parlar 👀 Escriu al David abans que un altre.",
+            body: "Un recruiter vol parlar. Escriu al David abans que un altre.",
           },
           term: {
             title: "Terminal",
-            body: "Build correcte ✅ npm install david: 0 vulnerabilitats.",
+            body: "Build correcte. npm install david: 0 vulnerabilitats.",
           },
           agents: {
             title: "Code",
@@ -1102,7 +1102,7 @@ const resources = {
           spotlight: "Spotlight…",
           untitled: "carpeta sense títol",
           emptyTitle: "«{{name}}» és buida",
-          emptyBody: "El lloc perfecte per a una invitació a entrevista 📅",
+          emptyBody: "El lloc perfecte per a una invitació a entrevista.",
         },
         spotify: {
           live: "Escoltant ara",

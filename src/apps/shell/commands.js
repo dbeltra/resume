@@ -43,7 +43,7 @@ export const gitLog = () => {
 
 export const NPM_STEPS = [
   "resolving dependencies: coffee@^4.0.0, curiosity@latest",
-  "fetching 12 years of experience",
+  `fetching ${new Date().getFullYear() - 2014} years of experience`,
   "linking python, rust, javascript",
   "building react@18 frontend",
   "compiling fastapi backend",

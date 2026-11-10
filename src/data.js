@@ -184,6 +184,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 - MCP servers for the tools the team already uses
 - agent-assisted code review
 
+## Example: sprint autopilot
+- one command takes a Jira sprint board and works it end to end
+- checks Jira against the real state of MRs and CI, moves merged tickets on
+- drives open MRs through review, then picks and implements the next task
+- implementation and review run in subagents, so the main loop stays sharp
+- a local web dashboard shows the sprint live; the terminal only says what changed
+- it still stops for a human before anything merges
+
 ## Rule
 - a person reviews and merges. Always.`,
 };
@@ -218,7 +226,7 @@ export const RUNS = {
     { tool: "Plan", arg: "pick the highlights", result: "Done" },
   ],
   agents: [
-    { tool: "Read", arg: "src/Agents.md", result: "Read 18 lines" },
+    { tool: "Read", arg: "src/Agents.md", result: "Read 25 lines" },
     { tool: "Plan", arg: "summarise the approach", result: "Done" },
   ],
 };
