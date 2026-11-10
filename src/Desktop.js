@@ -14,6 +14,9 @@ import { PAGES } from "./data";
 import AppTile, { APPS } from "./components/AppTile";
 import PhoneHome from "./PhoneHome";
 import Crash from "./components/Crash";
+import ShakeCursor from "./desktop/ShakeCursor";
+import TrashDialog from "./desktop/TrashDialog";
+import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
 import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
 import FolderIcon from "./assets/icons/apps/folder.png";
@@ -91,6 +94,61 @@ const Desktop = ({ phone }) => {
       setTimeout(() => (booted.current = true));
     }, 7000);
   };
+  // drag CV.pdf onto the Trash
+  const [trashCv, setTrashCv] = useState(false);
+  const [overTrash, setOverTrash] = useState(false);
+
+  // Mission Control: hot corners (or ctrl+↑) tile every open window
+  const [mc, setMc] = useState(null);
+  const mcOn = useRef(false);
+  mcOn.current = !!mc;
+  const enterMc = () => {
+    const rects = [...document.querySelectorAll("[data-win]")]
+      .filter((el) => !el.getAttribute("aria-hidden"))
+      .map((el) => {
+        const r = el.getBoundingClientRect();
+        return {
+          id: el.dataset.win,
+          left: r.left,
+          top: r.top,
+          width: r.width,
+          height: r.height,
+        };
+      });
+    if (rects.length) setMc(tile(rects, window.innerWidth, window.innerHeight));
+  };
+  useEffect(() => {
+    if (phone) return;
+    let timer;
+    const move = (e) => {
+      const edge = 3;
+      const corner =
+        (e.clientX <= edge || e.clientX >= window.innerWidth - edge - 1) &&
+        (e.clientY <= edge || e.clientY >= window.innerHeight - edge - 1);
+      if (!corner) {
+        clearTimeout(timer);
+        timer = null;
+        return;
+      }
+      if (!timer) timer = setTimeout(() => !mcOn.current && enterMc(), 150);
+    };
+    const key = (e) => {
+      if (e.key === "Escape") setMc(null);
+      if (e.ctrlKey && e.key === "ArrowUp") {
+        e.preventDefault();
+        mcOn.current ? setMc(null) : enterMc();
+      }
+    };
+    window.addEventListener("mousemove", move);
+    window.addEventListener("keydown", key);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("keydown", key);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phone]);
+
   const win = (id) => ({
     z: 10 + state.order.indexOf(id),
     onFocus: () => dispatch({ type: "focus", id }),
@@ -102,6 +160,13 @@ const Desktop = ({ phone }) => {
     animateOpen: booted.current,
     cascade: state.slot[id] || 0,
     phone,
+    overview: mc?.[id] && {
+      ...mc[id],
+      onPick: () => {
+        setMc(null);
+        dispatch({ type: "focus", id });
+      },
+    },
   });
   const front = [...state.order].reverse().find((id) => !state.min[id]);
 
@@ -115,6 +180,7 @@ const Desktop = ({ phone }) => {
       label: "CV.pdf",
       icon: PdfIcon,
       act: () => open("pdf"),
+      drag: "cv",
     },
     {
       label: "Agents.md",
@@ -191,6 +257,10 @@ const Desktop = ({ phone }) => {
             key={f.label}
             type="button"
             onClick={f.act}
+            draggable={!!f.drag}
+            onDragStart={(e) =>
+              f.drag && e.dataTransfer.setData("text/x-desktop", f.drag)
+            }
             className="flex w-24 flex-col items-center gap-1.5 rounded-lg py-1.5 text-white hover:bg-white/10"
           >
             <img
@@ -224,7 +294,17 @@ const Desktop = ({ phone }) => {
         </button>
       </aside>
 
+      {mc && (
+        <button
+          type="button"
+          aria-label={t("desktop.labels.exitMc")}
+          onClick={() => setMc(null)}
+          className="fixed inset-0 z-[9400] cursor-default bg-black/35 backdrop-blur-sm"
+        />
+      )}
       {apps}
+      {trashCv && <TrashDialog onClose={() => setTrashCv(false)} />}
+      <ShakeCursor />
 
       <nav
         aria-label={t("desktop.labels.dock")}
@@ -265,12 +345,24 @@ const Desktop = ({ phone }) => {
           aria-label={t("desktop.dock.trash")}
           title={t("desktop.dock.trash")}
           onClick={() => open("trash")}
-          className="flex flex-col items-center gap-1 transition-transform hover:-translate-y-1"
+          onDragOver={(e) => {
+            if (!e.dataTransfer.types.includes("text/x-desktop")) return;
+            e.preventDefault();
+            setOverTrash(true);
+          }}
+          onDragLeave={() => setOverTrash(false)}
+          onDrop={(e) => {
+            e.preventDefault();
+            setOverTrash(false);
+            if (e.dataTransfer.getData("text/x-desktop") === "cv")
+              setTrashCv(true);
+          }}
+          className={`flex flex-col items-center gap-1 transition-transform hover:-translate-y-1 ${overTrash ? "-translate-y-1 scale-110" : ""}`}
         >
           <img
             src={TrashIcon}
             alt=""
-            className="h-12 w-12 object-contain drop-shadow-md"
+            className={`h-12 w-12 object-contain drop-shadow-md ${overTrash ? "brightness-125" : ""}`}
           />
           <span
             className={`h-1 w-1 rounded-full ${state.open.trash ? "bg-white/70" : "bg-transparent"}`}

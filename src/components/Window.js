@@ -16,6 +16,7 @@ const Window = ({
   minimized,
   dockId, // which dock icon to minimize into / open out of
   animateOpen = false, // genie out of the dock icon when it first appears
+  overview = null, // Mission Control: { dx, dy, s, onPick }
   onFocus,
   onClose,
   onMinimize,
@@ -188,11 +189,15 @@ const Window = ({
         transform: `translate(${offset.x}px, ${offset.y}px)`,
       };
 
+  if (overview)
+    frame.transform = `translate(${overview.dx}px, ${overview.dy}px) ${frame.transform} scale(${overview.s})`;
+
   const light = "h-3 w-3 rounded-full hover:brightness-110";
 
   return (
     <section
       ref={self}
+      data-win={dockId}
       aria-label={label}
       aria-hidden={minimized || undefined}
       onMouseDown={onFocus}
@@ -203,6 +208,7 @@ const Window = ({
         ...(minimized && { pointerEvents: "none" }),
         // hidden (and out of the tab order) once the genie animation ends
         ...(gone && { visibility: "hidden" }),
+        ...(overview && { zIndex: 9500 }),
       }}
       className={`absolute flex flex-col overflow-hidden shadow-[0_30px_80px_rgba(20,10,40,0.45)] ${maximized ? "rounded-none" : "rounded-xl"} ${dragging ? "" : "transition-[left,top,width,height,transform] duration-300 ease-out"} ${className}`}
     >
@@ -249,6 +255,14 @@ const Window = ({
         {toolbar}
       </div>
       {children}
+      {overview && (
+        <button
+          type="button"
+          aria-label={label}
+          onClick={overview.onPick}
+          className="absolute inset-0 z-10 rounded-[inherit] ring-white/80 hover:ring-[6px]"
+        />
+      )}
     </section>
   );
 };

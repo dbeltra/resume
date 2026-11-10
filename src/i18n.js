@@ -115,6 +115,7 @@ const resources = {
       restoreWindowButton: "Restore window",
       desktop: {
         labels: {
+          exitMc: "Exit Mission Control",
           files: "Desktop files",
           status: "Status",
           dock: "Apps",
@@ -252,6 +253,15 @@ const resources = {
           download: "Download CV",
           open: "Open in a new tab",
         },
+        trashCv: {
+          title: "Move “CV.pdf” to the Trash?",
+          body: "Are you sure? This candidate is really good.",
+          keep: "Keep CV",
+          delete: "Delete anyway",
+          deniedTitle: "Permission denied",
+          deniedBody:
+            "This candidate is too good to throw away. The CV has been backed up in 3 clouds.",
+        },
         mail: {
           hireSubject: "Let's talk about a role",
           hireBody:
@@ -384,6 +394,7 @@ const resources = {
       restoreWindowButton: "Restaurar ventana",
       desktop: {
         labels: {
+          exitMc: "Salir de Mission Control",
           files: "Archivos del escritorio",
           status: "Estado",
           dock: "Aplicaciones",
@@ -521,6 +532,15 @@ const resources = {
           download: "Descargar CV",
           open: "Abrir en una pestaña nueva",
         },
+        trashCv: {
+          title: "¿Mover «CV.pdf» a la papelera?",
+          body: "¿Seguro? Este candidato es muy bueno.",
+          keep: "Conservar CV",
+          delete: "Borrar igualmente",
+          deniedTitle: "Permiso denegado",
+          deniedBody:
+            "Este candidato es demasiado bueno para tirarlo. El CV tiene copia en 3 nubes.",
+        },
         mail: {
           hireSubject: "Hablemos de un puesto",
           hireBody:
@@ -655,6 +675,7 @@ const resources = {
       restoreWindowButton: "Restaurar finestra",
       desktop: {
         labels: {
+          exitMc: "Sortir de Mission Control",
           files: "Fitxers de l'escriptori",
           status: "Estat",
           dock: "Aplicacions",
@@ -791,6 +812,15 @@ const resources = {
           page: "Pàgina 1 d'1",
           download: "Descarregar CV",
           open: "Obrir en una pestanya nova",
+        },
+        trashCv: {
+          title: "Vols moure «CV.pdf» a la paperera?",
+          body: "Segur? Aquest candidat és molt bo.",
+          keep: "Conservar CV",
+          delete: "Esborrar igualment",
+          deniedTitle: "Permís denegat",
+          deniedBody:
+            "Aquest candidat és massa bo per llençar-lo. El CV té còpia a 3 núvols.",
         },
         mail: {
           hireSubject: "Parlem d'una feina",
