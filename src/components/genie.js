@@ -74,6 +74,7 @@ export function genie(el, iconEl, { reverse = false, from, onDone } = {}) {
   const layer = document.createElement("div");
   layer.style.cssText =
     "position:fixed;inset:0;pointer-events:none;z-index:9999";
+  layer.className = "genie-layer"; // index.css: no animation or blur inside
   el.parentNode.appendChild(layer);
   const o = layer.getBoundingClientRect(); // offset if an ancestor is transformed
 

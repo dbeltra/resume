@@ -129,3 +129,13 @@ body {
     opacity: 0;
   }
 }
+
+/* genie strips are static snapshots: nothing inside them animates, and no
+   blur. A backdrop-filter is recomputed per strip every frame, which made the
+   Browser's warp drop to ~20fps; without it it runs like the other apps. */
+.genie-layer * {
+  animation: none !important;
+  transition: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
