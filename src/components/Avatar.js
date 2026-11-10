@@ -91,7 +91,7 @@ const Avatar = () => {
   }, [handleMouseMove]);
 
   return (
-    <div className="bg-gray-400 h-32 w-32 overflow-hidden rounded-full relative">
+    <div className="bg-[#d9cdea] h-32 w-32 flex-none overflow-hidden rounded-full relative">
       <img
         className="avatar"
         src={avatarImg}

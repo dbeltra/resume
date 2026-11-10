@@ -2,46 +2,27 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ROUTES } from "./routes";
-import Layout from "./Layout";
-import NotFound from "./pages/NotFound";
+import {
+  HashRouter,
+  Routes,
+  Route,
+  Navigate,
+  useParams,
+} from "react-router-dom";
+import Desktop from "./Desktop";
 import "./i18n";
 
-const {
-  ABOUT: { component: About },
-  SEARCH: { component: Search },
-  CONSOLE: { component: Console },
-  SETTINGS: { component: Settings },
-} = ROUTES;
+// Old v1 links (#/files/experience, #/console, ...) keep working.
+const LegacyFile = () => <Navigate to={`/${useParams().page}`} replace />;
 
 export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<About />} />
-          <Route path="files">
-            <Route index element={<Navigate to="/files/about" replace />} />
-            {Object.values(ROUTES)
-              .filter((route) => route.path.startsWith("/files"))
-              .map((route) => (
-                <Route
-                  key={route.path}
-                  path={
-                    route.path === "/files"
-                      ? "about"
-                      : route.path.replace("/files/", "")
-                  }
-                  element={<route.component />}
-                />
-              ))}
-          </Route>
-          <Route path="search" element={<Search />} />
-          <Route path="console" element={<Console />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
+        {/* one route, so moving between pages never remounts the desktop */}
+        <Route path="/:page?" element={<Desktop />} />
+        <Route path="/files/:page" element={<LegacyFile />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </HashRouter>
   );
