@@ -2,18 +2,95 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
 import { RUNS } from "../data";
+import { parse, gitLog, NPM_STEPS, RM_LINES } from "./shell/commands";
 
 const STEP_MS = 650;
 const DOT = { Plan: "#e0a46e" };
 
 // Scripted agent replay: tool steps appear on a timer, then the answer.
 // Nothing is sent anywhere: no API calls, no tokens.
-const Terminal = ({ win }) => {
+// Counts 0..count one step per `ms`, then calls onEnd once.
+const useTicker = (count, ms, onEnd) => {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (n >= count) return void onEnd?.();
+    const id = setTimeout(() => setN(n + 1), ms);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [n]);
+  return n;
+};
+
+const Npm = () => {
+  const n = useTicker(NPM_STEPS.length, 420);
+  const bar = Math.round((n / NPM_STEPS.length) * 24);
+  return (
+    <>
+      {NPM_STEPS.slice(0, n).map((l) => (
+        <div key={l} className="text-[#8b8f98]">
+          <span className="text-mint">✓</span> {l}
+        </div>
+      ))}
+      <div className="text-[#8b8f98]">
+        [{"█".repeat(bar)}
+        {"░".repeat(24 - bar)}] {Math.round((n / NPM_STEPS.length) * 100)}%
+      </div>
+      {n >= NPM_STEPS.length && (
+        <div className="text-white">
+          added 1 developer in {new Date().getFullYear() - 2014}y,{" "}
+          <span className="text-mint">0 vulnerabilities</span>
+          <br />1 package is looking for funding: run `sudo hire-me`
+        </div>
+      )}
+    </>
+  );
+};
+
+const Rm = ({ onCrash }) => {
+  const n = useTicker(RM_LINES.length, 260, () => setTimeout(onCrash, 400));
+  return RM_LINES.slice(0, n).map((l) => (
+    <div key={l} className="text-[#e5534b]">
+      {l}
+    </div>
+  ));
+};
+
+const Git = () =>
+  gitLog().map((c) => (
+    <div key={c.hash}>
+      <span className="text-honey">* {c.hash}</span>
+      {c.head && <span className="text-peri"> (HEAD -&gt; main)</span>}{" "}
+      <span className="text-white">{c.msg}</span>{" "}
+      <span className="text-[#6b7080]">{c.meta}</span>
+    </div>
+  ));
+
+const Terminal = ({ win, onHire, onCrash }) => {
   const { t } = useTranslation();
   const [run, setRun] = useState("whoami");
   const [step, setStep] = useState(0);
   const [replays, setReplays] = useState(0); // clicking the same prompt replays it
   const timer = useRef(null);
+  const input = useRef(null);
+  const [cmd, setCmd] = useState("");
+  const [shell, setShell] = useState([]); // typed commands and their output
+  const [askPw, setAskPw] = useState(false); // sudo is waiting for a password
+
+  const submit = (e) => {
+    e.preventDefault();
+    const id = Date.now();
+    if (askPw) {
+      setAskPw(false);
+      setShell((s) => [...s, { id, kind: "granted" }]);
+      setTimeout(onHire, 900);
+    } else {
+      const out = parse(cmd);
+      if (out?.kind === "clear") setShell([]);
+      else if (out) setShell((s) => [...s, { id, cmd: cmd.trim(), ...out }]);
+      if (out?.kind === "sudo") setAskPw(true);
+    }
+    setCmd("");
+  };
 
   useEffect(() => {
     setStep(0);
@@ -87,13 +164,55 @@ const Terminal = ({ win }) => {
             </div>
           )}
 
-          <div className="mt-3.5 flex items-center gap-1 rounded-md border border-[#3a3d45] px-3 py-2">
-            <span className="text-[#8b8f98]">&gt;</span>
-            <span
-              aria-hidden="true"
-              className="h-4 w-2 animate-[caret_1s_steps(1)_infinite] bg-[#d7dae0]"
+          {shell.map((o) => (
+            <div key={o.id} className="mt-2">
+              {o.cmd && (
+                <div>
+                  <span className="text-mint">david@resume</span>{" "}
+                  <span className="text-peri">~</span> % {o.cmd}
+                </div>
+              )}
+              {o.kind === "text" &&
+                o.lines.map((l) => (
+                  <div key={l} className="text-[#8b8f98]">
+                    {l}
+                  </div>
+                ))}
+              {o.kind === "sudo" && (
+                <div className="text-[#8b8f98]">
+                  [sudo] password for recruiter:
+                </div>
+              )}
+              {o.kind === "granted" && (
+                <div className="text-mint">
+                  ✓ Permission granted. Opening Mail…
+                </div>
+              )}
+              {o.kind === "git" && <Git />}
+              {o.kind === "npm" && <Npm />}
+              {o.kind === "rm" && <Rm onCrash={onCrash} />}
+            </div>
+          ))}
+
+          <form
+            onSubmit={submit}
+            onClick={() => input.current?.focus()}
+            className="mt-3.5 flex items-center gap-2 rounded-md border border-[#3a3d45] px-3 py-2 focus-within:border-[#5a5d65]"
+          >
+            <span className="text-[#8b8f98]">{askPw ? "🔑" : ">"}</span>
+            <input
+              ref={input}
+              type={askPw ? "password" : "text"}
+              value={cmd}
+              onChange={(e) => setCmd(e.target.value)}
+              aria-label={t("desktop.terminal.input")}
+              placeholder={askPw ? "" : t("desktop.terminal.placeholder")}
+              autoComplete="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              className="min-w-0 flex-1 bg-transparent text-[#d7dae0] caret-[#d7dae0] outline-none placeholder:text-[#4b4f5a]"
             />
-          </div>
+          </form>
           <div className="mt-2.5 flex flex-wrap gap-2">
             {Object.keys(RUNS).map((id) => (
               <button

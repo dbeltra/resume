@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import MenuBar from "./components/MenuBar";
@@ -13,6 +13,8 @@ import { useResponsive } from "./hooks/useResponsive";
 import { PAGES } from "./data";
 import AppTile, { APPS } from "./components/AppTile";
 import PhoneHome from "./PhoneHome";
+import Crash from "./components/Crash";
+import { confetti } from "./components/confetti";
 import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
@@ -66,6 +68,29 @@ const Desktop = ({ phone }) => {
     dispatch({ type: "open", id, tab });
   };
   const go = (p) => dispatch({ type: "go", page: p });
+
+  // sudo hire-me: confetti, then Mail opens with a draft already written
+  const [draft, setDraft] = useState(0); // bump to remount Mail with the draft
+  const hire = () => {
+    confetti();
+    setDraft((n) => n + 1);
+    open("mail");
+  };
+
+  // rm -rf /: glitch -> kernel panic -> boot screen -> fresh desktop
+  const [crash, setCrash] = useState(null);
+  const rmrf = () => {
+    setCrash("glitch");
+    setTimeout(() => setCrash("panic"), 1400);
+    setTimeout(() => setCrash("boot"), 4400);
+    setTimeout(() => {
+      booted.current = false; // windows just appear after a reboot
+      dispatch({ type: "closeAll" });
+      go("about");
+      setCrash(null);
+      setTimeout(() => (booted.current = true));
+    }, 7000);
+  };
   const win = (id) => ({
     z: 10 + state.order.indexOf(id),
     onFocus: () => dispatch({ type: "focus", id }),
@@ -119,9 +144,13 @@ const Desktop = ({ phone }) => {
           onTab={(tab) => dispatch({ type: "tab", tab })}
         />
       )}
-      {state.open.term && <Terminal win={win("term")} />}
+      {state.open.term && (
+        <Terminal win={win("term")} onHire={hire} onCrash={rmrf} />
+      )}
       {state.open.pdf && <Preview win={win("pdf")} />}
-      {state.open.mail && <Mail win={win("mail")} />}
+      {state.open.mail && (
+        <Mail key={draft} win={win("mail")} draft={draft > 0} />
+      )}
       {/* desktop only: phones have no Trash */}
       {!phone && state.open.trash && <Trash win={win("trash")} />}
     </>
@@ -130,14 +159,20 @@ const Desktop = ({ phone }) => {
   if (phone) {
     return (
       <>
-        <PhoneHome onOpen={open} onGo={go} page={page} />
-        {apps}
+        <div className={crash === "glitch" ? "glitch" : ""}>
+          <PhoneHome onOpen={open} onGo={go} page={page} />
+          {apps}
+        </div>
+        {crash && crash !== "glitch" && <Crash phase={crash} />}
       </>
     );
   }
 
   return (
-    <main className="relative h-screen w-screen overflow-hidden bg-page-bg bg-cover bg-center font-sans text-ink-text">
+    <main
+      className={`relative h-screen w-screen overflow-hidden ${crash === "glitch" ? "glitch" : ""} bg-page-bg bg-cover bg-center font-sans text-ink-text`}
+    >
+      {crash && crash !== "glitch" && <Crash phase={crash} />}
       <MenuBar
         appName={front ? t(`desktop.apps.${front}`) : "David Beltrà"}
         menu={state.menu}

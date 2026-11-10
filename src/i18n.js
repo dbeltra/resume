@@ -182,6 +182,8 @@ const resources = {
           cv: "CV (PDF)",
         },
         terminal: {
+          placeholder: "Type a command… (try help)",
+          input: "Terminal command",
           login: "Last login on ttys001",
           thinking: "Thinking…",
           runs: {
@@ -251,6 +253,9 @@ const resources = {
           open: "Open in a new tab",
         },
         mail: {
+          hireSubject: "Let's talk about a role",
+          hireBody:
+            "Hi David,\n\nI ran sudo hire-me on your site and it worked. We have a role that could be a great fit, are you free for a chat this week?\n\n",
           title: "New Message",
           to: "To:",
           subject: "Subject:",
@@ -446,6 +451,8 @@ const resources = {
           cv: "CV (PDF)",
         },
         terminal: {
+          placeholder: "Escribe un comando… (prueba help)",
+          input: "Comando de terminal",
           login: "Último inicio de sesión en ttys001",
           thinking: "Pensando…",
           runs: {
@@ -515,6 +522,9 @@ const resources = {
           open: "Abrir en una pestaña nueva",
         },
         mail: {
+          hireSubject: "Hablemos de un puesto",
+          hireBody:
+            "Hola David,\n\nHe ejecutado sudo hire-me en tu web y ha funcionado. Tenemos un puesto que podría encajarte, ¿tienes un rato esta semana?\n\n",
           title: "Nuevo mensaje",
           to: "Para:",
           subject: "Asunto:",
@@ -712,6 +722,8 @@ const resources = {
           cv: "CV (PDF)",
         },
         terminal: {
+          placeholder: "Escriu una ordre… (prova help)",
+          input: "Ordre del terminal",
           login: "Darrer inici de sessió a ttys001",
           thinking: "Pensant…",
           runs: {
@@ -781,6 +793,9 @@ const resources = {
           open: "Obrir en una pestanya nova",
         },
         mail: {
+          hireSubject: "Parlem d'una feina",
+          hireBody:
+            "Hola David,\n\nHe executat sudo hire-me a la teva web i ha funcionat. Tenim una feina que et podria encaixar, tens una estona aquesta setmana?\n\n",
           title: "Missatge nou",
           to: "Per a:",
           subject: "Assumpte:",
