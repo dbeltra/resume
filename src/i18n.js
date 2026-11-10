@@ -244,6 +244,7 @@ const resources = {
         credits: "Icons from Flaticon",
         trashApp: {
           quickLook: "Quick Look",
+        photoBy: "Photo: {{name}} / Unsplash",
           close: "Close",
           hint: "Space or double-click to Quick Look",
           empty: "Empty",
@@ -620,6 +621,7 @@ const resources = {
         phone: { home: "Inicio" },
         preview: {
           page: "Página 1 de 1",
+        photoBy: "Foto: {{name}} / Unsplash",
           download: "Descargar CV",
           open: "Abrir en una pestaña nueva",
         },
@@ -998,6 +1000,7 @@ const resources = {
         },
         off: "Ja pots apagar l'ordinador amb seguretat. (Fes clic per tornar-lo a encendre.)",
         aboutDev: {
+        photoBy: "Foto: {{name}} / Unsplash",
           close: "Tanca",
           more: "Més informació…",
           model: "Desenvolupador full stack, edició 2014",

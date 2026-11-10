@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "page-bg": "url('./assets/images/background.png')",
+        "page-bg": "url('./assets/wallpapers/stars.jpg')", // default wallpaper (Benjamin Voros / Unsplash)
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],

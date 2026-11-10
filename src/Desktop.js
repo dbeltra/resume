@@ -29,13 +29,19 @@ import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
 import TrashIcon from "./assets/icons/apps/trash.png";
 
-// Change Wallpaper cycles these; 0 is the default image from the CSS.
+import BarcelonaWall from "./assets/wallpapers/barcelona.jpg";
+import StarsWall from "./assets/wallpapers/stars.jpg";
+import ShoreWall from "./assets/wallpapers/shore.jpg";
+import ForestWall from "./assets/wallpapers/forest.jpg";
+import CanyonWall from "./assets/wallpapers/canyon.jpg";
+// Change Wallpaper cycles these; the first is the default (also the
+// `page-bg` image in tailwind.config.js). Unsplash, credited bottom-right.
 const WALLPAPERS = [
-  null,
-  "linear-gradient(135deg, #1e1b4b, #7e22ce 50%, #f472b6)",
-  "radial-gradient(circle at 30% 20%, #7094db, #1b2440 70%)",
-  "linear-gradient(160deg, #0f172a, #134e4a 60%, #a3e635)",
-  "linear-gradient(180deg, #fde68a, #f97316 45%, #7c2d12)",
+  { img: StarsWall, by: "Benjamin Voros", id: "phIFdC6lA4E" },
+  { img: BarcelonaWall, by: "Leyre", id: "isaAz3FUgqQ" },
+  { img: ShoreWall, by: "Iswanto Arif", id: "OJ74pFtrYi0" },
+  { img: ForestWall, by: "Dan Otis", id: "OYFHT4X5isg" },
+  { img: CanyonWall, by: "Ashim D'Silva", id: "WeYamle9fDM" },
 ];
 
 const usePageParam = () => {
@@ -131,7 +137,8 @@ const Desktop = ({ phone }) => {
     );
   const [wall, setWall] = useState(() => {
     try {
-      return Number(localStorage.getItem("wallpaper")) || 0;
+      // % length: an index saved by an older, longer list still works
+      return Number(localStorage.getItem("wallpaper")) % WALLPAPERS.length || 0;
     } catch {
       return 0;
     }
@@ -397,7 +404,7 @@ const Desktop = ({ phone }) => {
     <main
       className={`relative h-screen w-screen overflow-hidden ${crash === "glitch" ? "glitch" : ""} bg-page-bg bg-cover bg-center font-sans text-ink-text`}
       style={
-        WALLPAPERS[wall] ? { backgroundImage: WALLPAPERS[wall] } : undefined
+        wall ? { backgroundImage: `url(${WALLPAPERS[wall].img})` } : undefined
       }
       onContextMenu={(e) => {
         // only the bare desktop; windows, dock and icons keep the browser's menu
@@ -594,14 +601,24 @@ const Desktop = ({ phone }) => {
           />
         </button>
       </nav>
-      <a
-        href="https://www.flaticon.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute bottom-2 right-3 text-[11px] text-white/80 hover:text-white"
-      >
-        {t("desktop.credits")}
-      </a>
+      <div className="absolute bottom-2 right-3 flex gap-3 text-[11px] text-white/80 [text-shadow:0_1px_2px_rgba(0,0,0,0.6)]">
+        <a
+          href={`https://unsplash.com/photos/${WALLPAPERS[wall].id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-white"
+        >
+          {t("desktop.photoBy", { name: WALLPAPERS[wall].by })}
+        </a>
+        <a
+          href="https://www.flaticon.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-white"
+        >
+          {t("desktop.credits")}
+        </a>
+      </div>
     </main>
   );
 };
