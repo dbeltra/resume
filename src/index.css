@@ -146,3 +146,11 @@ body {
     transform: scaleY(1);
   }
 }
+
+/* phone full-screen sheets: always the height with the URL bar hidden, so
+   collapsing it reveals more sheet instead of a gap (dvh did this with a
+   visible snap). With the bar shown, the bottom edge sits just off-screen. */
+.screen-h {
+  height: 100vh;
+  height: 100lvh;
+}

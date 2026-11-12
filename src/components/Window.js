@@ -121,17 +121,15 @@ const Window = ({
       // but a full-screen phone app must not show the home screen through
       <div
         style={{ zIndex: z }}
-        className={`fixed inset-0 bg-ink-950 ${minimized ? "hidden" : "animate-[app-open_0.28s_ease-out]"}`}
+        className={`screen-h fixed inset-x-0 top-0 bg-ink-950 ${minimized ? "hidden" : "animate-[app-open_0.28s_ease-out]"}`}
       >
         <section
           aria-label={label}
           className={`flex h-full flex-col ${className}`}
         >
-          <div
-            // inline style wins over the app's desktop bar height/alignment
-            style={{ height: 48, alignItems: "center" }}
-            className={`relative flex flex-none gap-2 px-2 pt-[env(safe-area-inset-top)] text-white ${barClassName}`}
-          >
+          {/* one iOS-style bar for every app; the desktop barClassName
+              (each app's own title-bar colours and fonts) doesn't apply here */}
+          <div className="relative flex h-12 flex-none items-center gap-2 border-b border-white/10 bg-ink-800 px-2 font-sans text-white">
             <button
               type="button"
               onClick={onMinimize}
