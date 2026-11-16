@@ -12,7 +12,7 @@ export const TRASH_FILES = [
 [x] ship React + FastAPI to production
 [x] write tests before the bug report, not after
 [ ] stop renaming files to _final
-[ ] get hired by you`,
+[ ] finish one side project`,
   },
   {
     name: "resume_2014.pdf",

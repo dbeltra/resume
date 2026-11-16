@@ -63,7 +63,7 @@ const resources = {
       skillsTools: "Tools",
       contactTitle: "Contact Me",
       contactDescription: [
-        "Whether you want to discuss a new project, need help with development, or have a general inquiry, feel free to reach out! I’m always open to networking and exploring exciting opportunities.",
+        "Whether you want to discuss a new project, need help with development, or have a general inquiry, feel free to reach out!",
       ],
       contactEmail: "Email",
       contactEmailText: "For the quickest response, send me an email!",
@@ -75,7 +75,7 @@ const resources = {
         "Check out my projects, repositories, and contributions.",
       contactLocation: "Based in",
       contactLocationPlace: "Barcelona, Spain",
-      contactLocationText: "Available for remote work.",
+      contactLocationText: "Central European Time (CET).",
       settingsLanguageTitle: "Language settings",
       settingsLanguageHelper: "Customize the language",
       settingsAppearanceTitle: "Interface Appearance",
@@ -93,8 +93,7 @@ const resources = {
       searchPlaceholder: "Search for...",
       searchSearchingText: "Searching...",
       searchResultsTitle: 'Search Results for "{{placeholderText}}":',
-      searchResultsInfo:
-        "Looks like I'm the developer you're looking for! Maybe you should",
+      searchResultsInfo: "Didn't find what you were after? You can always",
       searchResultsContact: "contact me",
       consoleWelcomeMessage: [
         "Welcome to my personal console!",
@@ -278,12 +277,12 @@ const resources = {
         },
         trashCv: {
           title: "Move “CV.pdf” to the Trash?",
-          body: "Are you sure? This candidate is really good.",
+          body: "Are you sure? This one took years to write.",
           keep: "Keep CV",
           delete: "Delete anyway",
           deniedTitle: "Permission denied",
           deniedBody:
-            "This candidate is too good to throw away. The CV has been backed up in 3 clouds.",
+            "This CV is too good to throw away. It has been backed up in 3 clouds.",
         },
         off: "It's now safe to turn off your computer. (Click to turn it back on.)",
         aboutDev: {
@@ -313,7 +312,7 @@ const resources = {
             },
             {
               k: "Serial number",
-              v: "DB-2014-HIRE-ME",
+              v: "DB-2014-SAY-HI",
             },
             {
               k: "OS",
@@ -326,7 +325,7 @@ const resources = {
           dismiss: "Dismiss",
           mail: {
             title: "Mail",
-            body: "A recruiter wants to chat. Write to David before someone else does.",
+            body: "Got a question, or just want to say hi? Write to David.",
           },
           term: {
             title: "Terminal",
@@ -358,7 +357,7 @@ const resources = {
           spotlight: "Spotlight…",
           untitled: "untitled folder",
           emptyTitle: "“{{name}}” is empty",
-          emptyBody: "The perfect spot for an interview invite.",
+          emptyBody: "The perfect spot for a side project.",
         },
         spotify: {
           live: "Listening now",
@@ -373,9 +372,9 @@ const resources = {
           source: "Scrobbled on Last.fm · last.fm/user/dbeltra",
         },
         mail: {
-          hireSubject: "Let's talk about a role",
-          hireBody:
-            "Hi David,\n\nI ran sudo hire-me on your site and it worked. We have a role that could be a great fit, are you free for a chat this week?\n\n",
+          hiSubject: "Hi from your terminal",
+          hiBody:
+            "Hi David,\n\nI ran sudo say-hi on your site and it worked. Just stopping by to say hello.\n\n",
           title: "New Message",
           to: "To:",
           subject: "Subject:",
@@ -448,7 +447,7 @@ const resources = {
       skillsTools: "Herramientas",
       contactTitle: "Contáctame",
       contactDescription: [
-        "Ya sea que quieras discutir un nuevo proyecto, necesites ayuda con desarrollo, o tengas una consulta general, ¡no dudes en contactarme! Siempre estoy abierto a hacer networking y explorar oportunidades emocionantes.",
+        "Ya sea que quieras discutir un nuevo proyecto, necesites ayuda con desarrollo, o tengas una consulta general, ¡no dudes en contactarme!",
       ],
       contactEmail: "Correo Electrónico",
       contactEmailText: "¡Para una respuesta más rápida, envíame un correo!",
@@ -459,7 +458,7 @@ const resources = {
       contactGithubText: "Revisa mis proyectos, repositorios y contribuciones.",
       contactLocation: "Residencia",
       contactLocationPlace: "Barcelona, España",
-      contactLocationText: "Disponible para trabajo remoto.",
+      contactLocationText: "Hora central europea (CET).",
       settingsLanguageTitle: "Configuración de Idioma",
       settingsLanguageHelper: "Personaliza el idioma",
       settingsAppearanceTitle: "Apariencia de la Interfaz",
@@ -482,8 +481,7 @@ const resources = {
       searchPlaceholder: "Buscar...",
       searchSearchingText: "Buscando...",
       searchResultsTitle: 'Resultados de búsqueda para "{{placeholderText}}":',
-      searchResultsInfo:
-        "¡Parece que soy el desarrollador que buscas! Quizás deberías",
+      searchResultsInfo: "¿No encuentras lo que buscabas? Siempre puedes",
       searchResultsContact: "contactarme",
       consoleWelcomeMessage: [
         "Bienvenido/a a mi consola personal!",
@@ -668,12 +666,12 @@ const resources = {
         },
         trashCv: {
           title: "¿Mover «CV.pdf» a la papelera?",
-          body: "¿Seguro? Este candidato es muy bueno.",
+          body: "¿Seguro? Escribirlo ha costado años.",
           keep: "Conservar CV",
           delete: "Borrar igualmente",
           deniedTitle: "Permiso denegado",
           deniedBody:
-            "Este candidato es demasiado bueno para tirarlo. El CV tiene copia en 3 nubes.",
+            "Este CV es demasiado bueno para tirarlo. Tiene copia en 3 nubes.",
         },
         off: "Ya puedes apagar el ordenador con seguridad. (Haz clic para encenderlo.)",
         aboutDev: {
@@ -703,7 +701,7 @@ const resources = {
             },
             {
               k: "Número de serie",
-              v: "DB-2014-HIRE-ME",
+              v: "DB-2014-SAY-HI",
             },
             {
               k: "SO",
@@ -716,7 +714,7 @@ const resources = {
           dismiss: "Descartar",
           mail: {
             title: "Mail",
-            body: "Un recruiter quiere hablar. Escribe a David antes que otro.",
+            body: "¿Alguna pregunta, o solo quieres saludar? Escribe a David.",
           },
           term: {
             title: "Terminal",
@@ -748,7 +746,7 @@ const resources = {
           spotlight: "Spotlight…",
           untitled: "carpeta sin título",
           emptyTitle: "«{{name}}» está vacía",
-          emptyBody: "El sitio perfecto para una invitación a entrevista.",
+          emptyBody: "El sitio perfecto para un proyecto personal.",
         },
         spotify: {
           live: "Escuchando ahora",
@@ -763,9 +761,9 @@ const resources = {
           source: "Scrobbles en Last.fm · last.fm/user/dbeltra",
         },
         mail: {
-          hireSubject: "Hablemos de un puesto",
-          hireBody:
-            "Hola David,\n\nHe ejecutado sudo hire-me en tu web y ha funcionado. Tenemos un puesto que podría encajarte, ¿tienes un rato esta semana?\n\n",
+          hiSubject: "Hola desde tu terminal",
+          hiBody:
+            "Hola David,\n\nHe ejecutado sudo say-hi en tu web y ha funcionado. Solo pasaba a saludar.\n\n",
           title: "Nuevo mensaje",
           to: "Para:",
           subject: "Asunto:",
@@ -838,7 +836,7 @@ const resources = {
       skillsTools: "Eines",
       contactTitle: "Contacta Amb Mi",
       contactDescription: [
-        "Si vols parlar d'un projecte nou, necessites ajuda amb el teu codi o tens una consulta general, no dubtis a posar-te en contacte! Sempre estic obert a fer xarxa i explorar oportunitats emocionants.",
+        "Si vols parlar d'un projecte nou, necessites ajuda amb el teu codi o tens una consulta general, no dubtis a posar-te en contacte!",
       ],
       contactEmail: "Correu Electrònic",
       contactEmailText:
@@ -851,7 +849,7 @@ const resources = {
         "Consulta els meus projectes, repositoris i contribucions.",
       contactLocation: "Ubicació",
       contactLocationPlace: "Barcelona, Espanya",
-      contactLocationText: "Disponible per a treball remot.",
+      contactLocationText: "Hora central europea (CET).",
       settingsLanguageTitle: "Configuració de l'Idioma",
       settingsLanguageHelper: "Personalitza l'idioma",
       settingsAppearanceTitle: "Aspecte de la Interfície",
@@ -874,8 +872,7 @@ const resources = {
       searchPlaceholder: "Cerca...",
       searchSearchingText: "Cercant...",
       searchResultsTitle: 'Resultats de la cerca per a "{{placeholderText}}":',
-      searchResultsInfo:
-        "Sembla que sóc el desenvolupador que estàs buscant! Potser hauries de",
+      searchResultsInfo: "No trobes el que buscaves? Sempre pots",
       searchResultsContact: "contactar amb mi",
       consoleWelcomeMessage: [
         "Bienvingut/da a la meva consola personal!",
@@ -1059,12 +1056,12 @@ const resources = {
         },
         trashCv: {
           title: "Vols moure «CV.pdf» a la paperera?",
-          body: "Segur? Aquest candidat és molt bo.",
+          body: "Segur? Escriure'l ha costat anys.",
           keep: "Conservar CV",
           delete: "Esborrar igualment",
           deniedTitle: "Permís denegat",
           deniedBody:
-            "Aquest candidat és massa bo per llençar-lo. El CV té còpia a 3 núvols.",
+            "Aquest CV és massa bo per llençar-lo. Té còpia a 3 núvols.",
         },
         off: "Ja pots apagar l'ordinador amb seguretat. (Fes clic per tornar-lo a encendre.)",
         aboutDev: {
@@ -1094,7 +1091,7 @@ const resources = {
             },
             {
               k: "Número de sèrie",
-              v: "DB-2014-HIRE-ME",
+              v: "DB-2014-SAY-HI",
             },
             {
               k: "SO",
@@ -1107,7 +1104,7 @@ const resources = {
           dismiss: "Descarta",
           mail: {
             title: "Mail",
-            body: "Un recruiter vol parlar. Escriu al David abans que un altre.",
+            body: "Alguna pregunta, o només vols saludar? Escriu al David.",
           },
           term: {
             title: "Terminal",
@@ -1139,7 +1136,7 @@ const resources = {
           spotlight: "Spotlight…",
           untitled: "carpeta sense títol",
           emptyTitle: "«{{name}}» és buida",
-          emptyBody: "El lloc perfecte per a una invitació a entrevista.",
+          emptyBody: "El lloc perfecte per a un projecte personal.",
         },
         spotify: {
           live: "Escoltant ara",
@@ -1154,9 +1151,9 @@ const resources = {
           source: "Scrobbles a Last.fm · last.fm/user/dbeltra",
         },
         mail: {
-          hireSubject: "Parlem d'una feina",
-          hireBody:
-            "Hola David,\n\nHe executat sudo hire-me a la teva web i ha funcionat. Tenim una feina que et podria encaixar, tens una estona aquesta setmana?\n\n",
+          hiSubject: "Hola des del teu terminal",
+          hiBody:
+            "Hola David,\n\nHe executat sudo say-hi a la teva web i ha funcionat. Només passava a saludar.\n\n",
           title: "Missatge nou",
           to: "Per a:",
           subject: "Assumpte:",

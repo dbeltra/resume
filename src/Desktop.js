@@ -95,9 +95,9 @@ const Desktop = ({ phone }) => {
   };
   const go = (p) => dispatch({ type: "go", page: p });
 
-  // sudo hire-me: confetti, then Mail opens with a draft already written
+  // sudo say-hi: confetti, then Mail opens with a hello already written
   const [draft, setDraft] = useState(0); // bump to remount Mail with the draft
-  const hire = () => {
+  const sayHi = () => {
     confetti();
     setDraft((n) => n + 1);
     open("mail");
@@ -386,7 +386,12 @@ const Desktop = ({ phone }) => {
         />
       )}
       {state.open.term && (
-        <Terminal win={win("term")} onHire={hire} onCrash={rmrf} />
+        <Terminal
+          win={win("term")}
+          onSayHi={sayHi}
+          onCrash={rmrf}
+          onOpen={(id, tab) => (id === "browser" ? go(page) : open(id, tab))}
+        />
       )}
       {state.open.claude && <Claude win={win("claude")} />}
       {state.open.pdf && <Preview win={win("pdf")} />}

@@ -5,6 +5,8 @@ import Window from "../components/Window";
 import { RUNS } from "../data";
 import {
   parse,
+  complete,
+  HELP,
   ask,
   isExit,
   gitLog,
@@ -13,6 +15,7 @@ import {
 } from "./shell/commands";
 import Vim from "./shell/Vim";
 import Clawd from "./claude/ClawdCanvas";
+import ClawdIcon from "../assets/icons/apps/clawd.svg";
 import { animate, hello, sceneFor } from "./claude/clawd";
 
 const STEP_MS = 650;
@@ -38,7 +41,7 @@ const Npm = () => {
         <div className="text-white">
           added 1 developer in {new Date().getFullYear() - 2014}y,{" "}
           <span className="text-mint">0 vulnerabilities</span>
-          <br />1 package is looking for funding: run `sudo hire-me`
+          <br />1 package wants to say hi: run `sudo say-hi`
         </div>
       )}
     </>
@@ -53,6 +56,46 @@ const Rm = ({ onCrash }) => {
     </div>
   ));
 };
+
+const FETCH = [
+  ["OS", "davidOS, Barcelona edition"],
+  ["Uptime", `${new Date().getFullYear() - 2014} years`],
+  ["Shell", "zsh + claude"],
+  ["Languages", "Python, JavaScript, Rust"],
+  ["Frameworks", "React, FastAPI, Django"],
+  ["Editor", "VS Code, Claude Code"],
+  ["Packages", "coffee, curiosity, git"],
+  ["Contact", "dbeltra@gmail.com"],
+];
+const Neofetch = () => (
+  <div className="flex items-start gap-5 py-1">
+    <img
+      src={ClawdIcon}
+      alt=""
+      className="h-[84px] w-[84px] flex-none"
+      style={{ imageRendering: "pixelated" }}
+    />
+    <div>
+      <div>
+        <span className="text-mint">david</span>@
+        <span className="text-mint">resume</span>
+      </div>
+      <div className="text-[#6b7080]">────────────</div>
+      {FETCH.map(([k, v]) => (
+        <div key={k}>
+          <span className="text-peri">{k}</span>: {v}
+        </div>
+      ))}
+      <div className="mt-1.5 flex">
+        {["#e5534b", "#e0a46e", "#6fbf8a", "#7094db", "#a772a7", "#d7dae0"].map(
+          (c) => (
+            <span key={c} className="h-3 w-5" style={{ background: c }} />
+          ),
+        )}
+      </div>
+    </div>
+  </div>
+);
 
 const Git = () =>
   gitLog().map((c) => (
@@ -128,7 +171,7 @@ const Prompt = ({ children }) => (
 
 // A plain zsh; `claude` starts a fake agent session in the same scrollback,
 // `/exit` or Esc drops back to zsh.
-const Terminal = ({ win, onHire, onCrash }) => {
+const Terminal = ({ win, onSayHi, onCrash, onOpen }) => {
   const { t } = useTranslation();
   const input = useRef(null);
   const [cmd, setCmd] = useState("");
@@ -136,6 +179,24 @@ const Terminal = ({ win, onHire, onCrash }) => {
   const [claude, setClaude] = useState(false);
   const [askPw, setAskPw] = useState(false); // sudo is waiting for a password
   const [vim, setVim] = useState(false);
+  const [past, setPast] = useState([]); // typed commands, for ↑/↓ and `history`
+  const [back, setBack] = useState(0); // how far ↑ has gone into `past`
+  const recall = (e) => {
+    if (e.key === "Tab" && !askPw) {
+      e.preventDefault();
+      const { value, options } = complete(cmd);
+      setCmd(value);
+      if (options.length)
+        print({ cmd: cmd.trim(), kind: "text", lines: [options.join("  ")] });
+      return;
+    }
+    const step = { ArrowUp: 1, ArrowDown: -1 }[e.key];
+    if (!step || askPw) return;
+    e.preventDefault();
+    const b = Math.min(past.length, Math.max(0, back + step));
+    setBack(b);
+    setCmd(b ? past[past.length - b] : "");
+  };
   const print = (...entries) =>
     setLog((l) => [
       ...l,
@@ -172,7 +233,7 @@ const Terminal = ({ win, onHire, onCrash }) => {
     if (askPw) {
       setAskPw(false);
       print({ kind: "granted" });
-      setTimeout(onHire, 900);
+      setTimeout(onSayHi, 900);
     } else if (claude) {
       if (!typed) return;
       if (isExit(typed)) return exitClaude(typed);
@@ -180,7 +241,19 @@ const Terminal = ({ win, onHire, onCrash }) => {
       if (run) print({ kind: "run", run, q: typed });
       else print({ q: typed, kind: "fallback" });
     } else {
+      if (typed) setPast((p) => [...p, typed]);
+      setBack(0);
       const out = parse(cmd);
+      if (out?.kind === "open") setTimeout(() => onOpen(out.app, out.tab), 300);
+      if (out?.kind === "exit") return win.onClose();
+      if (out?.kind === "history")
+        return print({
+          cmd: typed,
+          kind: "text",
+          lines: [...past, typed].map(
+            (c, i) => `${String(i + 1).padStart(4)}  ${c}`,
+          ),
+        });
       if (out?.kind === "clear") return setLog([]);
       if (out?.kind === "claude") return enterClaude(typed);
       if (out) print({ cmd: typed, ...out });
@@ -242,15 +315,31 @@ const Terminal = ({ win, onHire, onCrash }) => {
                 </div>
               )}
               {o.kind === "text" &&
-                o.lines.map((l) => (
-                  <div key={l} className="text-[#8b8f98]">
-                    {l}
+                o.lines.map((l, i) => (
+                  <div key={i} className="whitespace-pre-wrap text-[#8b8f98]">
+                    {l || " "}
+                  </div>
+                ))}
+              {o.kind === "open" && (
+                <div className="text-[#8b8f98]">Opening…</div>
+              )}
+              {o.kind === "neofetch" && <Neofetch />}
+              {o.kind === "help" &&
+                HELP.map(([group, rows]) => (
+                  <div key={group} className="mt-1">
+                    <div className="text-[#6b7080]">{group}</div>
+                    {rows.map(([c, what]) => (
+                      <div key={c} className="flex">
+                        <span className="w-[22ch] flex-none pl-[2ch] text-white">
+                          {c}
+                        </span>
+                        <span className="text-[#8b8f98]">{what}</span>
+                      </div>
+                    ))}
                   </div>
                 ))}
               {o.kind === "sudo" && (
-                <div className="text-[#8b8f98]">
-                  [sudo] password for recruiter:
-                </div>
+                <div className="text-[#8b8f98]">[sudo] password for guest:</div>
               )}
               {o.kind === "granted" && (
                 <div className="text-mint">
@@ -315,6 +404,7 @@ const Terminal = ({ win, onHire, onCrash }) => {
               <input
                 ref={input}
                 autoFocus={!win.phone}
+                onKeyDown={recall}
                 type={askPw ? "password" : "text"}
                 value={cmd}
                 onChange={(e) => setCmd(e.target.value)}

@@ -20,10 +20,10 @@ const Crash = ({ phase, offText, onWake }) => (
       </button>
     ) : phase === "panic" ? (
       <pre className="max-w-2xl whitespace-pre-wrap">
-        {`panic(cpu 0 caller 0xffffff8012a4b2c1): "rm -rf /" issued by recruiter
+        {`panic(cpu 0 caller 0xffffff8012a4b2c1): "rm -rf /" issued by guest
 Kernel version: DavidOS 12.0.0 (coffee-powered)
 Backtrace:
-  0xffffff80 recruiter_curiosity + 0x2a
+  0xffffff80 guest_curiosity + 0x2a
   0xffffff81 rm_rf_root + 0x1337
   0xffffff82 nothing_was_actually_deleted + 0x0
 

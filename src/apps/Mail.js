@@ -6,9 +6,9 @@ import Window from "../components/Window";
 const Mail = ({ win, draft = false }) => {
   const { t } = useTranslation();
   const [subject, setSubject] = useState(
-    t(draft ? "desktop.mail.hireSubject" : "desktop.mail.subjectDefault"),
+    t(draft ? "desktop.mail.hiSubject" : "desktop.mail.subjectDefault"),
   );
-  const [body, setBody] = useState(draft ? t("desktop.mail.hireBody") : "");
+  const [body, setBody] = useState(draft ? t("desktop.mail.hiBody") : "");
   const href = `mailto:dbeltra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
   const sendButton = (
