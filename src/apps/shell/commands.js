@@ -3,7 +3,7 @@
 import { CODE } from "../../data";
 
 export const HINT =
-  "try: sudo hire-me · git log · npm install david · vim · rm -rf /";
+  "try: claude · sudo hire-me · git log · npm install david · vim · rm -rf /";
 
 // the Vim commands that actually get you out
 export const VIM_EXITS = [
@@ -66,6 +66,7 @@ export const parse = (raw) => {
   if (!cmd) return null;
   if (cmd === "clear") return { kind: "clear" };
   if (cmd === "help") return { kind: "text", lines: [HINT] };
+  if (cmd === "claude") return { kind: "claude" };
   if (/^sudo hire[- ]me$/.test(cmd)) return { kind: "sudo" };
   if (cmd.startsWith("sudo "))
     return {
@@ -88,4 +89,17 @@ export const parse = (raw) => {
     kind: "text",
     lines: [`zsh: command not found: ${cmd.split(" ")[0]}`, HINT],
   };
+};
+
+// Claude mode: which scripted run a typed question maps to (null = no idea)
+const TOPICS = {
+  frontend: /front|react|\bui\b|css|web|design/,
+  backend: /back|api|python|rust|django|server/,
+  agents: /agent|\bai\b|\bia\b|claude|llm|mcp/,
+  whoami: /who|about|yourself|qui[eé]n|qui ets|david|hello|hi\b|hola/,
+};
+export const isExit = (raw) => /^\/?(exit|quit)$/.test(raw.trim());
+export const ask = (raw) => {
+  const q = raw.toLowerCase();
+  return Object.keys(TOPICS).find((id) => TOPICS[id].test(q)) || null;
 };

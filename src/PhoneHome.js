@@ -23,6 +23,7 @@ const PhoneHome = ({ onOpen, onGo, page }) => {
   const grid = [
     { label: "CV", app: "pdf", act: () => onOpen("pdf") },
     { label: "Spotify", app: "spotify", act: () => onOpen("spotify") },
+    { label: "Claude", app: "claude", act: () => onOpen("claude") },
     {
       label: "Agents.md",
       icon: FileIcon,

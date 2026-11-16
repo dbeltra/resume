@@ -5,6 +5,7 @@ import MenuBar from "./components/MenuBar";
 import Browser from "./apps/Browser";
 import Code from "./apps/Code";
 import Terminal from "./apps/Terminal";
+import Claude from "./apps/Claude";
 import Preview, { cvFile } from "./apps/Preview";
 import Mail from "./apps/Mail";
 import Spotify from "./apps/Spotify";
@@ -178,16 +179,23 @@ const Desktop = ({ phone }) => {
       keywords: `${p} davidbeltra.com/${p}`,
       act: () => go(p),
     })),
-    ...["browser", "code", "term", "spotify", "pdf", "mail", "trash"].map(
-      (id) => ({
-        id: `app-${id}`,
-        kind: "app",
-        app: id === "trash" ? undefined : id,
-        icon: "delete",
-        label: t(`desktop.dock.${id}`),
-        act: () => (id === "browser" ? go(page) : open(id)),
-      }),
-    ),
+    ...[
+      "browser",
+      "code",
+      "term",
+      "claude",
+      "spotify",
+      "pdf",
+      "mail",
+      "trash",
+    ].map((id) => ({
+      id: `app-${id}`,
+      kind: "app",
+      app: id === "trash" ? undefined : id,
+      icon: "delete",
+      label: t(`desktop.dock.${id}`),
+      act: () => (id === "browser" ? go(page) : open(id)),
+    })),
     ...JSON.parse(CODE.experience).map((j) => ({
       id: `job-${j.company}-${j.dates}`,
       kind: "job",
@@ -380,6 +388,7 @@ const Desktop = ({ phone }) => {
       {state.open.term && (
         <Terminal win={win("term")} onHire={hire} onCrash={rmrf} />
       )}
+      {state.open.claude && <Claude win={win("claude")} />}
       {state.open.pdf && <Preview win={win("pdf")} />}
       {state.open.spotify && <Spotify win={win("spotify")} />}
       {state.open.mail && (
