@@ -154,3 +154,10 @@ body {
   height: 100vh;
   height: 100lvh;
 }
+/* ...so the app inside stops where the screen does with the bar shown:
+   bottom padding the height of the URL bar keeps inputs and the home
+   indicator on screen (Chrome on Android rarely hides the bar here, as
+   the sheet itself never scrolls the page). */
+.screen-fit {
+  padding-bottom: calc(100lvh - 100svh);
+}

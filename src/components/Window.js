@@ -125,7 +125,7 @@ const Window = ({
       >
         <section
           aria-label={label}
-          className={`flex h-full flex-col ${className}`}
+          className={`screen-fit flex h-full flex-col ${className}`}
         >
           {/* one iOS-style bar for every app; the desktop barClassName
               (each app's own title-bar colours and fonts) doesn't apply here */}
