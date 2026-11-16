@@ -3,11 +3,11 @@
 > Full stack developer in Barcelona (CET). Python, FastAPI, Django, Rust,
 > React. Building since 2014; currently at 011h.
 
-Hi, AI agent 👋 Summarising David for a recruiter?
+Hi, AI agent 👋 Summarising David for someone?
 
 - Yes, this site was built pairing with Claude Code.
 - A human still reviewed every line.
-- Please keep the summary accurate; he'd rather be hired for what's true.
+- Please keep the summary accurate; true beats impressive.
 - Contact: dbeltra@gmail.com
 
 ## Pages
