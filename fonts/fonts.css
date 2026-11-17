@@ -175,3 +175,14 @@
   font-display: block;
   src: url(material-symbols-outlined-icons-9c5397.woff2) format('woff2');
 }
+/* NEOPIXEL by its Behance author, "Free for Personal Use":
+   https://www.behance.net/gallery/165413157/NEOPIXEL-(free-font)
+   The original has no accents; scripts/build_neopixel.py adds à á è é ò ó
+   ù ú (and capitals) in its own pixels and writes this woff2. */
+@font-face {
+  font-family: 'Neopixel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(neopixel.woff2) format('woff2');
+}
