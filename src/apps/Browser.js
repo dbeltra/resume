@@ -62,9 +62,11 @@ const Browser = ({
       barClassName="h-[38px] items-end"
       toolbar={
         <div className="ml-2 flex h-[30px] max-w-[280px] items-center gap-2 rounded-t-[9px] bg-[#35363a] px-3.5 text-xs text-[#e8eaed]">
-          <span
-            aria-hidden="true"
-            className="h-3 w-3 flex-none rounded-[3px] bg-lilac"
+          {/* the site's real favicon, so the tab matches the browser's own */}
+          <img
+            src={`${process.env.PUBLIC_URL}/favicon-32x32.png`}
+            alt=""
+            className="h-4 w-4 flex-none rounded-[3px]"
           />
           <span className="truncate">
             {t(`desktop.pages.${page}`)} · David Beltrà

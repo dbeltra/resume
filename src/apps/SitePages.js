@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { JOB_STACKS, SKILLS } from "../data";
+import Foam from "../assets/textures/foam.jpg";
 
 // The website shown inside the Browser app (and on phones). A spec sheet:
 // a dark band in the desktop's own dark, then a white sheet of numbered
@@ -20,12 +21,21 @@ const Mono = ({ className = "", children }) => (
 );
 
 // the dark top of every page: "02 / Experience" over a big title
+// acoustic foam (Niek Doup / Unsplash) under a dark wash, so the band has
+// texture without hurting contrast; the wash fades a little towards the right
+const BAND_BG = {
+  backgroundColor: "#111318",
+  backgroundImage: `linear-gradient(100deg, rgba(17,19,24,0.82), rgba(17,19,24,0.55)), url(${Foam})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center 40%",
+};
+
 const Band = ({ eyebrow, title, children }) => (
-  <header className="bg-[#111318] px-5 text-white sm:px-10">
+  <header style={BAND_BG} className="px-5 text-white sm:px-10">
     <div className="pb-11 pt-12 sm:pt-14">
       {eyebrow && <Mono className="text-xs text-[#8b8f98]">{eyebrow}</Mono>}
       <h1
-        className={`font-display font-bold leading-[0.95] tracking-[-0.035em] ${eyebrow ? "mt-3 text-[40px] sm:text-[56px]" : "text-[52px] sm:text-[80px]"}`}
+        className={`font-pixel font-normal leading-[0.95] ${eyebrow ? "mt-3 text-[40px] sm:text-[56px]" : "text-[52px] sm:text-[80px]"}`}
       >
         {title}
       </h1>
@@ -131,14 +141,20 @@ const About = ({ onOpenCv, onOpenMail }) => {
     <>
       <Band
         title={
-          // a self-closing tag in the code font; screen readers just get
-          // the name. Mono runs wide, so it's smaller than the other titles.
-          <span className="block whitespace-nowrap font-mono text-[28px] tracking-[-0.04em] sm:text-[60px]">
-            <span aria-hidden="true" className="font-normal text-[#5d6170]">
+          // a self-closing tag; screen readers just get the name. Neopixel
+          // has no < >, so both brackets are set in JetBrains Mono.
+          <span className="block whitespace-nowrap text-[30px] sm:text-[64px]">
+            <span
+              aria-hidden="true"
+              className="font-mono font-normal text-[#5d6170]"
+            >
               {"< "}
             </span>
             david beltrà
-            <span aria-hidden="true" className="font-normal text-[#5d6170]">
+            <span
+              aria-hidden="true"
+              className="font-mono font-normal text-[#5d6170]"
+            >
               {" />"}
             </span>
           </span>

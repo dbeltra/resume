@@ -14,6 +14,7 @@ module.exports = {
         sans: ["Inter", "system-ui", "sans-serif"],
         mono: ["JetBrains Mono", "ui-monospace", "monospace"],
         display: ["Space Grotesk", "Inter", "sans-serif"],
+        pixel: ["Neopixel", "JetBrains Mono", "monospace"], // site titles
       },
       colors: {
         // v2 dark surfaces (apps) and light page (browser content)

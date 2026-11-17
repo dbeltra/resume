@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import OsIcon from "../assets/icons/icon-d.png";
 
 const LANGS = { en: "English", es: "Español", ca: "Català" };
 
@@ -109,7 +110,7 @@ const MenuBar = ({
                 className={`flex h-[26px] items-center rounded-md px-2.5 font-medium ${menu === m.id ? "bg-ink-400" : "hover:bg-ink-600"}`}
               >
                 {m.logo ? (
-                  <span className="block h-3.5 w-3.5 rounded bg-lilac" />
+                  <img src={OsIcon} alt="" className="block h-4 w-4" />
                 ) : (
                   t(`desktop.menu.${m.id}`)
                 )}
