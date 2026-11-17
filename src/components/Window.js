@@ -3,7 +3,8 @@ import { genie as playGenie, prefersReducedMotion } from "./genie";
 import { useTranslation } from "react-i18next";
 
 const MENU_BAR = 32;
-const DOCK_SPACE = 100; // keep maximized windows clear of the dock
+const DOCK_SPACE = 100; // keep windows clear of the dock
+const OVER_DOCK = 960; // a maximized front window: above the dock (950), below the menu bar (1000)
 
 // Shared window chrome. Each app brings its own colours and toolbar.
 // Default size and position are centred on the viewport and clamped to fit,
@@ -13,6 +14,8 @@ const Window = ({
   title,
   toolbar,
   z,
+  front = false, // the focused window; only it can cover the dock
+  onMaximize, // tells the desktop, which hides the dock behind it
   minimized,
   dockId, // which dock icon to minimize into / open out of
   animateOpen = false, // genie out of the dock icon when it first appears
@@ -35,6 +38,12 @@ const Window = ({
   const H = `min(${h}px, 100vh - 150px)`;
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [maximized, setMaximized] = useState(false);
+  useEffect(() => {
+    if (phone) return;
+    onMaximize?.(maximized);
+    return () => onMaximize?.(false); // closed while maximized
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maximized]);
   const [dragging, setDragging] = useState(false);
   const drag = useRef(null);
   const self = useRef(null);
@@ -172,7 +181,7 @@ const Window = ({
         left: 0,
         top: MENU_BAR,
         width: "100vw",
-        height: `calc(100vh - ${MENU_BAR + DOCK_SPACE}px)`,
+        height: `calc(100vh - ${MENU_BAR}px)`,
         transform: "none",
       }
     : {
@@ -201,7 +210,7 @@ const Window = ({
       onMouseDown={onFocus}
       onFocusCapture={onFocus}
       style={{
-        zIndex: z,
+        zIndex: maximized && front ? OVER_DOCK : z,
         ...frame,
         ...(minimized && { pointerEvents: "none" }),
         // hidden (and out of the tab order) once the genie animation ends

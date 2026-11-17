@@ -319,8 +319,26 @@ const Desktop = ({ phone }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phone]);
 
+  // A maximized front window covers the dock; like macOS's auto-hide, the
+  // pointer at the bottom edge slides it up, and moving away hides it again.
+  const [maxed, setMaxed] = useState({});
+  const frontId = state.order[state.order.length - 1];
+  const covered = !phone && !!maxed[frontId] && !state.min[frontId];
+  const [peek, setPeek] = useState(false);
+  useEffect(() => {
+    if (!covered) return setPeek(false);
+    const move = (e) => {
+      const fromBottom = window.innerHeight - e.clientY;
+      setPeek((p) => (p ? fromBottom < 110 : fromBottom <= 4));
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [covered]);
+
   const win = (id) => ({
     z: 10 + state.order.indexOf(id),
+    front: frontId === id && !state.min[id],
+    onMaximize: (v) => setMaxed((m) => (!!m[id] === v ? m : { ...m, [id]: v })),
     onFocus: () => dispatch({ type: "focus", id }),
     onClose: () => dispatch({ type: "close", id }),
     onMinimize: () => dispatch({ type: "minimize", id }),
@@ -558,7 +576,12 @@ const Desktop = ({ phone }) => {
 
       <nav
         aria-label={t("desktop.labels.dock")}
-        className="absolute bottom-3 left-1/2 z-[950] flex -translate-x-1/2 gap-3.5 rounded-[26px] border border-white/20 bg-[rgba(110,110,120,0.32)] px-3 pb-1 pt-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.15)] backdrop-blur-3xl backdrop-saturate-150"
+        style={{
+          zIndex: covered ? 970 : 950, // over a maximized window (960) when peeking
+          transform: `translate(-50%, ${covered && !peek ? "calc(100% + 16px)" : "0"})`,
+          transition: "transform 0.25s ease-out",
+        }}
+        className="absolute bottom-3 left-1/2 flex gap-3.5 rounded-[26px] border border-white/20 bg-[rgba(110,110,120,0.32)] px-3 pb-1 pt-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.18),inset_0_1px_0_rgba(255,255,255,0.15)] backdrop-blur-3xl backdrop-saturate-150"
       >
         {Object.keys(APPS).map((id) => (
           <React.Fragment key={id}>

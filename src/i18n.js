@@ -136,7 +136,7 @@ const resources = {
           term: "Terminal",
           claude: "Claude: ask about David",
           pdf: "Preview: CV.pdf",
-          mail: "Mail: write to David",
+          mail: "Mail: write to me",
         },
         window: {
           close: "Close {{name}}",
@@ -333,7 +333,7 @@ const resources = {
           dismiss: "Dismiss",
           mail: {
             title: "Mail",
-            body: "Got a question, or just want to say hi? Write to David.",
+            body: "Got a question, or just want to say hi? Write to me.",
           },
           term: {
             title: "Terminal",
@@ -532,7 +532,7 @@ const resources = {
           term: "Terminal",
           claude: "Claude: pregunta sobre David",
           pdf: "Vista previa: CV.pdf",
-          mail: "Correo: escribe a David",
+          mail: "Correo: escríbeme",
         },
         window: {
           close: "Cerrar {{name}}",
@@ -730,7 +730,7 @@ const resources = {
           dismiss: "Descartar",
           mail: {
             title: "Mail",
-            body: "¿Alguna pregunta, o solo quieres saludar? Escribe a David.",
+            body: "¿Alguna pregunta, o solo quieres saludar? Escríbeme.",
           },
           term: {
             title: "Terminal",
@@ -931,7 +931,7 @@ const resources = {
           term: "Terminal",
           claude: "Claude: pregunta sobre en David",
           pdf: "Previsualització: CV.pdf",
-          mail: "Correu: escriu a en David",
+          mail: "Correu: escriu-me",
         },
         window: {
           close: "Tancar {{name}}",
@@ -1128,7 +1128,7 @@ const resources = {
           dismiss: "Descarta",
           mail: {
             title: "Mail",
-            body: "Alguna pregunta, o només vols saludar? Escriu al David.",
+            body: "Alguna pregunta, o només vols saludar? Escriu-me.",
           },
           term: {
             title: "Terminal",
