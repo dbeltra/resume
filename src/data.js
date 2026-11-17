@@ -1,7 +1,3 @@
-import O11hImg from "./assets/images/011h.png";
-import PlanckImg from "./assets/images/planck.png";
-import PepImg from "./assets/images/pep.png";
-import AncoraImg from "./assets/images/ancora.png";
 import PythonLogo from "./assets/icons/color/python.png";
 import JavascriptLogo from "./assets/icons/color/js.png";
 import RustLogo from "./assets/icons/color/rust.png";
@@ -17,8 +13,6 @@ import PuzzleLogo from "./assets/icons/skills/puzzle.png";
 import McpLogo from "./assets/icons/skills/mcp.png";
 import AgentLogo from "./assets/icons/skills/agent.png";
 
-// Same order as experienceExperiences in i18n.js (oldest first).
-export const JOB_IMAGES = [AncoraImg, PepImg, PlanckImg, O11hImg];
 // Tech per role, same order; taken from the experience text itself.
 export const JOB_STACKS = [
   ["Django", "Backbone", "PhoneGap"],

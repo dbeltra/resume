@@ -1,435 +1,369 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import Avatar from "../components/Avatar";
-import { JOB_IMAGES, JOB_STACKS, SKILLS } from "../data";
+import { JOB_STACKS, SKILLS } from "../data";
 
-// The website shown inside the Browser app (and on phones). Light, so it
-// stands apart from the dark desktop apps, but tinted and layered: soft
-// colour glows behind, raised white cards, plum/periwinkle accents.
+// The website shown inside the Browser app (and on phones). A spec sheet:
+// a dark band in the desktop's own dark, then a white sheet of numbered
+// sections split by hairlines. Edge to edge, since it already sits in a
+// window. One accent: lilac, only on the dark band.
 
-const Icon = ({ name, className = "" }) => (
-  <i className={`material-symbols-outlined ${className}`} aria-hidden="true">
-    {name}
-  </i>
-);
+const PAGES = ["about", "experience", "skills", "contact"];
+const ACCENT = "#c79ac7";
+const num = (p) => `0${PAGES.indexOf(p) + 1}`;
 
-const Card = ({ className = "", children, ...p }) => (
-  <div
-    className={`rounded-2xl border border-white/80 bg-white/80 shadow-[0_1px_2px_rgba(40,20,60,0.06),0_8px_24px_rgba(60,30,90,0.08)] backdrop-blur ${className}`}
-    {...p}
-  >
-    {children}
-  </div>
-);
-
-const PageTitle = ({ eyebrow, children }) => (
-  <header className="mb-8">
-    <div className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-plum">
-      {eyebrow}
-    </div>
-    <h1 className="font-display text-4xl font-bold tracking-tight text-[#17151f]">
-      {children}
-    </h1>
-    <div className="mt-3 h-1 w-12 rounded-full bg-gradient-to-r from-plum to-peri" />
-  </header>
-);
-
-const Chip = ({ children, className = "" }) => (
+const Mono = ({ className = "", children }) => (
   <span
-    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[13px] font-medium ${className}`}
+    className={`font-mono text-[11px] uppercase tracking-[0.08em] ${className}`}
   >
     {children}
   </span>
 );
 
-const BtnPrimary = ({ icon, children, ...p }) => (
+// the dark top of every page: "02 / Experience" over a big title
+const Band = ({ eyebrow, title, children }) => (
+  <header className="bg-[#111318] px-5 text-white sm:px-10">
+    <div className="pb-11 pt-12 sm:pt-14">
+      {eyebrow && <Mono className="text-xs text-[#8b8f98]">{eyebrow}</Mono>}
+      <h1
+        className={`font-display font-bold leading-[0.95] tracking-[-0.035em] ${eyebrow ? "mt-3 text-[40px] sm:text-[56px]" : "text-[52px] sm:text-[80px]"}`}
+      >
+        {title}
+      </h1>
+      {children}
+    </div>
+  </header>
+);
+
+// one numbered row: mono label on the left, content on the right
+const Section = ({ label, children }) => (
+  <section className="flex flex-wrap gap-x-10 gap-y-4 border-b border-[#e7e4ec] px-5 py-10 sm:px-10">
+    <h2 className="m-0 flex-[1_1_160px]">
+      <Mono className="text-xs text-[#6b6775]">{label}</Mono>
+    </h2>
+    <div className="min-w-0 flex-[4_1_480px]">{children}</div>
+  </section>
+);
+
+const btn =
+  "inline-flex min-h-[44px] items-center gap-2 px-4 text-[14.5px] transition";
+const BtnDark = ({ children, ...p }) => (
   <button
     type="button"
-    className="inline-flex min-h-[44px] items-center gap-2 rounded-xl bg-gradient-to-br from-plum to-[#6a3fa0] px-5 text-sm font-semibold text-white shadow-[0_6px_16px_rgba(110,50,140,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_22px_rgba(110,50,140,0.4)]"
+    className={`${btn} bg-[#111318] font-semibold text-white hover:bg-[#262932]`}
     {...p}
   >
-    {icon && <Icon name={icon} className="text-lg" />}
     {children}
   </button>
 );
-const LinkSoft = ({ href, children }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-paper-line bg-white px-5 text-sm font-semibold text-[#17151f] shadow-sm transition hover:-translate-y-0.5 hover:border-plum/40"
+const BtnLine = ({ href, onClick, children }) => {
+  const cls = `${btn} border border-[#d9d4e0] text-[#17151f] hover:border-[#17151f]`;
+  if (onClick)
+    return (
+      <button type="button" onClick={onClick} className={cls}>
+        {children}
+      </button>
+    );
+  const external = href.startsWith("http");
+  return (
+    <a
+      href={href}
+      className={cls}
+      {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+    >
+      {children}
+    </a>
+  );
+};
+
+const Download = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
   >
-    {children}
-    <Icon name="north_east" className="text-base text-plum-muted" />
-  </a>
+    <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
+  </svg>
 );
 
-const About = ({ onOpenCv }) => {
+// CV, email, GitHub, LinkedIn: shared by About and Contact
+const Links = ({ onOpenCv, onOpenMail }) => (
+  <div className="flex flex-wrap gap-3">
+    {onOpenCv && (
+      <BtnDark onClick={onOpenCv}>
+        <Download />
+        CV.pdf
+      </BtnDark>
+    )}
+    <BtnLine onClick={onOpenMail} href="mailto:dbeltra@gmail.com">
+      dbeltra@gmail.com
+    </BtnLine>
+    <BtnLine href="https://github.com/dbeltra">GitHub ↗</BtnLine>
+    <BtnLine href="https://www.linkedin.com/in/dbeltra/">LinkedIn ↗</BtnLine>
+  </div>
+);
+
+const skillName = (t, s) => (s.nameKey ? t(s.nameKey) : s.name);
+const SKILL_GROUPS = [
+  ["skillsLanguages", SKILLS.languages],
+  ["skillsTools", SKILLS.tools],
+  ["desktop.skills.title", SKILLS.ai],
+];
+
+const About = ({ onOpenCv, onOpenMail }) => {
   const { t } = useTranslation();
+  const facts = [
+    ["role", t("aboutRole")],
+    ["based", `${t("contactLocationPlace")} · CET`],
+    ["since", "2014"],
+    ["now", "011h"],
+  ];
   const paragraphs = [
     ...t("aboutDescription", { returnObjects: true }),
     ...t("skillsDescription", { returnObjects: true }),
   ];
-  const years = new Date().getFullYear() - 2014;
-  const stack = ["React", "Python", "FastAPI", "Django", "Rust"];
   return (
     <>
-      <Card className="overflow-hidden">
-        {/* banner: brand gradient with a faint dot grid (not the wallpaper,
-            which is already behind the whole desktop) */}
-        <div className="relative h-28 overflow-hidden bg-gradient-to-br from-plum via-[#6a3fa0] to-[#4b63b8] sm:h-32">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-25 [background-image:radial-gradient(rgba(255,255,255,0.9)_1px,transparent_1px)] [background-size:16px_16px]"
-          />
-        </div>
-        <div className="px-6 pb-6 sm:px-8">
-          <div className="-mt-16 mb-4 w-fit rounded-full ring-4 ring-white">
-            <Avatar />
-          </div>
-          <h1 className="font-display text-[40px] font-bold leading-none tracking-tight text-[#17151f] sm:text-[44px]">
-            David Beltrà
-          </h1>
-          <p className="mt-2 text-lg font-semibold text-plum">
-            {t("aboutRole")}
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Chip className="bg-paper-tint text-plum-dark">
-              <Icon name="location_on" className="text-base" />
-              {t("contactLocationPlace")}
-            </Chip>
-            <Chip className="bg-[#e8eefc] text-[#2f4f9a]">
-              <Icon name="work" className="text-base" />
-              {t("desktop.about.years", { count: years })}
-            </Chip>
-            <Chip className="bg-paper-tint text-plum-dark">
-              <span
-                aria-hidden="true"
-                className="h-2 w-2 rounded-full bg-plum"
-              />
-              {t("desktop.status.roles")}
-            </Chip>
-          </div>
-        </div>
-      </Card>
-
-      <Card className="mt-5 p-6 sm:p-8">
-        {paragraphs.map((p, i) => (
-          <p
-            key={i}
-            className={`text-[16.5px] leading-relaxed text-plum-text [&_b]:text-[#17151f] ${i ? "mt-3.5" : ""}`}
-            dangerouslySetInnerHTML={{ __html: p }}
-          />
-        ))}
-        <div className="mt-6 flex flex-wrap gap-2">
-          {stack.map((s) => (
-            <Chip
-              key={s}
-              className="border border-paper-line bg-paper font-mono text-xs text-plum-dark"
+      <Band
+        title={
+          // a self-closing tag in the code font; screen readers just get
+          // the name. Mono runs wide, so it's smaller than the other titles.
+          <span className="block whitespace-nowrap font-mono text-[28px] tracking-[-0.04em] sm:text-[60px]">
+            <span aria-hidden="true" className="font-normal text-[#5d6170]">
+              {"< "}
+            </span>
+            david beltrà
+            <span aria-hidden="true" className="font-normal text-[#5d6170]">
+              {" />"}
+            </span>
+          </span>
+        }
+      >
+        <dl className="mt-11 grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] border-t border-white/10">
+          {facts.map(([k, v], i) => (
+            <div
+              key={k}
+              className={`pb-5 pt-4 ${i ? "border-white/10 sm:border-l sm:pl-4" : ""} pr-4`}
             >
-              {s}
-            </Chip>
+              <dt>
+                <Mono className="text-[#8b8f98]">{t(`desktop.site.${k}`)}</Mono>
+              </dt>
+              <dd className="mt-2 flex items-center gap-2 text-[15.5px] font-medium">
+                {k === "now" && (
+                  <span
+                    aria-hidden="true"
+                    className="h-[7px] w-[7px] rounded-full"
+                    style={{ background: ACCENT }}
+                  />
+                )}
+                {v}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Band>
+      <Section label={`01 / ${t("desktop.pages.about")}`}>
+        <div className="max-w-[640px]">
+          {paragraphs.map((p, i) => (
+            <p
+              key={i}
+              className={`text-base leading-[1.7] [&_b]:font-semibold [&_b]:text-[#17151f] ${i ? "mt-3.5" : ""}`}
+              dangerouslySetInnerHTML={{ __html: p }}
+            />
           ))}
         </div>
-      </Card>
-
-      <div className="mt-6 flex flex-wrap gap-2.5">
-        {onOpenCv && (
-          <BtnPrimary icon="download" onClick={onOpenCv}>
-            {t("desktop.about.cv")}
-          </BtnPrimary>
-        )}
-        <LinkSoft href="https://github.com/dbeltra">GitHub</LinkSoft>
-        <LinkSoft href="https://www.linkedin.com/in/dbeltra/">
-          LinkedIn
-        </LinkSoft>
-      </div>
+      </Section>
+      <Section label={`03 / ${t("desktop.pages.skills")}`}>
+        <dl className="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-6">
+          {SKILL_GROUPS.map(([title, items]) => (
+            <div key={title}>
+              <dt className="text-[13px] font-semibold text-[#17151f]">
+                {t(title)}
+              </dt>
+              <dd className="mt-1.5 text-[15px] leading-[1.65]">
+                {items.map((s) => (
+                  <div key={s.name || s.nameKey}>{skillName(t, s)}</div>
+                ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Section>
+      <Section label={`04 / ${t("desktop.pages.contact")}`}>
+        <Links onOpenCv={onOpenCv} onOpenMail={onOpenMail} />
+      </Section>
     </>
   );
 };
 
-export const useJobs = () => {
-  const { t } = useTranslation();
-  return t("experienceExperiences", { returnObjects: true })
-    .map((job, i) => ({ ...job, img: JOB_IMAGES[i], stack: JOB_STACKS[i] }))
-    .reverse(); // newest first
-};
-
-// Short, stable fake commit hash per role (same input -> same hash).
-const shortHash = (s) => {
-  let h = 2166136261;
-  for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
-  return (h >>> 0).toString(16).padStart(8, "0").slice(0, 7);
-};
-// branch pill per role, newest first; pEp became Planck
-const REFS = [
-  [{ label: "HEAD -> main", cls: "bg-[#e3f5ea] text-[#1f6b3d]" }],
-  [{ label: "planck", cls: "bg-[#e8eefc] text-[#2f4f9a]" }],
-  [{ label: "pep → planck", cls: "bg-[#e8eefc] text-[#2f4f9a]" }],
-  [{ label: "tag: v1.0", cls: "bg-[#fdf0d5] text-[#8a5a00]" }],
-];
-
 const Experience = () => {
   const { t } = useTranslation();
-  const jobs = useJobs();
-  const [open, setOpen] = useState(0);
+  const jobs = t("experienceExperiences", { returnObjects: true })
+    .map((job, i) => ({ ...job, stack: JOB_STACKS[i] }))
+    .reverse(); // newest first
+  const cols = ["flex-[1_1_130px]", "flex-[4_1_420px]", "flex-[1.4_1_150px]"];
   return (
     <>
-      <PageTitle eyebrow={t("desktop.pages.experience")}>
-        {t("experienceTitle")}
-      </PageTitle>
-      <Card className="overflow-hidden">
-        <div className="flex items-center gap-2 bg-[#1b1d24] px-4 py-2.5 font-mono text-[12.5px] text-[#c9ced8]">
-          <span className="text-mint">david@resume</span>
-          <span className="text-peri">~/career</span>
-          <span className="text-[#8b8f98]">$</span> git log --graph
+      <Band
+        eyebrow={`02 / ${t("desktop.pages.experience")}`}
+        title={t("experienceTitle")}
+      />
+      <section className="px-5 pb-16 sm:px-10">
+        <div className="flex flex-wrap gap-x-10 gap-y-2 border-b border-[#d9d4e0] py-3.5 text-[#6b6775]">
+          {["years", "role", "stack"].map((k, i) => (
+            <Mono key={k} className={cols[i]}>
+              {t(`desktop.site.${k}`)}
+            </Mono>
+          ))}
         </div>
-        <ol className="py-2 font-mono">
-          {jobs.map((j, i) => {
-            const isOpen = open === i;
-            const last = i === jobs.length - 1;
-            return (
-              <li key={j.company + j.dates} className="flex">
-                {/* graph lane: a line through every commit, ending at the first one */}
-                <div aria-hidden="true" className="relative w-12 flex-none">
-                  <span
-                    className={`absolute left-[23px] w-0.5 bg-gradient-to-b from-plum to-peri ${i === 0 ? "top-6" : "top-0"} ${last ? "h-6" : "bottom-0"}`}
-                  />
-                  <span
-                    className={`absolute left-[17px] top-[18px] h-3.5 w-3.5 rounded-full border-2 ${i === 0 ? "border-plum bg-plum shadow-[0_0_0_4px_rgba(142,63,142,0.18)]" : "border-peri bg-white"}`}
-                  />
-                </div>
-                <div
-                  className={`min-w-0 flex-1 border-b border-paper-line pr-4 ${last ? "border-b-0" : ""}`}
-                >
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    onClick={() => setOpen(isOpen ? -1 : i)}
-                    className="w-full py-3.5 text-left"
-                  >
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px]">
-                      <Icon
-                        name="chevron_right"
-                        className={`text-base text-plum-muted transition-transform ${isOpen ? "rotate-90" : ""}`}
-                      />
-                      <span className="text-[#b07a00]">
-                        {shortHash(j.company + j.dates)}
-                      </span>
-                      {REFS[i].map((r) => (
-                        <span
-                          key={r.label}
-                          className={`rounded px-1.5 py-px font-semibold ${r.cls}`}
-                        >
-                          ({r.label})
-                        </span>
-                      ))}
-                      <span className="text-plum-muted">{j.dates}</span>
-                    </div>
-                    <div className="mt-1.5 pl-6 font-sans text-[17px] font-bold text-[#17151f]">
-                      {j.title}{" "}
-                      <span className="font-medium text-plum">
-                        @ {j.company}
-                      </span>
-                    </div>
-                  </button>
-                  {isOpen && (
-                    <div className="mb-4 ml-6 flex flex-wrap gap-5 rounded-xl border border-paper-line bg-paper/70 p-4">
-                      <div className="min-w-0 flex-[1_1_320px] text-[12.5px] leading-relaxed">
-                        <div className="text-plum-muted">
-                          Author: David Beltrà
-                        </div>
-                        <div className="text-plum-muted">Date: {j.dates}</div>
-                        <ul className="mt-3 space-y-2 font-sans text-[15px] leading-normal text-plum-text">
-                          {j.responsibilities.map((r) => (
-                            <li key={r} className="flex gap-2.5">
-                              <span
-                                aria-hidden="true"
-                                className="mt-[9px] h-1.5 w-1.5 flex-none rounded-full bg-plum/60"
-                              />
-                              {r}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[12.5px] text-[#1f7a43]">
-                          {j.stack.map((s) => (
-                            <span key={s}>+ {s}</span>
-                          ))}
-                        </div>
-                      </div>
-                      <img
-                        src={j.img}
-                        alt={j.company}
-                        className="h-20 w-36 flex-none rounded-xl object-cover shadow-sm"
-                      />
-                    </div>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </Card>
+        {jobs.map((j) => (
+          <article
+            key={j.company + j.dates}
+            className="flex flex-wrap gap-x-10 gap-y-3 border-b border-[#e7e4ec] py-7"
+          >
+            <div
+              className={`${cols[0]} pt-0.5 font-mono text-[13.5px] text-[#17151f]`}
+            >
+              {j.dates}
+            </div>
+            <div className={`${cols[1]} min-w-0`}>
+              <h2 className="text-[19px] font-semibold text-[#17151f]">
+                {j.title} <span className="font-normal text-[#6b6775]">·</span>{" "}
+                {j.company}
+              </h2>
+              <ul className="mt-3 list-disc space-y-2 pl-[18px] text-[15.5px] leading-[1.6]">
+                {j.responsibilities.map((r) => (
+                  <li key={r}>{r}</li>
+                ))}
+              </ul>
+            </div>
+            <ul
+              className={`${cols[2]} min-w-0 pt-0.5 font-mono text-[13px] leading-[1.8]`}
+            >
+              {j.stack.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </section>
     </>
   );
 };
 
 const Skills = () => {
   const { t } = useTranslation();
-  const groups = [
-    ["skillsLanguages", SKILLS.languages, "from-plum/15"],
-    ["skillsTools", SKILLS.tools, "from-peri/20"],
-    ["desktop.skills.title", SKILLS.ai, "from-plum/25"],
-  ];
   return (
     <>
-      <PageTitle eyebrow={t("desktop.pages.skills")}>
-        {t("skillsTitle")}
-      </PageTitle>
-      {groups.map(([title, items, tint]) => (
-        <section key={title} className="mb-8">
-          <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.1em] text-plum-muted">
-            {t(title)}
-          </h2>
-          <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <Band
+        eyebrow={`03 / ${t("desktop.pages.skills")}`}
+        title={t("skillsTitle")}
+      />
+      {SKILL_GROUPS.map(([title, items]) => (
+        <Section key={title} label={t(title)}>
+          <ul className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] border-l border-t border-[#e7e4ec]">
             {items.map((s) => (
-              <li key={s.name || s.nameKey}>
-                <Card className="flex items-center gap-3.5 px-4 py-3.5 text-[15px] font-medium text-[#17151f] transition hover:-translate-y-0.5">
-                  <span
-                    className={`flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-gradient-to-br ${tint} to-white ring-1 ring-paper-line`}
-                  >
-                    {s.icon ? (
-                      <img
-                        src={s.icon}
-                        alt=""
-                        className={`h-6 w-6 object-contain ${s.iconClass || ""}`}
-                      />
-                    ) : (
-                      <Icon name={s.symbol} className="text-[24px] text-plum" />
-                    )}
-                  </span>
-                  {s.nameKey ? t(s.nameKey) : s.name}
-                </Card>
+              <li
+                key={s.name || s.nameKey}
+                className="flex min-h-[56px] items-center gap-3 border-b border-r border-[#e7e4ec] px-4 py-3 text-[15px] font-medium text-[#17151f]"
+              >
+                <img
+                  src={s.icon}
+                  alt=""
+                  className={`h-5 w-5 flex-none object-contain ${s.iconClass || ""}`}
+                />
+                {skillName(t, s)}
               </li>
             ))}
           </ul>
-        </section>
+        </Section>
       ))}
     </>
   );
 };
 
-const Contact = ({ onOpenMail }) => {
+const Contact = ({ onOpenCv, onOpenMail }) => {
   const { t } = useTranslation();
-  const emailInner = (
-    <>
-      <Icon name="mail" />
-      dbeltra@gmail.com
-    </>
-  );
-  const emailClass =
-    "mt-6 inline-flex min-h-[52px] items-center gap-2.5 rounded-xl bg-white px-6 text-[17px] font-semibold text-plum-dark shadow-lg transition hover:-translate-y-0.5";
-  const cards = [
-    {
-      title: "LinkedIn",
-      sub: "in/dbeltra",
-      icon: "link",
-      href: "https://www.linkedin.com/in/dbeltra/",
-    },
-    {
-      title: "GitHub",
-      sub: "dbeltra",
-      icon: "code",
-      href: "https://github.com/dbeltra",
-    },
-    {
-      title: t("contactLocationPlace"),
-      sub: t("contactLocationText"),
-      icon: "location_on",
-    },
+  const rows = [
+    ["LinkedIn", "in/dbeltra", "https://www.linkedin.com/in/dbeltra/"],
+    ["GitHub", "github.com/dbeltra", "https://github.com/dbeltra"],
+    [
+      t("contactLocation"),
+      `${t("contactLocationPlace")} · ${t("contactLocationText")}`,
+    ],
   ];
   return (
     <>
-      <PageTitle eyebrow={t("desktop.pages.contact")}>
-        {t("contactTitle")}
-      </PageTitle>
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-plum via-[#6a3fa0] to-[#4b63b8] p-7 text-white shadow-[0_18px_40px_rgba(90,40,130,0.35)] sm:p-9">
-        <p className="relative max-w-[520px] text-[17px] leading-relaxed text-white/90">
+      <Band
+        eyebrow={`04 / ${t("desktop.pages.contact")}`}
+        title={t("contactTitle")}
+      >
+        <p className="mt-5 max-w-[600px] text-[17px] leading-relaxed text-[#c9ccd3]">
           {t("contactDescription", { returnObjects: true })[0]}
         </p>
-        <div className="relative">
-          {onOpenMail ? (
-            <button type="button" onClick={onOpenMail} className={emailClass}>
-              {emailInner}
-            </button>
-          ) : (
-            <a href="mailto:dbeltra@gmail.com" className={emailClass}>
-              {emailInner}
-            </a>
-          )}
-          <p className="mt-2.5 text-sm text-white/75">
-            {t("contactEmailText")}
-          </p>
-        </div>
-      </div>
-      <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        {cards.map((c) => {
-          const body = (
-            <Card className="h-full p-4 transition group-hover:-translate-y-0.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-paper-tint text-plum">
-                <Icon name={c.icon} className="text-xl" />
-              </span>
-              <div className="mt-3 font-semibold text-[#17151f]">{c.title}</div>
-              <div className="mt-0.5 text-[13px] text-plum-muted">{c.sub}</div>
-            </Card>
-          );
-          return c.href ? (
+      </Band>
+      <Section label={t("contactEmail")}>
+        <Links onOpenCv={onOpenCv} onOpenMail={onOpenMail} />
+        <p className="mt-3 text-sm text-[#6b6775]">{t("contactEmailText")}</p>
+      </Section>
+      {rows.map(([label, value, href]) => (
+        <Section key={label} label={label}>
+          {href ? (
             <a
-              key={c.title}
-              href={c.href}
+              href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group"
+              className="text-[17px] font-medium text-[#17151f] underline decoration-[#d9d4e0] underline-offset-4 hover:decoration-[#17151f]"
             >
-              {body}
+              {value} ↗
             </a>
           ) : (
-            <div key={c.title}>{body}</div>
-          );
-        })}
-      </div>
+            <span className="text-[17px] font-medium text-[#17151f]">
+              {value}
+            </span>
+          )}
+        </Section>
+      ))}
     </>
   );
 };
 
-// Site header + current page. Used inside the Browser app.
-export const SiteNav = ({ page, onGo, extra }) => {
+// Site header: name and the numbered menu. Used inside the Browser app.
+export const SiteNav = ({ page, onGo }) => {
   const { t } = useTranslation();
   return (
-    <div className="sticky top-0 z-[2] flex flex-wrap items-center justify-between gap-2 border-b border-white/70 bg-white/60 px-4 py-2.5 shadow-[0_1px_12px_rgba(60,30,90,0.06)] backdrop-blur-xl sm:px-8">
-      <span className="flex items-center gap-2 font-display text-lg font-bold text-[#17151f]">
-        <span
-          aria-hidden="true"
-          className="h-3.5 w-3.5 rounded bg-gradient-to-br from-plum to-peri"
-        />
-        David Beltrà
-      </span>
+    // buttons reset text-transform, so `lowercase` goes on each of them.
+    // Phones: the big name is right below, so the menu gets the whole row
+    // and scrolls sideways instead of wrapping.
+    <div className="sticky top-0 z-[2] flex items-center justify-between gap-x-6 border-b border-white/10 bg-[#111318] px-3 py-1.5 font-mono text-[13px] text-white sm:px-10">
+      <button
+        type="button"
+        onClick={() => onGo("about")}
+        className="hidden min-h-[44px] text-left lowercase sm:block"
+      >
+        david beltrà <span className="text-[#8b8f98]">— {t("aboutRole")}</span>
+      </button>
       <nav
         aria-label={t("desktop.browser.site")}
-        className="flex flex-wrap items-center gap-1"
+        className="flex min-w-0 items-center overflow-x-auto whitespace-nowrap sm:gap-1"
       >
-        {["about", "experience", "skills", "contact"].map((p) => (
+        {PAGES.map((p) => (
           <button
             key={p}
             type="button"
             aria-current={p === page ? "page" : undefined}
             onClick={() => onGo(p)}
-            className={`h-9 rounded-full px-3.5 text-sm font-medium transition ${p === page ? "bg-gradient-to-br from-plum to-[#6a3fa0] text-white shadow-[0_4px_12px_rgba(110,50,140,0.3)]" : "text-plum-text hover:bg-white"}`}
+            className={`min-h-[44px] flex-none px-2 lowercase underline-offset-[6px] sm:px-2.5 ${p === page ? "text-white underline decoration-2" : "text-[#a9adb6] hover:text-white"}`}
+            style={p === page ? { textDecorationColor: ACCENT } : undefined}
           >
-            {t(`desktop.pages.${p}`)}
+            {num(p)} {t(`desktop.pages.${p}`)}
           </button>
         ))}
-        {extra}
       </nav>
     </div>
   );
@@ -442,18 +376,10 @@ const PAGE_COMPONENTS = {
   contact: Contact,
 };
 
-// soft colour glows behind the page so it isn't flat white
-export const SITE_BACKGROUND = {
-  backgroundColor: "#f4f1f8",
-  backgroundImage:
-    "radial-gradient(900px 420px at 0% -5%, rgba(185,138,185,0.28), transparent 70%), radial-gradient(800px 420px at 100% 0%, rgba(127,159,224,0.25), transparent 70%), radial-gradient(700px 500px at 50% 110%, rgba(185,138,185,0.18), transparent 70%)",
-  backgroundAttachment: "local",
-};
-
 export const SitePage = ({ page, ...callbacks }) => {
   const Page = PAGE_COMPONENTS[page] || About;
   return (
-    <div className="mx-auto max-w-[760px] px-5 pb-16 pt-8 sm:px-8 sm:pt-10">
+    <div className="text-[#3d3a45]">
       <Page {...callbacks} />
     </div>
   );

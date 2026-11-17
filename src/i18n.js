@@ -165,6 +165,14 @@ const resources = {
           roles: "Currently at 011h",
           where: "Full stack · Barcelona · CET",
         },
+        site: {
+          role: "Role",
+          based: "Based",
+          since: "Since",
+          now: "Now",
+          years: "Years",
+          stack: "Stack",
+        },
         pages: {
           about: "About",
           experience: "Experience",
@@ -552,6 +560,14 @@ const resources = {
         status: {
           roles: "Actualmente en 011h",
           where: "Full stack · Barcelona · CET",
+        },
+        site: {
+          role: "Rol",
+          based: "Ubicación",
+          since: "Desde",
+          now: "Ahora",
+          years: "Años",
+          stack: "Stack",
         },
         pages: {
           about: "Sobre mí",
@@ -943,6 +959,14 @@ const resources = {
         status: {
           roles: "Actualment a 011h",
           where: "Full stack · Barcelona · CET",
+        },
+        site: {
+          role: "Rol",
+          based: "Ubicació",
+          since: "Des de",
+          now: "Ara",
+          years: "Anys",
+          stack: "Stack",
         },
         pages: {
           about: "Sobre mi",

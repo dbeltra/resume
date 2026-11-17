@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
-import { SiteNav, SitePage, SITE_BACKGROUND } from "./SitePages";
+import { SiteNav, SitePage } from "./SitePages";
 
 const IconBtn = ({ label, icon, onClick, disabled }) => (
   <button
@@ -110,8 +110,7 @@ const Browser = ({
       </div>
       <div
         ref={scroller}
-        style={SITE_BACKGROUND}
-        className="min-h-0 flex-1 overflow-auto font-sans text-[#17151f]"
+        className="min-h-0 flex-1 overflow-auto bg-white font-sans text-[#17151f]"
       >
         <SiteNav page={page} onGo={onGo} />
         <SitePage
