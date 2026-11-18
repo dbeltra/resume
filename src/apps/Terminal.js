@@ -134,7 +134,7 @@ const Run = ({ run, q }) => {
         <div className="mt-2 flex items-end gap-2 text-honey">
           {/* the Claude app's working Clawd, acting out the running tool */}
           <Clawd
-            className="h-[34px] w-12"
+            className="h-[calc(var(--clawd-c)*17)] w-[calc(var(--clawd-c)*24)]"
             draw={(c) =>
               animate(
                 c,

@@ -36,7 +36,7 @@ const Answer = ({ run }) => {
         // the dashboard's working Clawd: a lens for Read/Grep, a screen for
         // Bash, the "?" while he plans. Starting 4s back skips his intro.
         <Clawd
-          className="h-[34px] w-12 flex-none"
+          className="h-[calc(var(--clawd-c)*17)] w-[calc(var(--clawd-c)*24)] flex-none"
           draw={(c) =>
             animate(c, Date.now() - 4000, () =>
               n.current < steps.length
