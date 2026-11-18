@@ -1,6 +1,6 @@
 import React from "react";
 import BrowserIcon from "../assets/icons/apps/browser.png";
-import CodeIcon from "../assets/icons/apps/code.png";
+import CodeIcon from "../assets/icons/apps/code.svg";
 import TerminalIcon from "../assets/icons/apps/terminal.png";
 import AdobeIcon from "../assets/icons/apps/adobe.png";
 import MailIcon from "../assets/icons/apps/mail.png";
@@ -13,7 +13,7 @@ import SpotifyIcon from "../assets/icons/apps/spotify.png"; // Spotify brand ass
 // (the source PNGs have different padding and shapes).
 export const APPS = {
   browser: { icon: BrowserIcon, tile: "bg-white", img: "h-[84%] w-[84%]" },
-  code: { icon: CodeIcon, tile: "", img: "h-[119%] w-[119%] max-w-none" }, // crop its 5px margin
+  code: { icon: CodeIcon, tile: "", img: "h-full w-full" }, // ponytail: SVG, full-bleed, no margin to crop
   term: {
     icon: TerminalIcon,
     tile: "bg-black",
