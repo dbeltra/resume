@@ -30,15 +30,65 @@ const Browser = ({
 }) => {
   const { t } = useTranslation();
   const scroller = useRef(null);
-  // block body on purpose: scrollTo returns a Promise in recent Chrome,
+  // One-page site: a page is a section. Scroll so its top sits under the
+  // sticky menu (the scroller's first child).
+  const scrollTo = (p, behavior = "smooth") => {
+    const el = scroller.current;
+    const s = el?.querySelector(`[data-page="${p}"]`);
+    if (!s) return;
+    const top =
+      s.getBoundingClientRect().top -
+      el.getBoundingClientRect().top +
+      el.scrollTop -
+      el.firstChild.offsetHeight;
+    el.scrollTo({ top: p === "about" ? 0 : top, behavior });
+  };
+  // back/forward and the menu bar change the page: go to its section.
+  // Block body on purpose: scrollTo returns a Promise in recent Chrome,
   // and React would try to call it as the effect cleanup
   useEffect(() => {
-    scroller.current?.scrollTo(0, 0);
-  }, [page]);
+    scrollTo(page);
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // the section being read, for the menu's underline and the address bar:
+  // the last one whose top has passed the menu
+  const [seen, setSeen] = useState(page);
+  const onScroll = () => {
+    const el = scroller.current;
+    const line =
+      el.getBoundingClientRect().top + el.firstChild.offsetHeight + 8;
+    let cur = "about";
+    for (const s of el.querySelectorAll("[data-page]"))
+      if (s.getBoundingClientRect().top <= line) cur = s.dataset.page;
+    setSeen(cur);
+  };
+  // a menu click: history as before, and a scroll even when it is the page
+  // already in history (you may have scrolled away from it since)
+  const goTo = (p) => {
+    onGo(p);
+    scrollTo(p);
+  };
 
   // reload: a short loading bar, then the page re-mounts from the top
   const [loads, setLoads] = useState(0);
   const [loading, setLoading] = useState(false);
+  // blocks rise in (index.css .reveal) the first time they scroll into view;
+  // rerun on reload, which remounts the page
+  useEffect(() => {
+    const root = scroller.current;
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }),
+      { root, rootMargin: "0px 0px -8% 0px" },
+    );
+    root.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [loads]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const timer = useRef(null);
   useEffect(() => () => clearTimeout(timer.current), []);
   const reload = () => {
@@ -48,10 +98,11 @@ const Browser = ({
       setLoads((n) => n + 1);
       setLoading(false);
       scroller.current?.scrollTo(0, 0);
+      setSeen("about");
     }, 450);
   };
 
-  const path = page === "about" ? "" : `/${page}`;
+  const path = seen === "about" ? "" : `/${seen}`;
 
   return (
     <Window
@@ -68,9 +119,7 @@ const Browser = ({
             alt=""
             className="h-4 w-4 flex-none rounded-[3px]"
           />
-          <span className="truncate">
-            {t(`desktop.pages.${page}`)} · David Beltrà
-          </span>
+          <span className="truncate">David Beltrà</span>
         </div>
       }
     >
@@ -112,12 +161,12 @@ const Browser = ({
       </div>
       <div
         ref={scroller}
+        onScroll={onScroll}
         className="min-h-0 flex-1 overflow-auto bg-white font-sans text-[#17151f]"
       >
-        <SiteNav page={page} onGo={onGo} />
+        <SiteNav page={seen} onGo={goTo} />
         <SitePage
           key={loads}
-          page={page}
           onOpenCv={() => onOpen("pdf")}
           onOpenMail={() => onOpen("mail")}
         />

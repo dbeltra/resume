@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { JOB_STACKS, SKILLS } from "../data";
 import Foam from "../assets/textures/foam.jpg";
@@ -32,7 +32,7 @@ const BAND_BG = {
 
 const Band = ({ eyebrow, title, children }) => (
   <header style={BAND_BG} className="px-5 text-white sm:px-10">
-    <div className="pb-11 pt-12 sm:pt-14">
+    <div className="reveal pb-11 pt-12 sm:pt-14">
       {eyebrow && <Mono className="text-xs text-[#8b8f98]">{eyebrow}</Mono>}
       <h1
         className={`font-pixel font-normal leading-[0.95] ${eyebrow ? "mt-3 text-[40px] sm:text-[56px]" : "text-[52px] sm:text-[80px]"}`}
@@ -50,7 +50,7 @@ const Section = ({ label, children }) => (
     <h2 className="m-0 flex-[1_1_160px]">
       <Mono className="text-xs text-[#6b6775]">{label}</Mono>
     </h2>
-    <div className="min-w-0 flex-[4_1_480px]">{children}</div>
+    <div className="reveal min-w-0 flex-[4_1_480px]">{children}</div>
   </section>
 );
 
@@ -101,7 +101,7 @@ const Download = () => (
   </svg>
 );
 
-// CV, email, GitHub, LinkedIn: shared by About and Contact
+// CV, email, GitHub, LinkedIn
 const Links = ({ onOpenCv, onOpenMail }) => (
   <div className="flex flex-wrap gap-3">
     {onOpenCv && (
@@ -125,7 +125,7 @@ const SKILL_GROUPS = [
   ["desktop.skills.title", SKILLS.ai],
 ];
 
-const About = ({ onOpenCv, onOpenMail }) => {
+const About = () => {
   const { t } = useTranslation();
   const facts = [
     ["role", t("aboutRole")],
@@ -164,7 +164,8 @@ const About = ({ onOpenCv, onOpenMail }) => {
           {facts.map(([k, v], i) => (
             <div
               key={k}
-              className={`pb-5 pt-4 ${i ? "border-white/10 sm:border-l sm:pl-4" : ""} pr-4`}
+              className={`reveal pb-5 pt-4 ${i ? "border-white/10 sm:border-l sm:pl-4" : ""} pr-4`}
+              style={{ "--d": `${150 + i * 80}ms` }}
             >
               <dt>
                 <Mono className="text-[#8b8f98]">{t(`desktop.site.${k}`)}</Mono>
@@ -173,9 +174,17 @@ const About = ({ onOpenCv, onOpenMail }) => {
                 {k === "now" && (
                   <span
                     aria-hidden="true"
-                    className="h-[7px] w-[7px] rounded-full"
-                    style={{ background: ACCENT }}
-                  />
+                    className="relative flex h-[7px] w-[7px]"
+                  >
+                    <span
+                      className="absolute inset-0 animate-[ping_2.4s_ease-out_infinite] rounded-full opacity-60 motion-reduce:hidden"
+                      style={{ background: ACCENT }}
+                    />
+                    <span
+                      className="relative h-full w-full rounded-full"
+                      style={{ background: ACCENT }}
+                    />
+                  </span>
                 )}
                 {v}
               </dd>
@@ -193,25 +202,6 @@ const About = ({ onOpenCv, onOpenMail }) => {
             />
           ))}
         </div>
-      </Section>
-      <Section label={`03 / ${t("desktop.pages.skills")}`}>
-        <dl className="grid grid-cols-[repeat(auto-fit,minmax(170px,1fr))] gap-6">
-          {SKILL_GROUPS.map(([title, items]) => (
-            <div key={title}>
-              <dt className="text-[13px] font-semibold text-[#17151f]">
-                {t(title)}
-              </dt>
-              <dd className="mt-1.5 text-[15px] leading-[1.65]">
-                {items.map((s) => (
-                  <div key={s.name || s.nameKey}>{skillName(t, s)}</div>
-                ))}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </Section>
-      <Section label={`04 / ${t("desktop.pages.contact")}`}>
-        <Links onOpenCv={onOpenCv} onOpenMail={onOpenMail} />
       </Section>
     </>
   );
@@ -240,7 +230,7 @@ const Experience = () => {
         {jobs.map((j) => (
           <article
             key={j.company + j.dates}
-            className="flex flex-wrap gap-x-10 gap-y-3 border-b border-[#e7e4ec] py-7"
+            className="reveal flex flex-wrap gap-x-10 gap-y-3 border-b border-[#e7e4ec] py-7"
           >
             <div
               className={`${cols[0]} pt-0.5 font-mono text-[13.5px] text-[#17151f]`}
@@ -283,10 +273,11 @@ const Skills = () => {
       {SKILL_GROUPS.map(([title, items]) => (
         <Section key={title} label={t(title)}>
           <ul className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] border-l border-t border-[#e7e4ec]">
-            {items.map((s) => (
+            {items.map((s, i) => (
               <li
                 key={s.name || s.nameKey}
-                className="flex min-h-[56px] items-center gap-3 border-b border-r border-[#e7e4ec] px-4 py-3 text-[15px] font-medium text-[#17151f]"
+                className="reveal flex min-h-[56px] items-center gap-3 border-b border-r border-[#e7e4ec] px-4 py-3 text-[15px] font-medium text-[#17151f] hover:bg-[#f7f5f9]"
+                style={{ "--d": `${i * 40}ms` }}
               >
                 <img
                   src={s.icon}
@@ -351,7 +342,27 @@ const Contact = ({ onOpenCv, onOpenMail }) => {
 
 // Site header: name and the numbered menu. Used inside the Browser app.
 export const SiteNav = ({ page, onGo }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // the lilac bar: one for the whole menu, sliding under the section you
+  // read. Placed from the current label's box (offsets inside the nav), and
+  // again whenever the nav resizes (a web font landing, another language).
+  const nav = useRef(null);
+  const [bar, setBar] = useState(null);
+  useLayoutEffect(() => {
+    const place = () => {
+      const el = nav.current?.querySelector('[aria-current="page"] span');
+      if (el)
+        setBar({
+          x: el.offsetLeft,
+          y: el.offsetTop + el.offsetHeight + 5,
+          w: el.offsetWidth,
+        });
+    };
+    place();
+    const ro = new ResizeObserver(place);
+    ro.observe(nav.current);
+    return () => ro.disconnect();
+  }, [page, i18n.language]);
   return (
     // buttons reset text-transform, so `lowercase` goes on each of them.
     // Phones: the big name is right below, so the menu gets the whole row
@@ -365,8 +376,9 @@ export const SiteNav = ({ page, onGo }) => {
         david beltrà <span className="text-[#8b8f98]">— {t("aboutRole")}</span>
       </button>
       <nav
+        ref={nav}
         aria-label={t("desktop.browser.site")}
-        className="flex min-w-0 items-center overflow-x-auto whitespace-nowrap sm:gap-1"
+        className="relative flex min-w-0 items-center overflow-x-auto whitespace-nowrap sm:gap-1"
       >
         {PAGES.map((p) => (
           <button
@@ -374,12 +386,24 @@ export const SiteNav = ({ page, onGo }) => {
             type="button"
             aria-current={p === page ? "page" : undefined}
             onClick={() => onGo(p)}
-            className={`min-h-[44px] flex-none px-2 lowercase underline-offset-[6px] sm:px-2.5 ${p === page ? "text-white underline decoration-2" : "text-[#a9adb6] hover:text-white"}`}
-            style={p === page ? { textDecorationColor: ACCENT } : undefined}
+            className={`min-h-[44px] flex-none px-2 lowercase transition-colors duration-300 sm:px-2.5 ${p === page ? "text-white" : "text-[#a9adb6] hover:text-white"}`}
           >
-            {num(p)} {t(`desktop.pages.${p}`)}
+            <span>
+              {num(p)} {t(`desktop.pages.${p}`)}
+            </span>
           </button>
         ))}
+        {bar && (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-0 h-0.5 transition-[transform,width] duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)] motion-reduce:transition-none"
+            style={{
+              width: bar.w,
+              transform: `translate(${bar.x}px, ${bar.y}px)`,
+              background: ACCENT,
+            }}
+          />
+        )}
       </nav>
     </div>
   );
@@ -392,11 +416,17 @@ const PAGE_COMPONENTS = {
   contact: Contact,
 };
 
-export const SitePage = ({ page, ...callbacks }) => {
-  const Page = PAGE_COMPONENTS[page] || About;
-  return (
-    <div className="text-[#3d3a45]">
-      <Page {...callbacks} />
-    </div>
-  );
-};
+// One page, every section in order; the menu scrolls to them (Browser.js
+// finds each by its data-page).
+export const SitePage = (callbacks) => (
+  <div className="text-[#3d3a45]">
+    {PAGES.map((p) => {
+      const Page = PAGE_COMPONENTS[p];
+      return (
+        <div key={p} data-page={p}>
+          <Page {...callbacks} />
+        </div>
+      );
+    })}
+  </div>
+);
