@@ -1,4 +1,5 @@
 import React from "react";
+import DIcon from "../assets/icons/icon-d.svg"; // the menu bar's D, crisp at boot size
 
 // rm -rf / -> "panic" (kernel panic screen) -> "boot" (logo + progress bar).
 // Shut Down -> "off" (click to wake) -> "boot".
@@ -31,9 +32,7 @@ Don't worry, this is a resume. Rebooting…`}
       </pre>
     ) : (
       <>
-        <div className="mb-10 flex h-20 w-20 items-center justify-center rounded-full border-2 border-white font-sans text-3xl font-bold text-white">
-          DB
-        </div>
+        <img src={DIcon} alt="" className="mb-10 h-20 w-20" />
         <div className="h-1.5 w-48 overflow-hidden rounded-full bg-white/20">
           <div className="h-full animate-[loadbar_2.2s_ease-in-out_forwards] bg-white" />
         </div>
