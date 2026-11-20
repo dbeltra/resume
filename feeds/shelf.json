@@ -1,6 +1,15 @@
 {
- "updated": "2026-11-20T15:28:24.685Z",
+ "updated": "2026-11-20T17:24:12.349Z",
  "items": [
+  {
+   "kind": "show",
+   "title": "American Horror Story",
+   "year": 2011,
+   "by": "S13 · E12",
+   "at": "2026-11-17",
+   "url": "https://trakt.tv/shows/american-horror-story",
+   "src": "feeds/shelf/00.webp"
+  },
   {
    "kind": "film",
    "title": "Perfect Blue",
@@ -8,7 +17,7 @@
    "rating": 4,
    "at": "2026-11-15",
    "url": "https://letterboxd.com/dbeltra/film/perfect-blue/",
-   "src": "feeds/shelf/00.jpg"
+   "src": "feeds/shelf/01.jpg"
   },
   {
    "kind": "film",
@@ -17,7 +26,16 @@
    "rating": 4,
    "at": "2026-11-14",
    "url": "https://letterboxd.com/dbeltra/film/28-years-later/",
-   "src": "feeds/shelf/01.jpg"
+   "src": "feeds/shelf/02.jpg"
+  },
+  {
+   "kind": "show",
+   "title": "Severance",
+   "year": 2022,
+   "by": "S2 · E8",
+   "at": "2026-11-14",
+   "url": "https://trakt.tv/shows/severance",
+   "src": "feeds/shelf/03.webp"
   },
   {
    "kind": "film",
@@ -26,7 +44,16 @@
    "rating": 4,
    "at": "2026-11-13",
    "url": "https://letterboxd.com/dbeltra/film/resident-evil-2026/",
-   "src": "feeds/shelf/02.jpg"
+   "src": "feeds/shelf/04.jpg"
+  },
+  {
+   "kind": "show",
+   "title": "Carrie",
+   "year": 2026,
+   "by": "S1 · E8",
+   "at": "2026-11-10",
+   "url": "https://trakt.tv/shows/carrie",
+   "src": "feeds/shelf/05.webp"
   },
   {
    "kind": "film",
@@ -35,7 +62,70 @@
    "rating": 3.5,
    "at": "2026-11-08",
    "url": "https://letterboxd.com/dbeltra/film/humanist-vampire-seeking-consenting-suicidal-person/",
-   "src": "feeds/shelf/03.jpg"
+   "src": "feeds/shelf/06.jpg"
+  },
+  {
+   "kind": "show",
+   "title": "President Curtis",
+   "year": 2026,
+   "by": "S1 · E3",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/president-curtis",
+   "src": "feeds/shelf/07.webp"
+  },
+  {
+   "kind": "show",
+   "title": "Ricky Gervais Alley Cats",
+   "year": 2026,
+   "by": "S1 · E4",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/ricky-gervais-alley-cats",
+   "src": "feeds/shelf/08.webp"
+  },
+  {
+   "kind": "show",
+   "title": "THE GHOST IN THE SHELL",
+   "year": 2026,
+   "by": "S1 · E5",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/the-ghost-in-the-shell",
+   "src": "feeds/shelf/09.webp"
+  },
+  {
+   "kind": "show",
+   "title": "Jury Duty Presents: Company Retreat",
+   "year": 2026,
+   "by": "S1 · E8",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/jury-duty-presents-company-retreat",
+   "src": "feeds/shelf/10.webp"
+  },
+  {
+   "kind": "show",
+   "title": "Stranger Things",
+   "year": 2016,
+   "by": "S5 · E8",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/stranger-things",
+   "src": "feeds/shelf/11.webp"
+  },
+  {
+   "kind": "show",
+   "title": "Departament Amades",
+   "year": 2026,
+   "by": "S1 · E6",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/departament-amades",
+   "src": "feeds/shelf/12.webp"
+  },
+  {
+   "kind": "show",
+   "title": "Dorohedoro",
+   "year": 2020,
+   "by": "S0 · E7",
+   "at": "2026-11-01",
+   "url": "https://trakt.tv/shows/dorohedoro",
+   "src": "feeds/shelf/13.webp"
   },
   {
    "kind": "book",
@@ -45,7 +135,7 @@
    "reading": true,
    "at": "2026-10-04",
    "url": "https://hardcover.app/books/the-dungeon-anarchists-cookbook",
-   "src": "feeds/shelf/04.jpg"
+   "src": "feeds/shelf/14.jpg"
   },
   {
    "kind": "book",
@@ -55,7 +145,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/dracula",
-   "src": "feeds/shelf/05.jpg"
+   "src": "feeds/shelf/15.jpg"
   },
   {
    "kind": "book",
@@ -65,7 +155,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/the-return-of-the-king",
-   "src": "feeds/shelf/06.jpg"
+   "src": "feeds/shelf/16.jpg"
   },
   {
    "kind": "book",
@@ -75,7 +165,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/the-two-towers",
-   "src": "feeds/shelf/07.jpg"
+   "src": "feeds/shelf/17.jpeg"
   },
   {
    "kind": "book",
@@ -85,7 +175,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/the-little-prince",
-   "src": "feeds/shelf/08.jpg"
+   "src": "feeds/shelf/18.jpg"
   },
   {
    "kind": "book",
@@ -95,7 +185,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/frankenstein",
-   "src": "feeds/shelf/09.jpg"
+   "src": "feeds/shelf/19.jpg"
   },
   {
    "kind": "book",
@@ -105,7 +195,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/the-fellowship-of-the-ring",
-   "src": "feeds/shelf/10.jpg"
+   "src": "feeds/shelf/20.jpeg"
   },
   {
    "kind": "book",
@@ -115,7 +205,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/the-hobbit",
-   "src": "feeds/shelf/11.jpg"
+   "src": "feeds/shelf/21.jpg"
   },
   {
    "kind": "book",
@@ -125,7 +215,7 @@
    "reading": false,
    "at": "2026-10-01",
    "url": "https://hardcover.app/books/the-lord-of-the-rings",
-   "src": "feeds/shelf/12.jpg"
+   "src": "feeds/shelf/22.jpeg"
   },
   {
    "kind": "book",
@@ -136,18 +226,7 @@
    "reading": false,
    "at": "2026-09-22",
    "url": "https://hardcover.app/books/carls-doomsday-scenario",
-   "src": "feeds/shelf/13.jpg"
-  },
-  {
-   "kind": "book",
-   "title": "Dungeon Crawler Carl",
-   "by": "Matt Dinniman",
-   "year": 2020,
-   "rating": 4,
-   "reading": false,
-   "at": "2026-09-22",
-   "url": "https://hardcover.app/books/dungeon-crawler-carl",
-   "src": "feeds/shelf/14.jpg"
+   "src": "feeds/shelf/23.jpg"
   }
  ]
 }
