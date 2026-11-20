@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import PdfIcon from "../assets/icons/apps/pdf.png";
+import PdfIcon from "../assets/icons/apps/doc-pdf.svg";
 import Alert from "./Alert";
 
 // Shown when CV.pdf is dropped on the Trash. Deleting it is refused.

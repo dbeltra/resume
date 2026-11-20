@@ -84,3 +84,8 @@ test("on-repeat hero borrows its cover from recent plays, any letter case", () =
   expect(pickHero(recent, topList(topJson)).art).toBe("c.jpg");
   expect(pickHero([], topList(topJson)).art).toBeNull();
 });
+
+test("on-repeat hero falls back to a cover from the same artist", () => {
+  const recent = [{ name: "Other", artist: "alcalá norte", art: "artist.jpg" }];
+  expect(pickHero(recent, topList(topJson)).art).toBe("artist.jpg");
+});

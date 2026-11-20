@@ -30,12 +30,12 @@ import ContextMenu from "./desktop/ContextMenu";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
 import { prefersReducedMotion } from "./components/genie";
-import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
+import PdfIcon from "./assets/icons/apps/doc-pdf.svg";
 import FolderIcon from "./assets/icons/apps/folder.png";
-import FileIcon from "./assets/icons/apps/file.png";
+import FileIcon from "./assets/icons/apps/doc-md.svg";
 import TrashIcon from "./assets/icons/apps/trash.png";
 import PhotosIcon from "./assets/icons/apps/photos.png";
-import HtmlIcon from "./assets/icons/color/html-5.png";
+import HtmlIcon from "./assets/icons/apps/doc-html.svg";
 import BooksIcon from "./assets/icons/apps/books.png";
 import BarcelonaWall from "./assets/wallpapers/barcelona.jpg";
 import StarsWall from "./assets/wallpapers/stars.jpg";
@@ -53,6 +53,20 @@ const WALLPAPERS = [
   { img: CanyonWall, by: "Ashim D'Silva", id: "WeYamle9fDM" },
 ];
 
+// apps a shared link can open, by the name used in the URL
+const LINK_APPS = {
+  photos: "photos",
+  shelf: "shelf",
+  music: "spotify",
+  spotify: "spotify",
+  cv: "pdf",
+  mail: "mail",
+  terminal: "term",
+  claude: "claude",
+  code: "code",
+  trash: "trash",
+};
+
 const usePageParam = () => {
   const { page } = useParams();
   return PAGES.includes(page) ? page : "about";
@@ -64,12 +78,24 @@ const Desktop = ({ phone }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const routePage = usePageParam();
-  const linkedPage = !!useParams().page;
+  const param = useParams().page;
+  const linkedPage = PAGES.includes(param);
+  // a shared link can also name an app: davidbeltra.com/#/photos
+  const linkedApp = LINK_APPS[param];
   // land on the bare desktop (about-me.html opens the site) unless the link
-  // points at a page
-  const [state, dispatch] = useReducer(desktopReducer, null, () =>
-    initialState(routePage, { browserOpen: linkedPage }),
-  );
+  // points at a page or an app; either window is just there on load
+  const [state, dispatch] = useReducer(desktopReducer, null, () => {
+    const s = initialState(routePage, { browserOpen: linkedPage });
+    // phones hand the CV to the browser's own viewer, which a page load can't do
+    return linkedApp && !(phone && linkedApp === "pdf")
+      ? desktopReducer(s, { type: "open", id: linkedApp })
+      : s;
+  });
+  // the app link has done its job: tidy the address bar back to the desktop
+  useEffect(() => {
+    if (linkedApp) navigate("/", { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const page = currentPage(state);
 
   // Keep the address bar and the in-window browser in sync both ways.
@@ -728,7 +754,8 @@ const Desktop = ({ phone }) => {
 const DesktopOrMobile = () => {
   const { isMobile } = useResponsive();
   const { page } = useParams();
-  if (page && !PAGES.includes(page)) return <Navigate to="/" replace />;
+  if (page && !PAGES.includes(page) && !LINK_APPS[page])
+    return <Navigate to="/" replace />;
   return <Desktop phone={isMobile} />;
 };
 

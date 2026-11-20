@@ -37,20 +37,24 @@ export const topList = (json) =>
 
 // option 3: the live track, else the week's #1
 // top tracks never carry art (only the placeholder star), so the "on repeat"
-// song borrows its cover from the same song in recent plays when it's there
-const same = (a, b) =>
-  a.name.toLowerCase() === b.name.toLowerCase() &&
-  a.artist.toLowerCase() === b.artist.toLowerCase();
+// song borrows a cover from recent plays: the same song if it's there, else
+// another song by the same artist. Names compare case-insensitively (Last.fm
+// keeps "Angine de Poitrine" and "Angine de poitrine" apart).
+const lc = (x) => x.toLowerCase();
+const coverFrom = (recent, t) =>
+  recent.find(
+    (r) => r.art && lc(r.name) === lc(t.name) && lc(r.artist) === lc(t.artist),
+  )?.art ||
+  recent.find((r) => r.art && lc(r.artist) === lc(t.artist))?.art ||
+  null;
 export const pickHero = (recent, top) =>
   recent.find((t) => t.live) ||
   (top[0] && {
     ...top[0],
-    art:
-      top[0].art || recent.find((r) => r.art && same(r, top[0]))?.art || null,
+    art: top[0].art || coverFrom(recent, top[0]),
     live: false,
   }) ||
   null;
-
 const call = async (params) => {
   const q = new URLSearchParams({ ...params, api_key: KEY, format: "json" });
   const res = await fetch(`${API}?${q}`);
@@ -60,7 +64,8 @@ const call = async (params) => {
 
 export async function getLibrary() {
   const [r, t] = await Promise.all([
-    call({ method: "user.getrecenttracks", user: USER, limit: 6 }),
+    // 50 plays to find covers in; only the newest are listed
+    call({ method: "user.getrecenttracks", user: USER, limit: 50 }),
     call({ method: "user.gettoptracks", user: USER, period: "7day", limit: 5 }),
   ]);
   const recent = recentList(r);

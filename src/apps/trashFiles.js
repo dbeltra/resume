@@ -1,12 +1,13 @@
 // Contents of the joke files in the Trash, shown in Quick Look.
 // File contents stay in English: they're "files".
-import FileIcon from "../assets/icons/apps/file.png";
-import PdfIcon from "../assets/icons/apps/pdf.png";
+import MdIcon from "../assets/icons/apps/doc-md.svg";
+import TxtIcon from "../assets/icons/apps/doc-txt.svg";
+import PdfIcon from "../assets/icons/apps/doc-pdf.svg";
 
 export const TRASH_FILES = [
   {
     name: "TODO_final_FINAL_v3.txt",
-    icon: FileIcon,
+    icon: TxtIcon,
     body: `[x] learn Python
 [x] learn Rust (the borrow checker won, then I did)
 [x] ship React + FastAPI to production
@@ -30,7 +31,7 @@ Objective
   },
   {
     name: "tabs-vs-spaces.md",
-    icon: FileIcon,
+    icon: MdIcon,
     body: `# Tabs vs spaces
 
 Decision: spaces. Two of them.
@@ -40,7 +41,7 @@ Status: closed (won't fix)`,
   },
   {
     name: "passwords.txt",
-    icon: FileIcon,
+    icon: TxtIcon,
     body: `david123
 
 …just kidding. Nice try.

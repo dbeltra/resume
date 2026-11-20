@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Avatar from "./components/Avatar";
 import AppTile from "./components/AppTile";
 import FolderIcon from "./assets/icons/apps/folder.png";
-import FileIcon from "./assets/icons/apps/file.png";
+import FileIcon from "./assets/icons/apps/doc-md.svg";
 import PhotosIcon from "./assets/icons/apps/photos.png";
 import BooksIcon from "./assets/icons/apps/books.png";
 import GithubIcon from "./assets/icons/mono/github.png";
