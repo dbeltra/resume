@@ -4,6 +4,8 @@ import Avatar from "./components/Avatar";
 import AppTile from "./components/AppTile";
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
+import PhotosIcon from "./assets/icons/apps/photos.png";
+import BooksIcon from "./assets/icons/apps/books.png";
 import GithubIcon from "./assets/icons/mono/github.png";
 import LinkedinIcon from "./assets/icons/mono/linkedin.png";
 
@@ -17,13 +19,29 @@ const Label = ({ children }) => (
 );
 
 // iOS-style home screen for phones: a profile widget, an app grid and a dock.
-const PhoneHome = ({ onOpen, onGo, page }) => {
+const PhoneHome = ({ onOpen, onGo, page, hasPhotos }) => {
   const { t, i18n } = useTranslation();
 
   const grid = [
     { label: "CV", app: "pdf", act: () => onOpen("pdf") },
     { label: "Spotify", app: "spotify", act: () => onOpen("spotify") },
     { label: "Claude", app: "claude", act: () => onOpen("claude") },
+    ...(hasPhotos
+      ? [
+          {
+            label: t("desktop.apps.photos"),
+            icon: PhotosIcon,
+            tile: "bg-white",
+            act: () => onOpen("photos"),
+          },
+        ]
+      : []),
+    {
+      label: t("desktop.apps.shelf"),
+      icon: BooksIcon,
+      tile: "bg-white",
+      act: () => onOpen("shelf"),
+    },
     {
       label: "Agents.md",
       icon: FileIcon,

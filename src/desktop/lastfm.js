@@ -36,8 +36,20 @@ export const topList = (json) =>
   }));
 
 // option 3: the live track, else the week's #1
+// top tracks never carry art (only the placeholder star), so the "on repeat"
+// song borrows its cover from the same song in recent plays when it's there
+const same = (a, b) =>
+  a.name.toLowerCase() === b.name.toLowerCase() &&
+  a.artist.toLowerCase() === b.artist.toLowerCase();
 export const pickHero = (recent, top) =>
-  recent.find((t) => t.live) || (top[0] && { ...top[0], live: false }) || null;
+  recent.find((t) => t.live) ||
+  (top[0] && {
+    ...top[0],
+    art:
+      top[0].art || recent.find((r) => r.art && same(r, top[0]))?.art || null,
+    live: false,
+  }) ||
+  null;
 
 const call = async (params) => {
   const q = new URLSearchParams({ ...params, api_key: KEY, format: "json" });
@@ -65,6 +77,45 @@ export async function getLibrary() {
   }
   return { hero, recent: recent.filter((x) => !x.live).slice(0, 5), top };
 }
+
+// the desktop widget's songs: playing now (or last played) first, then the
+// ones before it, for the widget's previous/next buttons
+export async function getRecentSongs(limit = 6) {
+  const songs = recentList(
+    await call({ method: "user.getrecenttracks", user: USER, limit }),
+  );
+  const first = songs[0];
+  if (first && !first.art) {
+    const info = await call({
+      method: "track.getinfo",
+      artist: first.artist,
+      track: first.name,
+    }).catch(() => null);
+    first.art = art(info?.track?.album?.image);
+  }
+  // Last.fm can list the playing song twice (live + just scrobbled)
+  return songs.filter(
+    (x, i) => i === 0 || x.name !== songs[i - 1].name || x.live,
+  );
+}
+
+// 30-second preview from Apple's public search API (no key, CORS allowed);
+// only called when someone presses play. null when there's no match.
+const previews = new Map();
+export const findPreview = (song) => {
+  const k = `${song.artist} ${song.name}`;
+  if (!previews.has(k))
+    previews.set(
+      k,
+      fetch(
+        `https://itunes.apple.com/search?entity=song&limit=1&term=${encodeURIComponent(k)}`,
+      )
+        .then((r) => r.json())
+        .then((d) => d.results?.[0]?.previewUrl || null)
+        .catch(() => null),
+    );
+  return previews.get(k);
+};
 
 export const spotify = (m) =>
   `https://open.spotify.com/search/${encodeURIComponent(`${m.artist} ${m.name}`)}`;

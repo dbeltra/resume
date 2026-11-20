@@ -6,7 +6,7 @@ import { enabled, getLibrary, spotify, USER } from "../desktop/lastfm";
 const REFRESH_MS = 60000;
 
 // "how long ago", in the site's language, from stdlib
-const ago = (ms, lang) => {
+export const ago = (ms, lang) => {
   const s = Math.round((ms - Date.now()) / 1000);
   const rtf = new Intl.RelativeTimeFormat(lang, { numeric: "auto" });
   for (const [unit, n] of [
@@ -18,7 +18,7 @@ const ago = (ms, lang) => {
   return rtf.format(0, "minute");
 };
 
-const Cover = ({ src, className }) =>
+export const Cover = ({ src, className }) =>
   src ? (
     <img src={src} alt="" className={`object-cover ${className}`} />
   ) : (
@@ -30,7 +30,7 @@ const Cover = ({ src, className }) =>
     </span>
   );
 
-const Eq = () => (
+export const Eq = () => (
   <span aria-hidden="true" className="flex h-3 items-end gap-[2px]">
     {[0, 0.2, 0.4].map((d) => (
       <span

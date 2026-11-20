@@ -78,3 +78,9 @@ test("hero is the live track, else the week's top track", () => {
   });
   expect(pickHero([], [])).toBeNull();
 });
+
+test("on-repeat hero borrows its cover from recent plays, any letter case", () => {
+  const recent = [{ name: "en valmy", artist: "ALCALÁ NORTE", art: "c.jpg" }];
+  expect(pickHero(recent, topList(topJson)).art).toBe("c.jpg");
+  expect(pickHero([], topList(topJson)).art).toBeNull();
+});

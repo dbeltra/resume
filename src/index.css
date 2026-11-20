@@ -185,3 +185,66 @@ body {
     transition: none;
   }
 }
+
+/* Now-playing widget controls: bold filled white icons with no button chrome
+   (like iOS's player), and a bigger play button whose play/pause icons
+   cross-fade with a half turn. */
+.np-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: #fff;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+.np-btn i {
+  font-size: 20px;
+  font-variation-settings:
+    "FILL" 1,
+    "wght" 700,
+    "opsz" 24;
+}
+.np-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+.np-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+.np-btn:disabled {
+  opacity: 0.35;
+}
+.np-btn:focus-visible {
+  outline: 2px solid #b98ab9;
+  outline-offset: 2px;
+}
+.np-btn--play {
+  width: 28px;
+  height: 28px;
+}
+.np-btn--play i {
+  font-size: 26px;
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.15s ease,
+    transform 0.25s ease;
+}
+.np-btn--play .np-pause {
+  opacity: 0;
+}
+.np-btn--play.is-active .np-play {
+  opacity: 0;
+  transform: rotate(180deg);
+}
+.np-btn--play.is-active .np-pause {
+  opacity: 1;
+  transform: rotate(180deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .np-btn--play i {
+    transition: none;
+  }
+}

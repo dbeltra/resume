@@ -1,0 +1,44 @@
+# Refreshes the Shelf (Letterboxd + Hardcover) and Photos (Instagram) feeds and
+# redeploys the site to the "deploy" branch, every 6 hours and on each push to
+# main. If any feed fails, the job stops before deploying: the live site keeps
+# its last good data and GitHub emails the failure.
+# Secrets (Settings > Secrets and variables > Actions):
+#   LASTFM_KEY, HARDCOVER_TOKEN, INSTAGRAM_TOKEN (the last two are optional)
+name: Sync and deploy
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: node scripts/sync.mjs
+        env:
+          HARDCOVER_TOKEN: ${{ secrets.HARDCOVER_TOKEN }}
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+      - run: npm run build
+        env:
+          REACT_APP_LASTFM_KEY: ${{ secrets.LASTFM_KEY }}
+      - run: >
+          npx gh-pages -b deploy -d build
+          -u "github-actions[bot] <41898183+github-actions[bot]@users.noreply.github.com>"
+          -r "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -23,7 +23,9 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b deploy -d build",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "sync": "node --env-file=.env.local scripts/sync.mjs",
+    "test:sync": "node --test scripts/"
   },
   "eslintConfig": {
     "extends": [

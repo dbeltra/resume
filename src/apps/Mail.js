@@ -3,12 +3,13 @@ import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
 
 // Compose window that hands off to the visitor's mail client via mailto:.
-const Mail = ({ win, draft = false }) => {
+// draft: a prefilled message kind ("hi", "suggest") or none
+const Mail = ({ win, draft }) => {
   const { t } = useTranslation();
   const [subject, setSubject] = useState(
-    t(draft ? "desktop.mail.hiSubject" : "desktop.mail.subjectDefault"),
+    t(draft ? `desktop.mail.${draft}Subject` : "desktop.mail.subjectDefault"),
   );
-  const [body, setBody] = useState(draft ? t("desktop.mail.hiBody") : "");
+  const [body, setBody] = useState(draft ? t(`desktop.mail.${draft}Body`) : "");
   const href = `mailto:dbeltra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
   const sendButton = (

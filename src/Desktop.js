@@ -9,6 +9,9 @@ import Claude from "./apps/Claude";
 import Preview, { cvFile } from "./apps/Preview";
 import Mail from "./apps/Mail";
 import Spotify from "./apps/Spotify";
+import Photos from "./apps/Photos";
+import Shelf from "./apps/Shelf";
+import { useFeed } from "./desktop/feed";
 import Trash from "./apps/Trash";
 import { desktopReducer, initialState, currentPage } from "./desktopState";
 import { useResponsive } from "./hooks/useResponsive";
@@ -20,6 +23,7 @@ import ShakeCursor from "./desktop/ShakeCursor";
 import AboutDialog from "./desktop/AboutDialog";
 import Notifications from "./desktop/Notifications";
 import Spotlight from "./desktop/Spotlight";
+import NowPlaying from "./desktop/NowPlaying";
 import TrashDialog from "./desktop/TrashDialog";
 import Alert from "./desktop/Alert";
 import ContextMenu from "./desktop/ContextMenu";
@@ -30,6 +34,9 @@ import PdfIcon from "./assets/icons/apps/pdf.png"; // desktop file
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/file.png";
 import TrashIcon from "./assets/icons/apps/trash.png";
+import PhotosIcon from "./assets/icons/apps/photos.png";
+import HtmlIcon from "./assets/icons/color/html-5.png";
+import BooksIcon from "./assets/icons/apps/books.png";
 import BarcelonaWall from "./assets/wallpapers/barcelona.jpg";
 import StarsWall from "./assets/wallpapers/stars.jpg";
 import ShoreWall from "./assets/wallpapers/shore.jpg";
@@ -58,9 +65,10 @@ const Desktop = ({ phone }) => {
   const navigate = useNavigate();
   const routePage = usePageParam();
   const linkedPage = !!useParams().page;
-  // phones start on the home screen unless the link points at a page
+  // land on the bare desktop (about-me.html opens the site) unless the link
+  // points at a page
   const [state, dispatch] = useReducer(desktopReducer, null, () =>
-    initialState(routePage, { browserOpen: !phone || linkedPage }),
+    initialState(routePage, { browserOpen: linkedPage }),
   );
   const page = currentPage(state);
 
@@ -96,11 +104,18 @@ const Desktop = ({ phone }) => {
   const go = (p) => dispatch({ type: "go", page: p });
 
   // sudo say-hi: confetti, then Mail opens with a hello already written
-  const [draft, setDraft] = useState(0); // bump to remount Mail with the draft
+  // Photos only shows up once Instagram has been synced at least once
+  const hasPhotos = useFeed("photos").items?.length > 0;
+
+  // n bumps to remount Mail with a fresh draft of that kind ("hi", "suggest")
+  const [draft, setDraft] = useState({ n: 0 });
+  const writeMail = (kind) => {
+    setDraft((d) => ({ n: d.n + 1, kind }));
+    open("mail");
+  };
   const sayHi = () => {
     confetti();
-    setDraft((n) => n + 1);
-    open("mail");
+    writeMail("hi");
   };
 
   // rm -rf /: glitch -> kernel panic -> boot screen -> fresh desktop.
@@ -131,7 +146,7 @@ const Desktop = ({ phone }) => {
   const [folderAlert, setFolderAlert] = useState(null);
   const newFolder = () =>
     setFolders((f) =>
-      f.length >= 5 // ponytail: cap so the icon column never runs off screen
+      f.length >= 3 // ponytail: cap so the icon column never runs off screen
         ? f
         : f.concat(
             t("desktop.ctx.untitled") + (f.length ? ` ${f.length + 1}` : ""),
@@ -195,6 +210,16 @@ const Desktop = ({ phone }) => {
       icon: "delete",
       label: t(`desktop.dock.${id}`),
       act: () => (id === "browser" ? go(page) : open(id)),
+    })),
+    ...[
+      ...(hasPhotos ? [["photos", "photo_camera"]] : []),
+      ["shelf", "auto_stories"],
+    ].map(([id, icon]) => ({
+      id: `app-${id}`,
+      kind: "app",
+      icon,
+      label: t(`desktop.dock.${id}`),
+      act: () => open(id),
     })),
     ...JSON.parse(CODE.experience).map((j) => ({
       id: `job-${j.company}-${j.dates}`,
@@ -360,6 +385,11 @@ const Desktop = ({ phone }) => {
 
   const files = [
     {
+      label: "about-me.html",
+      icon: HtmlIcon,
+      act: () => go("about"),
+    },
+    {
       label: "resume-src",
       icon: FolderIcon,
       act: () => open("code", "about"),
@@ -374,6 +404,20 @@ const Desktop = ({ phone }) => {
       label: "Agents.md",
       icon: FileIcon,
       act: () => open("code", "agents"),
+    },
+    ...(hasPhotos
+      ? [
+          {
+            label: t("desktop.apps.photos"),
+            icon: PhotosIcon,
+            act: () => open("photos"),
+          },
+        ]
+      : []),
+    {
+      label: t("desktop.apps.shelf"),
+      icon: BooksIcon,
+      act: () => open("shelf"),
     },
     ...folders.map((name) => ({
       label: name,
@@ -414,8 +458,12 @@ const Desktop = ({ phone }) => {
       {state.open.claude && <Claude win={win("claude")} />}
       {state.open.pdf && <Preview win={win("pdf")} />}
       {state.open.spotify && <Spotify win={win("spotify")} />}
+      {state.open.photos && <Photos win={win("photos")} />}
+      {state.open.shelf && (
+        <Shelf win={win("shelf")} onSuggest={() => writeMail("suggest")} />
+      )}
       {state.open.mail && (
-        <Mail key={draft} win={win("mail")} draft={draft > 0} />
+        <Mail key={draft.n} win={win("mail")} draft={draft.kind} />
       )}
       {/* desktop only: phones have no Trash */}
       {!phone && state.open.trash && <Trash win={win("trash")} />}
@@ -426,7 +474,12 @@ const Desktop = ({ phone }) => {
     return (
       <>
         <div className={crash === "glitch" ? "glitch" : ""}>
-          <PhoneHome onOpen={open} onGo={go} page={page} />
+          <PhoneHome
+            onOpen={open}
+            onGo={go}
+            page={page}
+            hasPhotos={hasPhotos}
+          />
           {apps}
         </div>
         {crash && crash !== "glitch" && (
@@ -498,31 +551,39 @@ const Desktop = ({ phone }) => {
               alt=""
               className="h-10 w-10 drop-shadow-[0_4px_8px_rgba(40,20,60,0.3)]"
             />
-            <span className="rounded-[5px] bg-ink-950/70 px-[7px] py-0.5 text-xs font-medium">
+            <span className="whitespace-nowrap rounded-[5px] bg-ink-950/70 px-[7px] py-0.5 text-xs font-medium">
               {f.label}
             </span>
           </button>
         ))}
       </nav>
 
-      <aside
-        aria-label={t("desktop.labels.status")}
-        className="absolute right-[22px] top-[52px] hidden w-[212px] flex-col gap-2 rounded-xl border border-[#2a2f3b] bg-ink-800/90 p-4 text-[13px] min-[1400px]:flex"
-      >
-        <div className="font-mono text-[11px] text-ink-muted">status.json</div>
-        <div className="flex items-center gap-2 font-semibold">
-          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-lilac" />
-          {t("desktop.status.roles")}
-        </div>
-        <div className="text-ink-muted">{t("desktop.status.where")}</div>
-        <button
-          type="button"
-          onClick={() => open("mail")}
-          className="text-left text-lilac-text hover:underline"
+      <div className="absolute right-[22px] top-[52px] hidden w-[260px] flex-col gap-3 min-[1400px]:flex">
+        <aside
+          aria-label={t("desktop.labels.status")}
+          className="flex flex-col gap-2 rounded-xl border border-[#2a2f3b] bg-ink-800/90 p-4 text-[13px] motion-safe:animate-[app-open_0.5s_ease-out_0.2s_both]"
         >
-          dbeltra@gmail.com
-        </button>
-      </aside>
+          <div className="font-mono text-[11px] text-ink-muted">
+            status.json
+          </div>
+          <div className="flex items-center gap-2 font-semibold">
+            <span
+              aria-hidden="true"
+              className="h-2 w-2 rounded-full bg-lilac"
+            />
+            {t("desktop.status.roles")}
+          </div>
+          <div className="text-ink-muted">{t("desktop.status.where")}</div>
+          <button
+            type="button"
+            onClick={() => open("mail")}
+            className="text-left text-lilac-text hover:underline"
+          >
+            dbeltra@gmail.com
+          </button>
+        </aside>
+        <NowPlaying onOpen={() => open("spotify")} />
+      </div>
 
       {mc && (
         <button
