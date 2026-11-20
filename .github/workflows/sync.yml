@@ -23,8 +23,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
@@ -38,7 +38,7 @@ jobs:
           REACT_APP_LASTFM_KEY: ${{ secrets.LASTFM_KEY }}
       - run: >
           npx gh-pages -b deploy -d build
-          -u "github-actions[bot] <41898183+github-actions[bot]@users.noreply.github.com>"
+          -u "github-actions <github-actions@users.noreply.github.com>"
           -r "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
