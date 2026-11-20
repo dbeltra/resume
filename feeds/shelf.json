@@ -1,0 +1,153 @@
+{
+ "updated": "2026-11-20T15:23:01.147Z",
+ "items": [
+  {
+   "kind": "film",
+   "title": "Perfect Blue",
+   "year": 1997,
+   "rating": 4,
+   "at": "2026-11-15",
+   "url": "https://letterboxd.com/dbeltra/film/perfect-blue/",
+   "src": "feeds/shelf/00.jpg"
+  },
+  {
+   "kind": "film",
+   "title": "28 Years Later",
+   "year": 2025,
+   "rating": 4,
+   "at": "2026-11-14",
+   "url": "https://letterboxd.com/dbeltra/film/28-years-later/",
+   "src": "feeds/shelf/01.jpg"
+  },
+  {
+   "kind": "film",
+   "title": "Resident Evil",
+   "year": 2026,
+   "rating": 4,
+   "at": "2026-11-13",
+   "url": "https://letterboxd.com/dbeltra/film/resident-evil-2026/",
+   "src": "feeds/shelf/02.jpg"
+  },
+  {
+   "kind": "film",
+   "title": "Humanist Vampire Seeking Consenting Suicidal Person",
+   "year": 2023,
+   "rating": 3.5,
+   "at": "2026-11-08",
+   "url": "https://letterboxd.com/dbeltra/film/humanist-vampire-seeking-consenting-suicidal-person/",
+   "src": "feeds/shelf/03.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Dungeon Anarchist's Cookbook",
+   "by": "Matt Dinniman",
+   "year": 2021,
+   "reading": true,
+   "at": "2026-10-04",
+   "url": "https://hardcover.app/books/the-dungeon-anarchists-cookbook",
+   "src": "feeds/shelf/04.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "Dracula",
+   "by": "Bram Stoker",
+   "year": 1897,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/dracula",
+   "src": "feeds/shelf/05.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Return of the King",
+   "by": "J.R.R. Tolkien",
+   "year": 1955,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/the-return-of-the-king",
+   "src": "feeds/shelf/06.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Two Towers",
+   "by": "J.R.R. Tolkien",
+   "year": 1954,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/the-two-towers",
+   "src": "feeds/shelf/07.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Little Prince",
+   "by": "Antoine de Saint-Exupéry",
+   "year": 1943,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/the-little-prince",
+   "src": "feeds/shelf/08.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "Frankenstein",
+   "by": "Mary Shelley",
+   "year": 1818,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/frankenstein",
+   "src": "feeds/shelf/09.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Fellowship of the Ring",
+   "by": "J.R.R. Tolkien",
+   "year": 1937,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/the-fellowship-of-the-ring",
+   "src": "feeds/shelf/10.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Hobbit, or There and Back Again",
+   "by": "J.R.R. Tolkien",
+   "year": 1937,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/the-hobbit",
+   "src": "feeds/shelf/11.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "The Lord of the Rings",
+   "by": "J.R.R. Tolkien",
+   "year": 1955,
+   "reading": false,
+   "at": "2026-10-01",
+   "url": "https://hardcover.app/books/the-lord-of-the-rings",
+   "src": "feeds/shelf/12.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "Carl's Doomsday Scenario",
+   "by": "Matt Dinniman",
+   "year": 2021,
+   "rating": 4,
+   "reading": false,
+   "at": "2026-09-22",
+   "url": "https://hardcover.app/books/carls-doomsday-scenario",
+   "src": "feeds/shelf/13.jpg"
+  },
+  {
+   "kind": "book",
+   "title": "Dungeon Crawler Carl",
+   "by": "Matt Dinniman",
+   "year": 2020,
+   "rating": 4,
+   "reading": false,
+   "at": "2026-09-22",
+   "url": "https://hardcover.app/books/dungeon-crawler-carl",
+   "src": "feeds/shelf/14.jpg"
+  }
+ ]
+}
