@@ -33,7 +33,11 @@ jobs:
         env:
           HARDCOVER_TOKEN: ${{ secrets.HARDCOVER_TOKEN }}
           INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
-      - run: npm run build
+      # without the key the Spotify app and widget ship dark: stop instead,
+      # so the live site keeps its last good build
+      - run: |
+          test -n "$REACT_APP_LASTFM_KEY" || { echo "::error::LASTFM_KEY secret is empty or missing"; exit 1; }
+          npm run build
         env:
           REACT_APP_LASTFM_KEY: ${{ secrets.LASTFM_KEY }}
       - run: >
