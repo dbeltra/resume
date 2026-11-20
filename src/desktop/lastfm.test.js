@@ -1,4 +1,4 @@
-import { art, recentList, topList, pickHero } from "./lastfm";
+import { art, recentList, topList, pickHero, getRecentSongs } from "./lastfm";
 
 const img = (u) => [
   { size: "small", "#text": "s.jpg" },
@@ -88,4 +88,40 @@ test("on-repeat hero borrows its cover from recent plays, any letter case", () =
 test("on-repeat hero falls back to a cover from the same artist", () => {
   const recent = [{ name: "Other", artist: "alcalá norte", art: "artist.jpg" }];
   expect(pickHero(recent, topList(topJson)).art).toBe("artist.jpg");
+});
+
+test("a playing song without a cover falls back to its album's cover", async () => {
+  const star = "https://x/2a96cbd8b46e442fc41c2b86b821562f.png";
+  const replies = {
+    "user.getrecenttracks": {
+      recenttracks: {
+        track: [
+          {
+            name: "Live One",
+            artist: { "#text": "Band" },
+            album: { "#text": "The Album" },
+            image: img(star),
+            url: "u",
+            "@attr": { nowplaying: "true" },
+          },
+        ],
+      },
+    },
+    "track.getinfo": { track: { album: { image: img(star) } } },
+    "album.getinfo": { album: { image: img("album.jpg") } },
+  };
+  globalThis.fetch = jest.fn(async (url) => ({
+    ok: true,
+    json: async () => replies[new URL(url).searchParams.get("method")],
+  }));
+  const [song] = await getRecentSongs();
+  expect(song.art).toBe("album.jpg");
+  const asked = globalThis.fetch.mock.calls.map(([u]) =>
+    new URL(u).searchParams.get("method"),
+  );
+  expect(asked).toEqual([
+    "user.getrecenttracks",
+    "track.getinfo",
+    "album.getinfo",
+  ]);
 });

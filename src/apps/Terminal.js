@@ -401,20 +401,36 @@ const Terminal = ({ win, onSayHi, onCrash, onOpen }) => {
                   <span className="text-peri">~</span> %
                 </span>
               )}
-              <input
-                ref={input}
-                autoFocus={!win.phone}
-                onKeyDown={recall}
-                type={askPw ? "password" : "text"}
-                value={cmd}
-                onChange={(e) => setCmd(e.target.value)}
-                aria-label={t("desktop.terminal.input")}
-                placeholder={askPw ? "" : t("desktop.terminal.placeholder")}
-                autoComplete="off"
-                autoCapitalize="off"
-                spellCheck={false}
-                className="min-w-0 flex-1 bg-transparent text-[#d7dae0] caret-[#d7dae0] outline-none placeholder:text-[#4b4f5a]"
-              />
+              <span className="relative flex min-w-0 flex-1">
+                <input
+                  ref={input}
+                  autoFocus={!win.phone}
+                  onKeyDown={recall}
+                  // never type="password": browsers would offer to save it.
+                  // The password is typed invisibly and the dots on top fake
+                  // the masking (monospace, so they line up with the caret)
+                  type="text"
+                  value={cmd}
+                  onChange={(e) => setCmd(e.target.value)}
+                  aria-label={t("desktop.terminal.input")}
+                  placeholder={askPw ? "" : t("desktop.terminal.placeholder")}
+                  autoComplete="off"
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  data-1p-ignore
+                  data-lpignore="true"
+                  className={`min-w-0 flex-1 bg-transparent caret-[#d7dae0] outline-none placeholder:text-[#4b4f5a] ${askPw ? "text-transparent selection:bg-transparent" : "text-[#d7dae0]"}`}
+                />
+                {askPw && (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 overflow-hidden whitespace-pre text-[#d7dae0]"
+                  >
+                    {"•".repeat(cmd.length)}
+                  </span>
+                )}
+              </span>
             </form>
           )}
         </div>

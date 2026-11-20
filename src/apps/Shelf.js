@@ -5,14 +5,15 @@ import { feedSrc, useFeed } from "../desktop/feed";
 
 const stars = (r) => "★".repeat(Math.floor(r)) + (r % 1 ? "½" : "");
 
-// Films from Letterboxd and books from Hardcover, synced by scripts/sync.mjs
+// Films from Letterboxd, shows from Trakt and books from Hardcover, synced
+// by scripts/sync.mjs
 const Shelf = ({ win, onSuggest }) => {
   const { t } = useTranslation();
   const { items, failed } = useFeed("shelf");
   const [sel, setSel] = useState(null); // url of the picked item
   const it = items?.find((x) => x.url === sel) || items?.[0];
   // one row per kind: films, then books; a kind with nothing synced is skipped
-  const rows = ["film", "book"]
+  const rows = ["film", "show", "book"]
     .map((kind) => [kind, (items || []).filter((x) => x.kind === kind)])
     .filter(([, xs]) => xs.length);
 
@@ -20,7 +21,7 @@ const Shelf = ({ win, onSuggest }) => {
     <Window
       {...win}
       label={t("desktop.apps.shelf")}
-      rect={{ w: 860, h: 600 }}
+      rect={{ w: 860, h: 690 }}
       className="border border-[#343741] bg-[#1e2026] text-ink-text"
       barClassName="h-11 border-b border-[#343741] bg-[#262932]"
       toolbar={
@@ -42,11 +43,11 @@ const Shelf = ({ win, onSuggest }) => {
       ) : (
         <div className="flex min-h-0 flex-1 flex-col overflow-auto">
           {rows.map(([kind, xs]) => (
-            <section key={kind} className="flex-none pt-4">
+            <section key={kind} className="flex-none pt-3">
               <h2 className="px-6 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
                 {t(`desktop.shelf.${kind}s`)}
               </h2>
-              <ul className="flex gap-3.5 overflow-x-auto px-6 pb-2 pt-3">
+              <ul className="flex gap-3 overflow-x-auto px-6 pb-1.5 pt-2.5">
                 {xs.map((x) => (
                   <li key={x.url} className="flex-none">
                     <button
@@ -54,7 +55,7 @@ const Shelf = ({ win, onSuggest }) => {
                       aria-pressed={x === it}
                       aria-label={x.title}
                       onClick={() => setSel(x.url)}
-                      className={`block w-[96px] transition-transform duration-200 ${x === it ? "-translate-y-1.5" : "hover:-translate-y-1"}`}
+                      className={`block w-[80px] transition-transform duration-200 ${x === it ? "-translate-y-1.5" : "hover:-translate-y-1"}`}
                     >
                       <img
                         src={feedSrc(x.src)}
@@ -88,12 +89,7 @@ const Shelf = ({ win, onSuggest }) => {
                 rel="noopener noreferrer"
                 className="mt-1 text-[12px] text-ink-muted underline-offset-2 hover:text-ink-text hover:underline"
               >
-                {t(
-                  it.kind === "film"
-                    ? "desktop.shelf.onLetterboxd"
-                    : "desktop.shelf.onHardcover",
-                )}{" "}
-                ↗
+                {t(`desktop.shelf.on.${it.kind}`)} ↗
               </a>
             </div>
           )}

@@ -1,4 +1,4 @@
-// Pulls the Shelf (Letterboxd + Hardcover) and Photos (Instagram) feeds into
+// Pulls the Shelf (Letterboxd + Trakt + Hardcover) and Photos (Instagram) feeds into
 // public/feeds/, images included, so the site never calls those services.
 // Runs in the scheduled GitHub Action before each build, or locally with
 // `npm run sync`. A source with no token is skipped; any fetch error exits 1
@@ -9,7 +9,8 @@ import { pathToFileURL } from "node:url";
 const OUT = new URL("../public/feeds/", import.meta.url);
 const LETTERBOXD_USER = process.env.LETTERBOXD_USER || "dbeltra";
 const INSTAGRAM_USER_ID = process.env.INSTAGRAM_USER_ID || "17841401855022727"; // @dbeltra
-const SHELF_MAX = 24;
+const SHELF_PER_KIND = 10; // latest 10 films, 10 shows and 10 books
+const TRAKT_USER = process.env.TRAKT_USER || "dbeltra";
 const PHOTOS_MAX = 30;
 
 const tag = (xml, name) =>
@@ -36,6 +37,25 @@ export const parseLetterboxd = (xml) =>
     }))
     .filter((f) => f.title && f.image);
 
+// Trakt watch history -> shows, one per show (its latest episode), newest
+// first. Posters come as scheme-less paths ("media.trakt.tv/…/poster.webp").
+export const parseTrakt = (history) => {
+  const seen = new Map();
+  for (const h of history || [])
+    if (h.show && !seen.has(h.show.ids?.trakt)) seen.set(h.show.ids?.trakt, h);
+  return [...seen.values()]
+    .map(({ show, episode, watched_at }) => ({
+      kind: "show",
+      title: show.title,
+      year: show.year || undefined,
+      by: episode && `S${episode.season} · E${episode.number}`,
+      at: watched_at?.slice(0, 10),
+      url: `https://trakt.tv/shows/${show.ids?.slug}`,
+      image: show.images?.poster?.[0] && `https://${show.images.poster[0]}`,
+    }))
+    .filter((x) => x.title && x.image);
+};
+
 // Hardcover -> books, currently reading first then read. A personal token
 // only sees its owner's user_books but lacks the read:me scope, so the
 // owner's id comes from one of those rows; filtering by it keeps the query
@@ -45,7 +65,7 @@ const hardcoverBooks = (userId) => `{
   user_books(
     where: { user_id: { _eq: ${Number(userId)} }, status_id: { _in: [2, 3] } }
     order_by: [{ status_id: asc }, { updated_at: desc }]
-    limit: ${SHELF_MAX}
+    limit: ${SHELF_PER_KIND}
   ) {
     status_id
     rating
@@ -79,8 +99,10 @@ export const parseInstagram = (json) =>
       image: m.media_url,
     }));
 
-const get = async (url, opts) => {
-  const r = await fetch(url, opts);
+const get = async (url, opts = {}) => {
+  // some CDNs (Trakt's) turn away requests without a user agent
+  const headers = { "user-agent": "davidbeltra-site/1.0", ...opts.headers };
+  const r = await fetch(url, { ...opts, headers });
   if (!r.ok) throw new Error(`${r.status} ${url.split("?")[0]}`);
   return r;
 };
@@ -92,7 +114,8 @@ const save = async (name, items) => {
   await mkdir(dir, { recursive: true });
   const out = await Promise.all(
     items.map(async ({ image, ...it }, i) => {
-      const file = `${name}/${String(i).padStart(2, "0")}.jpg`;
+      const ext = image.match(/\.(webp|png|jpe?g)(\?|$)/i)?.[1] || "jpg";
+      const file = `${name}/${String(i).padStart(2, "0")}.${ext}`;
       const buf = Buffer.from(await (await get(image)).arrayBuffer());
       await writeFile(new URL(file, OUT), buf);
       return { ...it, src: `feeds/${file}` };
@@ -134,6 +157,22 @@ const hardcover = async (token) => {
 
 // Meta "unified login" system-user token (EAA…, set to never expire) with only
 // instagram_basic. It can't look up the account id itself, hence the constant.
+const trakt = async (clientId) =>
+  parseTrakt(
+    await (
+      await get(
+        `https://api.trakt.tv/users/${TRAKT_USER}/history/shows?limit=100&extended=full,images`,
+        {
+          headers: {
+            "content-type": "application/json",
+            "trakt-api-version": "2",
+            "trakt-api-key": clientId,
+          },
+        },
+      )
+    ).json(),
+  );
+
 const instagram = async (token) => {
   const fields = "media_type,media_url,caption,timestamp,permalink";
   return parseInstagram(
@@ -147,17 +186,19 @@ const instagram = async (token) => {
 
 const main = async () => {
   await mkdir(OUT, { recursive: true });
-  const { HARDCOVER_TOKEN, INSTAGRAM_TOKEN } = process.env;
+  const { HARDCOVER_TOKEN, INSTAGRAM_TOKEN, TRAKT_CLIENT_ID } = process.env;
 
-  const [films, books] = await Promise.all([
+  const [films, shows, books] = await Promise.all([
     letterboxd(),
+    TRAKT_CLIENT_ID ? trakt(TRAKT_CLIENT_ID) : [],
     HARDCOVER_TOKEN ? hardcover(HARDCOVER_TOKEN) : [],
   ]);
+  if (!TRAKT_CLIENT_ID) console.log("trakt: no TRAKT_CLIENT_ID, skipped");
   if (!HARDCOVER_TOKEN) console.log("hardcover: no HARDCOVER_TOKEN, skipped");
-  // newest first, books and films interleaved by date
-  const shelf = [...films, ...books]
-    .sort((a, b) => (b.at || "").localeCompare(a.at || ""))
-    .slice(0, SHELF_MAX);
+  // the latest SHELF_PER_KIND of each, then newest first across kinds
+  const shelf = [films, shows, books]
+    .flatMap((xs) => xs.slice(0, SHELF_PER_KIND))
+    .sort((a, b) => (b.at || "").localeCompare(a.at || ""));
   await save("shelf", shelf);
 
   if (INSTAGRAM_TOKEN) await save("photos", await instagram(INSTAGRAM_TOKEN));

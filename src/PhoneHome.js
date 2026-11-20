@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Avatar from "./components/Avatar";
 import AppTile from "./components/AppTile";
+import NowPlaying from "./desktop/NowPlaying";
 import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/doc-md.svg";
 import PhotosIcon from "./assets/icons/apps/photos.png";
@@ -45,7 +45,7 @@ const PhoneHome = ({ onOpen, onGo, page, hasPhotos }) => {
     {
       label: "Agents.md",
       icon: FileIcon,
-      tile: "bg-white",
+      tile: "bg-[#262932]", // dark, so the white page icon stands out
       act: () => onOpen("code", "agents"),
     },
     {
@@ -78,12 +78,7 @@ const PhoneHome = ({ onOpen, onGo, page, hasPhotos }) => {
         aria-label="David Beltrà"
         className="rounded-[22px] border border-white/25 bg-[rgba(110,110,120,0.32)] p-4 text-white shadow-[0_8px_30px_rgba(0,0,0,0.15)] backdrop-blur-2xl"
       >
-        <div className="flex items-center gap-4">
-          <div className="h-16 w-16 flex-none overflow-hidden rounded-full">
-            <div className="origin-top-left scale-50">
-              <Avatar />
-            </div>
-          </div>
+        <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h1 className="font-display text-xl font-bold leading-tight">
               David Beltrà
@@ -97,25 +92,39 @@ const PhoneHome = ({ onOpen, onGo, page, hasPhotos }) => {
               {t("desktop.status.roles")}
             </p>
           </div>
-        </div>
-        <div
-          role="group"
-          aria-label={t("desktop.menu.language")}
-          className="mt-3 flex gap-1 rounded-full bg-black/15 p-1 text-xs font-semibold"
-        >
-          {LANGS.map((l) => (
-            <button
-              key={l}
-              type="button"
-              aria-pressed={i18n.resolvedLanguage === l}
-              onClick={() => i18n.changeLanguage(l)}
-              className={`h-8 flex-1 rounded-full uppercase ${i18n.resolvedLanguage === l ? "bg-white text-[#17151f]" : "text-white/90"}`}
-            >
-              {l}
-            </button>
-          ))}
+          {/* language: a small corner control, not the card's main action */}
+          <div
+            role="group"
+            aria-label={t("desktop.menu.language")}
+            className="-mr-1.5 -mt-1 flex flex-none text-[11px] font-semibold uppercase"
+          >
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                type="button"
+                aria-pressed={i18n.resolvedLanguage === l}
+                onClick={() => i18n.changeLanguage(l)}
+                className={`flex h-8 min-w-8 items-center justify-center rounded-full px-1.5 uppercase ${i18n.resolvedLanguage === l ? "text-white" : "text-white/45"}`}
+              >
+                <span
+                  className={
+                    i18n.resolvedLanguage === l
+                      ? "underline decoration-lilac decoration-2 underline-offset-4"
+                      : ""
+                  }
+                >
+                  {l}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* same Last.fm player as the desktop's; tapping the song opens Spotify */}
+      <div className="mt-3">
+        <NowPlaying onOpen={() => onOpen("spotify")} />
+      </div>
 
       {/* app grid */}
       <nav

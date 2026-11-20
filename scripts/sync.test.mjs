@@ -1,7 +1,12 @@
 // node --test scripts/   (the parsers only; network calls aren't tested)
 import assert from "node:assert/strict";
 import test from "node:test";
-import { parseHardcover, parseInstagram, parseLetterboxd } from "./sync.mjs";
+import {
+  parseHardcover,
+  parseInstagram,
+  parseLetterboxd,
+  parseTrakt,
+} from "./sync.mjs";
 
 test("letterboxd: diary entries become films, lists are skipped", () => {
   const xml = `<rss><channel>
@@ -79,4 +84,32 @@ test("instagram: videos skipped, caption trimmed to first line", () => {
   assert.equal(photos[0].caption, "Montserrat");
   assert.equal(photos[0].at, "2026-08-02");
   assert.equal(photos[1].caption, "");
+});
+
+test("trakt: one entry per show, its latest episode, https poster", () => {
+  const ep = (slug, id, s, e, at, poster = true) => ({
+    watched_at: at,
+    episode: { season: s, number: e },
+    show: {
+      title: slug,
+      year: 2022,
+      ids: { trakt: id, slug },
+      images: poster ? { poster: [`media.trakt.tv/shows/${id}/p.webp`] } : {},
+    },
+  });
+  const shows = parseTrakt([
+    ep("severance", 1, 2, 8, "2026-11-14T20:00:00.000Z"),
+    ep("severance", 1, 2, 7, "2026-11-13T20:00:00.000Z"),
+    ep("no-poster", 2, 1, 1, "2026-11-12T20:00:00.000Z", false),
+  ]);
+  assert.equal(shows.length, 1);
+  assert.deepEqual(shows[0], {
+    kind: "show",
+    title: "severance",
+    year: 2022,
+    by: "S2 · E8",
+    at: "2026-11-14",
+    url: "https://trakt.tv/shows/severance",
+    image: "https://media.trakt.tv/shows/1/p.webp",
+  });
 });

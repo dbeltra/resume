@@ -18,17 +18,34 @@ export const ago = (ms, lang) => {
   return rtf.format(0, "minute");
 };
 
-export const Cover = ({ src, className }) =>
-  src ? (
-    <img src={src} alt="" className={`object-cover ${className}`} />
-  ) : (
-    <span
-      aria-hidden="true"
-      className={`flex items-center justify-center bg-[#282828] text-[#7a7a7a] ${className}`}
-    >
-      ♫
-    </span>
+// Last.fm's newer image host (lastfm-img.…) now and then answers 404 for a
+// cover, and the same song keeps the same URL, so a failed cover would stick.
+// On error: retry once after a beat from the other host, then show ♫.
+const otherHost = (u) =>
+  u.includes("//lastfm-img.")
+    ? u.replace("//lastfm-img.", "//lastfm.")
+    : u.replace("//lastfm.", "//lastfm-img.");
+export const Cover = ({ src, className }) => {
+  const [tries, setTries] = useState(0);
+  useEffect(() => setTries(0), [src]);
+  if (!src || tries > 1)
+    return (
+      <span
+        aria-hidden="true"
+        className={`flex items-center justify-center bg-[#282828] text-[#7a7a7a] ${className}`}
+      >
+        ♫
+      </span>
+    );
+  return (
+    <img
+      src={tries ? otherHost(src) : src}
+      alt=""
+      onError={() => setTimeout(() => setTries((n) => n + 1), 1500)}
+      className={`object-cover ${className}`}
+    />
   );
+};
 
 export const Eq = () => (
   <span aria-hidden="true" className="flex h-3 items-end gap-[2px]">

@@ -76,9 +76,14 @@ const NowPlaying = ({ onOpen }) => {
   };
   const toggle = async () => {
     if (playing) return stop();
+    // phones (iOS Safari) only allow audio started inside the tap itself, and
+    // the preview lookup below is async: create and "unlock" the element now,
+    // attach the preview once Apple answers
+    const a = new Audio();
+    a.play().catch(() => {});
     const url = await findPreview(song);
     if (!url) return setNoPreview(true);
-    const a = new Audio(url);
+    a.src = url;
     a.volume = 0.6;
     a.ontimeupdate = () => setProgress(a.currentTime / (a.duration || 30));
     a.onended = stop;
@@ -103,14 +108,13 @@ const NowPlaying = ({ onOpen }) => {
     >
       {/* big cover on the left; the same cover, blurred and darkened, tints
           the controls side, like iOS's music widget */}
-      {song.art && (
-        <img
+      {/* blurred tint behind the controls: a hidden Cover, so it retries too */}
+      <span aria-hidden="true" className="absolute inset-0">
+        <Cover
           src={song.art}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full scale-125 object-cover opacity-60 blur-2xl"
+          className="h-full w-full scale-125 opacity-60 blur-2xl"
         />
-      )}
+      </span>
       {/* the cover is the Spotify link: ↗ shows on hover */}
       <a
         href={spotify(song)}

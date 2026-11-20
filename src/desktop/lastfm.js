@@ -20,6 +20,7 @@ export const recentList = (json) =>
   [].concat(json?.recenttracks?.track || []).map((t) => ({
     name: t.name,
     artist: t.artist["#text"],
+    album: t.album?.["#text"] || null,
     art: art(t.image),
     url: t.url,
     live: t["@attr"]?.nowplaying === "true",
@@ -41,12 +42,14 @@ export const topList = (json) =>
 // another song by the same artist. Names compare case-insensitively (Last.fm
 // keeps "Angine de Poitrine" and "Angine de poitrine" apart).
 const lc = (x) => x.toLowerCase();
-const coverFrom = (recent, t) =>
+const sameSong = (recent, t) =>
   recent.find(
     (r) => r.art && lc(r.name) === lc(t.name) && lc(r.artist) === lc(t.artist),
-  )?.art ||
-  recent.find((r) => r.art && lc(r.artist) === lc(t.artist))?.art ||
-  null;
+  )?.art;
+const sameArtist = (recent, t) =>
+  recent.find((r) => r.art && lc(r.artist) === lc(t.artist))?.art;
+const coverFrom = (recent, t) =>
+  sameSong(recent, t) || sameArtist(recent, t) || null;
 export const pickHero = (recent, top) =>
   recent.find((t) => t.live) ||
   (top[0] && {
@@ -62,6 +65,31 @@ const call = async (params) => {
   return res.json();
 };
 
+// A song still without a cover (Last.fm often sends only its placeholder
+// star, e.g. for the song playing right now) tries, in order: the same song
+// in recent plays, Last.fm's track info, its album info, and finally another
+// recent song by the same artist. Mutates song.art.
+async function fillArt(song, recent) {
+  if (!song || song.art) return;
+  song.art = sameSong(recent, song) || null;
+  if (song.art) return;
+  const info = await call({
+    method: "track.getinfo",
+    artist: song.artist,
+    track: song.name,
+  }).catch(() => null);
+  song.art = art(info?.track?.album?.image);
+  if (!song.art && (song.album || info?.track?.album?.title)) {
+    const al = await call({
+      method: "album.getinfo",
+      artist: song.artist,
+      album: song.album || info.track.album.title,
+    }).catch(() => null);
+    song.art = art(al?.album?.image);
+  }
+  song.art = song.art || sameArtist(recent, song) || null;
+}
+
 export async function getLibrary() {
   const [r, t] = await Promise.all([
     // 50 plays to find covers in; only the newest are listed
@@ -71,37 +99,24 @@ export async function getLibrary() {
   const recent = recentList(r);
   const top = topList(t);
   const hero = pickHero(recent, top);
-  if (hero && !hero.art) {
-    // top tracks come without art since 2019; the album's art is on track.getInfo
-    const info = await call({
-      method: "track.getinfo",
-      artist: hero.artist,
-      track: hero.name,
-    }).catch(() => null);
-    hero.art = art(info?.track?.album?.image);
-  }
-  return { hero, recent: recent.filter((x) => !x.live).slice(0, 5), top };
+  const list = recent.filter((x) => !x.live).slice(0, 5);
+  await Promise.all([hero, ...list].map((x) => fillArt(x, recent)));
+  return { hero, recent: list, top };
 }
 
 // the desktop widget's songs: playing now (or last played) first, then the
 // ones before it, for the widget's previous/next buttons
 export async function getRecentSongs(limit = 6) {
-  const songs = recentList(
-    await call({ method: "user.getrecenttracks", user: USER, limit }),
+  // 50 plays to find covers in; the widget steps through the newest few
+  const recent = recentList(
+    await call({ method: "user.getrecenttracks", user: USER, limit: 50 }),
   );
-  const first = songs[0];
-  if (first && !first.art) {
-    const info = await call({
-      method: "track.getinfo",
-      artist: first.artist,
-      track: first.name,
-    }).catch(() => null);
-    first.art = art(info?.track?.album?.image);
-  }
   // Last.fm can list the playing song twice (live + just scrobbled)
-  return songs.filter(
-    (x, i) => i === 0 || x.name !== songs[i - 1].name || x.live,
-  );
+  const songs = recent
+    .filter((x, i) => i === 0 || x.name !== recent[i - 1].name || x.live)
+    .slice(0, limit);
+  await Promise.all(songs.map((x) => fillArt(x, recent)));
+  return songs;
 }
 
 // 30-second preview from Apple's public search API (no key, CORS allowed);
