@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T07:14:02.444Z",
+ "updated": "2026-11-21T09:28:38.588Z",
  "items": [
   {
    "kind": "show",
@@ -7,6 +7,12 @@
    "year": 2011,
    "by": "S13 · E12",
    "at": "2026-11-17",
+   "about": "An anthology horror drama series centering on different characters and locations, including a house with a murderous past, an asylum, a witch coven, a freak show, a hotel, a farmhouse in Roanoke, a cult, the apocalypse and a summer camp.",
+   "genres": [
+    "drama",
+    "mystery",
+    "fantasy"
+   ],
    "url": "https://trakt.tv/shows/american-horror-story",
    "src": "feeds/shelf/00.webp"
   },
@@ -17,6 +23,7 @@
    "rating": 4,
    "at": "2026-11-15",
    "url": "https://letterboxd.com/dbeltra/film/perfect-blue/",
+   "about": "Perfect Blue (Japanese: パーフェクトブルー, Hepburn: Pāfekuto Burū) is a 1997 Japanese animated psychological thriller film directed by Satoshi Kon. It is loosely based on the novel Perfect Blue: Complete Metamorphosis (パーフェクトブルー：完全変態, Pāfekuto Burū: Kanzen Hentai) by Yoshikazu Takeuchi, with a screenplay by Sadayuki Murai.",
    "src": "feeds/shelf/01.jpg"
   },
   {
@@ -26,6 +33,7 @@
    "rating": 4,
    "at": "2026-11-14",
    "url": "https://letterboxd.com/dbeltra/film/28-years-later/",
+   "about": "28 Years Later is a 2025 post-apocalyptic coming-of-age horror film produced and directed by Danny Boyle, and written by Alex Garland. The third instalment in the 28 Days Later film series, it stars Jodie Comer, Aaron Taylor-Johnson, Jack O'Connell, Alfie Williams, and Ralph Fiennes.",
    "src": "feeds/shelf/02.jpg"
   },
   {
@@ -34,6 +42,12 @@
    "year": 2022,
    "by": "S2 · E8",
    "at": "2026-11-14",
+   "about": "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives. When a mysterious colleague appears outside of work, it begins a journey to discover the truth about their jobs.",
+   "genres": [
+    "science-fiction",
+    "mystery",
+    "drama"
+   ],
    "url": "https://trakt.tv/shows/severance",
    "src": "feeds/shelf/03.webp"
   },
@@ -44,6 +58,7 @@
    "rating": 4,
    "at": "2026-11-13",
    "url": "https://letterboxd.com/dbeltra/film/resident-evil-2026/",
+   "about": "Resident Evil is a 2026 horror film directed by Zach Cregger and written by Cregger and Shay Hatten. It is the eighth live-action film in the Resident Evil film series, based on the video game series by Capcom. Austin Abrams stars as Bryan Hodukavich, a medical courier who must fight through an outbreak of infected monsters in Raccoon City. Zach Cherry, Kali Reis, and Paul Walter Hauser feature in supporting roles.",
    "src": "feeds/shelf/04.jpg"
   },
   {
@@ -52,6 +67,12 @@
    "year": 2026,
    "by": "S1 · E8",
    "at": "2026-11-10",
+   "about": "After her father's sudden, untimely death thrusts her into the unforgiving ecosystem of public high school, Carrie is forced to navigate a viral bullying scandal that tears through her community, the relentless pressure and casual cruelty of the social‑media age, and the awakening of mysterious telekinetic powers that rise alongside her adolescence.",
+   "genres": [
+    "horror",
+    "mystery",
+    "drama"
+   ],
    "url": "https://trakt.tv/shows/carrie",
    "src": "feeds/shelf/05.webp"
   },
@@ -62,6 +83,7 @@
    "rating": 3.5,
    "at": "2026-11-08",
    "url": "https://letterboxd.com/dbeltra/film/humanist-vampire-seeking-consenting-suicidal-person/",
+   "about": "Humanist Vampire Seeking Consenting Suicidal Person (French: Vampire humaniste cherche suicidaire consentant), also released as Humanist Vampire Too Sensitive to Kill, is a 2023 French-language Canadian vampire comedy drama film co-written and directed by Ariane Louis-Seize. It stars Sara Montpetit as Sasha, a teenage vampire who befriends Paul (Félix-Antoine Bénard), a boy with suicidal tendencies.",
    "src": "feeds/shelf/06.jpg"
   },
   {
@@ -70,6 +92,12 @@
    "year": 2026,
    "by": "S1 · E3",
    "at": "2026-11-01",
+   "about": "Follow the Commander-in-Chief and his eccentric staff as they tackle the kind of crises that Rick Sanchez could never be bothered with - from interdimensional diplomacy to paranormal investigations and unexplained phenomena.",
+   "genres": [
+    "animation",
+    "comedy",
+    "fantasy"
+   ],
    "url": "https://trakt.tv/shows/president-curtis",
    "src": "feeds/shelf/07.webp"
   },
@@ -79,6 +107,11 @@
    "year": 2026,
    "by": "S1 · E4",
    "at": "2026-11-01",
+   "about": "Outrageous misadventures run wild as feral cats cause chaos on the streets in this no-holds-barred animated comedy from Ricky Gervais.",
+   "genres": [
+    "animation",
+    "comedy"
+   ],
    "url": "https://trakt.tv/shows/ricky-gervais-alley-cats",
    "src": "feeds/shelf/08.webp"
   },
@@ -88,6 +121,12 @@
    "year": 2026,
    "by": "S1 · E5",
    "at": "2026-11-01",
+   "about": "2029, a near-future Japan. The full cyborg Motoko Kusanagi envisions a task force that preemptively strikes emerging threats. She and her team are scouted by Daisuke Aramaki as Public Security Section 9, AKA the \"Shell Squad.\" An international conspiracy hints at a hacker known as The \"Puppet Master.\" What fate awaits Kusanagi? What is the hacker's endgame?",
+   "genres": [
+    "anime",
+    "fantasy",
+    "science-fiction"
+   ],
    "url": "https://trakt.tv/shows/the-ghost-in-the-shell",
    "src": "feeds/shelf/09.webp"
   },
@@ -97,6 +136,10 @@
    "year": 2026,
    "by": "S1 · E8",
    "at": "2026-11-01",
+   "about": "Anthony, a real temp, is hired at Rockin' Grandma's Hot Sauce (a fake company) for its annual retreat - the final one for the company's CEO Doug before retirement. Doug's son Dougie Jr. struggles to prove his leadership abilities while a polished private-equity team courts the company for acquisition.",
+   "genres": [
+    "comedy"
+   ],
    "url": "https://trakt.tv/shows/jury-duty-presents-company-retreat",
    "src": "feeds/shelf/10.webp"
   },
@@ -106,6 +149,12 @@
    "year": 2016,
    "by": "S5 · E8",
    "at": "2026-11-01",
+   "about": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+   "genres": [
+    "fantasy",
+    "science-fiction",
+    "mystery"
+   ],
    "url": "https://trakt.tv/shows/stranger-things",
    "src": "feeds/shelf/11.webp"
   },
@@ -115,6 +164,10 @@
    "year": 2026,
    "by": "S1 · E6",
    "at": "2026-11-01",
+   "about": "A seemingly useless office hides a secret mission: to control Catalan mythological beings.",
+   "genres": [
+    "comedy"
+   ],
    "url": "https://trakt.tv/shows/departament-amades",
    "src": "feeds/shelf/12.webp"
   },
@@ -124,6 +177,12 @@
    "year": 2020,
    "by": "S0 · E7",
    "at": "2026-11-01",
+   "about": "Amnesiac Caiman seeks to undo his lizard head curse by killing the sorcerer responsible, with his friend Nikaido's help. In the Hole, that's a threat.",
+   "genres": [
+    "anime",
+    "action",
+    "adventure"
+   ],
    "url": "https://trakt.tv/shows/dorohedoro",
    "src": "feeds/shelf/13.webp"
   },
@@ -134,6 +193,8 @@
    "year": 2021,
    "reading": true,
    "at": "2026-10-04",
+   "about": "The top ten list is populated. The sponsorship program is open. The difficulty is ramping up. The first three floors were nothing compared to what Carl and Donut now face. The Iron Tangle. An impossibly-complicated subway system built out of the world's subterranean railway systems, all combined and then tied together into a knot. Up is down. Down is up. Close is far.",
+   "pages": 532,
    "url": "https://hardcover.app/books/the-dungeon-anarchists-cookbook",
    "src": "feeds/shelf/14.jpg"
   },
@@ -144,6 +205,8 @@
    "year": 1897,
    "reading": false,
    "at": "2026-10-01",
+   "about": "Acting on behalf of his firm of solicitors, Jonathan Harker travels to the Carpathian Mountains to finalize the sale of England's Carfax Abbey to Transylvanian noble Count Dracula. Little does he realize that, in doing so, he endangers all that he loves. For Dracula is one of the Un-dead—a centuries-old vampire who sleeps by day and stalks by night, feasting on the blood of his helpless victims.",
+   "pages": 408,
    "url": "https://hardcover.app/books/dracula",
    "src": "feeds/shelf/15.jpg"
   },
@@ -154,6 +217,8 @@
    "year": 1955,
    "reading": false,
    "at": "2026-10-01",
+   "about": "As the shadow of Mordor grows across the land, the Companions of the Ring have become involved in separate adventures. Aragorn, revealed as the hidden heir of the ancient Kings of the West, has joined with the Riders of Rohan against the forces of Isengard and takes part in the desperate battle of the Hornburg. Merry and Pippin, captured by Orcs, escape into Fangorn Forest and there encounter the Ents.",
+   "pages": 323,
    "url": "https://hardcover.app/books/the-return-of-the-king",
    "src": "feeds/shelf/16.jpg"
   },
@@ -164,6 +229,8 @@
    "year": 1954,
    "reading": false,
    "at": "2026-10-01",
+   "about": "Frodo and his Companions of the Ring have been beset by danger during their quest to prevent the Ruling Ring from falling into the hands of the Dark Lord by destroying it in the Cracks of Doom. They lost the wizard Gandalf in the Mines of Moria. And Boromir, seduced by the power of the Ring, tried to seize it by force. While Frodo and Sam made their escape, the rest of the company was attacked by Orcs.",
+   "pages": 323,
    "url": "https://hardcover.app/books/the-two-towers",
    "src": "feeds/shelf/17.jpeg"
   },
@@ -174,6 +241,8 @@
    "year": 1943,
    "reading": false,
    "at": "2026-10-01",
+   "about": "A pilot crashes in the Sahara Desert and encounters a strange young boy who calls himself the Little Prince. The Little Prince has traveled there from his home on a lonely, distant asteroid with a single rose. The story that follows is a beautiful and at times heartbreaking meditation on human nature.",
+   "pages": 136,
    "url": "https://hardcover.app/books/the-little-prince",
    "src": "feeds/shelf/18.jpg"
   },
@@ -184,6 +253,8 @@
    "year": 1818,
    "reading": false,
    "at": "2026-10-01",
+   "about": "Mary Shelley (then Godwin) and Percy Bysshe Shelley were visiting their friend Lord Byron in Geneva one rainy summer. With the weather against them, they decided to spend their time writing ghost stories for each other. Frankenstein is Mary Shelley’s submission to their contest, later published anonymously in 1818.",
+   "pages": 352,
    "url": "https://hardcover.app/books/frankenstein",
    "src": "feeds/shelf/19.jpg"
   },
@@ -194,6 +265,8 @@
    "year": 1937,
    "reading": false,
    "at": "2026-10-01",
+   "about": "In ancient times the Rings of Power were crafted by the Elven-smiths, and Sauron, the Dark Lord, forged the One Ring, filling it with his own power so that he could rule all others. But the One Ring was taken from him, and though he sought it throughout Middle-earth, it remained lost to him. After many ages it fell into the hands of Bilbo Baggins, as told in The Hobbit.",
+   "pages": 407,
    "url": "https://hardcover.app/books/the-fellowship-of-the-ring",
    "src": "feeds/shelf/20.jpeg"
   },
@@ -204,6 +277,8 @@
    "year": 1937,
    "reading": false,
    "at": "2026-10-01",
+   "about": "\"In a hole in the ground there lived a hobbit.\" So begins one of the most beloved and delightful tales in the English language. Set in the imaginary world of Middle-earth, at once a classic myth and a modern fairy tale, The Hobbit is one of literature's most enduring and well-loved high fantasy novels.",
+   "pages": 320,
    "url": "https://hardcover.app/books/the-hobbit",
    "src": "feeds/shelf/21.jpg"
   },
@@ -214,6 +289,8 @@
    "year": 1955,
    "reading": false,
    "at": "2026-10-01",
+   "about": "Originally published from 1954 through 1956, J.R.R. Tolkien's richly complex series ushered in a new age of epic adventure storytelling. A philologist and illustrator who took inspiration from his work, Tolkien invented the modern heroic quest novel from the ground up, creating not just a world, but a domain, not just a lexicon, but a language, that would spawn countless imitators and lead to the inception of the…",
+   "pages": 1178,
    "url": "https://hardcover.app/books/the-lord-of-the-rings",
    "src": "feeds/shelf/22.jpeg"
   },
@@ -225,8 +302,85 @@
    "rating": 4,
    "reading": false,
    "at": "2026-09-22",
+   "about": "The ratings and views are off the chart. The fans just can't get enough. The dungeon gets more dangerous each day. But in a grinder designed to chew up and spit out crawlers by the millions, Carl and Princess Donut need to work harder than ever just to survive. They call it the Over City. A sprawling, once-thriving metropolis devastated by a mysterious calamity. But these streets are far from abandoned.",
+   "pages": 385,
    "url": "https://hardcover.app/books/carls-doomsday-scenario",
    "src": "feeds/shelf/23.jpg"
+  },
+  {
+   "kind": "game",
+   "title": "The Legend of Zelda: Ocarina of Time",
+   "by": "Nintendo Switch",
+   "about": "The Legend of Zelda: Ocarina of Time is a 2026 action-adventure game developed and published by Nintendo for the Nintendo Switch 2. It is a remake of the 1998 game released for the Nintendo 64. The player controls Link as he explores the kingdom of Hyrule on a quest to stop the evil Gerudo king Ganondorf.",
+   "src": "feeds/shelf/24.jpeg"
+  },
+  {
+   "kind": "game",
+   "title": "Final Fantasy VII Rebirth",
+   "by": "Steam",
+   "url": "https://store.steampowered.com/app/2909400",
+   "about": "The Unknown Journey Continues... After escaping the city of Midgar, Cloud and his friends set out on a journey across the planet. New adventures await in a vibrant, expansive world in this standalone entry of the FFVII remake trilogy.",
+   "year": 2025,
+   "src": "feeds/shelf/25.jpg"
+  },
+  {
+   "kind": "game",
+   "title": "Final Fantasy VII Remake Intergrade",
+   "by": "Steam",
+   "url": "https://store.steampowered.com/app/1462040",
+   "about": "Cloud Strife, an ex-SOLDIER operative, descends on the mako-powered city of Midgar. The world of the timeless classic FINAL FANTASY VII is reborn, using cutting-edge graphics technology, a new battle system and an additional adventure featuring Yuffie Kisaragi.",
+   "year": 2022,
+   "src": "feeds/shelf/26.jpg"
+  },
+  {
+   "kind": "game",
+   "title": "Clair Obscur: Expedition 33",
+   "by": "Steam",
+   "url": "https://store.steampowered.com/app/1903340",
+   "about": "Lead the members of Expedition 33 on their quest to destroy the Paintress so that she can never paint death again. Explore a world of wonders inspired by Belle Époque France and battle unique enemies in this turn-based RPG with real-time mechanics.",
+   "year": 2025,
+   "src": "feeds/shelf/27.jpg"
+  },
+  {
+   "kind": "game",
+   "title": "Dispatch",
+   "by": "Nintendo Switch",
+   "url": "https://store.steampowered.com/app/2592160",
+   "about": "Dispatch is a superhero workplace comedy where choices matter. Manage a dysfunctional team of misfit heroes and strategize who to send to emergencies around the city, all while balancing office politics, personal relationships, and your own quest to become a hero. All episodes out now!",
+   "year": 2025,
+   "src": "feeds/shelf/28.jpg"
+  },
+  {
+   "kind": "game",
+   "title": "Donkey Kong Bananza",
+   "by": "Nintendo Switch",
+   "about": "Donkey Kong Bananza is a 2025 platform game developed by Nintendo EPD for the Nintendo Switch 2. The player controls the gorilla Donkey Kong, who ventures to the planetary core with the teenage Pauline. Similar to EPD's Super Mario Odyssey (2017), the player explores sandbox-like levels while completing objectives, battling enemies, and collecting objects.",
+   "src": "feeds/shelf/29.png"
+  },
+  {
+   "kind": "game",
+   "title": "Mario Kart World",
+   "by": "Nintendo Switch",
+   "about": "Mario Kart World is a 2025 kart racing game developed and published by Nintendo for the Nintendo Switch 2. As in previous Mario Kart games, players control Mario series characters as they race against opponents. World introduces an open-world design and mode, off-roading techniques, an elimination rally mode, and unlockable costumes for the playable characters.",
+   "src": "feeds/shelf/30.png"
+  },
+  {
+   "kind": "game",
+   "title": "The Elder Scrolls IV: Oblivion Remastered",
+   "by": "Steam",
+   "url": "https://store.steampowered.com/app/2623190",
+   "about": "Explore Cyrodiil like never before with stunning new visuals and refined gameplay in The Elder Scrolls IV: Oblivion™ Remastered.",
+   "year": 2025,
+   "src": "feeds/shelf/31.jpg"
+  },
+  {
+   "kind": "game",
+   "title": "Hellblade: Senua's Sacrifice",
+   "by": "Steam",
+   "url": "https://store.steampowered.com/app/414340",
+   "about": "From the makers of Heavenly Sword, Enslaved: Odyssey to the West, and DmC: Devil May Cry, comes a warrior’s brutal journey into myth and madness. Set in the Viking age, a broken Celtic warrior embarks on a haunting vision quest into Viking Hell to fight for the soul of her dead lover.",
+   "year": 2017,
+   "src": "feeds/shelf/32.jpg"
   }
  ]
 }
