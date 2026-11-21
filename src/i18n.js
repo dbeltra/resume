@@ -364,6 +364,7 @@ const resources = {
         },
         ctx: {
           newFolder: "New Folder",
+          cleanUp: "Clean Up",
           getInfo: "Get Info on David",
           wallpaper: "Change Wallpaper…",
           spotlight: "Spotlight…",
@@ -821,6 +822,7 @@ const resources = {
         },
         ctx: {
           newFolder: "Nueva carpeta",
+          cleanUp: "Ordenar",
           getInfo: "Obtener información de David",
           wallpaper: "Cambiar fondo de pantalla…",
           spotlight: "Spotlight…",
@@ -1279,6 +1281,7 @@ const resources = {
         },
         ctx: {
           newFolder: "Carpeta nova",
+          cleanUp: "Endreça",
           getInfo: "Obtén informació del David",
           wallpaper: "Canvia el fons de pantalla…",
           spotlight: "Spotlight…",

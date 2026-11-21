@@ -26,6 +26,7 @@ import Spotlight from "./desktop/Spotlight";
 import NowPlaying from "./desktop/NowPlaying";
 import TrashDialog from "./desktop/TrashDialog";
 import Alert from "./desktop/Alert";
+import { useIconDrag } from "./desktop/useIconDrag";
 import ContextMenu from "./desktop/ContextMenu";
 import { tile } from "./desktop/missionControl";
 import { confetti } from "./components/confetti";
@@ -317,6 +318,20 @@ const Desktop = ({ phone }) => {
   // drag CV.pdf onto the Trash
   const [trashCv, setTrashCv] = useState(false);
   const [overTrash, setOverTrash] = useState(false);
+  // every layer under the pointer: the dragged icon itself is the top one
+  const onTrash = (x, y) =>
+    document
+      .elementsFromPoint(x, y)
+      .some((el) => el.closest('[data-dock="trash"]'));
+  const icons = useIconDrag({
+    onHover: (id, x, y) => setOverTrash(id === "cv" && onTrash(x, y)),
+    onDrop: (id, x, y) => {
+      setOverTrash(false);
+      if (id !== "cv" || !onTrash(x, y)) return false;
+      setTrashCv(true);
+      return true; // the CV hops back: it can't really be deleted
+    },
+  });
 
   // Mission Control: top-right hot corner (or ctrl+↑) tiles every open window
   const [mc, setMc] = useState(null);
@@ -411,22 +426,26 @@ const Desktop = ({ phone }) => {
 
   const files = [
     {
+      id: "about",
       label: "about-me.html",
       icon: HtmlIcon,
       act: () => go("about"),
     },
     {
+      id: "src",
       label: "resume-src",
       icon: FolderIcon,
       act: () => open("code", "about"),
     },
     {
+      id: "cv",
       label: "CV.pdf",
       icon: PdfIcon,
       act: () => open("pdf"),
       drag: "cv",
     },
     {
+      id: "agents",
       label: "Agents.md",
       icon: FileIcon,
       act: () => open("code", "agents"),
@@ -434,6 +453,7 @@ const Desktop = ({ phone }) => {
     ...(hasPhotos
       ? [
           {
+            id: "photos",
             label: t("desktop.apps.photos"),
             icon: PhotosIcon,
             act: () => open("photos"),
@@ -441,11 +461,13 @@ const Desktop = ({ phone }) => {
         ]
       : []),
     {
+      id: "shelf",
       label: t("desktop.apps.shelf"),
       icon: BooksIcon,
       act: () => open("shelf"),
     },
     ...folders.map((name) => ({
+      id: `folder:${name}`,
       label: name,
       icon: FolderIcon,
       act: () => setFolderAlert(name),
@@ -557,31 +579,29 @@ const Desktop = ({ phone }) => {
         }}
       />
 
-      <nav
-        aria-label={t("desktop.labels.files")}
-        className="absolute left-5 top-[52px] flex flex-col gap-3"
-      >
-        {files.map((f) => (
-          <button
-            key={f.label}
-            type="button"
-            onClick={f.act}
-            draggable={!!f.drag}
-            onDragStart={(e) =>
-              f.drag && e.dataTransfer.setData("text/x-desktop", f.drag)
-            }
-            className="flex w-24 flex-col items-center gap-1.5 rounded-lg py-1.5 text-white hover:bg-white/10"
-          >
-            <img
-              src={f.icon}
-              alt=""
-              className="h-10 w-10 drop-shadow-[0_4px_8px_rgba(40,20,60,0.3)]"
-            />
-            <span className="whitespace-nowrap rounded-[5px] bg-ink-950/70 px-[7px] py-0.5 text-xs font-medium">
-              {f.label}
-            </span>
-          </button>
-        ))}
+      <nav aria-label={t("desktop.labels.files")} className="contents">
+        {files.map((f, i) => {
+          const { x, y } = icons.spot(f.id, i);
+          return (
+            <button
+              key={f.id}
+              type="button"
+              {...icons.bind(f.id, i, f.act)}
+              style={{ left: x, top: y }}
+              className="absolute flex w-24 touch-none select-none flex-col items-center gap-1.5 rounded-lg py-1.5 text-white hover:bg-white/10 active:bg-white/15"
+            >
+              <img
+                src={f.icon}
+                alt=""
+                draggable={false}
+                className="pointer-events-none h-10 w-10 drop-shadow-[0_4px_8px_rgba(40,20,60,0.3)]"
+              />
+              <span className="whitespace-nowrap rounded-[5px] bg-ink-950/70 px-[7px] py-0.5 text-xs font-medium">
+                {f.label}
+              </span>
+            </button>
+          );
+        })}
       </nav>
 
       <div className="absolute right-[22px] top-[52px] hidden w-[260px] flex-col gap-3 min-[1400px]:flex">
@@ -639,6 +659,7 @@ const Desktop = ({ phone }) => {
           onClose={() => setCtx(null)}
           items={[
             { label: t("desktop.ctx.newFolder"), act: newFolder },
+            { label: t("desktop.ctx.cleanUp"), act: icons.reset },
             "-",
             { label: t("desktop.ctx.getInfo"), act: () => setAbout(true) },
             { label: t("desktop.ctx.wallpaper"), act: nextWall },
@@ -705,18 +726,6 @@ const Desktop = ({ phone }) => {
           aria-label={t("desktop.dock.trash")}
           title={t("desktop.dock.trash")}
           onClick={() => open("trash")}
-          onDragOver={(e) => {
-            if (!e.dataTransfer.types.includes("text/x-desktop")) return;
-            e.preventDefault();
-            setOverTrash(true);
-          }}
-          onDragLeave={() => setOverTrash(false)}
-          onDrop={(e) => {
-            e.preventDefault();
-            setOverTrash(false);
-            if (e.dataTransfer.getData("text/x-desktop") === "cv")
-              setTrashCv(true);
-          }}
           className={`flex flex-col items-center gap-1 transition-transform hover:-translate-y-1 ${overTrash ? "-translate-y-1 scale-110" : ""}`}
         >
           <img
