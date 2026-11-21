@@ -66,7 +66,11 @@ export function useIconDrag({ onHover, onDrop } = {}) {
       if (!d.moved) return act();
       if (onDrop?.(id, e.clientX, e.clientY))
         setPos((p) => ({ ...p, [id]: d.start })); // e.g. dropped on the Trash
-      else setPos((p) => (save(p), p));
+      else
+        setPos((p) => {
+          save(p);
+          return p;
+        });
     },
     onPointerCancel: () => (drag.current = null),
     // keyboard: Enter/Space still open it (pointer clicks go through pointerup)
