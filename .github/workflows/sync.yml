@@ -3,8 +3,9 @@
 # main. If any feed fails, the job stops before deploying: the live site keeps
 # its last good data and GitHub emails the failure.
 # Secrets (Settings > Secrets and variables > Actions):
-#   LASTFM_KEY, HARDCOVER_TOKEN, INSTAGRAM_TOKEN, TRAKT_CLIENT_ID (all but the
-#   first are optional: a missing one just skips that source)
+#   LASTFM_KEY, HARDCOVER_TOKEN, INSTAGRAM_TOKEN, TRAKT_CLIENT_ID,
+#   GAMES_CSV_URL (all but the first are optional: a missing one just skips
+#   that source)
 name: Sync and deploy
 
 on:
@@ -35,6 +36,7 @@ jobs:
           HARDCOVER_TOKEN: ${{ secrets.HARDCOVER_TOKEN }}
           INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
           TRAKT_CLIENT_ID: ${{ secrets.TRAKT_CLIENT_ID }}
+          GAMES_CSV_URL: ${{ secrets.GAMES_CSV_URL }}
       # without the key the Spotify app and widget ship dark: stop instead,
       # so the live site keeps its last good build
       - run: |

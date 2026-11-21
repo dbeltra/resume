@@ -6,6 +6,10 @@ import {
   parseInstagram,
   parseLetterboxd,
   parseTrakt,
+  parseCsv,
+  parseGames,
+  infoboxImage,
+  synopsis,
 } from "./sync.mjs";
 
 test("letterboxd: diary entries become films, lists are skipped", () => {
@@ -109,7 +113,62 @@ test("trakt: one entry per show, its latest episode, https poster", () => {
     year: 2022,
     by: "S2 · E8",
     at: "2026-11-14",
+    about: undefined,
+    genres: undefined,
     url: "https://trakt.tv/shows/severance",
     image: "https://media.trakt.tv/shows/1/p.webp",
   });
+});
+
+test("games sheet: CSV with quotes and CRLF becomes up to 10 games", () => {
+  const csv =
+    "Title,Platform,Date,Cover\r\n" +
+    '"Zelda: Tears of the Kingdom",Switch,2026-11-01,https://x/z.jpg\r\n' +
+    "Balatro,Steam,2026-10-20,\r\n" +
+    ",,,\r\n" +
+    '"Say ""hi""",Switch,,\r\n';
+  const rows = parseCsv(csv);
+  assert.equal(rows.length, 3);
+  assert.equal(rows[2].title, 'Say "hi"');
+  const games = parseGames(rows);
+  assert.deepEqual(games[0], {
+    kind: "game",
+    title: "Zelda: Tears of the Kingdom",
+    by: "Nintendo Switch",
+    url: undefined,
+    image: "https://x/z.jpg",
+  });
+  assert.equal(games[1].image, undefined); // Steam fills it in at sync time
+  assert.equal(games[1].by, "Steam");
+  assert.equal(parseGames([{ title: "X", platform: "PS5" }])[0].by, "PS5");
+  const many = parseGames(
+    Array.from({ length: 14 }, (_, i) => ({ title: `G${i}` })),
+  );
+  assert.equal(many.length, 10);
+});
+
+test("games: the cover file is read from a Wikipedia infobox", () => {
+  const box = (line) =>
+    `{{Infobox video game\n| title = X\n${line}\n| developer = Y\n}}`;
+  assert.equal(
+    infoboxImage(box("| image = MarioKart8Boxart.jpg")),
+    "MarioKart8Boxart.jpg",
+  );
+  assert.equal(
+    infoboxImage(box("| image = [[File:Zelda OoT.png|250px]]")),
+    "Zelda OoT.png",
+  );
+  assert.equal(infoboxImage(box("|image=File:Box art.webp")), "Box art.webp");
+  assert.equal(infoboxImage(box("| image = ")), undefined);
+  assert.equal(infoboxImage(undefined), undefined);
+});
+
+test("synopsis: tags out, cut at a sentence end", () => {
+  assert.equal(synopsis("<i>Hello</i>  world.&nbsp;"), "Hello world.");
+  assert.equal(synopsis(""), undefined);
+  const long = "First sentence here. " + "word ".repeat(120);
+  assert.equal(synopsis(long, 50), "First sentence here.");
+  const noStop = "word ".repeat(120);
+  assert.match(synopsis(noStop, 100), /…$/);
+  assert.ok(synopsis(noStop, 100).length <= 101);
 });
