@@ -39,6 +39,11 @@ const HOLIDAY = 7; // the 8th working day
 
 const COPY = {
   en: {
+    stats: [
+      ["Now", "my current project"],
+      ["Floor by floor", "trains of trades"],
+      ["v2", "read contract"],
+    ],
     trades: { structure: "Structure", mep: "MEP", finishes: "Finishes" },
     floor: (n) => `Floor ${n}`,
     save: "Save a snapshot",
@@ -90,6 +95,11 @@ const COPY = {
     testH: "The test that pins it down",
   },
   es: {
+    stats: [
+      ["Ahora", "mi proyecto actual"],
+      ["Planta a planta", "trenes de oficios"],
+      ["v2", "contrato de lectura"],
+    ],
     trades: {
       structure: "Estructura",
       mep: "Instalaciones",
@@ -146,6 +156,11 @@ const COPY = {
     testH: "El test que lo deja claro",
   },
   ca: {
+    stats: [
+      ["Ara", "el meu projecte actual"],
+      ["Planta a planta", "trens d’oficis"],
+      ["v2", "contracte de lectura"],
+    ],
     trades: {
       structure: "Estructura",
       mep: "Instal·lacions",
@@ -218,7 +233,7 @@ const layout = (holidays, slipped) => {
   return bars;
 };
 
-const Schedule = () => {
+export const Schedule = () => {
   const t = useCopy(COPY);
   const [holiday, setHoliday] = useState(false);
   const [slipped, setSlipped] = useState(false);
@@ -371,6 +386,7 @@ const Builder = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="011h · 2026"
         title={t.title}
         pitch={t.pitch}

@@ -94,6 +94,11 @@ const NODES = [
 
 const COPY = {
   en: {
+    stats: [
+      ["0", "changes to the scanners"],
+      ["E2E", "mail stays encrypted"],
+      ["Rust", "milter"],
+    ],
     nodes: [
       "Sender",
       "encrypted mail",
@@ -153,6 +158,11 @@ const COPY = {
       "It started as planck_proxy, a script Postfix ran for every message. I took the inherited script and turned it into a tested, Dockerised package, then rewrote it in Rust as a milter, which talks to Postfix during the SMTP session instead of being spawned once per mail.",
   },
   es: {
+    stats: [
+      ["0", "cambios en los escáneres"],
+      ["E2E", "el correo sigue cifrado"],
+      ["Rust", "milter"],
+    ],
     nodes: [
       "Remitente",
       "correo cifrado",
@@ -212,6 +222,11 @@ const COPY = {
       "Empezó como planck_proxy, un script que Postfix ejecutaba para cada mensaje. Convertí el script heredado en un paquete con tests y Docker, y después lo reescribí en Rust como milter, que habla con Postfix durante la sesión SMTP en lugar de lanzarse una vez por correo.",
   },
   ca: {
+    stats: [
+      ["0", "canvis als escàners"],
+      ["E2E", "el correu continua xifrat"],
+      ["Rust", "milter"],
+    ],
     nodes: [
       "Remitent",
       "correu xifrat",
@@ -288,7 +303,7 @@ const TRIPS = {
   },
 };
 
-const HubDiagram = () => {
+export const HubDiagram = () => {
   const [verdict, setVerdict] = useState("clean");
   const trip = TRIPS[verdict];
   const still = prefersReducedMotion();
@@ -405,6 +420,7 @@ const SecurityHub = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="Planck Security · 2024"
         title="Planck Security Hub"
         pitch={t.pitch}

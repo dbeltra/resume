@@ -248,3 +248,25 @@ body {
     transition: none;
   }
 }
+
+/* Projects: dashes travelling along the diagrams' arrows */
+.flow {
+  stroke: var(--accent, #b98ab9);
+  stroke-width: 2;
+  stroke-dasharray: 3 21;
+  stroke-linecap: round;
+  animation: flow 1.2s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.thumb .flow {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow {
+    display: none;
+  }
+}

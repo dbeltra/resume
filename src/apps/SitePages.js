@@ -204,7 +204,7 @@ const About = ({ onOpenProject }) => {
           ))}
           {onOpenProject && (
             <div className="mt-7">
-              <BtnDark onClick={() => onOpenProject(CASES[0].id)}>
+              <BtnDark onClick={() => onOpenProject("all")}>
                 {t("desktop.site.seeProjects")} →
               </BtnDark>
             </div>

@@ -87,6 +87,11 @@ const QUOTE = [
 
 const COPY = {
   en: {
+    stats: [
+      ["~15", "bounded contexts"],
+      ["Hexagonal", "architecture"],
+      ["Offer → payment", "in one module"],
+    ],
     lines: [
       "PVC window 120×140",
       "Balcony door 80×210",
@@ -178,6 +183,11 @@ const COPY = {
     testH: "Tests that read like the spec",
   },
   es: {
+    stats: [
+      ["~15", "contextos delimitados"],
+      ["Hexagonal", "arquitectura"],
+      ["Oferta → pago", "en un módulo"],
+    ],
     lines: [
       "Ventana de PVC 120×140",
       "Puerta balconera 80×210",
@@ -278,6 +288,11 @@ const COPY = {
     testH: "Tests que se leen como la especificación",
   },
   ca: {
+    stats: [
+      ["~15", "contextos delimitats"],
+      ["Hexagonal", "arquitectura"],
+      ["Oferta → pagament", "en un mòdul"],
+    ],
     lines: [
       "Finestra de PVC 120×140",
       "Porta balconera 80×210",
@@ -393,7 +408,7 @@ const Btn = (props) => (
   />
 );
 
-const Compare = () => {
+export const Compare = () => {
   const t = useCopy(COPY);
   return (
     <div className="overflow-x-auto">
@@ -625,6 +640,7 @@ const Procurement = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="011h · 2025–2026"
         title={t.title}
         pitch={t.pitch}

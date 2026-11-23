@@ -47,6 +47,11 @@ def pretrust(new, old):
 
 const COPY = {
   en: {
+    stats: [
+      ["1 run", "a whole company set up"],
+      ["stdin", "every command pipes"],
+      ["CSV in", "signed archives out"],
+    ],
     aria: (o, n) =>
       `${o} people already provisioned and ${n} new ones. Every pair trusts each other; only the pairs involving someone new are done in this run.`,
     already: "Already in",
@@ -65,6 +70,11 @@ const COPY = {
       "A company rolling p≡p out needs every employee set up and already trusting their colleagues on day one. The factory, which I wrote on my own, reads a CSV of employees, creates each one’s keys in an isolated home, optionally makes everyone trust everyone, and packages each user’s setup into an encrypted, signed archive to deploy. Failures go to a report you can fix and feed back in, and re-runs skip who’s already done:",
   },
   es: {
+    stats: [
+      ["1 pasada", "toda una empresa configurada"],
+      ["stdin", "cada comando se encadena"],
+      ["CSV", "dentro, archivos firmados fuera"],
+    ],
     aria: (o, n) =>
       `${o} personas ya dadas de alta y ${n} nuevas. Cada pareja confía entre sí; en esta pasada solo se hacen las parejas con alguien nuevo.`,
     already: "Ya dentro",
@@ -83,6 +93,11 @@ const COPY = {
       "Una empresa que despliega p≡p necesita a cada empleado configurado y confiando ya en sus compañeros desde el primer día. La fábrica, que escribí yo solo, lee un CSV de empleados, crea las claves de cada uno en un home aislado, opcionalmente hace que todos confíen en todos, y empaqueta la configuración de cada usuario en un archivo cifrado y firmado para desplegar. Los fallos van a un informe que puedes corregir y volver a pasar, y las repeticiones se saltan a quien ya está hecho:",
   },
   ca: {
+    stats: [
+      ["1 passada", "tota una empresa configurada"],
+      ["stdin", "cada ordre s’encadena"],
+      ["CSV", "a dins, arxius signats a fora"],
+    ],
     aria: (o, n) =>
       `${o} persones ja donades d’alta i ${n} de noves. Cada parella confia entre si; en aquesta passada només es fan les parelles amb algú nou.`,
     already: "Ja hi són",
@@ -119,7 +134,7 @@ const Slider = ({ label, value, min, max, onChange }) => (
   </label>
 );
 
-const Mesh = () => {
+export const Mesh = () => {
   const [old, setOld] = useState(6);
   const [fresh, setFresh] = useState(2);
   const t = useCopy(COPY);
@@ -209,6 +224,7 @@ const Cli = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="p≡p Security · 2020–2022"
         title={t.title}
         pitch={t.pitch}

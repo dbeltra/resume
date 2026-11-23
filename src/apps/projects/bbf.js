@@ -33,6 +33,11 @@ function findRating(html, targetBrewery) {
 
 const COPY = {
   en: {
+    stats: [
+      ["347", "beers"],
+      ["1", "afternoon"],
+      ["Offline", "no signal needed"],
+    ],
     title: "Barcelona Beer Festival list",
     pitch:
       "Three hundred and forty-seven beers and one afternoon. A phone list of everything on tap at the festival, with each beer’s Untappd rating, so I could sort by what’s actually good.",
@@ -62,6 +67,11 @@ const COPY = {
     caption: "scripts/scraper.js · trimmed from the public repo",
   },
   es: {
+    stats: [
+      ["347", "cervezas"],
+      ["1", "tarde"],
+      ["Sin conexión", "no hace falta cobertura"],
+    ],
     title: "Lista del Barcelona Beer Festival",
     pitch:
       "Trescientas cuarenta y siete cervezas y una tarde. Una lista para el móvil con todo lo que había en el festival y la nota de Untappd de cada cerveza, para poder ordenar por lo que de verdad está bueno.",
@@ -91,6 +101,11 @@ const COPY = {
     caption: "scripts/scraper.js · recortado del repo público",
   },
   ca: {
+    stats: [
+      ["347", "cerveses"],
+      ["1", "tarda"],
+      ["Sense connexió", "no cal cobertura"],
+    ],
     title: "Llista del Barcelona Beer Festival",
     pitch:
       "Tres-centes quaranta-set cerveses i una tarda. Una llista per al mòbil amb tot el que hi havia al festival i la nota d’Untappd de cada cervesa, per poder ordenar pel que de debò és bo.",
@@ -129,6 +144,7 @@ const Bbf = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="Side project · 2026"
         title={t.title}
         pitch={t.pitch}

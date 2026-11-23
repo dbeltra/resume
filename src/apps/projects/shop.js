@@ -63,6 +63,11 @@ const CONFIRM = `class Payment(models.Model):
 
 const COPY = {
   en: {
+    stats: [
+      ["3", "ways to pay"],
+      ["6", "crypto coins"],
+      ["3 years", "run almost single-handed"],
+    ],
     providers: {
       card: "card · 3-D Secure",
       crypto: ["Crypto gateway", "6 coins · signed"],
@@ -144,6 +149,11 @@ const COPY = {
     ],
   },
   es: {
+    stats: [
+      ["3", "formas de pago"],
+      ["6", "criptomonedas"],
+      ["3 años", "llevándola casi solo"],
+    ],
     providers: {
       card: "tarjeta · 3-D Secure",
       crypto: ["Pasarela cripto", "6 monedas · firmado"],
@@ -225,6 +235,11 @@ const COPY = {
     ],
   },
   ca: {
+    stats: [
+      ["3", "maneres de pagar"],
+      ["6", "criptomonedes"],
+      ["3 anys", "portant-la gairebé sol"],
+    ],
     providers: {
       card: "targeta · 3-D Secure",
       crypto: ["Passarel·la cripto", "6 monedes · signat"],
@@ -531,6 +546,7 @@ const Shop = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="p≡p Security · 2019–2022"
         title={t.title}
         pitch={t.pitch}

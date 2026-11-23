@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Article, Bullets, Chip, H, Intro, Snippet, useCopy } from "./ui";
 import Dashboard from "./dashboard";
+import PanelTop from "../../assets/images/sprint/panel-top.jpg";
+import PanelBottom from "../../assets/images/sprint/panel-bottom.jpg";
 
 // The 011h-sprint Claude Code plugin and its dashboard. The real code is
 // closed source, so the snippet is rewritten and simplified for this page,
@@ -45,6 +47,17 @@ const TICKETS = [
 
 const COPY = {
   en: {
+    realH: "The real thing",
+    real: "The Sprint panel itself, run on a made-up sprint: what needs you, what you can start, what’s in flight and what the agent did last.",
+    realCaps: [
+      "The top: progress per layer, and what needs you",
+      "Further down: in flight, waiting, and the log",
+    ],
+    stats: [
+      ["6", "stages per ticket"],
+      ["Jira → MR", "end to end"],
+      ["A yes", "before it starts anything"],
+    ],
     stages: ["To do", "Plan", "Build", "Ship", "Review", "Landed"],
     tickets: [
       "Orders API: search endpoint",
@@ -128,6 +141,17 @@ const COPY = {
     ],
   },
   es: {
+    realH: "El de verdad",
+    real: "El panel del sprint real, con un sprint inventado: lo que te necesita, lo que puedes empezar, lo que está en marcha y lo último que ha hecho el agente.",
+    realCaps: [
+      "Arriba: el progreso por capa y lo que te necesita",
+      "Más abajo: en marcha, en espera y el registro",
+    ],
+    stats: [
+      ["6", "fases por ticket"],
+      ["Jira → MR", "de punta a punta"],
+      ["Un sí", "antes de empezar nada"],
+    ],
     stages: ["Por hacer", "Plan", "Build", "Ship", "Revisión", "Integrado"],
     tickets: [
       "API de pedidos: endpoint de búsqueda",
@@ -215,6 +239,17 @@ const COPY = {
     ],
   },
   ca: {
+    realH: "El de debò",
+    real: "El panell del sprint real, amb un sprint inventat: el que et necessita, el que pots començar, el que està en marxa i l’últim que ha fet l’agent.",
+    realCaps: [
+      "A dalt: el progrés per capa i el que et necessita",
+      "Més avall: en marxa, en espera i el registre",
+    ],
+    stats: [
+      ["6", "fases per tiquet"],
+      ["Jira → MR", "de punta a punta"],
+      ["Un sí", "abans de començar res"],
+    ],
     stages: ["Per fer", "Pla", "Build", "Ship", "Revisió", "Integrat"],
     tickets: [
       "API de comandes: endpoint de cerca",
@@ -303,7 +338,7 @@ const COPY = {
   },
 };
 
-const Sprint = () => {
+export const Sprint = () => {
   const t = useCopy(COPY);
   const [n, setN] = useState(0);
   const shown = PASSES.slice(0, n + 1);
@@ -400,6 +435,7 @@ const SprintAgent = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="011h · 2026"
         title={t.title}
         pitch={t.pitch}
@@ -420,6 +456,24 @@ const SprintAgent = () => {
       <p className="mb-4">{t.dash}</p>
       <Dashboard />
       <Bullets items={t.dashBullets} className="mt-4" />
+      <H>{t.realH}</H>
+      <p className="mb-4">{t.real}</p>
+      {/* screenshots of the real dashboard, run against a made-up state.json */}
+      <div className="grid grid-cols-2 gap-4">
+        {[PanelTop, PanelBottom].map((src, i) => (
+          <figure key={src}>
+            <img
+              src={src}
+              alt={t.realCaps[i]}
+              loading="lazy"
+              className="w-full rounded-lg border border-[#2e313a] shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
+            />
+            <figcaption className="mt-2 text-[11px] leading-snug text-ink-muted">
+              {t.realCaps[i]}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
     </Article>
   );
 };

@@ -121,6 +121,11 @@ const autoPlan = () => {
 
 const COPY = {
   en: {
+    stats: [
+      ["1", "HTML file"],
+      ["Offline", "installs as an app"],
+      ["Auto-plan", "must-sees first"],
+    ],
     tap: "Tap sessions to mark them, or let it plan for you.",
     auto: "Auto-plan my watchlist",
     clear: "Clear",
@@ -175,6 +180,11 @@ const COPY = {
     ],
   },
   es: {
+    stats: [
+      ["1", "fichero HTML"],
+      ["Sin conexión", "se instala como app"],
+      ["Auto-plan", "imprescindibles primero"],
+    ],
     tap: "Toca sesiones para marcarlas, o deja que planifique por ti.",
     auto: "Planificar mi lista",
     clear: "Borrar",
@@ -229,6 +239,11 @@ const COPY = {
     ],
   },
   ca: {
+    stats: [
+      ["1", "fitxer HTML"],
+      ["Sense connexió", "s’instal·la com a app"],
+      ["Auto-pla", "imprescindibles primer"],
+    ],
     tap: "Toca sessions per marcar-les, o deixa que planifiqui per tu.",
     auto: "Planifica la meva llista",
     clear: "Esborra",
@@ -420,6 +435,7 @@ const Sitges = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="Side project · 2026"
         title={t.title}
         pitch={t.pitch}

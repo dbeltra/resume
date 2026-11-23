@@ -78,6 +78,11 @@ class Download(models.Model):
 const YEARS = ["2018", "2018", "2020", "2023"]; // text in COPY.eras
 const COPY = {
   en: {
+    stats: [
+      ["4", "versions"],
+      ["5+ years", "looking after it"],
+      ["Static → CMS", "run by editors"],
+    ],
     eras: [
       [
         "Static HTML",
@@ -150,6 +155,11 @@ const COPY = {
     ],
   },
   es: {
+    stats: [
+      ["4", "versiones"],
+      ["5+ años", "cuidándola"],
+      ["Estática → CMS", "la llevan los editores"],
+    ],
     eras: [
       [
         "HTML estático",
@@ -222,6 +232,11 @@ const COPY = {
     ],
   },
   ca: {
+    stats: [
+      ["4", "versions"],
+      ["5+ anys", "cuidant-la"],
+      ["Estàtica → CMS", "la porten els editors"],
+    ],
     eras: [
       [
         "HTML estàtic",
@@ -506,6 +521,7 @@ const Sites = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="p≡p → Planck Security · 2018–2024"
         title={t.title}
         pitch={t.pitch}

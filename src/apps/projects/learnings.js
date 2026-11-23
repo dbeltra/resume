@@ -29,6 +29,11 @@ async def save(self, capture: Capture, read_version: int) -> bool:
 
 const COPY = {
   en: {
+    stats: [
+      ["WhatsApp", "a voice note, no forms"],
+      ["3 parts", "problem, impact, solution"],
+      ["Checked", "back with the worker"],
+    ],
     recap: {
       problem:
         "Rain got into the formwork the night before the pour on level 2.",
@@ -97,6 +102,11 @@ const COPY = {
     ],
   },
   es: {
+    stats: [
+      ["WhatsApp", "una nota de voz, sin formularios"],
+      ["3 partes", "problema, impacto, solución"],
+      ["Revisada", "con quien la envió"],
+    ],
     recap: {
       problem:
         "La lluvia entró en el encofrado la noche antes del hormigonado de la planta 2.",
@@ -165,6 +175,11 @@ const COPY = {
     ],
   },
   ca: {
+    stats: [
+      ["WhatsApp", "una nota de veu, sense formularis"],
+      ["3 parts", "problema, impacte, solució"],
+      ["Revisada", "amb qui la va enviar"],
+    ],
     recap: {
       problem:
         "La pluja va entrar a l’encofrat la nit abans del formigonat de la planta 2.",
@@ -242,7 +257,7 @@ const Bubble = ({ me, children }) => (
   </div>
 );
 
-const Capture = () => {
+export const Capture = () => {
   const t = useCopy(COPY);
   // 0 voice note sent · 1 recap · 2 corrected · 3 confirmed · 4 approved
   const [step, setStep] = useState(0);
@@ -360,6 +375,7 @@ const Learnings = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="011h · 2026"
         title={t.title}
         pitch={t.pitch}

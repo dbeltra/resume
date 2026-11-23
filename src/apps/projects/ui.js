@@ -54,6 +54,8 @@ export const Edge = ({ d, label, x, y, dashed, anchor = "middle" }) => (
       strokeDasharray={dashed ? "4 4" : undefined}
       markerEnd="url(#arrow)"
     />
+    {/* dashes travelling along the line, the data moving; css in index.css */}
+    <path d={d} fill="none" className="flow" />
     {label && (
       <text
         x={x}
@@ -133,16 +135,31 @@ export const Pick = ({ label, options, value, onChange }) => (
   </>
 );
 
-// kicker, title, pitch and stack chips at the top of a case study
-export const Intro = ({ kicker, title, pitch, stack }) => (
+// kicker, title, pitch, a few numbers and stack chips at the top of a case
+// study; the colour is the company's, set as --accent by the Projects window
+export const Intro = ({ kicker, title, pitch, stats = [], stack }) => (
   <>
-    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-lilac-text">
+    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:var(--accent,#c49bc4)]">
       {kicker}
     </p>
-    <h2 className="mt-1 text-[26px] font-semibold leading-tight text-white">
+    <h2 className="mt-1 text-[30px] font-semibold leading-tight text-white">
       {title}
     </h2>
     <p className="mt-2 text-[16px] text-ink-text">{pitch}</p>
+    {stats.length > 0 && (
+      <dl className="mt-5 grid grid-cols-3 gap-3 border-y border-white/10 py-4">
+        {stats.map(([value, label]) => (
+          <div key={label}>
+            <dt className="text-[20px] font-semibold leading-tight text-[color:var(--accent,#c49bc4)]">
+              {value}
+            </dt>
+            <dd className="mt-0.5 text-[11px] leading-snug text-ink-muted">
+              {label}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    )}
     <ul className="mt-4 flex flex-wrap gap-1.5">
       {stack.map((s) => (
         <li

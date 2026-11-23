@@ -20,7 +20,7 @@ const resources = {
           dates: "2014 - 2018",
           responsibilities: [
             "I worked as a web designer and developer. We created a customizable CRUD business solution, based on Django and Backbone.",
-            "I took a main role on developing Autopractick, a web-based management tool for driving schools, with a Phonegap partner app.",
+            "I took a main role on developing Autopractik, a web-based management tool for driving schools, with a Phonegap partner app.",
             "I also brought agile into our team's workflow.",
           ],
         },
@@ -479,7 +479,7 @@ const resources = {
           dates: "2014 - 2018",
           responsibilities: [
             "Trabajé como diseñador y desarrollador web. Creamos una solución empresarial CRUD personalizable, basada en Django y Backbone.",
-            "Tuve un papel principal en el desarrollo de Autopractick, una herramienta de gestión web para autoescuelas, con una aplicación complementaria en Phonegap.",
+            "Tuve un papel principal en el desarrollo de Autopractik, una herramienta de gestión web para autoescuelas, con una aplicación complementaria en Phonegap.",
             "También implementé metodologías ágiles en el flujo de trabajo de nuestro equipo.",
           ],
         },
@@ -943,7 +943,7 @@ const resources = {
           dates: "2014 - 2018",
           responsibilities: [
             "Vaig treballar com a dissenyador i desenvolupador web. Vam crear una solució empresarial CRUD personalitzable, basada en Django i Backbone.",
-            "Vaig assumir un paper principal en el desenvolupament d'Autopractick, una eina de gestió basada en web per a autoescoles, amb una aplicació per a socis de Phonegap.",
+            "Vaig assumir un paper principal en el desenvolupament d'Autopractik, una eina de gestió basada en web per a autoescoles, amb una aplicació per a socis de Phonegap.",
             "També vaig aplicar metodologies àgils al nostre flux de treball en equip.",
           ],
         },

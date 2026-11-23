@@ -58,6 +58,11 @@ if not jpype.isJVMStarted():
 
 const COPY = {
   en: {
+    stats: [
+      ["3", "panes: sender, wire, receiver"],
+      ["3", "trust levels"],
+      ["2", "MQ clients, one API"],
+    ],
     trust: {
       verified: [
         "trusted",
@@ -129,6 +134,11 @@ const COPY = {
     apiH: "One API, two MQ clients",
   },
   es: {
+    stats: [
+      ["3", "paneles: emisor, red, receptor"],
+      ["3", "niveles de confianza"],
+      ["2", "clientes MQ, una API"],
+    ],
     trust: {
       verified: [
         "de confianza",
@@ -200,6 +210,11 @@ const COPY = {
     apiH: "Una API, dos clientes MQ",
   },
   ca: {
+    stats: [
+      ["3", "panells: emissor, xarxa, receptor"],
+      ["3", "nivells de confiança"],
+      ["2", "clients MQ, una API"],
+    ],
     trust: {
       verified: [
         "de confiança",
@@ -405,7 +420,7 @@ const Demo = () => {
 
 // --- how the demo is wired ----------------------------------------------------
 
-const Wiring = () => {
+export const Wiring = () => {
   const w = useCopy(COPY).wire;
   return (
     <figure className="overflow-x-auto rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
@@ -488,6 +503,7 @@ const Mq = () => {
   return (
     <Article>
       <Intro
+        stats={t.stats}
         kicker="p≡p Security · 2020–2022"
         title={t.title}
         pitch={t.pitch}

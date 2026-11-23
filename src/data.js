@@ -23,7 +23,7 @@ export const JOB_STACKS = [
 
 // Projects case studies per job, same order as JOB_STACKS
 export const JOB_CASES = [
-  [],
+  ["autopractik"],
   ["sites", "shop", "mq", "cli"],
   ["hub"],
   ["builder", "sprint", "learnings", "procurement"],
