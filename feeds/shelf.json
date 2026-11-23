@@ -1,12 +1,42 @@
 {
- "updated": "2026-11-22T19:43:59.479Z",
+ "updated": "2026-11-23T07:43:25.506Z",
  "items": [
+  {
+   "kind": "show",
+   "title": "The Lord of the Rings: The Rings of Power",
+   "year": 2022,
+   "by": "S3 · E1",
+   "at": "2026-11-22",
+   "about": "Beginning in a time of relative peace, we follow an ensemble cast of characters as they confront the re-emergence of evil to Middle-earth. From the darkest depths of the Misty Mountains, to the majestic forests of Lindon, to the breathtaking island kingdom of Númenor, to the furthest reaches of the map, these kingdoms and characters will carve out legacies that live on long after they are gone.",
+   "genres": [
+    "fantasy",
+    "action",
+    "adventure"
+   ],
+   "url": "https://trakt.tv/shows/the-lord-of-the-rings-the-rings-of-power",
+   "src": "feeds/shelf/00.webp"
+  },
+  {
+   "kind": "show",
+   "title": "VisionQuest",
+   "year": 2026,
+   "by": "S1 · E1",
+   "at": "2026-11-22",
+   "about": "With a bounty on his head, Vision must confront his nature and resist Ultron's influence to survive.",
+   "genres": [
+    "fantasy",
+    "science-fiction",
+    "drama"
+   ],
+   "url": "https://trakt.tv/shows/visionquest",
+   "src": "feeds/shelf/01.webp"
+  },
   {
    "kind": "show",
    "title": "American Horror Story",
    "year": 2011,
-   "by": "S13 · E12",
-   "at": "2026-11-17",
+   "by": "S13 · E13",
+   "at": "2026-11-22",
    "about": "An anthology horror drama series centering on different characters and locations, including a house with a murderous past, an asylum, a witch coven, a freak show, a hotel, a farmhouse in Roanoke, a cult, the apocalypse and a summer camp.",
    "genres": [
     "drama",
@@ -14,7 +44,7 @@
     "fantasy"
    ],
    "url": "https://trakt.tv/shows/american-horror-story",
-   "src": "feeds/shelf/00.webp"
+   "src": "feeds/shelf/02.webp"
   },
   {
    "kind": "film",
@@ -24,7 +54,7 @@
    "at": "2026-11-15",
    "url": "https://letterboxd.com/dbeltra/film/perfect-blue/",
    "about": "Perfect Blue (Japanese: パーフェクトブルー, Hepburn: Pāfekuto Burū) is a 1997 Japanese animated psychological thriller film directed by Satoshi Kon. It is loosely based on the novel Perfect Blue: Complete Metamorphosis (パーフェクトブルー：完全変態, Pāfekuto Burū: Kanzen Hentai) by Yoshikazu Takeuchi, with a screenplay by Sadayuki Murai.",
-   "src": "feeds/shelf/01.jpg"
+   "src": "feeds/shelf/03.jpg"
   },
   {
    "kind": "film",
@@ -34,7 +64,7 @@
    "at": "2026-11-14",
    "url": "https://letterboxd.com/dbeltra/film/28-years-later/",
    "about": "28 Years Later is a 2025 post-apocalyptic coming-of-age horror film produced and directed by Danny Boyle, and written by Alex Garland. The third instalment in the 28 Days Later film series, it stars Jodie Comer, Aaron Taylor-Johnson, Jack O'Connell, Alfie Williams, and Ralph Fiennes.",
-   "src": "feeds/shelf/02.jpg"
+   "src": "feeds/shelf/04.jpg"
   },
   {
    "kind": "show",
@@ -49,7 +79,7 @@
     "drama"
    ],
    "url": "https://trakt.tv/shows/severance",
-   "src": "feeds/shelf/03.webp"
+   "src": "feeds/shelf/05.webp"
   },
   {
    "kind": "film",
@@ -59,7 +89,7 @@
    "at": "2026-11-13",
    "url": "https://letterboxd.com/dbeltra/film/resident-evil-2026/",
    "about": "Resident Evil is a 2026 horror film directed by Zach Cregger and written by Cregger and Shay Hatten. It is the eighth live-action film in the Resident Evil film series, based on the video game series by Capcom. Austin Abrams stars as Bryan Hodukavich, a medical courier who must fight through an outbreak of infected monsters in Raccoon City. Zach Cherry, Kali Reis, and Paul Walter Hauser feature in supporting roles.",
-   "src": "feeds/shelf/04.jpg"
+   "src": "feeds/shelf/06.jpg"
   },
   {
    "kind": "show",
@@ -74,7 +104,7 @@
     "drama"
    ],
    "url": "https://trakt.tv/shows/carrie",
-   "src": "feeds/shelf/05.webp"
+   "src": "feeds/shelf/07.webp"
   },
   {
    "kind": "film",
@@ -84,7 +114,7 @@
    "at": "2026-11-08",
    "url": "https://letterboxd.com/dbeltra/film/humanist-vampire-seeking-consenting-suicidal-person/",
    "about": "Humanist Vampire Seeking Consenting Suicidal Person (French: Vampire humaniste cherche suicidaire consentant), also released as Humanist Vampire Too Sensitive to Kill, is a 2023 French-language Canadian vampire comedy drama film co-written and directed by Ariane Louis-Seize. It stars Sara Montpetit as Sasha, a teenage vampire who befriends Paul (Félix-Antoine Bénard), a boy with suicidal tendencies.",
-   "src": "feeds/shelf/06.jpg"
+   "src": "feeds/shelf/08.jpg"
   },
   {
    "kind": "show",
@@ -99,7 +129,7 @@
     "fantasy"
    ],
    "url": "https://trakt.tv/shows/president-curtis",
-   "src": "feeds/shelf/07.webp"
+   "src": "feeds/shelf/09.webp"
   },
   {
    "kind": "show",
@@ -113,7 +143,7 @@
     "comedy"
    ],
    "url": "https://trakt.tv/shows/ricky-gervais-alley-cats",
-   "src": "feeds/shelf/08.webp"
+   "src": "feeds/shelf/10.webp"
   },
   {
    "kind": "show",
@@ -128,7 +158,7 @@
     "science-fiction"
    ],
    "url": "https://trakt.tv/shows/the-ghost-in-the-shell",
-   "src": "feeds/shelf/09.webp"
+   "src": "feeds/shelf/11.webp"
   },
   {
    "kind": "show",
@@ -141,7 +171,7 @@
     "comedy"
    ],
    "url": "https://trakt.tv/shows/jury-duty-presents-company-retreat",
-   "src": "feeds/shelf/10.webp"
+   "src": "feeds/shelf/12.webp"
   },
   {
    "kind": "show",
@@ -156,34 +186,6 @@
     "mystery"
    ],
    "url": "https://trakt.tv/shows/stranger-things",
-   "src": "feeds/shelf/11.webp"
-  },
-  {
-   "kind": "show",
-   "title": "Departament Amades",
-   "year": 2026,
-   "by": "S1 · E6",
-   "at": "2026-11-01",
-   "about": "A seemingly useless office hides a secret mission: to control Catalan mythological beings.",
-   "genres": [
-    "comedy"
-   ],
-   "url": "https://trakt.tv/shows/departament-amades",
-   "src": "feeds/shelf/12.webp"
-  },
-  {
-   "kind": "show",
-   "title": "Dorohedoro",
-   "year": 2020,
-   "by": "S0 · E7",
-   "at": "2026-11-01",
-   "about": "Amnesiac Caiman seeks to undo his lizard head curse by killing the sorcerer responsible, with his friend Nikaido's help. In the Hole, that's a threat.",
-   "genres": [
-    "anime",
-    "action",
-    "adventure"
-   ],
-   "url": "https://trakt.tv/shows/dorohedoro",
    "src": "feeds/shelf/13.webp"
   },
   {
