@@ -24,13 +24,15 @@ const save = (pos) => {
 
 export const defaultSpot = (i) => ({ x: 20, y: 52 + i * SLOT });
 
+// `defaults` maps an icon id to where it sits until dragged, for icons that
+// don't belong in the left column.
 // onDrop(id, x, y) runs when a drag ends, with the pointer's screen point
 // (the Trash uses it); returning true leaves the icon where it started.
-export function useIconDrag({ onHover, onDrop } = {}) {
+export function useIconDrag({ onHover, onDrop, defaults = {} } = {}) {
   const [pos, setPos] = useState(load);
   const drag = useRef(null);
 
-  const spot = (id, i) => pos[id] || defaultSpot(i);
+  const spot = (id, i) => pos[id] || defaults[id] || defaultSpot(i);
 
   const bind = (id, i, act) => ({
     onPointerDown: (e) => {

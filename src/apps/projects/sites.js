@@ -1,5 +1,33 @@
 import React, { useState } from "react";
-import { Article, Bullets, H, Intro, Pick, Snippet, useCopy } from "./ui";
+import {
+  Article,
+  Bullets,
+  H,
+  Intro,
+  Pick,
+  Shots,
+  Snippet,
+  useCopy,
+} from "./ui";
+import Pep2018 from "../../assets/images/archive/pep-2018.jpg";
+import Pep2019 from "../../assets/images/archive/pep-2019.jpg";
+import Planck2023 from "../../assets/images/archive/planck-2023.jpg";
+
+// pages as the Internet Archive kept them: [image, snapshot]
+const ARCHIVE = [
+  [
+    Pep2018,
+    "https://web.archive.org/web/20180515172754/https://www.pep.security/",
+  ],
+  [
+    Pep2019,
+    "https://web.archive.org/web/20190720144309/https://www.pep.security/en/",
+  ],
+  [
+    Planck2023,
+    "https://web.archive.org/web/20230712092951/https://www.planck.security/",
+  ],
+];
 
 // The company websites. The real code is closed source, so the snippets are
 // rewritten and simplified for this page.
@@ -114,6 +142,12 @@ const COPY = {
     ],
     utmH: "Knowing where visitors came from",
     trialH: "A free trial, safely",
+    archiveH: "As the Internet Archive kept them",
+    archive: [
+      "pep.security, May 2018: the agency’s static page, before me",
+      "pep.security, July 2019: on Mezzanine",
+      "planck.security, July 2023: the Planck rebuild",
+    ],
   },
   es: {
     eras: [
@@ -180,6 +214,12 @@ const COPY = {
     ],
     utmH: "Saber de dónde venían las visitas",
     trialH: "Una prueba gratuita, sin riesgos",
+    archiveH: "Tal como las guardó el Internet Archive",
+    archive: [
+      "pep.security, mayo de 2018: la página estática de la agencia, antes de mí",
+      "pep.security, julio de 2019: ya en Mezzanine",
+      "planck.security, julio de 2023: la web de Planck",
+    ],
   },
   ca: {
     eras: [
@@ -246,6 +286,12 @@ const COPY = {
     ],
     utmH: "Saber d’on venien les visites",
     trialH: "Una prova gratuïta, sense riscos",
+    archiveH: "Tal com les va desar l’Internet Archive",
+    archive: [
+      "pep.security, maig de 2018: la pàgina estàtica de l’agència, abans de mi",
+      "pep.security, juliol de 2019: ja en Mezzanine",
+      "planck.security, juliol de 2023: el web de Planck",
+    ],
   },
 };
 
@@ -467,6 +513,11 @@ const Sites = () => {
       />
       <H>{t.versionsH}</H>
       <Eras />
+      <H>{t.archiveH}</H>
+      <Shots
+        wide
+        items={ARCHIVE.map(([src, href], i) => [src, t.archive[i], href])}
+      />
       <H>{t.blocksH}</H>
       <p className="mb-4">{t.blocksP}</p>
       <Builder />

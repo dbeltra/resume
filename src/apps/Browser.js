@@ -169,6 +169,7 @@ const Browser = ({
           key={loads}
           onOpenCv={() => onOpen("pdf")}
           onOpenMail={() => onOpen("mail")}
+          onOpenProject={(id) => onOpen("projects", id)}
         />
       </div>
     </Window>

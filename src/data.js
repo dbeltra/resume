@@ -21,6 +21,14 @@ export const JOB_STACKS = [
   ["React", "FastAPI"],
 ];
 
+// Projects case studies per job, same order as JOB_STACKS
+export const JOB_CASES = [
+  [],
+  ["sites", "shop", "mq", "cli"],
+  ["hub"],
+  ["builder", "sprint", "learnings", "procurement"],
+];
+
 export const PAGES = ["about", "experience", "skills", "contact"];
 
 export const SKILLS = {

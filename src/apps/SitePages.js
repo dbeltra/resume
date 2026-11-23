@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { JOB_STACKS, SKILLS } from "../data";
+import { JOB_CASES, JOB_STACKS, SKILLS } from "../data";
+import { CASES } from "./Projects";
 import Foam from "../assets/textures/foam.jpg";
 
 // The website shown inside the Browser app (and on phones). A spec sheet:
@@ -125,7 +126,7 @@ const SKILL_GROUPS = [
   ["desktop.skills.title", SKILLS.ai],
 ];
 
-const About = () => {
+const About = ({ onOpenProject }) => {
   const { t } = useTranslation();
   const facts = [
     ["role", t("aboutRole")],
@@ -201,16 +202,48 @@ const About = () => {
               dangerouslySetInnerHTML={{ __html: p }}
             />
           ))}
+          {onOpenProject && (
+            <div className="mt-7">
+              <BtnDark onClick={() => onOpenProject(CASES[0].id)}>
+                {t("desktop.site.seeProjects")} →
+              </BtnDark>
+            </div>
+          )}
         </div>
       </Section>
     </>
   );
 };
 
-const Experience = () => {
+// a job's case studies in the Projects window, by id
+const CaseLinks = ({ ids, onOpenProject }) => {
+  const { t, i18n } = useTranslation();
+  if (!ids.length || !onOpenProject) return null;
+  const lang = i18n.resolvedLanguage;
+  return (
+    <p className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[14px]">
+      <Mono className="text-[#6b6775]">{t("desktop.site.cases")}</Mono>
+      {ids.map((id) => {
+        const c = CASES.find((x) => x.id === id);
+        return (
+          <button
+            key={id}
+            type="button"
+            onClick={() => onOpenProject(id)}
+            className="font-medium text-[#17151f] underline decoration-[#c79ac7] decoration-2 underline-offset-4 hover:decoration-[#17151f]"
+          >
+            {c.title[lang] || c.title.en}
+          </button>
+        );
+      })}
+    </p>
+  );
+};
+
+const Experience = ({ onOpenProject }) => {
   const { t } = useTranslation();
   const jobs = t("experienceExperiences", { returnObjects: true })
-    .map((job, i) => ({ ...job, stack: JOB_STACKS[i] }))
+    .map((job, i) => ({ ...job, stack: JOB_STACKS[i], cases: JOB_CASES[i] }))
     .reverse(); // newest first
   const cols = ["flex-[1_1_130px]", "flex-[4_1_420px]", "flex-[1.4_1_150px]"];
   return (
@@ -247,6 +280,7 @@ const Experience = () => {
                   <li key={r}>{r}</li>
                 ))}
               </ul>
+              <CaseLinks ids={j.cases} onOpenProject={onOpenProject} />
             </div>
             <ul
               className={`${cols[2]} min-w-0 pt-0.5 font-mono text-[13px] leading-[1.8]`}

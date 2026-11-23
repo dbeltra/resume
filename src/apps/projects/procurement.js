@@ -144,7 +144,7 @@ const COPY = {
     walk: "Made-up project, providers, prices and approvers:",
     builtH: "What I built",
     built:
-      "I’ve been the service’s main contributor, across most of its domains:",
+      "Before moving to Builder, I was the service’s main contributor, across most of its domains:",
     bullets: [
       [
         "The comparative.",
@@ -244,7 +244,7 @@ const COPY = {
     walk: "Proyecto, proveedores, precios y aprobadores inventados:",
     builtH: "Lo que construí",
     built:
-      "He sido el principal contribuidor del servicio, en la mayoría de sus dominios:",
+      "Antes de pasar a Builder, fui el principal contribuidor del servicio, en la mayoría de sus dominios:",
     bullets: [
       [
         "El comparativo.",
@@ -344,7 +344,7 @@ const COPY = {
     walk: "Projecte, proveïdors, preus i aprovadors inventats:",
     builtH: "El que vaig construir",
     built:
-      "He estat el principal contribuïdor del servei, en la majoria dels seus dominis:",
+      "Abans de passar a Builder, vaig ser el principal contribuïdor del servei, en la majoria dels seus dominis:",
     bullets: [
       [
         "El comparatiu.",

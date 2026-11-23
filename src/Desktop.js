@@ -326,7 +326,41 @@ const Desktop = ({ phone }) => {
     document
       .elementsFromPoint(x, y)
       .some((el) => el.closest('[data-dock="trash"]'));
+  // Photos and Shelf sit on the right, under the widgets, when the widgets
+  // show (wide screens); otherwise they join the left column.
+  const widgets = useRef(null);
+  const [aside, setAside] = useState(null); // { right, bottom } of the widgets
+  useEffect(() => {
+    const el = widgets.current;
+    if (!el) return;
+    const measure = () => {
+      const r = el.getBoundingClientRect();
+      setAside(
+        r.height ? { left: r.left, right: r.right, bottom: r.bottom } : null,
+      );
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+  // one column, like the left one, its right edge on the widgets'
+  const RIGHT = ["photos", "shelf"];
+  const rightSpots = aside
+    ? Object.fromEntries(
+        RIGHT.map((id, k) => [
+          id,
+          { x: aside.right - 96, y: aside.bottom + 16 + k * 90 },
+        ]),
+      )
+    : {};
+
   const icons = useIconDrag({
+    defaults: rightSpots,
     onHover: (id, x, y) => setOverTrash(id === "cv" && onTrash(x, y)),
     onDrop: (id, x, y) => {
       setOverTrash(false);
@@ -435,6 +469,12 @@ const Desktop = ({ phone }) => {
       act: () => go("about"),
     },
     {
+      id: "projects",
+      label: t("desktop.apps.projects"),
+      icon: FolderIcon,
+      act: () => open("projects"),
+    },
+    {
       id: "src",
       label: "resume-src",
       icon: FolderIcon,
@@ -468,12 +508,6 @@ const Desktop = ({ phone }) => {
       label: t("desktop.apps.shelf"),
       icon: BooksIcon,
       act: () => open("shelf"),
-    },
-    {
-      id: "projects",
-      label: t("desktop.apps.projects"),
-      icon: FolderIcon,
-      act: () => open("projects"),
     },
     ...folders.map((name) => ({
       id: `folder:${name}`,
@@ -519,7 +553,9 @@ const Desktop = ({ phone }) => {
       {state.open.shelf && (
         <Shelf win={win("shelf")} onSuggest={() => writeMail("suggest")} />
       )}
-      {state.open.projects && <Projects win={win("projects")} />}
+      {state.open.projects && (
+        <Projects win={win("projects")} tab={state.tab} />
+      )}
       {state.open.mail && (
         <Mail key={draft.n} win={win("mail")} draft={draft.kind} />
       )}
@@ -591,12 +627,16 @@ const Desktop = ({ phone }) => {
 
       <nav aria-label={t("desktop.labels.files")} className="contents">
         {files.map((f, i) => {
-          const { x, y } = icons.spot(f.id, i);
+          // the left column counts only the icons that live in it
+          const col = aside
+            ? files.slice(0, i).filter((g) => !rightSpots[g.id]).length
+            : i;
+          const { x, y } = icons.spot(f.id, col);
           return (
             <button
               key={f.id}
               type="button"
-              {...icons.bind(f.id, i, f.act)}
+              {...icons.bind(f.id, col, f.act)}
               style={{ left: x, top: y }}
               className="absolute flex w-24 touch-none select-none flex-col items-center gap-1.5 rounded-lg py-1.5 text-white hover:bg-white/10 active:bg-white/15"
             >
@@ -614,10 +654,13 @@ const Desktop = ({ phone }) => {
         })}
       </nav>
 
-      <div className="absolute right-[22px] top-[52px] hidden w-[260px] flex-col gap-3 min-[1400px]:flex">
+      <div
+        ref={widgets}
+        className="absolute right-[22px] top-[52px] hidden w-[260px] flex-col gap-3 min-[1400px]:flex"
+      >
         <aside
           aria-label={t("desktop.labels.status")}
-          className="flex flex-col gap-2 rounded-xl border border-[#2a2f3b] bg-ink-800/90 p-4 text-[13px] motion-safe:animate-[app-open_0.5s_ease-out_0.2s_both]"
+          className="flex flex-col gap-2 rounded-xl border border-[#2a2f3b] bg-ink-800/90 p-4 text-[13px]"
         >
           <div className="font-mono text-[11px] text-ink-muted">
             status.json

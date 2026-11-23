@@ -9,9 +9,23 @@ import {
   H,
   Intro,
   Pick,
+  Shots,
   Snippet,
   useCopy,
 } from "./ui";
+import ShopShot from "../../assets/images/archive/shop-2020.jpg";
+import DonateShot from "../../assets/images/archive/donate-2020.jpg";
+
+const ARCHIVE = [
+  [
+    ShopShot,
+    "https://web.archive.org/web/20200927135340/https://www.pep.security/shop/",
+  ],
+  [
+    DonateShot,
+    "https://web.archive.org/web/20200927141452/https://www.pep.security/donate/",
+  ],
+];
 
 // The p≡p licence shop. The real code is closed source, so the snippets are
 // rewritten and simplified for this page, never copied from the repos.
@@ -123,6 +137,11 @@ const COPY = {
     vatH: "EU VAT, without the headache",
     vat: "Selling from Germany, the tax on an invoice depends on the buyer. Pick one and see what the invoice would say:",
     confirmH: "What confirm() does",
+    archiveH: "The real checkout",
+    archive: [
+      "The shop, September 2020: seats, plan and the VAT worked out live",
+      "The donations page, September 2020: the same pipeline, any amount",
+    ],
   },
   es: {
     providers: {
@@ -199,6 +218,11 @@ const COPY = {
     vatH: "El IVA europeo, sin dolores de cabeza",
     vat: "Vendiendo desde Alemania, el impuesto de una factura depende del comprador. Elige uno y mira qué diría la factura:",
     confirmH: "Qué hace confirm()",
+    archiveH: "El checkout de verdad",
+    archive: [
+      "La tienda, septiembre de 2020: puestos, plan y el IVA calculado al momento",
+      "La página de donaciones, septiembre de 2020: el mismo flujo, cualquier importe",
+    ],
   },
   ca: {
     providers: {
@@ -279,6 +303,11 @@ const COPY = {
     vatH: "L’IVA europeu, sense maldecaps",
     vat: "Venent des d’Alemanya, l’impost d’una factura depèn del comprador. Tria’n un i mira què diria la factura:",
     confirmH: "Què fa confirm()",
+    archiveH: "El checkout de debò",
+    archive: [
+      "La botiga, setembre de 2020: llocs, pla i l’IVA calculat al moment",
+      "La pàgina de donacions, setembre de 2020: el mateix flux, qualsevol import",
+    ],
   },
 };
 
@@ -512,6 +541,11 @@ const Shop = () => {
       <H>{t.pathH}</H>
       <p className="mb-4">{t.path}</p>
       <ShopDiagram />
+      <H>{t.archiveH}</H>
+      <Shots
+        wide
+        items={ARCHIVE.map(([src, href], i) => [src, t.archive[i], href])}
+      />
       <H>{t.builtH}</H>
       <p className="mb-2">{t.built}</p>
       <Bullets items={t.bullets} />

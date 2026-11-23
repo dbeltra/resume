@@ -42,6 +42,7 @@ const NowPlaying = ({ onOpen }) => {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0); // 0..1 of the preview
   const [noPreview, setNoPreview] = useState(false);
+  const [failed, setFailed] = useState(false); // first load got nothing
   const audio = useRef(null);
 
   useEffect(() => {
@@ -50,8 +51,14 @@ const NowPlaying = ({ onOpen }) => {
     const load = () =>
       document.visibilityState === "visible" &&
       getRecentSongs()
-        .then((s) => alive && s.length && setSongs(s))
-        .catch(() => {}); // ponytail: a failed refresh keeps the last songs shown
+        .then((s) => {
+          if (!alive) return;
+          if (s.length) setSongs(s);
+          else setFailed(true);
+        })
+        // ponytail: a failed refresh keeps the last songs shown; a failed
+        // first load drops the placeholder
+        .catch(() => alive && setFailed(true));
     load();
     const id = setInterval(load, REFRESH_MS);
     return () => {
@@ -94,9 +101,25 @@ const NowPlaying = ({ onOpen }) => {
     );
   };
 
-  // mounts when Last.fm answers; its entrance (delayed a beat after
-  // status.json's, see Desktop.js) makes the wait read as choreography
-  if (!song) return null;
+  // until Last.fm answers, a placeholder of the same size holds the spot so
+  // nothing below jumps; it goes away if there's nothing to show
+  if (!song)
+    return enabled && !failed ? (
+      <div
+        aria-hidden="true"
+        className="flex h-[140px] overflow-hidden rounded-xl border border-[#2a2f3b] bg-ink-800"
+      >
+        <span className="h-full w-[128px] flex-none bg-white/5 motion-safe:animate-pulse" />
+        <span className="flex flex-1 flex-col gap-2 px-3.5 pt-3">
+          {["w-16", "w-28", "w-20"].map((w) => (
+            <span
+              key={w}
+              className={`h-2.5 ${w} rounded-full bg-white/10 motion-safe:animate-pulse`}
+            />
+          ))}
+        </span>
+      </div>
+    ) : null;
   const label = song.live
     ? t("desktop.spotify.live")
     : ago(song.at, i18n.resolvedLanguage);
@@ -104,7 +127,7 @@ const NowPlaying = ({ onOpen }) => {
   return (
     <section
       aria-label={t("desktop.nowPlaying.title")}
-      className="relative flex h-[140px] overflow-hidden rounded-xl border border-[#2a2f3b] bg-ink-800 text-[13px] motion-safe:animate-[app-open_0.5s_ease-out_0.45s_both]"
+      className="relative flex h-[140px] overflow-hidden rounded-xl border border-[#2a2f3b] bg-ink-800 text-[13px]"
     >
       {/* big cover on the left; the same cover, blurred and darkened, tints
           the controls side, like iOS's music widget */}

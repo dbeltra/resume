@@ -183,3 +183,38 @@ export const Bullets = ({ items, className = "" }) => (
     ))}
   </ul>
 );
+
+// real screenshots, side by side, scrolling sideways when they don't fit:
+// [[image, caption, link?], ...]. Phone frames by default; `wide` for pages
+// shot in a desktop browser.
+export const Shots = ({ items, wide }) => (
+  <div className="-mx-1 flex snap-x gap-4 overflow-x-auto px-1 pb-2">
+    {items.map(([src, caption, href]) => (
+      <figure
+        key={src}
+        className={`${wide ? "w-[300px]" : "w-[170px]"} flex-none snap-start`}
+      >
+        <img
+          src={src}
+          alt={caption}
+          loading="lazy"
+          className={`w-full bg-[#191b20] object-cover object-top shadow-[0_12px_28px_rgba(0,0,0,0.45)] ${wide ? "aspect-[16/10] rounded-md border border-[#2e313a]" : "aspect-[390/844] rounded-[18px] border-[3px] border-[#2e313a]"}`}
+        />
+        <figcaption className="mt-2 text-[11px] leading-snug text-ink-muted">
+          {href ? (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/20 underline-offset-2 hover:text-ink-text"
+            >
+              {caption} ↗
+            </a>
+          ) : (
+            caption
+          )}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
 import SecurityHub from "./projects/hub";
@@ -7,13 +7,26 @@ import Mq from "./projects/mq";
 import Sites from "./projects/sites";
 import Cli from "./projects/cli";
 import Procurement from "./projects/procurement";
+import Builder from "./projects/builder";
+import Sitges from "./projects/sitges";
+import Bbf from "./projects/bbf";
 import Learnings from "./projects/learnings";
 import SprintAgent from "./projects/sprint";
 
 // Case studies of past work. That code is closed source, so the snippets are
 // rewritten and simplified for this page, never copied from the real repos.
+// sidebar group headings: work first, then side projects
+const GROUPS = {
+  work: { en: "Work", es: "Trabajo", ca: "Feina" },
+  side: {
+    en: "Side projects",
+    es: "Proyectos personales",
+    ca: "Projectes personals",
+  },
+};
+
 // newest first
-const CASES = [
+export const CASES = [
   {
     id: "sprint",
     title: {
@@ -23,6 +36,12 @@ const CASES = [
     },
     sub: "011h · Claude Code · 2026",
     Body: SprintAgent,
+  },
+  {
+    id: "builder",
+    title: { en: "Builder", es: "Builder", ca: "Builder" },
+    sub: "011h · FastAPI · 2026",
+    Body: Builder,
   },
   {
     id: "learnings",
@@ -86,12 +105,39 @@ const CASES = [
     sub: "p≡p · Mezzanine · 2018–24",
     Body: Sites,
   },
+  // side projects, after the work, newest first
+  {
+    id: "sitges",
+    title: {
+      en: "Sitges planner",
+      es: "Planificador Sitges",
+      ca: "Planificador Sitges",
+    },
+    sub: "PWA · 2026",
+    Body: Sitges,
+    side: true,
+  },
+  {
+    id: "bbf",
+    title: {
+      en: "Beer festival list",
+      es: "Lista de cervezas",
+      ca: "Llista de cerveses",
+    },
+    sub: "PWA · 2026",
+    Body: Bbf,
+    side: true,
+  },
 ];
 
-const Projects = ({ win }) => {
+const Projects = ({ win, tab }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage;
   const [id, setId] = useState(CASES[0].id);
+  // a link elsewhere on the site can open a given case study
+  useEffect(() => {
+    if (CASES.some((c) => c.id === tab)) setId(tab);
+  }, [tab]);
   const { Body } = CASES.find((c) => c.id === id);
 
   return (
@@ -111,19 +157,28 @@ const Projects = ({ win }) => {
       <div className="flex min-h-0 flex-1 flex-col sm:flex-row">
         {CASES.length > 1 && (
           <nav className="flex flex-none gap-0.5 overflow-x-auto border-b border-[#2e313a] bg-[#1a1c21] p-2 sm:w-[190px] sm:flex-col sm:border-b-0 sm:border-r">
-            {CASES.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                aria-current={c.id === id}
-                onClick={() => setId(c.id)}
-                className={`flex-none rounded-md px-3 py-2 text-left ${c.id === id ? "bg-white/10" : "hover:bg-white/5"}`}
-              >
-                <div className="text-[13px] font-semibold">
-                  {c.title[lang] || c.title.en}
-                </div>
-                <div className="text-[11px] text-ink-muted">{c.sub}</div>
-              </button>
+            {CASES.map((c, i) => (
+              <React.Fragment key={c.id}>
+                {(i === 0 || !!c.side !== !!CASES[i - 1].side) && (
+                  <div
+                    className={`flex-none self-center px-3 pb-1 text-[10px] uppercase tracking-[0.14em] text-ink-muted sm:self-auto ${i ? "pt-3" : "pt-1"}`}
+                  >
+                    {GROUPS[c.side ? "side" : "work"][lang] ||
+                      GROUPS[c.side ? "side" : "work"].en}
+                  </div>
+                )}
+                <button
+                  type="button"
+                  aria-current={c.id === id}
+                  onClick={() => setId(c.id)}
+                  className={`flex-none rounded-md px-3 py-2 text-left ${c.id === id ? "bg-white/10" : "hover:bg-white/5"}`}
+                >
+                  <div className="text-[13px] font-semibold">
+                    {c.title[lang] || c.title.en}
+                  </div>
+                  <div className="text-[11px] text-ink-muted">{c.sub}</div>
+                </button>
+              </React.Fragment>
             ))}
           </nav>
         )}
