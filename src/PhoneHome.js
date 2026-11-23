@@ -43,6 +43,12 @@ const PhoneHome = ({ onOpen, onGo, page, hasPhotos }) => {
       act: () => onOpen("shelf"),
     },
     {
+      label: t("desktop.apps.projects"),
+      icon: FolderIcon,
+      tile: "bg-white",
+      act: () => onOpen("projects"),
+    },
+    {
       label: "Agents.md",
       icon: FileIcon,
       tile: "bg-[#262932]", // dark, so the white page icon stands out

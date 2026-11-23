@@ -11,6 +11,7 @@ import Mail from "./apps/Mail";
 import Spotify from "./apps/Spotify";
 import Photos from "./apps/Photos";
 import Shelf from "./apps/Shelf";
+import Projects from "./apps/Projects";
 import { useFeed } from "./desktop/feed";
 import Trash from "./apps/Trash";
 import { desktopReducer, initialState, currentPage } from "./desktopState";
@@ -58,6 +59,7 @@ const WALLPAPERS = [
 const LINK_APPS = {
   photos: "photos",
   shelf: "shelf",
+  projects: "projects",
   music: "spotify",
   spotify: "spotify",
   cv: "pdf",
@@ -241,6 +243,7 @@ const Desktop = ({ phone }) => {
     ...[
       ...(hasPhotos ? [["photos", "photo_camera"]] : []),
       ["shelf", "auto_stories"],
+      ["projects", "deployed_code"],
     ].map(([id, icon]) => ({
       id: `app-${id}`,
       kind: "app",
@@ -466,6 +469,12 @@ const Desktop = ({ phone }) => {
       icon: BooksIcon,
       act: () => open("shelf"),
     },
+    {
+      id: "projects",
+      label: t("desktop.apps.projects"),
+      icon: FolderIcon,
+      act: () => open("projects"),
+    },
     ...folders.map((name) => ({
       id: `folder:${name}`,
       label: name,
@@ -510,6 +519,7 @@ const Desktop = ({ phone }) => {
       {state.open.shelf && (
         <Shelf win={win("shelf")} onSuggest={() => writeMail("suggest")} />
       )}
+      {state.open.projects && <Projects win={win("projects")} />}
       {state.open.mail && (
         <Mail key={draft.n} win={win("mail")} draft={draft.kind} />
       )}

@@ -47,7 +47,7 @@ const resources = {
         {
           title: "Full Stack developer",
           company: "011h",
-          dates: "2026 - Present",
+          dates: "2025 - Present",
           responsibilities: [
             "My team is in charge of the Builder, a React and FastAPI web application that allows construction workers to organize schedules and tasks for people working on a construction site.",
             "We also develop the Procurement module, another part of the same platform, which handles budgeting, contract management and financial oversight of construction projects.",
@@ -122,6 +122,7 @@ const resources = {
           spotify: "Spotify",
           photos: "Photos",
           shelf: "Shelf",
+          projects: "Projects",
           browser: "Browser",
           trash: "Trash",
           code: "Code",
@@ -134,6 +135,7 @@ const resources = {
           spotify: "Spotify: what I'm listening to",
           photos: "Photos: from my Instagram",
           shelf: "Shelf: films and books",
+          projects: "Projects: things I built",
           browser: "Browser: davidbeltra.com",
           trash: "Trash",
           code: "Code: site source",
@@ -500,7 +502,7 @@ const resources = {
         {
           title: "Desarrollador Full Stack",
           company: "011h",
-          dates: "2026 - Actualidad",
+          dates: "2025 - Actualidad",
           responsibilities: [
             "Mi equipo se encarga del Builder, una aplicación web con React y FastAPI que permite a los trabajadores de la construcción organizar horarios y tareas para las personas que trabajan en una obra.",
             "También desarrollamos el módulo de Procurement, otra parte de la misma plataforma, que gestiona presupuestos, contratos y la gestión financiera de proyectos de construcción.",
@@ -579,6 +581,7 @@ const resources = {
           spotify: "Spotify",
           photos: "Fotos",
           shelf: "Estantería",
+          projects: "Proyectos",
           browser: "Navegador",
           trash: "Papelera",
           code: "Código",
@@ -591,6 +594,7 @@ const resources = {
           spotify: "Spotify: lo que estoy escuchando",
           photos: "Fotos: de mi Instagram",
           shelf: "Estantería: pelis y libros",
+          projects: "Proyectos: cosas que he hecho",
           browser: "Navegador: davidbeltra.com",
           trash: "Papelera",
           code: "Código: fuente del sitio",
@@ -958,7 +962,7 @@ const resources = {
         {
           title: "Desenvolupador Full Stack",
           company: "011h",
-          dates: "2026 - Actualitat",
+          dates: "2025 - Actualitat",
           responsibilities: [
             "El meu equip s'encarrega del Builder, una aplicació web amb React i FastAPI que permet als treballadors de la construcció organitzar horaris i tasques per a les persones que treballen en una obra.",
             "També desenvolupem el mòdul de Procurement, una altra part de la mateixa plataforma, que gestiona pressupostos, contractes i la gestió financera de projectes de construcció.",
@@ -1039,6 +1043,7 @@ const resources = {
           spotify: "Spotify",
           photos: "Fotos",
           shelf: "Prestatge",
+          projects: "Projectes",
           browser: "Navegador",
           trash: "Paperera",
           code: "Codi",
@@ -1051,6 +1056,7 @@ const resources = {
           spotify: "Spotify: el que estic escoltant",
           photos: "Fotos: del meu Instagram",
           shelf: "Prestatge: pel·lis i llibres",
+          projects: "Projectes: coses que he fet",
           browser: "Navegador: davidbeltra.com",
           trash: "Paperera",
           code: "Codi: font del lloc",

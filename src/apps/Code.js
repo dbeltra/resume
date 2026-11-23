@@ -5,6 +5,9 @@ import json from "highlight.js/lib/languages/json";
 import python from "highlight.js/lib/languages/python";
 import rust from "highlight.js/lib/languages/rust";
 import markdown from "highlight.js/lib/languages/markdown";
+import bash from "highlight.js/lib/languages/bash";
+import javascript from "highlight.js/lib/languages/javascript";
+import gherkin from "highlight.js/lib/languages/gherkin";
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
@@ -15,11 +18,14 @@ hljs.registerLanguage("json", json);
 hljs.registerLanguage("python", python);
 hljs.registerLanguage("rust", rust);
 hljs.registerLanguage("markdown", markdown);
+hljs.registerLanguage("bash", bash); // Projects: terminal sessions
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("gherkin", gherkin);
 
 // hljs returns one HTML string; split it per line for the gutter.
 // ponytail: a token spanning several lines (block comment) loses its colour
 // after the first line; none of the snippets have one.
-const highlightLines = (code, language) =>
+export const highlightLines = (code, language) =>
   hljs.highlight(code, { language }).value.split("\n");
 
 const FOLDERS = [

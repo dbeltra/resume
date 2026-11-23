@@ -114,7 +114,7 @@ export const CODE = {
   experience: `[{
   "title": "Full Stack developer",
   "company": "011h",
-  "dates": "2026 - Present",
+  "dates": "2025 - Present",
   "stack": ["React", "FastAPI"]
 },{
   "title": "Rust and React developer",

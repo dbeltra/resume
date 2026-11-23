@@ -9,7 +9,7 @@ import O11hImg from "../assets/images/011h.png";
 const Code = `{
   title: "Full Stack developer",
   company: "011h",
-  dates: "2026 - Present",
+  dates: "2025 - Present",
   responsibilities: [
     "Development of a React + FastAPI web platform for construction site management.",
     "Development of a procurement module for budgeting, contracts and financial management.",
