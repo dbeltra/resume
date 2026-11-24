@@ -352,8 +352,8 @@ const ShopDiagram = () => {
         : PROVIDERS[k].slice(1);
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
-      <div className="mb-2 flex flex-wrap items-center gap-2 px-1 text-[11px] text-ink-muted">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
+      <div className="mb-2 flex flex-wrap items-center gap-2 px-1 text-[11px] text-p-muted">
         <Pick
           label={t.payWith}
           options={[
@@ -432,7 +432,7 @@ const ShopDiagram = () => {
           ))}
           {!still && (
             <>
-              <circle r="7" fill="#f5c451" stroke="#191b20" strokeWidth="2">
+              <circle r="7" fill="rgb(var(--p-warn))" stroke="rgb(var(--p-sunk))" strokeWidth="2">
                 <animateMotion
                   dur="5s"
                   repeatCount="indefinite"
@@ -450,7 +450,7 @@ const ShopDiagram = () => {
                 />
               </circle>
               {OUTPUTS.map((y) => (
-                <circle key={y} r="5" fill="#7fd1a8" opacity="0">
+                <circle key={y} r="5" fill="rgb(var(--p-ok))" opacity="0">
                   <animateMotion
                     dur="5s"
                     repeatCount="indefinite"
@@ -489,8 +489,8 @@ const Invoice = () => {
   const vat = (NET * b.rate) / 100;
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
-      <div className="mb-3 flex flex-wrap items-center gap-2 px-1 text-[11px] text-ink-muted">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
+      <div className="mb-3 flex flex-wrap items-center gap-2 px-1 text-[11px] text-p-muted">
         <Pick
           label={t.who}
           options={Object.keys(BUYERS).map((k) => [k, t.buyers[k].label])}
@@ -498,7 +498,7 @@ const Invoice = () => {
           onChange={setWho}
         />
       </div>
-      <p className="mb-3 px-1 text-[13px] text-ink-text">{b.why}</p>
+      <p className="mb-3 px-1 text-[13px] text-p-fg">{b.why}</p>
       {/* a paper invoice, like the ReportLab PDF */}
       <div className="mx-auto max-w-[420px] rounded-md bg-[#f6f4ef] p-5 font-mono text-[11px] leading-relaxed text-[#2b2c30] shadow-[0_12px_30px_rgba(0,0,0,0.5)]">
         <div className="flex items-baseline justify-between">

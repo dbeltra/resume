@@ -137,7 +137,7 @@ const COPY = {
 };
 
 const link =
-  "rounded-full bg-white/10 px-3 py-1 text-[12px] font-semibold text-ink-text hover:bg-white/15";
+  "rounded-full bg-p-fg/10 px-3 py-1 text-[12px] font-semibold text-p-fg hover:bg-p-fg/15";
 
 const Bbf = () => {
   const t = useCopy(COPY);

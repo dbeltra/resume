@@ -323,7 +323,7 @@ const Programme = () => {
         : t.twice(hhmm(o[3]));
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <Chip
           onClick={() => {
@@ -344,11 +344,11 @@ const Programme = () => {
             setMarked(new Set());
             setLeft([]);
           }}
-          className="px-2 text-[11px] text-ink-muted underline hover:text-ink-text"
+          className="px-2 text-[11px] text-p-muted underline hover:text-p-fg"
         >
           {t.clear}
         </button>
-        <span className="text-[11px] text-ink-muted">
+        <span className="text-[11px] text-p-muted">
           {t.watch}{" "}
           {WATCH.map(([f, tier]) => `${f} (${t.tiers[tier]})`).join(" · ")}
         </span>
@@ -358,9 +358,9 @@ const Programme = () => {
           {VENUES.map((v) => (
             <div
               key={v}
-              className="flex items-stretch border-b border-[#2e313a] last:border-b-0"
+              className="flex items-stretch border-b border-p-line last:border-b-0"
             >
-              <div className="flex w-[68px] flex-none items-center text-[10px] text-ink-muted">
+              <div className="flex w-[68px] flex-none items-center text-[10px] text-p-muted">
                 {v}
               </div>
               <div className="relative h-12 flex-1">
@@ -371,7 +371,7 @@ const Programme = () => {
                       type="button"
                       aria-pressed={marked.has(id)}
                       onClick={() => toggle(id)}
-                      className={`absolute inset-y-1 overflow-hidden rounded px-1.5 text-left text-[10px] leading-tight transition-colors ${marked.has(id) ? "bg-[#f6f4ef] text-[#15171c]" : "bg-[#2a2d35] text-ink-text hover:bg-[#343844]"} ${flagged.has(id) ? "ring-2 ring-[#e5797a]" : ""}`}
+                      className={`absolute inset-y-1 overflow-hidden rounded px-1.5 text-left text-[10px] leading-tight transition-colors ${marked.has(id) ? "bg-p-fg text-p-surface" : "bg-p-raised text-p-fg hover:bg-p-line2"} ${flagged.has(id) ? "ring-2 ring-p-bad" : ""}`}
                       style={{
                         left: `${((a - T0) / SPAN) * 100}%`,
                         width: `${((b - a) / SPAN) * 100}%`,
@@ -389,7 +389,7 @@ const Programme = () => {
               </div>
             </div>
           ))}
-          <div className="relative ml-[68px] h-4 text-[9px] text-ink-muted">
+          <div className="relative ml-[68px] h-4 text-[9px] text-p-muted">
             {[16, 18, 20, 22, 24].map((h) => (
               <span
                 key={h}
@@ -403,20 +403,20 @@ const Programme = () => {
         </div>
       </div>
       <ul className="mt-2 flex min-h-[20px] flex-col gap-0.5 text-[12px]">
-        {!marked.size && <li className="text-ink-muted">{t.tap}</li>}
+        {!marked.size && <li className="text-p-muted">{t.tap}</li>}
         {marked.size > 0 && !Object.keys(warn).length && (
-          <li className="text-[#7fd1a8]">{t.fine}</li>
+          <li className="text-p-ok">{t.fine}</li>
         )}
         {Object.entries(warn).flatMap(([id, ws]) => {
           const s = SESSIONS.find((x) => x[0] === id);
           return ws.map((w, i) => (
-            <li key={`${id}${i}`} className="text-[#e5797a]">
+            <li key={`${id}${i}`} className="text-p-bad">
               {s[1]} {hhmm(s[3])}: {say(w)}
             </li>
           ));
         })}
         {left.map((f) => (
-          <li key={f} className="text-[#f5c451]">
+          <li key={f} className="text-p-warn">
             {t.noFit(f)}
           </li>
         ))}
@@ -428,7 +428,7 @@ const Programme = () => {
 const STACK = ["JavaScript", "HTML", "CSS", "Service worker", "PWA", "Python"];
 
 const link =
-  "rounded-full bg-white/10 px-3 py-1 text-[12px] font-semibold text-ink-text hover:bg-white/15";
+  "rounded-full bg-p-fg/10 px-3 py-1 text-[12px] font-semibold text-p-fg hover:bg-p-fg/15";
 
 const Sitges = () => {
   const t = useCopy(COPY);

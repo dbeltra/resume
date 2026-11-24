@@ -311,8 +311,8 @@ export const HubDiagram = () => {
   const word = (v) => (typeof v === "number" ? t.nodes[v] : v);
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
-      <div className="mb-2 flex flex-wrap items-center gap-2 px-1 text-[11px] text-ink-muted">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
+      <div className="mb-2 flex flex-wrap items-center gap-2 px-1 text-[11px] text-p-muted">
         <Pick
           label={t.say}
           options={[
@@ -324,10 +324,10 @@ export const HubDiagram = () => {
         />
         <span className="ml-auto flex items-center gap-3">
           <span className="flex items-center gap-1">
-            <i className="size-2 rounded-full bg-[#b98ab9]" /> {t.encrypted}
+            <i className="size-2 rounded-full bg-p-pop" /> {t.encrypted}
           </span>
           <span className="flex items-center gap-1">
-            <i className="size-2 rounded-full bg-[#f5c451]" /> {t.plaintext}
+            <i className="size-2 rounded-full bg-p-warn" /> {t.plaintext}
           </span>
         </span>
       </div>
@@ -367,7 +367,7 @@ export const HubDiagram = () => {
           <text
             x={20}
             y={268}
-            className="fill-ink-muted text-[10px] uppercase tracking-[0.18em]"
+            className="fill-p-muted text-[10px] uppercase tracking-[0.18em]"
           >
             {t.plane}
           </text>
@@ -381,7 +381,7 @@ export const HubDiagram = () => {
             />
           ))}
           {!still && (
-            <circle r="7" stroke="#191b20" strokeWidth="2">
+            <circle r="7" stroke="rgb(var(--p-sunk))" strokeWidth="2">
               <animateMotion
                 dur="5s"
                 repeatCount="indefinite"

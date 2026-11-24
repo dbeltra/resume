@@ -290,9 +290,9 @@ const COPY = {
 // --- the live demo, in miniature --------------------------------------------
 
 const TONE = {
-  verified: "bg-[#7fd1a8]/20 text-[#7fd1a8]",
-  unverified: "bg-[#f5c451]/20 text-[#f5c451]",
-  none: "bg-white/10 text-ink-muted",
+  verified: "bg-p-ok/20 text-p-ok",
+  unverified: "bg-p-warn/20 text-p-warn",
+  none: "bg-p-fg/10 text-p-muted",
 };
 const SAMPLE =
   '<Payment><Amount ccy="EUR">1250.00</Amount><To>DE89 3704 0044 0532 0130 00</To></Payment>';
@@ -305,19 +305,19 @@ const scramble = (text) =>
   ).join("");
 
 const Pane = ({ title, sub, children }) => (
-  <section className="flex min-h-[150px] min-w-0 flex-col rounded-md border border-[#2e313a] bg-[#1e2026]">
-    <header className="border-b border-[#2e313a] px-3 py-1.5">
-      <div className="text-[12px] font-semibold text-ink-text">{title}</div>
-      <div className="text-[10px] text-ink-muted">{sub}</div>
+  <section className="flex min-h-[150px] min-w-0 flex-col rounded-md border border-p-line bg-p-surface">
+    <header className="border-b border-p-line px-3 py-1.5">
+      <div className="text-[12px] font-semibold text-p-fg">{title}</div>
+      <div className="text-[10px] text-p-muted">{sub}</div>
     </header>
     <ol className="flex flex-col gap-1.5 p-2">{children}</ol>
   </section>
 );
 
 const Msg = ({ children, mono, badge }) => (
-  <li className="rounded bg-white/5 px-2 py-1.5 motion-safe:animate-[app-open_0.3s_ease-out]">
+  <li className="rounded bg-p-fg/5 px-2 py-1.5 motion-safe:animate-[app-open_0.3s_ease-out]">
     <p
-      className={`break-all text-[10px] leading-snug ${mono ? "font-mono text-[#b98ab9]" : "font-mono text-ink-text"}`}
+      className={`break-all text-[10px] leading-snug ${mono ? "font-mono text-p-pop" : "font-mono text-p-fg"}`}
     >
       {children}
     </p>
@@ -352,22 +352,22 @@ const Demo = () => {
   };
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
       <form onSubmit={send} className="mb-2 flex gap-2">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
           aria-label={t.msg}
-          className="min-w-0 flex-1 rounded-md border border-[#2e313a] bg-[#1e2026] px-2.5 py-1.5 font-mono text-[11px] text-ink-text outline-none focus:border-lilac"
+          className="min-w-0 flex-1 rounded-md border border-p-line bg-p-surface px-2.5 py-1.5 font-mono text-[11px] text-p-fg outline-none focus:border-p-pop"
         />
         <button
           type="submit"
-          className="flex-none rounded-md bg-lilac/80 px-3 text-[12px] font-semibold text-white hover:bg-lilac"
+          className="flex-none rounded-md bg-p-pop/80 px-3 text-[12px] font-semibold text-white hover:bg-p-pop"
         >
           {t.send}
         </button>
       </form>
-      <div className="mb-1 flex flex-wrap items-center gap-2 px-1 text-[11px] text-ink-muted">
+      <div className="mb-1 flex flex-wrap items-center gap-2 px-1 text-[11px] text-p-muted">
         <Pick
           label={t.keys}
           options={[
@@ -379,7 +379,7 @@ const Demo = () => {
           onChange={setTrust}
         />
       </div>
-      <p className="mb-3 px-1 text-[12px] text-ink-text">{t.trust[trust][1]}</p>
+      <p className="mb-3 px-1 text-[12px] text-p-fg">{t.trust[trust][1]}</p>
       <div className="grid gap-2 sm:grid-cols-3">
         <Pane title={t.panes[0][0]} sub={t.panes[0][1]}>
           {msgs.map((m) => (
@@ -423,7 +423,7 @@ const Demo = () => {
 export const Wiring = () => {
   const w = useCopy(COPY).wire;
   return (
-    <figure className="overflow-x-auto rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
+    <figure className="overflow-x-auto rounded-lg border border-p-line bg-p-sunk p-3">
       <svg
         viewBox="0 -24 800 210"
         role="img"

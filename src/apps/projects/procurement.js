@@ -395,15 +395,15 @@ const COPY = {
 };
 
 const TONE = {
-  matched: "bg-[#7fd1a8]/20 text-[#7fd1a8]",
-  review: "bg-[#f5c451]/20 text-[#f5c451]",
-  unmatched: "bg-white/10 text-ink-muted",
+  matched: "bg-p-ok/20 text-p-ok",
+  review: "bg-p-warn/20 text-p-warn",
+  unmatched: "bg-p-fg/10 text-p-muted",
 };
 
 const Btn = (props) => (
   <button
     type="button"
-    className="rounded-full bg-lilac/80 px-3 py-1 text-[12px] font-semibold text-white hover:bg-lilac disabled:opacity-40"
+    className="rounded-full bg-p-pop/80 px-3 py-1 text-[12px] font-semibold text-white hover:bg-p-pop disabled:opacity-40"
     {...props}
   />
 );
@@ -413,7 +413,7 @@ export const Compare = () => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full min-w-[520px] text-[11px]">
-        <thead className="text-left text-ink-muted">
+        <thead className="text-left text-p-muted">
           <tr>
             <th className="py-1 font-normal">{t.th[0]}</th>
             <th className="py-1 text-right font-normal">{t.th[1]}</th>
@@ -424,26 +424,26 @@ export const Compare = () => {
             ))}
           </tr>
         </thead>
-        <tbody className="text-ink-text">
+        <tbody className="text-p-fg">
           {LINES.map(([code, text, unit, qty, cost], i) => {
             const prices = PROVIDERS.map(([, p]) => p[i]);
             const best = Math.min(...prices);
             return (
-              <tr key={code} className="border-t border-[#2e313a]">
+              <tr key={code} className="border-t border-p-line">
                 <td className="py-1.5 pr-2">
-                  <span className="text-ink-muted">{code}</span> {t.lines[text]}
-                  <span className="text-ink-muted">
+                  <span className="text-p-muted">{code}</span> {t.lines[text]}
+                  <span className="text-p-muted">
                     {" "}
                     · {qty} {unit}
                   </span>
                 </td>
-                <td className="py-1.5 text-right text-ink-muted">
+                <td className="py-1.5 text-right text-p-muted">
                   {eur(cost)}
                 </td>
                 {prices.map((p, j) => (
                   <td
                     key={j}
-                    className={`py-1.5 text-right ${p === best ? "font-semibold text-[#7fd1a8]" : ""}`}
+                    className={`py-1.5 text-right ${p === best ? "font-semibold text-p-ok" : ""}`}
                   >
                     {eur(p)}
                   </td>
@@ -451,18 +451,18 @@ export const Compare = () => {
               </tr>
             );
           })}
-          <tr className="border-t border-[#3a3f4c] font-semibold">
+          <tr className="border-t border-p-line2 font-semibold">
             <td className="py-1.5">{t.total}</td>
-            <td className="py-1.5 text-right text-ink-muted">
+            <td className="py-1.5 text-right text-p-muted">
               {eur(estimate)}
             </td>
             {totals.map((sum, j) => (
               <td
                 key={j}
-                className={`py-1.5 text-right ${j === bestTotal ? "text-[#7fd1a8]" : ""}`}
+                className={`py-1.5 text-right ${j === bestTotal ? "text-p-ok" : ""}`}
               >
                 {eur(sum)}
-                <div className="text-[9px] font-normal text-ink-muted">
+                <div className="text-[9px] font-normal text-p-muted">
                   {(((sum - estimate) / estimate) * 100).toFixed(1)}% {t.vs}
                 </div>
               </td>
@@ -470,7 +470,7 @@ export const Compare = () => {
           </tr>
         </tbody>
       </table>
-      <p className="mt-2 text-[11px] text-ink-muted">
+      <p className="mt-2 text-[11px] text-p-muted">
         {t.green(GOAL, eur(estimate * (1 - GOAL / 100)))}
       </p>
     </div>
@@ -482,18 +482,18 @@ const Import = () => {
   const [ok, setOk] = useState(false);
   return (
     <div className="flex flex-col gap-1.5">
-      <p className="text-[11px] text-ink-muted">{t.importP}</p>
+      <p className="text-[11px] text-p-muted">{t.importP}</p>
       {QUOTE.map(([code, status], i) => {
         const s = status === "review" && ok ? "matched" : status;
         const [text, why] = t.quote[i];
         return (
           <div
             key={i}
-            className="flex flex-wrap items-center gap-2 rounded border border-[#2e313a] bg-[#262932] px-2.5 py-1.5 text-[11px]"
+            className="flex flex-wrap items-center gap-2 rounded border border-p-line bg-p-raised px-2.5 py-1.5 text-[11px]"
           >
-            <span className="min-w-0 flex-1 text-ink-text">“{text}”</span>
-            <span className="text-ink-muted">→ {code || "—"}</span>
-            <span className="text-[10px] text-ink-muted">{why}</span>
+            <span className="min-w-0 flex-1 text-p-fg">“{text}”</span>
+            <span className="text-p-muted">→ {code || "—"}</span>
+            <span className="text-[10px] text-p-muted">{why}</span>
             <span
               className={`rounded-full px-1.5 py-px text-[9px] font-semibold uppercase tracking-widest ${TONE[s]}`}
             >
@@ -516,13 +516,13 @@ const Award = () => {
   const status = t.states[!sent ? 0 : yes === t.chain.length ? 2 : 1];
   return (
     <div className="flex flex-col gap-2 text-[11px]">
-      <p className="text-ink-muted">
-        {t.best} <b className="text-ink-text">{PROVIDERS[bestTotal][0]}</b>,{" "}
+      <p className="text-p-muted">
+        {t.best} <b className="text-p-fg">{PROVIDERS[bestTotal][0]}</b>,{" "}
         {eur(totals[bestTotal])}. {t.awardP}
       </p>
       <div className="flex items-center gap-2">
-        <span className="text-ink-muted">{t.statusL}</span>
-        <span className="rounded-full bg-white/10 px-2 py-0.5 font-semibold text-ink-text">
+        <span className="text-p-muted">{t.statusL}</span>
+        <span className="rounded-full bg-p-fg/10 px-2 py-0.5 font-semibold text-p-fg">
           {status}
         </span>
       </div>
@@ -535,11 +535,11 @@ const Award = () => {
           {t.chain.map((role, i) => (
             <li
               key={role}
-              className="flex items-center gap-2 rounded border border-[#2e313a] bg-[#262932] px-2.5 py-1.5"
+              className="flex items-center gap-2 rounded border border-p-line bg-p-raised px-2.5 py-1.5"
             >
-              <span className="flex-1 text-ink-text">{role}</span>
+              <span className="flex-1 text-p-fg">{role}</span>
               {i < yes ? (
-                <span className="text-[#7fd1a8]">{t.accepted}</span>
+                <span className="text-p-ok">{t.accepted}</span>
               ) : i === yes ? (
                 <>
                   <Btn onClick={() => setYes(yes + 1)}>{t.accept}</Btn>
@@ -549,19 +549,19 @@ const Award = () => {
                       setSent(false);
                       setYes(0);
                     }}
-                    className="rounded-full px-2 py-1 text-ink-muted hover:bg-white/10"
+                    className="rounded-full px-2 py-1 text-p-muted hover:bg-p-fg/10"
                   >
                     {t.reject}
                   </button>
                 </>
               ) : (
-                <span className="text-ink-muted">{t.waiting}</span>
+                <span className="text-p-muted">{t.waiting}</span>
               )}
             </li>
           ))}
         </ol>
       )}
-      {sent && yes === 0 && <p className="text-ink-muted">{t.rejectNote}</p>}
+      {sent && yes === 0 && <p className="text-p-muted">{t.rejectNote}</p>}
     </div>
   );
 };
@@ -574,9 +574,9 @@ const Contract = () => {
       {t.sign.slice(0, n).map((s) => (
         <div
           key={s}
-          className="flex items-center gap-2 text-ink-text motion-safe:animate-[app-open_0.3s_ease-out]"
+          className="flex items-center gap-2 text-p-fg motion-safe:animate-[app-open_0.3s_ease-out]"
         >
-          <span className="text-[#7fd1a8]">✓</span>
+          <span className="text-p-ok">✓</span>
           {s}
         </div>
       ))}
@@ -585,8 +585,8 @@ const Contract = () => {
           <Btn onClick={() => setN(n + 1)}>{n ? t.next : t.generate}</Btn>
         </div>
       ) : (
-        <p className="mt-1 text-ink-muted">
-          {t.statusL} <b className="text-ink-text">{t.signed[0]}</b>.{" "}
+        <p className="mt-1 text-p-muted">
+          {t.statusL} <b className="text-p-fg">{t.signed[0]}</b>.{" "}
           {t.signed[1]}
         </p>
       )}
@@ -606,9 +606,9 @@ const Walkthrough = () => {
   const [step, setStep] = useState("compare");
   const Body = STEPS[step];
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
-      <div className="mb-1 px-1 text-[11px] text-ink-muted">{t.project}</div>
-      <div className="mb-3 flex flex-wrap items-center gap-1 px-1 text-[11px] text-ink-muted">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
+      <div className="mb-1 px-1 text-[11px] text-p-muted">{t.project}</div>
+      <div className="mb-3 flex flex-wrap items-center gap-1 px-1 text-[11px] text-p-muted">
         <Pick
           label=""
           options={Object.keys(STEPS).map((k, i) => [k, t.steps[i]])}
@@ -616,7 +616,7 @@ const Walkthrough = () => {
           onChange={setStep}
         />
       </div>
-      <div className="min-h-[190px] rounded-md border border-[#2e313a] bg-[#1e2026] p-3">
+      <div className="min-h-[190px] rounded-md border border-p-line bg-p-surface p-3">
         <Body />
       </div>
     </figure>

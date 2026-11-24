@@ -239,19 +239,19 @@ export const Cancel = () => {
         : [false, t.packLost];
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-4 text-[13px]">
-      <ul className="space-y-1 text-ink-muted">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-4 text-[13px]">
+      <ul className="space-y-1 text-p-muted">
         {RULES.map(([h, p, pack]) => (
           <li
             key={h}
-            className={rule?.[0] === h ? "font-semibold text-ink-text" : ""}
+            className={rule?.[0] === h ? "font-semibold text-p-fg" : ""}
           >
             {t.rules(h, p, pack)}
           </li>
         ))}
-        <li className={rule ? "" : "font-semibold text-ink-text"}>{t.else}</li>
+        <li className={rule ? "" : "font-semibold text-p-fg"}>{t.else}</li>
       </ul>
-      <div className="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-ink-muted">
+      <div className="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-p-muted">
         <Pick
           label=""
           options={[
@@ -262,7 +262,7 @@ export const Cancel = () => {
           onChange={setKind}
         />
       </div>
-      <label className="mt-3 flex flex-wrap items-center gap-3 text-[12px] text-ink-muted">
+      <label className="mt-3 flex flex-wrap items-center gap-3 text-[12px] text-p-muted">
         <span>{t.hours}</span>
         <input
           type="range"
@@ -270,12 +270,12 @@ export const Cancel = () => {
           max="72"
           value={hours}
           onChange={(e) => setHours(+e.target.value)}
-          className="w-48 accent-[#b98ab9]"
+          className="w-48 accent-p-pop"
         />
-        <span className="text-ink-text">{t.hoursBefore(hours)}</span>
+        <span className="text-p-fg">{t.hoursBefore(hours)}</span>
       </label>
       <p
-        className={`mt-4 rounded-md px-3 py-2 font-semibold ${ok ? "bg-[#5cc58a]/15 text-[#7fd6a4]" : "bg-[#e5797a]/15 text-[#ee9a9b]"}`}
+        className={`mt-4 rounded-md px-3 py-2 font-semibold ${ok ? "bg-p-ok/15 text-p-ok" : "bg-p-bad/15 text-p-bad"}`}
       >
         {text}
       </p>
@@ -287,7 +287,7 @@ const Map = () => {
   const t = useCopy(COPY);
   const n = t.nodes;
   return (
-    <figure className="overflow-x-auto rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
+    <figure className="overflow-x-auto rounded-lg border border-p-line bg-p-sunk p-3">
       <svg
         viewBox="0 0 760 240"
         role="img"

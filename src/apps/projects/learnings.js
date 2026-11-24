@@ -251,7 +251,7 @@ const COPY = {
 
 const Bubble = ({ me, children }) => (
   <div
-    className={`max-w-[85%] rounded-lg px-2.5 py-1.5 text-[12px] leading-snug motion-safe:animate-[app-open_0.3s_ease-out] ${me ? "self-end bg-[#1f5c4a] text-white" : "self-start bg-[#2a2d35] text-ink-text"}`}
+    className={`max-w-[85%] rounded-lg px-2.5 py-1.5 text-[12px] leading-snug motion-safe:animate-[app-open_0.3s_ease-out] ${me ? "self-end bg-[#1f5c4a] text-white" : "self-start bg-p-raised text-p-fg"}`}
   >
     {children}
   </div>
@@ -265,10 +265,10 @@ export const Capture = () => {
   const recap = fixed ? { ...t.recap, impact: t.fixedImpact } : t.recap;
 
   return (
-    <figure className="grid gap-3 rounded-lg border border-[#2e313a] bg-[#191b20] p-3 sm:grid-cols-[1fr_220px]">
+    <figure className="grid gap-3 rounded-lg border border-p-line bg-p-sunk p-3 sm:grid-cols-[1fr_220px]">
       {/* the site worker's phone */}
-      <div className="flex min-h-[300px] flex-col gap-2 rounded-md bg-[#12141a] p-3">
-        <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-ink-muted">
+      <div className="flex min-h-[300px] flex-col gap-2 rounded-md bg-p-sunk p-3">
+        <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-p-muted">
           {t.phone}
         </div>
         <Bubble me>{t.voice}</Bubble>
@@ -280,17 +280,17 @@ export const Capture = () => {
         {step >= 1 && (
           <Bubble>
             {t.got}
-            <dl className="mt-1.5 flex flex-col gap-1 border-l-2 border-[#7fd1a8] pl-2">
+            <dl className="mt-1.5 flex flex-col gap-1 border-l-2 border-p-ok pl-2">
               {Object.entries(recap).map(([k, v]) => (
                 <div key={k}>
-                  <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#7fd1a8]">
+                  <dt className="text-[10px] font-semibold uppercase tracking-[0.12em] text-p-ok">
                     {t.keys[k]}
                   </dt>
                   <dd>{v}</dd>
                 </div>
               ))}
             </dl>
-            <div className="mt-1.5 text-[10px] text-ink-muted">{t.chapter}</div>
+            <div className="mt-1.5 text-[10px] text-p-muted">{t.chapter}</div>
           </Bubble>
         )}
         {step >= 2 && <Bubble me>{t.chat[0]}</Bubble>}
@@ -314,31 +314,31 @@ export const Capture = () => {
         )}
       </div>
       {/* the back office */}
-      <div className="flex flex-col gap-2 rounded-md border border-[#2e313a] bg-[#1e2026] p-3">
-        <div className="text-[10px] uppercase tracking-[0.14em] text-ink-muted">
+      <div className="flex flex-col gap-2 rounded-md border border-p-line bg-p-surface p-3">
+        <div className="text-[10px] uppercase tracking-[0.14em] text-p-muted">
           {t.office}
         </div>
         {step < 3 ? (
-          <p className="m-auto text-center text-[11px] text-ink-muted">
+          <p className="m-auto text-center text-[11px] text-p-muted">
             {t.nothing}
           </p>
         ) : (
-          <div className="rounded border border-[#2e313a] bg-[#262932] p-2.5 text-[11px] motion-safe:animate-[app-open_0.3s_ease-out]">
+          <div className="rounded border border-p-line bg-p-raised p-2.5 text-[11px] motion-safe:animate-[app-open_0.3s_ease-out]">
             <div className="flex items-center justify-between gap-2">
-              <span className="font-semibold text-ink-text">{t.card}</span>
+              <span className="font-semibold text-p-fg">{t.card}</span>
               <span
-                className={`rounded-full px-1.5 py-px text-[9px] font-semibold uppercase tracking-[0.1em] ${step === 4 ? "bg-[#7fd1a8]/20 text-[#7fd1a8]" : "bg-[#f5c451]/20 text-[#f5c451]"}`}
+                className={`rounded-full px-1.5 py-px text-[9px] font-semibold uppercase tracking-[0.1em] ${step === 4 ? "bg-p-ok/20 text-p-ok" : "bg-p-warn/20 text-p-warn"}`}
               >
                 {step === 4 ? t.shared : t.inReview}
               </span>
             </div>
-            <p className="mt-1 text-ink-muted">{recap.solution}</p>
+            <p className="mt-1 text-p-muted">{recap.solution}</p>
             {step === 3 ? (
               <div className="mt-2 flex gap-1.5">
                 <Chip onClick={() => setStep(4)}>{t.approve}</Chip>
               </div>
             ) : (
-              <p className="mt-2 text-[#7fd1a8]">{t.sent}</p>
+              <p className="mt-2 text-p-ok">{t.sent}</p>
             )}
           </div>
         )}
@@ -349,7 +349,7 @@ export const Capture = () => {
               setStep(0);
               setFixed(false);
             }}
-            className="mt-auto self-start text-[11px] text-ink-muted underline hover:text-ink-text"
+            className="mt-auto self-start text-[11px] text-p-muted underline hover:text-p-fg"
           >
             {t.again}
           </button>
@@ -384,11 +384,11 @@ const Learnings = () => {
       <H>{t.ideaH}</H>
       <p className="mb-3">{t.idea}</p>
       <Capture />
-      <ol className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-ink-muted">
+      <ol className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-p-muted">
         {t.pipe.map((p, i) => (
           <li key={p} className="flex items-center gap-1.5">
             {i > 0 && <span aria-hidden="true">→</span>}
-            <span className="rounded-full bg-white/10 px-2 py-0.5 text-ink-text">
+            <span className="rounded-full bg-p-fg/10 px-2 py-0.5 text-p-fg">
               {p}
             </span>
           </li>

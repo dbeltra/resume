@@ -253,7 +253,7 @@ export const Schedule = () => {
   const cell = "flex h-7 items-center";
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
       <div className="mb-3 flex flex-wrap gap-2">
         <Chip onClick={() => setSnapshot(layout(holidays, slipped))}>
           {snapshot ? `✓ ${t.saved}` : t.save}
@@ -273,7 +273,7 @@ export const Schedule = () => {
             setSlipped(false);
             setSnapshot(null);
           }}
-          className="px-2 text-[11px] text-ink-muted underline hover:text-ink-text"
+          className="px-2 text-[11px] text-p-muted underline hover:text-p-fg"
         >
           {t.reset}
         </button>
@@ -283,13 +283,13 @@ export const Schedule = () => {
           {[...Array(AREAS).keys()].reverse().map((a) => (
             <div
               key={a}
-              className="grid border-b border-[#2e313a] last:border-b-0"
+              className="grid border-b border-p-line last:border-b-0"
               style={{
                 gridTemplateColumns: `64px repeat(${COLS}, minmax(0, 1fr))`,
               }}
             >
               <div
-                className={`${cell} text-[10px] text-ink-muted`}
+                className={`${cell} text-[10px] text-p-muted`}
                 style={{ gridRow: 1, gridColumn: 1 }}
               >
                 {t.floor(a + 1)}
@@ -297,7 +297,7 @@ export const Schedule = () => {
               {[...Array(COLS).keys()].map((c) => (
                 <div
                   key={c}
-                  className={`h-7 border-l border-white/5 ${holidays.has(c) ? "bg-[repeating-linear-gradient(45deg,rgba(229,121,122,0.25)_0_4px,transparent_4px_8px)]" : ""}`}
+                  className={`h-7 border-l border-p-fg/5 ${holidays.has(c) ? "bg-[repeating-linear-gradient(45deg,rgba(229,121,122,0.25)_0_4px,transparent_4px_8px)]" : ""}`}
                   style={{ gridRow: 1, gridColumn: c + 2 }}
                 />
               ))}
@@ -307,7 +307,7 @@ export const Schedule = () => {
                   .map(([, k, s, e]) => (
                     <div
                       key={`s${k}`}
-                      className="my-1 rounded border border-dashed border-white/50"
+                      className="my-1 rounded border border-dashed border-p-fg/50"
                       style={{ gridRow: 1, gridColumn: `${s + 2} / ${e + 3}` }}
                     />
                   ))}
@@ -329,7 +329,7 @@ export const Schedule = () => {
             </div>
           ))}
           <div
-            className="grid pt-1 text-center text-[9px] text-ink-muted"
+            className="grid pt-1 text-center text-[9px] text-p-muted"
             style={{
               gridTemplateColumns: `64px repeat(${COLS}, minmax(0, 1fr))`,
             }}
@@ -343,26 +343,26 @@ export const Schedule = () => {
       </div>
       <div className="mt-3 flex flex-wrap items-start justify-between gap-3 text-[12px]">
         <ul className="flex flex-col gap-0.5">
-          {!snapshot && <li className="text-ink-muted">{t.hint}</li>}
+          {!snapshot && <li className="text-p-muted">{t.hint}</li>}
           {snapshot && !late.length && (
-            <li className="text-[#7fd1a8]">{t.onTime}</li>
+            <li className="text-p-ok">{t.onTime}</li>
           )}
           {late.slice(0, 3).map(([a, k, n]) => (
-            <li key={`${a}-${k}`} className="text-[#f5c451]">
+            <li key={`${a}-${k}`} className="text-p-warn">
               {t.late(`${t.trades[TRADES[k][0]]} · ${t.floor(a + 1)}`, n)}
             </li>
           ))}
           {late.length > 3 && (
-            <li className="text-ink-muted">{t.more(late.length - 3)}</li>
+            <li className="text-p-muted">{t.more(late.length - 3)}</li>
           )}
         </ul>
-        <span className="flex gap-3 text-[10px] text-ink-muted">
+        <span className="flex gap-3 text-[10px] text-p-muted">
           <span className="flex items-center gap-1">
-            <i className="h-2.5 w-4 rounded-sm border border-dashed border-white/50" />
+            <i className="h-2.5 w-4 rounded-sm border border-dashed border-p-fg/50" />
             {t.legend[0]}
           </span>
           <span className="flex items-center gap-1">
-            <i className="h-2.5 w-4 rounded-sm bg-[#e5797a]/40" />
+            <i className="h-2.5 w-4 rounded-sm bg-p-bad/40" />
             {t.legend[1]}
           </span>
         </span>

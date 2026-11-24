@@ -317,15 +317,15 @@ const Eras = () => {
       {t.eras.map(([title, text], i) => (
         <li
           key={title}
-          className="relative rounded-lg border border-[#2e313a] bg-[#191b20] p-3"
+          className="relative rounded-lg border border-p-line bg-p-sunk p-3"
         >
-          <div className="text-[11px] font-semibold text-lilac-text">
+          <div className="text-[11px] font-semibold text-p-pop-text">
             {YEARS[i]}
           </div>
-          <div className="text-[13px] font-semibold text-ink-text">{title}</div>
-          <p className="mt-1 text-[12px] leading-snug text-ink-muted">{text}</p>
+          <div className="text-[13px] font-semibold text-p-fg">{title}</div>
+          <p className="mt-1 text-[12px] leading-snug text-p-muted">{text}</p>
           {i === 0 && (
-            <span className="mt-2 inline-block rounded-full bg-white/10 px-1.5 py-px text-[9px] uppercase tracking-[0.12em] text-ink-muted">
+            <span className="mt-2 inline-block rounded-full bg-p-fg/10 px-1.5 py-px text-[9px] uppercase tracking-[0.12em] text-p-muted">
               {t.beforeMe}
             </span>
           )}
@@ -381,19 +381,19 @@ const Preview = ({ type, lang }) => {
     );
   if (type === "testimonial")
     return (
-      <div className="rounded border-l-2 border-lilac bg-white/5 px-3 py-2">
-        <div className="text-[12px] italic text-ink-text">{title}</div>
-        <div className="text-[10px] text-ink-muted">{text}</div>
+      <div className="rounded border-l-2 border-p-pop bg-p-fg/5 px-3 py-2">
+        <div className="text-[12px] italic text-p-fg">{title}</div>
+        <div className="text-[10px] text-p-muted">{text}</div>
       </div>
     );
   if (type === "timeline")
     return (
       <div className="px-1">
-        <div className="text-[12px] font-semibold text-ink-text">{title}</div>
-        <div className="mt-1 flex items-center gap-1 text-[10px] text-ink-muted">
+        <div className="text-[12px] font-semibold text-p-fg">{title}</div>
+        <div className="mt-1 flex items-center gap-1 text-[10px] text-p-muted">
           {text.split(" · ").map((t) => (
             <span key={t} className="flex items-center gap-1">
-              <i className="size-1.5 rounded-full bg-lilac" />
+              <i className="size-1.5 rounded-full bg-p-pop" />
               {t}
             </span>
           ))}
@@ -402,14 +402,14 @@ const Preview = ({ type, lang }) => {
     );
   return (
     <div className="px-1">
-      <div className="text-[12px] font-semibold text-ink-text">{title}</div>
-      <div className="text-[11px] text-ink-muted">{text}</div>
+      <div className="text-[12px] font-semibold text-p-fg">{title}</div>
+      <div className="text-[11px] text-p-muted">{text}</div>
     </div>
   );
 };
 
 const tool =
-  "size-6 rounded text-[12px] text-ink-muted hover:bg-white/10 hover:text-ink-text disabled:opacity-30";
+  "size-6 rounded text-[12px] text-p-muted hover:bg-p-fg/10 hover:text-p-fg disabled:opacity-30";
 
 const Builder = () => {
   const t = useCopy(COPY);
@@ -427,8 +427,8 @@ const Builder = () => {
     });
 
   return (
-    <figure className="rounded-lg border border-[#2e313a] bg-[#191b20] p-3">
-      <div className="mb-3 flex flex-wrap items-center gap-2 px-1 text-[11px] text-ink-muted">
+    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
+      <div className="mb-3 flex flex-wrap items-center gap-2 px-1 text-[11px] text-p-muted">
         <Pick
           label={t.language}
           options={[
@@ -442,13 +442,13 @@ const Builder = () => {
       <div className="grid gap-3 sm:grid-cols-[200px_1fr]">
         {/* the admin side: the page's blocks, in order */}
         <div className="flex flex-col gap-1.5">
-          <div className="text-[10px] uppercase tracking-[0.14em] text-ink-muted">
+          <div className="text-[10px] uppercase tracking-[0.14em] text-p-muted">
             {t.admin}
           </div>
           {page.map((b, i) => (
             <div
               key={b.id}
-              className="flex items-center gap-1 rounded border border-[#2e313a] bg-[#1e2026] py-1 pl-2.5 pr-1 text-[12px] text-ink-text"
+              className="flex items-center gap-1 rounded border border-p-line bg-p-surface py-1 pl-2.5 pr-1 text-[12px] text-p-fg"
             >
               <span className="flex-1 truncate">{t.blocks[b.type]}</span>
               <button
@@ -485,7 +485,7 @@ const Builder = () => {
                 key={type}
                 type="button"
                 onClick={() => setPage((p) => [...p, { id: Date.now(), type }])}
-                className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-ink-text hover:bg-white/15"
+                className="rounded-full bg-p-fg/10 px-2 py-0.5 text-[10px] text-p-fg hover:bg-p-fg/15"
               >
                 + {t.blocks[type]}
               </button>
@@ -493,11 +493,11 @@ const Builder = () => {
           </div>
         </div>
         {/* the live side: what visitors get */}
-        <div className="flex min-h-[180px] flex-col gap-2 rounded-md border border-[#2e313a] bg-[#1e2026] p-2">
+        <div className="flex min-h-[180px] flex-col gap-2 rounded-md border border-p-line bg-p-surface p-2">
           {page.length ? (
             page.map((b) => <Preview key={b.id} type={b.type} lang={lang} />)
           ) : (
-            <p className="m-auto text-[11px] text-ink-muted">{t.empty}</p>
+            <p className="m-auto text-[11px] text-p-muted">{t.empty}</p>
           )}
         </div>
       </div>

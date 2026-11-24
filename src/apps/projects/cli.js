@@ -128,9 +128,9 @@ const Slider = ({ label, value, min, max, onChange }) => (
       max={max}
       value={value}
       onChange={(e) => onChange(+e.target.value)}
-      className="w-28 accent-[#b98ab9]"
+      className="w-28 accent-p-pop"
     />
-    <span className="w-4 text-ink-text">{value}</span>
+    <span className="w-4 text-p-fg">{value}</span>
   </label>
 );
 
@@ -156,7 +156,7 @@ export const Mesh = () => {
   const scratch = all * (all - 1);
 
   return (
-    <figure className="flex flex-col items-center gap-4 rounded-lg border border-[#2e313a] bg-[#191b20] p-4 sm:flex-row">
+    <figure className="flex flex-col items-center gap-4 rounded-lg border border-p-line bg-p-sunk p-4 sm:flex-row">
       <svg
         viewBox="0 0 260 250"
         role="img"
@@ -170,7 +170,7 @@ export const Mesh = () => {
             y1={l.y1}
             x2={l.x2}
             y2={l.y2}
-            stroke={l.now ? "#b98ab9" : "#3a3f4c"}
+            stroke={l.now ? "rgb(var(--p-pop))" : "rgb(var(--p-line2))"}
             strokeWidth={l.now ? 1.4 : 1}
           />
         ))}
@@ -180,13 +180,13 @@ export const Mesh = () => {
             cx={x}
             cy={y}
             r="9"
-            fill={isNew ? "#b98ab9" : "#262932"}
-            stroke={isNew ? "#191b20" : "#6b7080"}
+            fill={isNew ? "rgb(var(--p-pop))" : "rgb(var(--p-raised))"}
+            stroke={isNew ? "rgb(var(--p-sunk))" : "rgb(var(--p-muted))"}
             strokeWidth="2"
           />
         ))}
       </svg>
-      <div className="flex flex-col gap-2 text-[12px] text-ink-muted">
+      <div className="flex flex-col gap-2 text-[12px] text-p-muted">
         <Slider
           label={t.already}
           value={old}
@@ -201,8 +201,8 @@ export const Mesh = () => {
           max={6}
           onChange={setFresh}
         />
-        <p className="mt-2 text-[13px] text-ink-text">
-          {t.run[0]} <b className="text-lilac-text">{thisRun}</b> {t.run[1]}
+        <p className="mt-2 text-[13px] text-p-fg">
+          {t.run[0]} <b className="text-p-pop-text">{thisRun}</b> {t.run[1]}
         </p>
         <p>{t.scratch(scratch)}</p>
       </div>

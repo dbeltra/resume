@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Article, Bullets, Chip, H, Intro, Snippet, useCopy } from "./ui";
-import Dashboard from "./dashboard";
-import PanelTop from "../../assets/images/sprint/panel-top.jpg";
-import PanelBottom from "../../assets/images/sprint/panel-bottom.jpg";
+import ChatShot from "../../assets/images/sprint/chat.jpg";
+import ChangesShot from "../../assets/images/sprint/changes.jpg";
+import TasksShot from "../../assets/images/sprint/tasks.jpg";
 
 // The 011h-sprint Claude Code plugin and its dashboard. The real code is
 // closed source, so the snippet is rewritten and simplified for this page,
@@ -45,13 +45,62 @@ const TICKETS = [
   ["T-4", "BE"],
 ];
 
+// one screenshot at a time, with arrows and dots
+const Carousel = ({ shots, caps }) => {
+  const [i, setI] = useState(0);
+  const go = (d) => setI((i + d + shots.length) % shots.length);
+  const arrow =
+    "absolute top-1/2 -translate-y-1/2 rounded-full bg-black/55 px-2.5 py-1 text-[16px] text-white hover:bg-black/75";
+  return (
+    <figure>
+      <div className="relative">
+        <img
+          src={shots[i]}
+          alt={caps[i]}
+          className="aspect-[14/9] w-full rounded-lg border border-p-line object-cover shadow-[0_12px_28px_rgba(0,0,0,0.15)]"
+        />
+        <button
+          type="button"
+          aria-label="Previous"
+          onClick={() => go(-1)}
+          className={`${arrow} left-2`}
+        >
+          ‹
+        </button>
+        <button
+          type="button"
+          aria-label="Next"
+          onClick={() => go(1)}
+          className={`${arrow} right-2`}
+        >
+          ›
+        </button>
+      </div>
+      <figcaption className="mt-2 flex items-start gap-3 text-[11px] leading-snug text-p-muted">
+        <span className="flex-1">{caps[i]}</span>
+        <span className="flex flex-none gap-1.5 pt-1">
+          {shots.map((src, k) => (
+            <button
+              key={src}
+              type="button"
+              aria-label={`${k + 1}`}
+              aria-current={k === i}
+              onClick={() => setI(k)}
+              className={`size-2 rounded-full ${k === i ? "bg-p-fg" : "bg-p-fg/25"}`}
+            />
+          ))}
+        </span>
+      </figcaption>
+    </figure>
+  );
+};
+
 const COPY = {
   en: {
-    realH: "The real thing",
-    real: "The Sprint panel itself, run on a made-up sprint: what needs you, what you can start, what’s in flight and what the agent did last.",
     realCaps: [
-      "The top: progress per layer, and what needs you",
-      "Further down: in flight, waiting, and the log",
+      "The chat view: a Claude session as a conversation, the files it edited, and the sprint beside it",
+      "Changes: the session’s uncommitted diff; a note on a line goes to Claude",
+      "My tasks: each ticket’s place in the piv cycle, and what waits on me",
     ],
     stats: [
       ["6", "stages per ticket"],
@@ -116,7 +165,7 @@ const COPY = {
       ],
     ],
     dashH: "The dashboard",
-    dash: "An agent that runs all day needs somewhere to watch it. The dashboard is a local web page: every Claude session in a tab, the sprint beside it, and anything that needs a person brought to the front. A few screens:",
+    dash: "An agent that runs all day needs somewhere to watch it. The dashboard is a local web page: every Claude session in a tab, the sprint beside it, and anything that needs a person brought to the front. The real thing, run on a made-up sprint and repo:",
     dashBullets: [
       [
         "Sessions that stay.",
@@ -141,11 +190,10 @@ const COPY = {
     ],
   },
   es: {
-    realH: "El de verdad",
-    real: "El panel del sprint real, con un sprint inventado: lo que te necesita, lo que puedes empezar, lo que está en marcha y lo último que ha hecho el agente.",
     realCaps: [
-      "Arriba: el progreso por capa y lo que te necesita",
-      "Más abajo: en marcha, en espera y el registro",
+      "La vista de chat: una sesión de Claude como conversación, los ficheros que ha tocado y el sprint al lado",
+      "Cambios: el diff sin commitear de la sesión; una nota en una línea le llega a Claude",
+      "Mis tareas: en qué punto del ciclo piv está cada ticket y qué espera de mí",
     ],
     stats: [
       ["6", "fases por ticket"],
@@ -214,7 +262,7 @@ const COPY = {
       ],
     ],
     dashH: "El dashboard",
-    dash: "Un agente que funciona todo el día necesita un sitio desde donde seguirlo. El dashboard es una página web local: cada sesión de Claude en una pestaña, el sprint al lado y, delante, todo lo que necesita a una persona. Algunas pantallas:",
+    dash: "Un agente que funciona todo el día necesita un sitio desde donde seguirlo. El dashboard es una página web local: cada sesión de Claude en una pestaña, el sprint al lado y, delante, todo lo que necesita a una persona. El de verdad, con un sprint y un repo inventados:",
     dashBullets: [
       [
         "Sesiones que se quedan.",
@@ -239,11 +287,10 @@ const COPY = {
     ],
   },
   ca: {
-    realH: "El de debò",
-    real: "El panell del sprint real, amb un sprint inventat: el que et necessita, el que pots començar, el que està en marxa i l’últim que ha fet l’agent.",
     realCaps: [
-      "A dalt: el progrés per capa i el que et necessita",
-      "Més avall: en marxa, en espera i el registre",
+      "La vista de xat: una sessió de Claude com a conversa, els fitxers que ha tocat i el sprint al costat",
+      "Canvis: el diff sense commit de la sessió; una nota en una línia li arriba a Claude",
+      "Les meves tasques: en quin punt del cicle piv és cada tiquet i què espera de mi",
     ],
     stats: [
       ["6", "fases per tiquet"],
@@ -312,7 +359,7 @@ const COPY = {
       ],
     ],
     dashH: "El dashboard",
-    dash: "Un agent que funciona tot el dia necessita un lloc des d’on seguir-lo. El dashboard és una pàgina web local: cada sessió de Claude en una pestanya, el sprint al costat i, al davant, tot el que necessita una persona. Algunes pantalles:",
+    dash: "Un agent que funciona tot el dia necessita un lloc des d’on seguir-lo. El dashboard és una pàgina web local: cada sessió de Claude en una pestanya, el sprint al costat i, al davant, tot el que necessita una persona. El de debò, amb un sprint i un repo inventats:",
     dashBullets: [
       [
         "Sessions que es queden.",
@@ -346,26 +393,23 @@ export const Sprint = () => {
   const pass = PASSES[n];
 
   return (
-    <figure className="grid gap-3 rounded-lg border border-[#2e313a] bg-[#191b20] p-3 sm:grid-cols-[1fr_1.1fr]">
+    <figure className="grid gap-3 rounded-lg border border-p-line bg-p-sunk p-3 sm:grid-cols-[1fr_1.1fr]">
       {/* the sprint session */}
-      <div className="flex min-h-[260px] flex-col rounded-md bg-[#12141a] p-3 font-mono text-[11px]">
-        <div className="mb-2 font-sans text-[10px] uppercase tracking-[0.14em] text-ink-muted">
+      <div className="flex min-h-[260px] flex-col p-dark rounded-md bg-[#12141a] p-3 font-mono text-[11px]">
+        <div className="mb-2 font-sans text-[10px] uppercase tracking-[0.14em] text-p-muted">
           /sprint · Claude Code
         </div>
         <ol className="flex flex-col gap-1.5">
           {shown.map((p, i) => (
-            <li
-              key={i}
-              className={p.quiet ? "text-ink-muted" : "text-ink-text"}
-            >
+            <li key={i} className={p.quiet ? "text-p-muted" : "text-p-fg"}>
               {t.passes[i].log.map((l) => (
                 <div key={l}>
-                  <span className="text-lilac-text">⏺ </span>
+                  <span className="text-p-pop-text">⏺ </span>
                   {l}
                 </div>
               ))}
               {t.passes[i].ask && (
-                <div className="text-[#f5c451]">? {t.passes[i].ask}</div>
+                <div className="text-p-warn">? {t.passes[i].ask}</div>
               )}
             </li>
           ))}
@@ -381,21 +425,21 @@ export const Sprint = () => {
         </div>
       </div>
       {/* the dashboard's sprint panel */}
-      <div className="flex flex-col gap-1.5 rounded-md border border-[#2e313a] bg-[#1e2026] p-3">
-        <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-ink-muted">
+      <div className="flex flex-col gap-1.5 rounded-md border border-p-line bg-p-surface p-3">
+        <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-p-muted">
           {t.panel}
         </div>
         {TICKETS.map(([key, layer], ti) => (
           <div
             key={key}
-            className="rounded border border-[#2e313a] bg-[#262932] px-2.5 py-1.5"
+            className="rounded border border-p-line bg-p-raised px-2.5 py-1.5"
           >
             <div className="flex items-center gap-1.5 text-[11px]">
-              <span className="font-semibold text-ink-text">{key}</span>
-              <span className="min-w-0 flex-1 truncate text-ink-muted">
+              <span className="font-semibold text-p-fg">{key}</span>
+              <span className="min-w-0 flex-1 truncate text-p-muted">
                 {t.tickets[ti]}
               </span>
-              <span className="rounded bg-white/10 px-1 text-[9px] text-ink-muted">
+              <span className="rounded bg-p-fg/10 px-1 text-[9px] text-p-muted">
                 {layer}
               </span>
             </div>
@@ -407,11 +451,11 @@ export const Sprint = () => {
                 <span
                   key={s}
                   title={s}
-                  className={`h-1 flex-1 rounded-full transition-colors duration-300 ${i < at[key] ? (at[key] === 5 ? "bg-[#7fd1a8]" : "bg-lilac") : "bg-white/10"}`}
+                  className={`h-1 flex-1 rounded-full transition-colors duration-300 ${i < at[key] ? (at[key] === 5 ? "bg-p-ok" : "bg-p-pop") : "bg-p-fg/10"}`}
                 />
               ))}
             </div>
-            <div className="mt-0.5 text-[9px] text-ink-muted">
+            <div className="mt-0.5 text-[9px] text-p-muted">
               {t.stages[at[key]]}
             </div>
           </div>
@@ -443,7 +487,7 @@ const SprintAgent = () => {
       />
       <H>{t.howH}</H>
       <p className="mb-3">
-        {t.point[0]} <code className="text-lilac-text">/sprint</code>{" "}
+        {t.point[0]} <code className="text-p-pop-text">/sprint</code>{" "}
         {t.point[1]} {t.how}
       </p>
       <Sprint />
@@ -454,26 +498,9 @@ const SprintAgent = () => {
       </div>
       <H>{t.dashH}</H>
       <p className="mb-4">{t.dash}</p>
-      <Dashboard />
+      {/* the real dashboard, run on a made-up sprint and repo */}
+      <Carousel shots={[ChatShot, ChangesShot, TasksShot]} caps={t.realCaps} />
       <Bullets items={t.dashBullets} className="mt-4" />
-      <H>{t.realH}</H>
-      <p className="mb-4">{t.real}</p>
-      {/* screenshots of the real dashboard, run against a made-up state.json */}
-      <div className="grid grid-cols-2 gap-4">
-        {[PanelTop, PanelBottom].map((src, i) => (
-          <figure key={src}>
-            <img
-              src={src}
-              alt={t.realCaps[i]}
-              loading="lazy"
-              className="w-full rounded-lg border border-[#2e313a] shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
-            />
-            <figcaption className="mt-2 text-[11px] leading-snug text-ink-muted">
-              {t.realCaps[i]}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
     </Article>
   );
 };

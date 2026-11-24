@@ -32,13 +32,14 @@ const GROUPS = {
   },
 };
 
-// each company's colour: the cards, the sidebar dots and the case headers
+// each company's brand colour, sampled from its logo: the cards, the sidebar
+// dots and the case headers. Autopractik takes Ancora Dual's blue
 const ACCENT = {
-  "011h": "#f0a35e",
-  planck: "#6f9cf0",
-  pep: "#5cc58a",
-  ancora: "#e3c35a",
-  side: "#c49bc4",
+  "011h": "#3b683a",
+  planck: "#a868e8",
+  pep: "#03aa4b",
+  ancora: "#297ffa",
+  side: "#f0a35e",
 };
 
 const ALL = {
@@ -192,7 +193,7 @@ export const CASES = [
 // screenshot as the preview, the name and company underneath
 const Card = ({ c, lang, onOpen }) => (
   <div style={{ "--accent": ACCENT[c.co] }} className="group relative">
-    <div className="thumb h-[160px] overflow-hidden rounded-lg bg-[#191b20] ring-1 ring-white/10 transition group-hover:ring-2 group-hover:ring-[color:var(--accent)] group-has-[:focus-visible]:ring-2 group-has-[:focus-visible]:ring-[color:var(--accent)]">
+    <div className="thumb h-[160px] overflow-hidden rounded-lg bg-p-sunk ring-1 ring-p-fg/10 transition group-hover:ring-2 group-hover:ring-[color:var(--accent)] group-has-[:focus-visible]:ring-2 group-has-[:focus-visible]:ring-[color:var(--accent)]">
       {c.phones ? (
         <div className="flex justify-center gap-3 pt-4">
           {c.phones.map((src) => (
@@ -201,7 +202,7 @@ const Card = ({ c, lang, onOpen }) => (
               src={src}
               alt=""
               loading="lazy"
-              className="w-[110px] rounded-[14px] border-[3px] border-[#2e313a] shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
+              className="w-[110px] rounded-[14px] border-[3px] border-p-line shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
             />
           ))}
         </div>
@@ -228,11 +229,11 @@ const Card = ({ c, lang, onOpen }) => (
     <button
       type="button"
       onClick={onOpen}
-      className="mt-2.5 text-left text-[13px] font-semibold text-white outline-none after:absolute after:inset-0"
+      className="mt-2.5 text-left text-[13px] font-semibold text-p-fg outline-none after:absolute after:inset-0"
     >
       {c.title[lang] || c.title.en}
     </button>
-    <div className="text-[11px] text-ink-muted">{c.sub}</div>
+    <div className="text-[11px] text-p-muted">{c.sub}</div>
   </div>
 );
 
@@ -256,7 +257,7 @@ const Projects = ({ win, tab }) => {
   const group = (side) => GROUPS[side ? "side" : "work"];
   const heading = (side) => (
     <div
-      className={`flex-none self-center px-3 pb-1 pt-3 text-[10px] uppercase tracking-[0.14em] text-ink-muted sm:self-auto`}
+      className={`flex-none self-center px-3 pb-1 pt-3 text-[10px] uppercase tracking-[0.14em] text-p-muted sm:self-auto`}
     >
       {group(side)[lang] || group(side).en}
     </div>
@@ -276,10 +277,10 @@ const Projects = ({ win, tab }) => {
       }
     >
       {!open ? (
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-8 pt-2 sm:px-6">
+        <div className="proj min-h-0 flex-1 overflow-y-auto bg-p-surface px-4 pb-8 pt-2 text-p-fg sm:px-6">
           {[false, true].map((side) => (
             <section key={String(side)}>
-              <h3 className="mb-3 mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+              <h3 className="mb-3 mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-p-muted">
                 {group(side)[lang] || group(side).en}
               </h3>
               <div className="grid grid-cols-1 gap-x-5 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -297,15 +298,15 @@ const Projects = ({ win, tab }) => {
         </div>
       ) : (
         // phones: the list is a row of tabs on top
-        <div className="flex min-h-0 flex-1 flex-col sm:flex-row">
+        <div className="proj flex min-h-0 flex-1 flex-col bg-p-surface text-p-fg sm:flex-row">
           <nav
             data-cases
-            className="flex flex-none gap-0.5 overflow-x-auto border-b border-[#2e313a] bg-[#1a1c21] p-2 sm:w-[190px] sm:flex-col sm:border-b-0 sm:border-r"
+            className="flex flex-none gap-0.5 overflow-x-auto border-b border-p-line bg-p-side p-2 sm:w-[190px] sm:flex-col sm:border-b-0 sm:border-r"
           >
             <button
               type="button"
               onClick={() => setId(null)}
-              className="flex-none rounded-md px-3 py-2 text-left text-[13px] font-semibold text-ink-muted hover:bg-white/5 hover:text-ink-text"
+              className="flex-none rounded-md px-3 py-2 text-left text-[13px] font-semibold text-p-muted hover:bg-p-fg/5 hover:text-p-fg"
             >
               ← {ALL[lang] || ALL.en}
             </button>
@@ -317,7 +318,7 @@ const Projects = ({ win, tab }) => {
                   type="button"
                   aria-current={c.id === id}
                   onClick={() => setId(c.id)}
-                  className={`flex-none rounded-md px-3 py-2 text-left ${c.id === id ? "bg-white/10" : "hover:bg-white/5"}`}
+                  className={`flex-none rounded-md px-3 py-2 text-left ${c.id === id ? "bg-p-fg/10" : "hover:bg-p-fg/5"}`}
                 >
                   <div className="flex items-center gap-2 text-[13px] font-semibold">
                     <i
@@ -326,7 +327,7 @@ const Projects = ({ win, tab }) => {
                     />
                     {c.title[lang] || c.title.en}
                   </div>
-                  <div className="pl-4 text-[11px] text-ink-muted">{c.sub}</div>
+                  <div className="pl-4 text-[11px] text-p-muted">{c.sub}</div>
                 </button>
               </React.Fragment>
             ))}

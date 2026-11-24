@@ -37,7 +37,6 @@ import FolderIcon from "./assets/icons/apps/folder.png";
 import FileIcon from "./assets/icons/apps/doc-md.svg";
 import TrashIcon from "./assets/icons/apps/trash.png";
 import PhotosIcon from "./assets/icons/apps/photos.png";
-import HtmlIcon from "./assets/icons/apps/doc-html.svg";
 import BooksIcon from "./assets/icons/apps/books.png";
 import BarcelonaWall from "./assets/wallpapers/barcelona.jpg";
 import StarsWall from "./assets/wallpapers/stars.jpg";
@@ -465,7 +464,7 @@ const Desktop = ({ phone }) => {
     {
       id: "about",
       label: "about-me.html",
-      icon: HtmlIcon,
+      emoji: "👨🏻‍💻",
       act: () => go("about"),
     },
     {
@@ -640,12 +639,21 @@ const Desktop = ({ phone }) => {
               style={{ left: x, top: y }}
               className="absolute flex w-24 touch-none select-none flex-col items-center gap-1.5 rounded-lg py-1.5 text-white hover:bg-white/10 active:bg-white/15"
             >
-              <img
-                src={f.icon}
-                alt=""
-                draggable={false}
-                className="pointer-events-none h-10 w-10 drop-shadow-[0_4px_8px_rgba(40,20,60,0.3)]"
-              />
+              {f.emoji ? (
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none flex h-10 w-10 items-center justify-center text-[40px] leading-none drop-shadow-[0_4px_8px_rgba(40,20,60,0.3)]"
+                >
+                  {f.emoji}
+                </span>
+              ) : (
+                <img
+                  src={f.icon}
+                  alt=""
+                  draggable={false}
+                  className="pointer-events-none h-10 w-10 drop-shadow-[0_4px_8px_rgba(40,20,60,0.3)]"
+                />
+              )}
               <span className="whitespace-nowrap rounded-[5px] bg-ink-950/70 px-[7px] py-0.5 text-xs font-medium">
                 {f.label}
               </span>
