@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Article, Bullets, Chip, H, Intro, Snippet, useCopy } from "./ui";
+import { Article, Chip, H, Intro, Prose, Snippet, useCopy } from "./ui";
 
 // 011h Builder, the construction planning service. The real code is closed
 // source, so the snippets are rewritten and simplified for this page, and
@@ -39,10 +39,11 @@ const HOLIDAY = 7; // the 8th working day
 
 const COPY = {
   en: {
-    stats: [
-      ["Now", "my current project"],
-      ["Floor by floor", "trains of trades"],
-      ["v2", "read contract"],
+    endH: "Delays against a snapshot",
+    built: [
+      "I’ve worked on it since July 2026 and written a large part of it. A planning gets its trains from a master template, and a train’s days are merged into bars; plannings can be reordered within a project. Bars go from one-day activities to multi-day ones that keep their working days when you move, copy or undo them, and they’re read through a new v2 contract. I also work on the Look-Ahead: each planning’s row order, late locations flagged on the week bars, and overdue cards grouped by area.",
+      "Snapshots are the plan’s baselines. You can save, list, read, rename and delete them, delays are measured against each one on the calendar it was saved with, and when a bar moves to another area the day it moved is kept. Each process has a provider, cascaded to its activities and audited on every change. Underneath, check constraints cover ranges, dates and self-dependencies, alongside Postgres enums and case-insensitive unique names.",
+      "It’s been a hard project. Working out the database structure took a lot, then making the queries fast, and after that the replanning engine.",
     ],
     trades: { structure: "Structure", mep: "MEP", finishes: "Finishes" },
     floor: (n) => `Floor ${n}`,
@@ -60,45 +61,15 @@ const COPY = {
     title: "Construction planning",
     pitch:
       "The service behind 011h Builder, where site teams plan a building as trains of trades rolling floor by floor, and see what slipped against the plan they promised.",
-    ideaH: "The idea",
     idea: "A building goes up floor by floor, and each floor goes through the same trades in the same order: a train. Builder lays those trains out on a calendar as bars, keeps a few weeks’ Look-Ahead for the site, and lets the team save snapshots of the plan to measure delays against later. Try it:",
-    builtH: "What I build",
-    built:
-      "It’s the project I’m on now, and I’ve been its main contributor since the summer:",
-    bullets: [
-      [
-        "Plannings and trains.",
-        "Plannings in a reorderable order per project, trains imported from a master template, and a train’s days merged into bars.",
-      ],
-      [
-        "Bars.",
-        "From one-day activities to multi-day bars that keep their working days when moved, copied or undone, behind a new v2 read contract.",
-      ],
-      [
-        "The Look-Ahead.",
-        "Each planning’s row order, late locations flagged on the week bars, and overdue cards grouped by area.",
-      ],
-      [
-        "Providers.",
-        "A provider per process, cascaded to its activities, with every change audited.",
-      ],
-      [
-        "Snapshots.",
-        "Save, list, read, rename and delete a planning’s baselines; delays measured against them, each on the calendar it was saved with; and the day a bar moved to another area kept.",
-      ],
-      [
-        "Data that can’t go wrong.",
-        "Check constraints for ranges, dates and self-dependencies, Postgres enums, and case-insensitive unique names.",
-      ],
-    ],
-    endH: "A promise keeps its own calendar",
-    testH: "The test that pins it down",
+    builtH: "What I’ve built",
   },
   es: {
-    stats: [
-      ["Ahora", "mi proyecto actual"],
-      ["Planta a planta", "trenes de oficios"],
-      ["v2", "contrato de lectura"],
+    endH: "Retrasos respecto a una instantánea",
+    built: [
+      "He trabajado en él desde julio de 2026 y he escrito buena parte. Una planificación saca sus trenes de una plantilla maestra, y los días de un tren se fusionan en barras; dentro de un proyecto, las planificaciones se pueden reordenar. Las barras van de actividades de un día a otras de varios días que conservan sus días laborables al moverlas, copiarlas o deshacer, y se leen a través de un nuevo contrato v2. También trabajo en el Look-Ahead: el orden de filas de cada planificación, las ubicaciones con retraso marcadas en las barras semanales y las tarjetas vencidas agrupadas por zona.",
+      "Las instantáneas son las líneas base del plan. Se pueden guardar, listar, leer, renombrar y borrar, los retrasos se miden respecto a cada una con el calendario con que se guardó, y si una barra cambia de zona queda registrado el día. Cada proceso tiene un proveedor, propagado a sus actividades y auditado en cada cambio. Por debajo hay restricciones de comprobación para rangos, fechas y autodependencias, enums de Postgres y nombres únicos sin distinguir mayúsculas.",
+      "Está siendo un proyecto difícil. Dar con la estructura de la base de datos costó mucho, luego hacer que las consultas fueran rápidas, y después el motor de replanificación.",
     ],
     trades: {
       structure: "Estructura",
@@ -121,45 +92,15 @@ const COPY = {
     title: "Planificación de obra",
     pitch:
       "El servicio detrás de 011h Builder, donde los equipos de obra planifican un edificio como trenes de oficios que avanzan planta a planta, y ven qué se ha retrasado respecto al plan que prometieron.",
-    ideaH: "La idea",
     idea: "Un edificio sube planta a planta, y cada planta pasa por los mismos oficios en el mismo orden: un tren. Builder coloca esos trenes en un calendario como barras, mantiene un Look-Ahead de unas semanas para la obra, y deja guardar instantáneas del plan para medir después los retrasos. Pruébalo:",
-    builtH: "Lo que construyo",
-    built:
-      "Es el proyecto en el que estoy ahora, y desde el verano soy su principal contribuidor:",
-    bullets: [
-      [
-        "Planificaciones y trenes.",
-        "Planificaciones con un orden reordenable por proyecto, trenes importados de una plantilla maestra, y los días de un tren fusionados en barras.",
-      ],
-      [
-        "Barras.",
-        "De actividades de un día a barras de varios días que conservan sus días laborables al moverlas, copiarlas o deshacer, tras un nuevo contrato de lectura v2.",
-      ],
-      [
-        "El Look-Ahead.",
-        "El orden de filas de cada planificación, las ubicaciones con retraso marcadas en las barras semanales, y las tarjetas vencidas agrupadas por zona.",
-      ],
-      [
-        "Proveedores.",
-        "Un proveedor por proceso, propagado a sus actividades, con cada cambio auditado.",
-      ],
-      [
-        "Instantáneas.",
-        "Guardar, listar, leer, renombrar y borrar las líneas base de una planificación; los retrasos medidos respecto a ellas, cada una con el calendario con que se guardó; y el día en que una barra cambió de zona, registrado.",
-      ],
-      [
-        "Datos que no pueden fallar.",
-        "Restricciones de comprobación para rangos, fechas y autodependencias, enums de Postgres, y nombres únicos sin distinguir mayúsculas.",
-      ],
-    ],
-    endH: "Una promesa conserva su propio calendario",
-    testH: "El test que lo deja claro",
+    builtH: "Lo que he construido",
   },
   ca: {
-    stats: [
-      ["Ara", "el meu projecte actual"],
-      ["Planta a planta", "trens d’oficis"],
-      ["v2", "contracte de lectura"],
+    endH: "Retards respecte a una instantània",
+    built: [
+      "Hi he treballat des del juliol del 2026 i n’he escrit bona part. Una planificació treu els trens d’una plantilla mestra, i els dies d’un tren es fusionen en barres; dins d’un projecte, les planificacions es poden reordenar. Les barres van d’activitats d’un dia a d’altres de diversos dies que conserven els seus dies feiners quan es mouen, es copien o es desfan, i es llegeixen a través d’un nou contracte v2. També treballo en el Look-Ahead: l’ordre de files de cada planificació, les ubicacions amb retard marcades a les barres setmanals i les targetes vençudes agrupades per zona.",
+      "Les instantànies són les línies base del pla. Es poden desar, llistar, llegir, reanomenar i esborrar, els retards es mesuren respecte a cadascuna amb el calendari amb què es va desar, i si una barra canvia de zona en queda registrat el dia. Cada procés té un proveïdor, propagat a les seves activitats i auditat a cada canvi. Per sota hi ha restriccions de comprovació per a rangs, dates i autodependències, enums de Postgres i noms únics sense distingir majúscules.",
+      "Està sent un projecte difícil. Trobar l’estructura de la base de dades va costar molt, després fer que les consultes fossin ràpides, i després el motor de replanificació.",
     ],
     trades: {
       structure: "Estructura",
@@ -182,39 +123,8 @@ const COPY = {
     title: "Planificació d’obra",
     pitch:
       "El servei darrere de 011h Builder, on els equips d’obra planifiquen un edifici com a trens d’oficis que avancen planta a planta, i veuen què s’ha retardat respecte al pla que van prometre.",
-    ideaH: "La idea",
     idea: "Un edifici puja planta a planta, i cada planta passa pels mateixos oficis en el mateix ordre: un tren. Builder col·loca aquests trens en un calendari com a barres, manté un Look-Ahead d’unes setmanes per a l’obra, i permet desar instantànies del pla per mesurar-hi després els retards. Prova-ho:",
-    builtH: "El que construeixo",
-    built:
-      "És el projecte on soc ara, i des de l’estiu en soc el principal contribuïdor:",
-    bullets: [
-      [
-        "Planificacions i trens.",
-        "Planificacions amb un ordre reordenable per projecte, trens importats d’una plantilla mestra, i els dies d’un tren fusionats en barres.",
-      ],
-      [
-        "Barres.",
-        "D’activitats d’un dia a barres de diversos dies que conserven els seus dies feiners quan es mouen, es copien o es desfan, darrere d’un nou contracte de lectura v2.",
-      ],
-      [
-        "El Look-Ahead.",
-        "L’ordre de files de cada planificació, les ubicacions amb retard marcades a les barres setmanals, i les targetes vençudes agrupades per zona.",
-      ],
-      [
-        "Proveïdors.",
-        "Un proveïdor per procés, propagat a les seves activitats, amb cada canvi auditat.",
-      ],
-      [
-        "Instantànies.",
-        "Desar, llistar, llegir, reanomenar i esborrar les línies base d’una planificació; els retards mesurats respecte a elles, cadascuna amb el calendari amb què es va desar; i el dia que una barra va canviar de zona, registrat.",
-      ],
-      [
-        "Dades que no poden fallar.",
-        "Restriccions de comprovació per a rangs, dates i autodependències, enums de Postgres, i noms únics sense distingir majúscules.",
-      ],
-    ],
-    endH: "Una promesa conserva el seu propi calendari",
-    testH: "El test que ho deixa clar",
+    builtH: "El que he construït",
   },
 };
 
@@ -386,26 +296,24 @@ const Builder = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="011h · 2026"
         title={t.title}
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.ideaH}</H>
-      <p className="mb-4">{t.idea}</p>
+      <p className="mb-4 mt-6">{t.idea}</p>
       <Schedule />
       <H>{t.builtH}</H>
-      <p className="mb-2">{t.built}</p>
-      <Bullets items={t.bullets} />
+      <Prose items={t.built} />
       <H>{t.endH}</H>
       <Snippet file="snapshot_delays.py" language="python" code={END} />
-      <H>{t.testH}</H>
-      <Snippet
-        file="snapshot_calendar.feature"
-        language="gherkin"
-        code={SCENARIO}
-      />
+      <div className="mt-4">
+        <Snippet
+          file="snapshot_calendar.feature"
+          language="gherkin"
+          code={SCENARIO}
+        />
+      </div>
     </Article>
   );
 };

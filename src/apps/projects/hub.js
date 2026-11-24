@@ -4,11 +4,11 @@ import {
   ArrowDefs,
   Article,
   Box,
-  Bullets,
   Edge,
   H,
   Intro,
   Pick,
+  Prose,
   Snippet,
   useCopy,
 } from "./ui";
@@ -94,11 +94,6 @@ const NODES = [
 
 const COPY = {
   en: {
-    stats: [
-      ["0", "changes to the scanners"],
-      ["E2E", "mail stays encrypted"],
-      ["Rust", "milter"],
-    ],
     nodes: [
       "Sender",
       "encrypted mail",
@@ -125,44 +120,21 @@ const COPY = {
     aria: "Mail flows from the sender into Postfix, which hands it to the Hub milter. The milter decrypts a copy and streams the plaintext to each scanner. If they all pass, Postfix relays the original encrypted mail to the next hop; if one fails, the mail is discarded and the admin is alerted. Below, the admin UI saves settings through the config API into Redis, and the milter reloads them.",
     pitch:
       "An email security gateway that lets a company’s existing antivirus and data-loss scanners read end-to-end encrypted email, without changing the scanners.",
-    problemH: "The problem",
     problem:
       "Planck encrypts email end to end with PGP. That’s great for privacy, but the antivirus and DLP appliances companies already run now see only ciphertext, and most of them can’t be changed.",
-    howH: "How it works",
     how: "The Hub plugs into Postfix as a milter. Mail is also encrypted to an organisation key, so the Hub decrypts a copy, streams the plaintext through every scanner and acts on the verdict. Clean mail goes on exactly as it arrived, still encrypted. Pick a verdict and watch a message go through:",
-    builtH: "What I built",
-    built:
-      "I was the main author of the Rust Hub, from the first milter prototype to the 4.0 releases:",
-    bullets: [
-      [
-        "The milter.",
-        "It rebuilds each SMTP transaction into a full message, decrypts it, runs the scanners and maps every outcome to the right SMTP answer: relay, retry later or discard.",
-      ],
-      [
-        "The control plane.",
-        "A config API (axum, JWT, Redis) and a React admin UI for settings, keys and a live log viewer.",
-      ],
-      [
-        "Live reconfiguration.",
-        "Saving in the UI re-renders the Postfix and milter config and restarts the milter, with no redeploy.",
-      ],
-      [
-        "Packaging and CI.",
-        "One Docker Compose file to install it; clippy, cargo-audit, an SBOM scan and coverage on every push.",
-      ],
+    builtH: "My part",
+    built: [
+      "I was the main author of the Rust Hub, from the first milter prototype to the 4.0 releases. The milter rebuilds each SMTP transaction into a whole message, decrypts it, runs the scanners, and then has to give Postfix the right answer for whatever happened: relay it, try again later, or discard it.",
+      "Around that there’s a config API in axum (JWT, settings in Redis) and a React admin for settings, keys and a live log. When you save something there, the Postfix and milter config get rewritten and the milter restarts, so a change doesn’t need a redeploy. It installs from one Docker Compose file, and every push runs clippy, cargo-audit, an SBOM scan and coverage.",
     ],
-    scanH: "Plugging in any scanner",
-    loopH: "Not inspecting our own mail",
-    beforeH: "Before: a Python pipe",
+    scanH: "A scanner is just a command",
+    loopH: "The Hub’s own alerts",
+    beforeH: "The Python version it replaced",
     before:
-      "It started as planck_proxy, a script Postfix ran for every message. I took the inherited script and turned it into a tested, Dockerised package, then rewrote it in Rust as a milter, which talks to Postfix during the SMTP session instead of being spawned once per mail.",
+      "Planck had decided to move to Rust, for efficiency and because robustness matters in a security company. It started as planck_proxy, a script Postfix ran for every message. I took the inherited script and turned it into a tested, Dockerised package, then rewrote it in Rust as a milter, which talks to Postfix during the SMTP session instead of being spawned once per mail.",
   },
   es: {
-    stats: [
-      ["0", "cambios en los escáneres"],
-      ["E2E", "el correo sigue cifrado"],
-      ["Rust", "milter"],
-    ],
     nodes: [
       "Remitente",
       "correo cifrado",
@@ -189,44 +161,21 @@ const COPY = {
     aria: "El correo va del remitente a Postfix, que se lo pasa al milter del Hub. El milter descifra una copia y envía el texto plano a cada escáner. Si todos lo aprueban, Postfix reenvía el correo original cifrado al siguiente salto; si uno falla, el correo se descarta y se avisa al administrador. Debajo, la interfaz de administración guarda los ajustes en Redis a través de la API de configuración, y el milter los recarga.",
     pitch:
       "Una pasarela de seguridad de correo que permite a los antivirus y escáneres de fuga de datos que una empresa ya tiene leer correo cifrado de extremo a extremo, sin cambiar los escáneres.",
-    problemH: "El problema",
     problem:
       "Planck cifra el correo de extremo a extremo con PGP. Genial para la privacidad, pero los antivirus y los sistemas DLP que las empresas ya usan pasan a ver solo texto cifrado, y la mayoría no se pueden cambiar.",
-    howH: "Cómo funciona",
     how: "El Hub se conecta a Postfix como milter. El correo también se cifra para una clave de la organización, así que el Hub descifra una copia, pasa el texto plano por cada escáner y actúa según el veredicto. El correo limpio sigue tal como llegó, todavía cifrado. Elige un veredicto y mira cómo pasa un mensaje:",
-    builtH: "Lo que construí",
-    built:
-      "Fui el autor principal del Hub en Rust, desde el primer prototipo del milter hasta las versiones 4.0:",
-    bullets: [
-      [
-        "El milter.",
-        "Reconstruye cada transacción SMTP en un mensaje completo, lo descifra, ejecuta los escáneres y traduce cada resultado a la respuesta SMTP adecuada: reenviar, reintentar más tarde o descartar.",
-      ],
-      [
-        "El plano de control.",
-        "Una API de configuración (axum, JWT, Redis) y una interfaz de administración en React para ajustes, claves y un visor de logs en directo.",
-      ],
-      [
-        "Reconfiguración en caliente.",
-        "Al guardar en la interfaz se regenera la configuración de Postfix y del milter y se reinicia el milter, sin redesplegar.",
-      ],
-      [
-        "Empaquetado y CI.",
-        "Un solo fichero de Docker Compose para instalarlo; clippy, cargo-audit, un análisis del SBOM y cobertura en cada push.",
-      ],
+    builtH: "Mi parte",
+    built: [
+      "Fui el autor principal del Hub en Rust, desde el primer prototipo del milter hasta las versiones 4.0. El milter reconstruye cada transacción SMTP en un mensaje entero, lo descifra, pasa los escáneres y luego tiene que darle a Postfix la respuesta correcta según lo que haya pasado: reenviarlo, reintentarlo más tarde o descartarlo.",
+      "Alrededor hay una API de configuración en axum (JWT, ajustes en Redis) y un panel en React para ajustes, claves y un log en directo. Cuando guardas algo ahí, se reescribe la configuración de Postfix y del milter y el milter se reinicia, así que un cambio no necesita redesplegar. Se instala con un solo fichero de Docker Compose, y cada push pasa clippy, cargo-audit, un análisis del SBOM y cobertura.",
     ],
-    scanH: "Cualquier escáner vale",
-    loopH: "Sin inspeccionar nuestro propio correo",
-    beforeH: "Antes: un pipe en Python",
+    scanH: "Un escáner es solo un comando",
+    loopH: "Las alertas del propio Hub",
+    beforeH: "La versión anterior, en Python",
     before:
-      "Empezó como planck_proxy, un script que Postfix ejecutaba para cada mensaje. Convertí el script heredado en un paquete con tests y Docker, y después lo reescribí en Rust como milter, que habla con Postfix durante la sesión SMTP en lugar de lanzarse una vez por correo.",
+      "Planck había decidido pasarse a Rust, por eficiencia y porque en una empresa de ciberseguridad la robustez importa. Empezó como planck_proxy, un script que Postfix ejecutaba para cada mensaje. Convertí el script heredado en un paquete con tests y Docker, y después lo reescribí en Rust como milter, que habla con Postfix durante la sesión SMTP en lugar de lanzarse una vez por correo.",
   },
   ca: {
-    stats: [
-      ["0", "canvis als escàners"],
-      ["E2E", "el correu continua xifrat"],
-      ["Rust", "milter"],
-    ],
     nodes: [
       "Remitent",
       "correu xifrat",
@@ -253,37 +202,19 @@ const COPY = {
     aria: "El correu va del remitent a Postfix, que el passa al milter del Hub. El milter desxifra una còpia i envia el text pla a cada escàner. Si tots l’aproven, Postfix reenvia el correu original xifrat al següent salt; si un falla, el correu es descarta i s’avisa l’administrador. A sota, la interfície d’administració desa la configuració a Redis a través de l’API de configuració, i el milter la recarrega.",
     pitch:
       "Una passarel·la de seguretat de correu que permet als antivirus i escàners de fuga de dades que una empresa ja té llegir correu xifrat d’extrem a extrem, sense canviar els escàners.",
-    problemH: "El problema",
     problem:
       "Planck xifra el correu d’extrem a extrem amb PGP. Molt bé per a la privadesa, però els antivirus i els sistemes DLP que les empreses ja fan servir passen a veure només text xifrat, i la majoria no es poden canviar.",
-    howH: "Com funciona",
     how: "El Hub es connecta a Postfix com a milter. El correu també es xifra per a una clau de l’organització, així que el Hub en desxifra una còpia, passa el text pla per cada escàner i actua segons el veredicte. El correu net continua tal com ha arribat, encara xifrat. Tria un veredicte i mira com passa un missatge:",
-    builtH: "El que vaig construir",
-    built:
-      "Vaig ser l’autor principal del Hub en Rust, des del primer prototip del milter fins a les versions 4.0:",
-    bullets: [
-      [
-        "El milter.",
-        "Reconstrueix cada transacció SMTP en un missatge complet, el desxifra, executa els escàners i tradueix cada resultat a la resposta SMTP adequada: reenviar, reintentar més tard o descartar.",
-      ],
-      [
-        "El pla de control.",
-        "Una API de configuració (axum, JWT, Redis) i una interfície d’administració en React per a la configuració, les claus i un visor de logs en directe.",
-      ],
-      [
-        "Reconfiguració en calent.",
-        "En desar a la interfície es regenera la configuració de Postfix i del milter i es reinicia el milter, sense tornar a desplegar.",
-      ],
-      [
-        "Empaquetament i CI.",
-        "Un sol fitxer de Docker Compose per instal·lar-lo; clippy, cargo-audit, una anàlisi de l’SBOM i cobertura a cada push.",
-      ],
+    builtH: "La meva part",
+    built: [
+      "Vaig ser l’autor principal del Hub en Rust, des del primer prototip del milter fins a les versions 4.0. El milter reconstrueix cada transacció SMTP en un missatge sencer, el desxifra, hi passa els escàners i després ha de donar a Postfix la resposta correcta segons el que hagi passat: reenviar-lo, tornar-ho a provar més tard o descartar-lo.",
+      "Al voltant hi ha una API de configuració en axum (JWT, configuració a Redis) i un panell en React per a la configuració, les claus i un log en directe. Quan hi deses alguna cosa, es reescriu la configuració de Postfix i del milter i el milter es reinicia, així que un canvi no necessita tornar a desplegar. S’instal·la amb un sol fitxer de Docker Compose, i cada push passa clippy, cargo-audit, una anàlisi de l’SBOM i cobertura.",
     ],
-    scanH: "Qualsevol escàner hi encaixa",
-    loopH: "Sense inspeccionar el nostre propi correu",
-    beforeH: "Abans: un pipe en Python",
+    scanH: "Un escàner és només una ordre",
+    loopH: "Les alertes del mateix Hub",
+    beforeH: "La versió anterior, en Python",
     before:
-      "Va començar com a planck_proxy, un script que Postfix executava per a cada missatge. Vaig convertir l’script heretat en un paquet amb tests i Docker, i després el vaig reescriure en Rust com a milter, que parla amb Postfix durant la sessió SMTP en lloc d’executar-se un cop per correu.",
+      "Planck havia decidit passar-se a Rust, per eficiència i perquè en una empresa de ciberseguretat la robustesa importa. Va començar com a planck_proxy, un script que Postfix executava per a cada missatge. Vaig convertir l’script heretat en un paquet amb tests i Docker, i després el vaig reescriure en Rust com a milter, que parla amb Postfix durant la sessió SMTP en lloc d’executar-se un cop per correu.",
   },
 };
 
@@ -420,20 +351,16 @@ const SecurityHub = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="Planck Security · 2024"
         title="Planck Security Hub"
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.problemH}</H>
-      <p>{t.problem}</p>
-      <H>{t.howH}</H>
-      <p className="mb-4">{t.how}</p>
+      <p className="mt-6">{t.problem}</p>
+      <p className="mb-4 mt-3">{t.how}</p>
       <HubDiagram />
       <H>{t.builtH}</H>
-      <p className="mb-2">{t.built}</p>
-      <Bullets items={t.bullets} />
+      <Prose items={t.built} />
       <H>{t.scanH}</H>
       <Snippet file="scanners.rs" language="rust" code={SCAN} />
       <H>{t.loopH}</H>

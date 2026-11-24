@@ -29,10 +29,13 @@ async def save(self, capture: Capture, read_version: int) -> bool:
 
 const COPY = {
   en: {
-    stats: [
-      ["WhatsApp", "a voice note, no forms"],
-      ["3 parts", "problem, impact, solution"],
-      ["Checked", "back with the worker"],
+    story: "By late 2026 workers on site were using it, and it had captured several real lessons.",
+    idea: "Nobody on a construction site stops to fill in a form, so lessons learned get lost. Try it:",
+    bullets: [
+      "The WhatsApp gateway: signed webhooks, voice notes and photos, sessions, and a router that tells a delivery note from a lesson learned.",
+      "The capture conversation itself, built with a colleague: transcription, extraction, the recap, and confirm or correct.",
+      "The timers. A reminder goes out after a quiet spell and abandoned captures are closed on schedule, and every write is version-checked so a timer never overwrites a newer message.",
+      "The learnings service, most of which I wrote in 2026: the review back office with statuses and reasons, the event transport, and sharing with site teams, including what they opened and answered.",
     ],
     recap: {
       problem:
@@ -77,35 +80,18 @@ const COPY = {
     title: "Lessons learned, by voice note",
     pitch:
       "A site worker sends a WhatsApp voice note; the assistant turns it into a structured lesson learned, checks it back with them, and sends it for review and on to other sites.",
-    ideaH: "The idea",
-    idea: "Nobody on a construction site stops to fill in a form, so lessons learned get lost. With 011h, a worker sends a WhatsApp voice note instead, and the assistant turns it into a problem, an impact and a solution, checks it back with them, and sends it for review. Try it:",
     builtH: "What I built",
     built:
       "The assistant’s agent loop is a colleague’s work. I built the WhatsApp channel and the learnings on top of it:",
-    bullets: [
-      [
-        "The WhatsApp gateway.",
-        "Signed webhooks, voice notes and photos, sessions, and a router that tells a delivery note from a lesson learned.",
-      ],
-      [
-        "The capture conversation.",
-        "Built with a colleague: transcription, extraction, the recap, and confirm or correct.",
-      ],
-      [
-        "Timers that don’t race.",
-        "A reminder after a quiet spell and abandoned captures closed on schedule, with every write version-checked so a timer never overwrites a newer message.",
-      ],
-      [
-        "The learnings service.",
-        "As its main author: the review back office with statuses and reasons, the event transport, and sharing with site teams, including what they opened and answered.",
-      ],
-    ],
   },
   es: {
-    stats: [
-      ["WhatsApp", "una nota de voz, sin formularios"],
-      ["3 partes", "problema, impacto, solución"],
-      ["Revisada", "con quien la envió"],
+    story: "A finales de 2026 el personal de obra ya lo usaba, y había recogido varias lecciones reales.",
+    idea: "En una obra nadie se para a rellenar un formulario, así que las lecciones aprendidas se pierden. Pruébalo:",
+    bullets: [
+      "La pasarela de WhatsApp: webhooks firmados, notas de voz y fotos, sesiones, y un enrutador que distingue un albarán de una lección aprendida.",
+      "La conversación de captura, hecha junto a otra persona del equipo: transcripción, extracción, el resumen, y confirmar o corregir.",
+      "Los temporizadores. Sale un recordatorio tras un rato sin respuesta y las capturas abandonadas se cierran a su hora, y cada escritura se comprueba por versión para que un temporizador nunca pise un mensaje más reciente.",
+      "El servicio de lecciones, que escribí en buena parte en 2026: el back office de revisión con estados y motivos, el transporte de eventos, y la difusión a los equipos de obra, incluido qué abrieron y qué respondieron.",
     ],
     recap: {
       problem:
@@ -150,35 +136,18 @@ const COPY = {
     title: "Lecciones aprendidas, por nota de voz",
     pitch:
       "Un trabajador de obra envía una nota de voz por WhatsApp; el asistente la convierte en una lección aprendida estructurada, la repasa con quien la envió y la envía a revisión y a otras obras.",
-    ideaH: "La idea",
-    idea: "En una obra nadie se para a rellenar un formulario, así que las lecciones aprendidas se pierden. Con 011h, el trabajador envía una nota de voz por WhatsApp y el asistente la convierte en un problema, un impacto y una solución, la repasa con quien la envió y la envía a revisión. Pruébalo:",
     builtH: "Lo que construí",
     built:
       "El bucle de agente del asistente es obra de otra persona del equipo. Yo construí el canal de WhatsApp y las lecciones encima:",
-    bullets: [
-      [
-        "La pasarela de WhatsApp.",
-        "Webhooks firmados, notas de voz y fotos, sesiones, y un enrutador que distingue un albarán de una lección aprendida.",
-      ],
-      [
-        "La conversación de captura.",
-        "Hecha junto a otra persona del equipo: transcripción, extracción, el resumen, y confirmar o corregir.",
-      ],
-      [
-        "Temporizadores sin carreras.",
-        "Un recordatorio tras un rato sin respuesta y las capturas abandonadas cerradas a su hora, con cada escritura comprobada por versión para que un temporizador nunca pise un mensaje más reciente.",
-      ],
-      [
-        "El servicio de lecciones.",
-        "Como autor principal: el back office de revisión con estados y motivos, el transporte de eventos, y la difusión a los equipos de obra, incluido qué abrieron y qué respondieron.",
-      ],
-    ],
   },
   ca: {
-    stats: [
-      ["WhatsApp", "una nota de veu, sense formularis"],
-      ["3 parts", "problema, impacte, solució"],
-      ["Revisada", "amb qui la va enviar"],
+    story: "A finals del 2026 el personal d’obra ja el feia servir, i havia recollit diverses lliçons reals.",
+    idea: "En una obra ningú no s’atura a omplir un formulari, així que les lliçons apreses es perden. Prova-ho:",
+    bullets: [
+      "La passarel·la de WhatsApp: webhooks signats, notes de veu i fotos, sessions, i un enrutador que distingeix un albarà d’una lliçó apresa.",
+      "La conversa de captura, feta amb una altra persona de l’equip: transcripció, extracció, el resum, i confirmar o corregir.",
+      "Els temporitzadors. Surt un recordatori després d’una estona sense resposta i les captures abandonades es tanquen a l’hora, i cada escriptura es comprova per versió perquè un temporitzador mai no trepitgi un missatge més recent.",
+      "El servei de lliçons, que vaig escriure en bona part el 2026: el back office de revisió amb estats i motius, el transport d’esdeveniments, i la difusió als equips d’obra, inclòs què van obrir i què van respondre.",
     ],
     recap: {
       problem:
@@ -223,29 +192,9 @@ const COPY = {
     title: "Lliçons apreses, per nota de veu",
     pitch:
       "Un treballador d’obra envia una nota de veu per WhatsApp; l’assistent la converteix en una lliçó apresa estructurada, la repassa amb qui l’ha enviat i l’envia a revisió i a altres obres.",
-    ideaH: "La idea",
-    idea: "En una obra ningú no s’atura a omplir un formulari, així que les lliçons apreses es perden. Amb 011h, el treballador envia una nota de veu per WhatsApp i l’assistent la converteix en un problema, un impacte i una solució, la repassa amb qui l’ha enviat i l’envia a revisió. Prova-ho:",
     builtH: "El que vaig construir",
     built:
       "El bucle d’agent de l’assistent és obra d’una altra persona de l’equip. Jo vaig construir el canal de WhatsApp i les lliçons a sobre:",
-    bullets: [
-      [
-        "La passarel·la de WhatsApp.",
-        "Webhooks signats, notes de veu i fotos, sessions, i un enrutador que distingeix un albarà d’una lliçó apresa.",
-      ],
-      [
-        "La conversa de captura.",
-        "Feta amb una altra persona de l’equip: transcripció, extracció, el resum, i confirmar o corregir.",
-      ],
-      [
-        "Temporitzadors sense curses.",
-        "Un recordatori després d’una estona sense resposta i les captures abandonades tancades a l’hora, amb cada escriptura comprovada per versió perquè un temporitzador mai no trepitgi un missatge més recent.",
-      ],
-      [
-        "El servei de lliçons.",
-        "Com a autor principal: el back office de revisió amb estats i motius, el transport d’esdeveniments, i la difusió als equips d’obra, inclòs què van obrir i què van respondre.",
-      ],
-    ],
   },
 };
 
@@ -375,14 +324,12 @@ const Learnings = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="011h · 2026"
         title={t.title}
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.ideaH}</H>
-      <p className="mb-3">{t.idea}</p>
+      <p className="mb-3 mt-6">{t.idea}</p>
       <Capture />
       <ol className="mt-3 flex flex-wrap items-center gap-1.5 text-[11px] text-p-muted">
         {t.pipe.map((p, i) => (
@@ -397,6 +344,7 @@ const Learnings = () => {
       <H>{t.builtH}</H>
       <p className="mb-2">{t.built}</p>
       <Bullets items={t.bullets} />
+      <p className="mt-3">{t.story}</p>
       <div className="mt-4">
         <Snippet file="capture_store.py" language="python" code={CAS} />
       </div>

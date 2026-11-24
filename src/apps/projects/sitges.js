@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   Article,
-  Bullets,
+  Prose,
   Chip,
   H,
   Intro,
@@ -121,10 +121,12 @@ const autoPlan = () => {
 
 const COPY = {
   en: {
-    stats: [
-      ["1", "HTML file"],
-      ["Offline", "installs as an app"],
-      ["Auto-plan", "must-sees first"],
+    shotsH: "Screenshots",
+    built: [
+      "It’s a single HTML page with a service worker, so it works offline and installs on Android as an app. The programme comes from Python scripts that download the festival’s pages, only the ones that changed, and build the schedule with directors, running times and trailers.",
+      "The warnings catch overlaps, venue changes with no time to walk, the same film marked twice, and nights too short before the next morning’s first session. Auto-plan puts must-sees first and never drops them for lower tiers, caps the sessions per day, and for every film that doesn’t fit, tells you which of your sessions is in the way.",
+      "It’s in Catalan and English, plans can be shared, the phone’s Back button works, and I got around an Android rendering bug by drawing the mark animation frame by frame. From the first commit to version 2.1 took under a week, just before the festival.",
+      "I used it at the festival and it was really useful. I sent it to a few colleagues and they used it too, since the official festival app is missing most of the planning features.",
     ],
     tap: "Tap sessions to mark them, or let it plan for you.",
     auto: "Auto-plan my watchlist",
@@ -146,32 +148,8 @@ const COPY = {
     ideaH: "Try a made-up evening",
     idea: "Real venues, made-up films and times. Mark sessions to see the warnings, or let the planner pick one screening of each film on the watchlist, must-sees first:",
     builtH: "What’s in it",
-    bullets: [
-      [
-        "One file, installable.",
-        "A single HTML page with a service worker: it works offline and installs on Android as an app.",
-      ],
-      [
-        "The programme.",
-        "Python scripts download the festival’s pages, only the ones that changed, and build the schedule with directors, running times and trailers.",
-      ],
-      [
-        "Warnings.",
-        "Overlaps, venue changes with no time to walk, the same film marked twice, and nights too short before the next morning’s first session.",
-      ],
-      [
-        "Auto-plan.",
-        "Must-sees first and never dropped for lower tiers, a cap on sessions per day, and for every film that doesn’t fit, which of your sessions is in the way.",
-      ],
-      [
-        "Small touches.",
-        "Catalan and English, shared plans, the phone’s Back button, and an Android rendering bug worked around by drawing the mark animation frame by frame.",
-      ],
-    ],
-    fast: "From first commit to version 2.1 in under a week, just before the festival.",
     codeH: "The search",
     caption: "index.html · trimmed from the public repo",
-    shotsH: "The real thing",
     shots: [
       "The schedule, a day by venue, with my sessions marked",
       "The watchlist, by priority, with what still fits",
@@ -180,10 +158,12 @@ const COPY = {
     ],
   },
   es: {
-    stats: [
-      ["1", "fichero HTML"],
-      ["Sin conexión", "se instala como app"],
-      ["Auto-plan", "imprescindibles primero"],
+    shotsH: "Capturas",
+    built: [
+      "Es una única página HTML con un service worker, así que funciona sin conexión y se instala en Android como una app. La programación sale de unos scripts en Python que descargan las páginas del festival, solo las que han cambiado, y la montan con directores, duraciones y tráilers.",
+      "Los avisos detectan solapamientos, cambios de sala sin tiempo para ir andando, la misma película marcada dos veces y noches demasiado cortas antes de la primera sesión del día siguiente. La planificación automática pone las imprescindibles primero y nunca las descarta por otras, limita las sesiones al día y, para cada película que no cabe, te dice cuál de tus sesiones lo impide.",
+      "Está en catalán e inglés, los planes se pueden compartir, el botón Atrás del móvil funciona, y esquivé un fallo de renderizado de Android dibujando la animación de marcar fotograma a fotograma. Del primer commit a la versión 2.1 pasó menos de una semana, justo antes del festival.",
+      "La usé en el festival y me fue muy útil. Se la pasé a algunas personas del trabajo y también la usaron, porque a la app oficial del festival le faltan casi todas las funciones de planificación.",
     ],
     tap: "Toca sesiones para marcarlas, o deja que planifique por ti.",
     auto: "Planificar mi lista",
@@ -205,32 +185,8 @@ const COPY = {
     ideaH: "Prueba una tarde inventada",
     idea: "Salas reales, películas y horarios inventados. Marca sesiones para ver los avisos, o deja que el planificador elija una proyección de cada película de la lista, las imprescindibles primero:",
     builtH: "Qué tiene",
-    bullets: [
-      [
-        "Un solo fichero, instalable.",
-        "Una única página HTML con un service worker: funciona sin conexión y se instala en Android como una app.",
-      ],
-      [
-        "El programa.",
-        "Unos scripts en Python descargan las páginas del festival, solo las que han cambiado, y montan la programación con directores, duraciones y tráilers.",
-      ],
-      [
-        "Avisos.",
-        "Solapamientos, cambios de sala sin tiempo para ir andando, la misma película marcada dos veces, y noches demasiado cortas antes de la primera sesión del día siguiente.",
-      ],
-      [
-        "Planificación automática.",
-        "Las imprescindibles primero y nunca descartadas por otras, un máximo de sesiones al día, y para cada película que no cabe, cuál de tus sesiones lo impide.",
-      ],
-      [
-        "Pequeños detalles.",
-        "Catalán e inglés, planes compartidos, el botón Atrás del móvil, y un fallo de renderizado de Android esquivado dibujando la animación de marcar fotograma a fotograma.",
-      ],
-    ],
-    fast: "Del primer commit a la versión 2.1 en menos de una semana, justo antes del festival.",
     codeH: "La búsqueda",
     caption: "index.html · recortado del repo público",
-    shotsH: "La app de verdad",
     shots: [
       "La programación, un día por sala, con mis sesiones marcadas",
       "La lista, por prioridad, con lo que aún cabe",
@@ -239,10 +195,12 @@ const COPY = {
     ],
   },
   ca: {
-    stats: [
-      ["1", "fitxer HTML"],
-      ["Sense connexió", "s’instal·la com a app"],
-      ["Auto-pla", "imprescindibles primer"],
+    shotsH: "Captures",
+    built: [
+      "És una única pàgina HTML amb un service worker, així que funciona sense connexió i s’instal·la a Android com una app. La programació surt d’uns scripts en Python que descarreguen les pàgines del festival, només les que han canviat, i la munten amb directors, durades i tràilers.",
+      "Els avisos detecten solapaments, canvis de sala sense temps d’anar-hi a peu, la mateixa pel·lícula marcada dues vegades i nits massa curtes abans de la primera sessió de l’endemà. La planificació automàtica posa les imprescindibles primer i mai no les descarta per d’altres, limita les sessions al dia i, per a cada pel·lícula que no hi cap, et diu quina de les teves sessions ho impedeix.",
+      "És en català i anglès, els plans es poden compartir, el botó Enrere del mòbil funciona, i vaig esquivar un error de renderitzat d’Android dibuixant l’animació de marcar fotograma a fotograma. Del primer commit a la versió 2.1 va passar menys d’una setmana, just abans del festival.",
+      "La vaig fer servir al festival i em va anar molt bé. La vaig passar a algunes persones de la feina i també la van fer servir, perquè a l’app oficial del festival li falten gairebé totes les funcions de planificació.",
     ],
     tap: "Toca sessions per marcar-les, o deixa que planifiqui per tu.",
     auto: "Planifica la meva llista",
@@ -264,32 +222,8 @@ const COPY = {
     ideaH: "Prova una tarda inventada",
     idea: "Sales reals, pel·lícules i horaris inventats. Marca sessions per veure els avisos, o deixa que el planificador triï una projecció de cada pel·lícula de la llista, les imprescindibles primer:",
     builtH: "Què hi ha",
-    bullets: [
-      [
-        "Un sol fitxer, instal·lable.",
-        "Una única pàgina HTML amb un service worker: funciona sense connexió i s’instal·la a Android com una app.",
-      ],
-      [
-        "El programa.",
-        "Uns scripts en Python descarreguen les pàgines del festival, només les que han canviat, i munten la programació amb directors, durades i tràilers.",
-      ],
-      [
-        "Avisos.",
-        "Solapaments, canvis de sala sense temps d’anar-hi a peu, la mateixa pel·lícula marcada dues vegades, i nits massa curtes abans de la primera sessió de l’endemà.",
-      ],
-      [
-        "Planificació automàtica.",
-        "Les imprescindibles primer i mai descartades per d’altres, un màxim de sessions al dia, i per a cada pel·lícula que no hi cap, quina de les teves sessions ho impedeix.",
-      ],
-      [
-        "Petits detalls.",
-        "Català i anglès, plans compartits, el botó Enrere del mòbil, i un error de renderitzat d’Android esquivat dibuixant l’animació de marcar fotograma a fotograma.",
-      ],
-    ],
-    fast: "Del primer commit a la versió 2.1 en menys d’una setmana, just abans del festival.",
     codeH: "La cerca",
     caption: "index.html · retallat del repo públic",
-    shotsH: "L’app de debò",
     shots: [
       "La programació, un dia per sala, amb les meves sessions marcades",
       "La llista, per prioritat, amb el que encara hi cap",
@@ -435,7 +369,6 @@ const Sitges = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="Side project · 2026"
         title={t.title}
         pitch={t.pitch}
@@ -465,8 +398,7 @@ const Sitges = () => {
       <p className="mb-4">{t.idea}</p>
       <Programme />
       <H>{t.builtH}</H>
-      <Bullets items={t.bullets} />
-      <p className="mt-3">{t.fast}</p>
+      <Prose items={t.built} />
       <H>{t.codeH}</H>
       <Snippet caption={t.caption} language="javascript" code={CONFLICT} />
     </Article>

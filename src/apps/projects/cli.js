@@ -13,18 +13,6 @@ fpr: 4F2A 81C0 … 9C1E
 $ pep-user-get alice@example.com | pep-key-export > alice.asc
 $ pep-user-list | pep-set-trusted`;
 
-const ARGS = `def arguments(self):
-    """Arguments from the command line, or one set per record when another
-    command is piped in, so commands chain like any Unix tool."""
-    if sys.stdin.isatty():
-        yield vars(self.parser.parse_args())
-        return
-    for record in rec.read(sys.stdin):  # GNU recutils format
-        missing = [f for f in self.required if f not in record]
-        if missing:
-            raise PipeError(f"record lacks {', '.join(missing)}")
-        yield record`;
-
 const FACTORY = `def run_as(user, *command):
     # The engine reads HOME once, when it loads, so each identity runs in
     # its own process with HOME pointed at that user's own folder.
@@ -47,11 +35,7 @@ def pretrust(new, old):
 
 const COPY = {
   en: {
-    stats: [
-      ["1 run", "a whole company set up"],
-      ["stdin", "every command pipes"],
-      ["CSV in", "signed archives out"],
-    ],
+    poc: "It never ran for a real customer. The trust pairs grow with the square of the number of people, so it got heavy fast, and we didn’t land a customer in that period anyway, so it stayed a proof of concept.",
     aria: (o, n) =>
       `${o} people already provisioned and ${n} new ones. Every pair trusts each other; only the pairs involving someone new are done in this run.`,
     already: "Already in",
@@ -63,18 +47,14 @@ const COPY = {
     pitch:
       "Command-line tools to manage p≡p’s keys and trust from a terminal, and a factory that sets up a whole company’s users in one run.",
     cliH: "The CLI",
-    cli: "I started the toolkit and wrote its first commands: identities, key export and import, trust and trustwords, translations. A senior colleague later became its main author. Later I added piping: every command reads records on stdin, so they chain like any Unix tool.",
+    cli: "I started the toolkit and wrote its first commands: identities, key export and import, trust and trustwords, translations. A senior colleague later took over as its main author. After that I added piping, so every command reads records on stdin and they chain like any Unix tool. We used it for deployments and manual setups.",
     session: "a terminal session · example data",
     factoryH: "The provisioning factory",
     factory:
       "A company rolling p≡p out needs every employee set up and already trusting their colleagues on day one. The factory, which I wrote on my own, reads a CSV of employees, creates each one’s keys in an isolated home, optionally makes everyone trust everyone, and packages each user’s setup into an encrypted, signed archive to deploy. Failures go to a report you can fix and feed back in, and re-runs skip who’s already done:",
   },
   es: {
-    stats: [
-      ["1 pasada", "toda una empresa configurada"],
-      ["stdin", "cada comando se encadena"],
-      ["CSV", "dentro, archivos firmados fuera"],
-    ],
+    poc: "Nunca llegó a usarse con un cliente real. Los pares de confianza crecen con el cuadrado del número de personas, así que enseguida pesaba, y en esa época tampoco cerramos ningún cliente, así que se quedó en prueba de concepto.",
     aria: (o, n) =>
       `${o} personas ya dadas de alta y ${n} nuevas. Cada pareja confía entre sí; en esta pasada solo se hacen las parejas con alguien nuevo.`,
     already: "Ya dentro",
@@ -86,18 +66,14 @@ const COPY = {
     pitch:
       "Herramientas de línea de comandos para gestionar las claves y la confianza de p≡p desde un terminal, y una fábrica que da de alta a todos los usuarios de una empresa de una sola vez.",
     cliH: "El CLI",
-    cli: "Empecé el toolkit y escribí sus primeros comandos: identidades, exportar e importar claves, confianza y trustwords, traducciones. Más tarde, otra persona sénior del equipo pasó a ser su autora principal. Después añadí los pipes: cada comando lee registros por stdin, así que se encadenan como cualquier herramienta Unix.",
+    cli: "Empecé el toolkit y escribí sus primeros comandos: identidades, exportar e importar claves, confianza y trustwords, traducciones. Más tarde, otra persona sénior del equipo pasó a ser su autora principal. Después añadí los pipes, así que cada comando lee registros por stdin y se encadenan como cualquier herramienta Unix. Lo usábamos para despliegues y configuraciones manuales.",
     session: "una sesión de terminal · datos de ejemplo",
     factoryH: "La fábrica de altas",
     factory:
       "Una empresa que despliega p≡p necesita a cada empleado configurado y confiando ya en sus compañeros desde el primer día. La fábrica, que escribí yo solo, lee un CSV de empleados, crea las claves de cada uno en un home aislado, opcionalmente hace que todos confíen en todos, y empaqueta la configuración de cada usuario en un archivo cifrado y firmado para desplegar. Los fallos van a un informe que puedes corregir y volver a pasar, y las repeticiones se saltan a quien ya está hecho:",
   },
   ca: {
-    stats: [
-      ["1 passada", "tota una empresa configurada"],
-      ["stdin", "cada ordre s’encadena"],
-      ["CSV", "a dins, arxius signats a fora"],
-    ],
+    poc: "Mai no es va arribar a fer servir amb un client real. Els parells de confiança creixen amb el quadrat del nombre de persones, així que de seguida pesava, i en aquella època tampoc no vam tancar cap client, així que es va quedar en prova de concepte.",
     aria: (o, n) =>
       `${o} persones ja donades d’alta i ${n} de noves. Cada parella confia entre si; en aquesta passada només es fan les parelles amb algú nou.`,
     already: "Ja hi són",
@@ -109,7 +85,7 @@ const COPY = {
     pitch:
       "Eines de línia d’ordres per gestionar les claus i la confiança de p≡p des d’un terminal, i una fàbrica que dona d’alta tots els usuaris d’una empresa d’una sola vegada.",
     cliH: "El CLI",
-    cli: "Vaig començar el toolkit i en vaig escriure les primeres ordres: identitats, exportar i importar claus, confiança i trustwords, traduccions. Més endavant, una altra persona sènior de l’equip en va passar a ser l’autora principal. Després hi vaig afegir els pipes: cada ordre llegeix registres per stdin, així que s’encadenen com qualsevol eina Unix.",
+    cli: "Vaig començar el toolkit i en vaig escriure les primeres ordres: identitats, exportar i importar claus, confiança i trustwords, traduccions. Més endavant, una altra persona sènior de l’equip en va passar a ser l’autora principal. Després hi vaig afegir els pipes, així que cada ordre llegeix registres per stdin i s’encadenen com qualsevol eina Unix. El fèiem servir per a desplegaments i configuracions manuals.",
     session: "una sessió de terminal · dades d’exemple",
     factoryH: "La fàbrica d’altes",
     factory:
@@ -224,7 +200,6 @@ const Cli = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="p≡p Security · 2020–2022"
         title={t.title}
         pitch={t.pitch}
@@ -233,15 +208,13 @@ const Cli = () => {
       <H>{t.cliH}</H>
       <p className="mb-4">{t.cli}</p>
       <Snippet caption={t.session} language="bash" code={PIPE} />
-      <div className="mt-4">
-        <Snippet file="commands/base.py" language="python" code={ARGS} />
-      </div>
       <H>{t.factoryH}</H>
       <p className="mb-4">{t.factory}</p>
       <Mesh />
       <div className="mt-4">
         <Snippet file="factory.py" language="python" code={FACTORY} />
       </div>
+      <p className="mt-4">{t.poc}</p>
     </Article>
   );
 };

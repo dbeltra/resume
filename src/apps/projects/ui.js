@@ -188,15 +188,21 @@ export const Chip = (props) => (
   />
 );
 
-// "What I built" style lists: [bold lead-in, rest of the sentence]
+// a few paragraphs from a copy array
+export const Prose = ({ items }) =>
+  items.map((x) => (
+    <p key={x} className="mb-3">
+      {x}
+    </p>
+  ));
+
+// a plain bulleted list of sentences
 export const Bullets = ({ items, className = "" }) => (
   <ul
     className={`list-disc space-y-1.5 pl-5 marker:text-p-muted ${className}`}
   >
-    {items.map(([lead, text]) => (
-      <li key={lead}>
-        <b className="text-p-fg">{lead}</b> {text}
-      </li>
+    {items.map((it) => (
+      <li key={it}>{it}</li>
     ))}
   </ul>
 );

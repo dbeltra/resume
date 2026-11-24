@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { prefersReducedMotion } from "../../components/genie";
 import {
-  ArrowDefs,
   Article,
-  Box,
-  Bullets,
-  Edge,
   H,
   Intro,
   Pick,
+  Prose,
   Shots,
   Snippet,
   useCopy,
@@ -43,48 +39,16 @@ def client_tax(country: str, vat_id: str | None) -> TaxRule:
         return TaxRule(rate=current_rate("DE"))       # EU consumer
     return TaxRule(rate=0)                            # outside the EU`;
 
-const CONFIRM = `class Payment(models.Model):
-    def confirm(self):
-        """Every provider ends here: Stripe's webhook, PayPal's IPN and the
-        crypto gateway's callback all call confirm() once the money is in."""
-        self.confirmed = True
-        self.save()
-
-        sub = self.subscription
-        # renewing early stacks the new period on top of what's left
-        start = max(sub.ends_on or today(), today())
-        sub.ends_on = start + self.period
-        sub.save()
-
-        licences.sync(sub)               # the app checks its seats against this
-        pdf = invoices.render(self)      # drawn with ReportLab, archived by month
-        mail.receipt(self, pdf, download=signed_link(self))
-        mail.accounting_copy(self, pdf)`;
-
 const COPY = {
   en: {
-    stats: [
-      ["3", "ways to pay"],
-      ["6", "crypto coins"],
-      ["3 years", "run almost single-handed"],
+    builtH: "What I did",
+    vatH: "Who pays the VAT",
+    archiveH: "The shop in 2020",
+    built: [
+      "I built the shop and ran it for three years, mostly on my own. Crypto came first, through a gateway that signs its requests and takes six coins, then PayPal. Cards moved to Stripe PaymentIntents with 3-D Secure a few weeks before the PSD2 deadline in September 2019. It was a lot of responsibility for one person, but we never had a problem with licences or payments.",
+      "Licences were sold per seat, monthly, yearly or until a fixed date, with discount codes, and a renewal adds to whatever time is left. Every purchase ends in the same confirm() step: it extends the subscription, syncs the licence service, draws a PDF invoice with ReportLab, archives it by month and emails the receipt with a signed download link. A daily job clears abandoned payments and reminds people before a licence runs out.",
+      "Later the p≡p foundation wanted a donations page, so I cut the same pipeline down to a form for any amount, with PDF receipts. I also built a token-protected API that fed the sales numbers into a reports dashboard.",
     ],
-    providers: {
-      card: "card · 3-D Secure",
-      crypto: ["Crypto gateway", "6 coins · signed"],
-    },
-    outputs: [
-      ["Subscription", "extended"],
-      ["Licence API", "seats synced"],
-      ["PDF invoice", "archived"],
-      ["Email", "receipt + link"],
-    ],
-    checkout: ["Checkout", "Mezzanine page"],
-    charge: ["Charge", "tax + VIES check"],
-    confirm: "one path for all",
-    payWith: "Pay with:",
-    card: "card",
-    crypto: "crypto",
-    aria: "The checkout posts the order to the charge step, which works out the tax and checks the VAT ID. The payment then goes through Stripe with 3-D Secure, PayPal or a crypto gateway. All three end in the same confirm step, which extends the subscription, syncs the licence service, archives a PDF invoice and emails the receipt with a download link.",
     buyers: {
       de: { label: "German company", why: "A domestic sale: German VAT." },
       eu: {
@@ -110,67 +74,23 @@ const COPY = {
     title: "Licence shop, payments and invoicing",
     pitch:
       "The web shop that sold p≡p for Outlook: subscriptions per seat, three ways to pay, EU VAT done right, and a PDF invoice and download link the moment the money arrived.",
-    problemH: "The problem",
     problem:
       "p≡p sold its email encryption to companies and individuals. That meant card payments under Europe’s new strong-authentication rules, crypto and PayPal alongside them, and a different VAT answer depending on who was buying and from where.",
-    pathH: "One path for every payment",
-    path: "The checkout lives on the site’s CMS pages. Whatever the payment method, the money ends up in the same confirm() step, which does everything a purchase needs. Pick a method and follow it:",
-    builtH: "What I built",
-    built: "I built the shop and ran it for three years, almost single-handed:",
-    bullets: [
-      [
-        "Payments.",
-        "Crypto came first, through a gateway with signed requests for six coins, then PayPal. Cards moved to Stripe PaymentIntents with 3-D Secure weeks before the EU’s PSD2 deadline in September 2019.",
-      ],
-      [
-        "Subscriptions.",
-        "Per-seat tiers, monthly, yearly or fixed-end plans, discount codes, and renewals that stack on top of the time left.",
-      ],
-      [
-        "Invoices.",
-        "PDFs drawn with ReportLab, emailed to the customer, copied to accounting and archived by month. Download links are signed, so they can’t be guessed.",
-      ],
-      [
-        "Housekeeping.",
-        "A daily job clears abandoned payments and sends renewal reminders before a licence runs out.",
-      ],
-      [
-        "Reuse.",
-        "When the p≡p foundation needed a donations page, I cut the same pipeline down to a custom-amount form with PDF receipts. Later, a token-protected API fed the sales numbers to a reports dashboard I also built.",
-      ],
-    ],
-    vatH: "EU VAT, without the headache",
     vat: "Selling from Germany, the tax on an invoice depends on the buyer. Pick one and see what the invoice would say:",
-    confirmH: "What confirm() does",
-    archiveH: "The real checkout",
     archive: [
       "The shop, September 2020: seats, plan and the VAT worked out live",
       "The donations page, September 2020: the same pipeline, any amount",
     ],
   },
   es: {
-    stats: [
-      ["3", "formas de pago"],
-      ["6", "criptomonedas"],
-      ["3 años", "llevándola casi solo"],
+    builtH: "Lo que hice",
+    vatH: "Quién paga el IVA",
+    archiveH: "La tienda en 2020",
+    built: [
+      "Construí la tienda y la mantuve tres años, casi siempre yo solo. Primero vino la cripto, con una pasarela que firma las peticiones y acepta seis monedas, y luego PayPal. Las tarjetas pasaron a Stripe PaymentIntents con 3-D Secure unas semanas antes del plazo de la PSD2, en septiembre de 2019. Era mucha responsabilidad para una sola persona, pero nunca tuvimos un problema con las licencias ni con los pagos.",
+      "Las licencias se vendían por puesto, mensuales, anuales o hasta una fecha fija, con códigos de descuento, y una renovación se suma al tiempo que queda. Cada compra acaba en el mismo paso confirm(): alarga la suscripción, sincroniza el servicio de licencias, dibuja la factura en PDF con ReportLab, la archiva por mes y envía el recibo con un enlace de descarga firmado. Una tarea diaria limpia los pagos abandonados y avisa antes de que caduque una licencia.",
+      "Más tarde la fundación p≡p quiso una página de donaciones, así que recorté el mismo flujo a un formulario de importe libre, con recibos en PDF. También hice una API protegida con token que pasaba las ventas a un panel de informes.",
     ],
-    providers: {
-      card: "tarjeta · 3-D Secure",
-      crypto: ["Pasarela cripto", "6 monedas · firmado"],
-    },
-    outputs: [
-      ["Suscripción", "ampliada"],
-      ["API de licencias", "puestos sincronizados"],
-      ["Factura PDF", "archivada"],
-      ["Email", "recibo + enlace"],
-    ],
-    checkout: ["Checkout", "página de Mezzanine"],
-    charge: ["Cobro", "IVA + VIES"],
-    confirm: "un camino para todos",
-    payWith: "Pagar con:",
-    card: "tarjeta",
-    crypto: "cripto",
-    aria: "El checkout envía el pedido al paso de cobro, que calcula el IVA y comprueba el NIF-IVA. Después el pago pasa por Stripe con 3-D Secure, PayPal o una pasarela cripto. Los tres acaban en el mismo paso de confirmación, que amplía la suscripción, sincroniza el servicio de licencias, archiva una factura en PDF y envía por email el recibo con un enlace de descarga.",
     buyers: {
       de: { label: "Empresa alemana", why: "Una venta nacional: IVA alemán." },
       eu: {
@@ -196,67 +116,23 @@ const COPY = {
     title: "Tienda de licencias, pagos y facturación",
     pitch:
       "La tienda online que vendía p≡p for Outlook: suscripciones por puesto, tres formas de pago, el IVA europeo bien hecho, y una factura en PDF y un enlace de descarga en cuanto llegaba el dinero.",
-    problemH: "El problema",
     problem:
       "p≡p vendía su cifrado de correo a empresas y particulares. Eso suponía pagos con tarjeta bajo las nuevas normas europeas de autenticación reforzada, cripto y PayPal a la vez, y un IVA distinto según quién comprara y desde dónde.",
-    pathH: "Un solo camino para cada pago",
-    path: "El checkout vive en las páginas del CMS de la web. Sea cual sea el método de pago, el dinero acaba en el mismo paso confirm(), que hace todo lo que necesita una compra. Elige un método y síguelo:",
-    builtH: "Lo que construí",
-    built: "Construí la tienda y la mantuve durante tres años, casi yo solo:",
-    bullets: [
-      [
-        "Pagos.",
-        "Primero llegó la cripto, con una pasarela de peticiones firmadas para seis monedas, y después PayPal. Las tarjetas pasaron a Stripe PaymentIntents con 3-D Secure semanas antes del plazo de la PSD2 en septiembre de 2019.",
-      ],
-      [
-        "Suscripciones.",
-        "Planes por puesto, mensuales, anuales o con fecha de fin, códigos de descuento, y renovaciones que se suman al tiempo que queda.",
-      ],
-      [
-        "Facturas.",
-        "PDFs dibujados con ReportLab, enviados al cliente, con copia a contabilidad y archivados por mes. Los enlaces de descarga van firmados, así que no se pueden adivinar.",
-      ],
-      [
-        "Mantenimiento.",
-        "Una tarea diaria limpia los pagos abandonados y envía recordatorios antes de que caduque una licencia.",
-      ],
-      [
-        "Reutilización.",
-        "Cuando la fundación p≡p necesitó una página de donaciones, recorté el mismo flujo a un formulario de importe libre con recibos en PDF. Más tarde, una API protegida con token alimentaba con las ventas un panel de informes que también construí.",
-      ],
-    ],
-    vatH: "El IVA europeo, sin dolores de cabeza",
     vat: "Vendiendo desde Alemania, el impuesto de una factura depende del comprador. Elige uno y mira qué diría la factura:",
-    confirmH: "Qué hace confirm()",
-    archiveH: "El checkout de verdad",
     archive: [
       "La tienda, septiembre de 2020: puestos, plan y el IVA calculado al momento",
       "La página de donaciones, septiembre de 2020: el mismo flujo, cualquier importe",
     ],
   },
   ca: {
-    stats: [
-      ["3", "maneres de pagar"],
-      ["6", "criptomonedes"],
-      ["3 anys", "portant-la gairebé sol"],
+    builtH: "El que vaig fer",
+    vatH: "Qui paga l’IVA",
+    archiveH: "La botiga el 2020",
+    built: [
+      "Vaig construir la botiga i la vaig mantenir tres anys, gairebé sempre jo sol. Primer va venir la cripto, amb una passarel·la que signa les peticions i accepta sis monedes, i després PayPal. Les targetes van passar a Stripe PaymentIntents amb 3-D Secure unes setmanes abans del termini de la PSD2, el setembre de 2019. Era molta responsabilitat per a una sola persona, però mai no vam tenir cap problema amb les llicències ni amb els pagaments.",
+      "Les llicències es venien per lloc, mensuals, anuals o fins a una data fixa, amb codis de descompte, i una renovació se suma al temps que queda. Cada compra acaba al mateix pas confirm(): allarga la subscripció, sincronitza el servei de llicències, dibuixa la factura en PDF amb ReportLab, l’arxiva per mes i envia el rebut amb un enllaç de descàrrega signat. Una tasca diària neteja els pagaments abandonats i avisa abans que caduqui una llicència.",
+      "Més endavant la fundació p≡p va voler una pàgina de donacions, així que vaig retallar el mateix flux a un formulari d’import lliure, amb rebuts en PDF. També vaig fer una API protegida amb token que passava les vendes a un tauler d’informes.",
     ],
-    providers: {
-      card: "targeta · 3-D Secure",
-      crypto: ["Passarel·la cripto", "6 monedes · signat"],
-    },
-    outputs: [
-      ["Subscripció", "ampliada"],
-      ["API de llicències", "llocs sincronitzats"],
-      ["Factura PDF", "arxivada"],
-      ["Correu", "rebut + enllaç"],
-    ],
-    checkout: ["Checkout", "pàgina de Mezzanine"],
-    charge: ["Cobrament", "IVA + VIES"],
-    confirm: "un camí per a tots",
-    payWith: "Paga amb:",
-    card: "targeta",
-    crypto: "cripto",
-    aria: "El checkout envia la comanda al pas de cobrament, que calcula l’IVA i comprova el NIF-IVA. Després el pagament passa per Stripe amb 3-D Secure, PayPal o una passarel·la cripto. Tots tres acaben al mateix pas de confirmació, que amplia la subscripció, sincronitza el servei de llicències, arxiva una factura en PDF i envia per correu el rebut amb un enllaç de descàrrega.",
     buyers: {
       de: {
         label: "Empresa alemanya",
@@ -285,40 +161,9 @@ const COPY = {
     title: "Botiga de llicències, pagaments i facturació",
     pitch:
       "La botiga en línia que venia p≡p for Outlook: subscripcions per lloc, tres maneres de pagar, l’IVA europeu ben fet, i una factura en PDF i un enllaç de descàrrega tan bon punt arribaven els diners.",
-    problemH: "El problema",
     problem:
       "p≡p venia el seu xifratge de correu a empreses i particulars. Això volia dir pagaments amb targeta sota les noves normes europees d’autenticació reforçada, cripto i PayPal alhora, i un IVA diferent segons qui comprava i des d’on.",
-    pathH: "Un sol camí per a cada pagament",
-    path: "El checkout viu a les pàgines del CMS del web. Sigui quin sigui el mètode de pagament, els diners acaben al mateix pas confirm(), que fa tot el que necessita una compra. Tria un mètode i segueix-lo:",
-    builtH: "El que vaig construir",
-    built:
-      "Vaig construir la botiga i la vaig mantenir durant tres anys, gairebé tot sol:",
-    bullets: [
-      [
-        "Pagaments.",
-        "Primer va arribar la cripto, amb una passarel·la de peticions signades per a sis monedes, i després PayPal. Les targetes van passar a Stripe PaymentIntents amb 3-D Secure setmanes abans del termini de la PSD2 el setembre de 2019.",
-      ],
-      [
-        "Subscripcions.",
-        "Plans per lloc, mensuals, anuals o amb data de fi, codis de descompte, i renovacions que se sumen al temps que queda.",
-      ],
-      [
-        "Factures.",
-        "PDF dibuixats amb ReportLab, enviats al client, amb còpia a comptabilitat i arxivats per mes. Els enllaços de descàrrega van signats, així que no es poden endevinar.",
-      ],
-      [
-        "Manteniment.",
-        "Una tasca diària neteja els pagaments abandonats i envia recordatoris abans que caduqui una llicència.",
-      ],
-      [
-        "Reutilització.",
-        "Quan la fundació p≡p va necessitar una pàgina de donacions, vaig retallar el mateix flux a un formulari d’import lliure amb rebuts en PDF. Més endavant, una API protegida amb token alimentava amb les vendes un tauler d’informes que també vaig construir.",
-      ],
-    ],
-    vatH: "L’IVA europeu, sense maldecaps",
     vat: "Venent des d’Alemanya, l’impost d’una factura depèn del comprador. Tria’n un i mira què diria la factura:",
-    confirmH: "Què fa confirm()",
-    archiveH: "El checkout de debò",
     archive: [
       "La botiga, setembre de 2020: llocs, pla i l’IVA calculat al moment",
       "La pàgina de donacions, setembre de 2020: el mateix flux, qualsevol import",
@@ -326,157 +171,7 @@ const COPY = {
   },
 };
 
-// --- the payment diagram ----------------------------------------------------
-
-// provider boxes, by the code the checkout posts: [y, label, sub]
-const PROVIDERS = {
-  card: [40, "Stripe"],
-  paypal: [136, "PayPal", "IPN"], // text for card and crypto is in COPY
-  crypto: [232],
-};
-const OUTPUTS = [40, 110, 180, 250]; // y of each box; text in COPY
-// the money's trip to confirm(), then one dot per thing confirm() does; all
-// share one 5 s cycle so the fan-out starts when the payment lands
-const SPLIT = "0.6";
-
-const ShopDiagram = () => {
-  const [via, setVia] = useState("card");
-  const still = prefersReducedMotion();
-  const t = useCopy(COPY);
-  const py = PROVIDERS[via][0] + 24;
-  const provider = (k) =>
-    k === "card"
-      ? ["Stripe", t.providers.card]
-      : k === "crypto"
-        ? t.providers.crypto
-        : PROVIDERS[k].slice(1);
-
-  return (
-    <figure className="rounded-lg border border-p-line bg-p-sunk p-3">
-      <div className="mb-2 flex flex-wrap items-center gap-2 px-1 text-[11px] text-p-muted">
-        <Pick
-          label={t.payWith}
-          options={[
-            ["card", t.card],
-            ["paypal", "PayPal"],
-            ["crypto", t.crypto],
-          ]}
-          value={via}
-          onChange={setVia}
-        />
-      </div>
-      <div className="overflow-x-auto">
-        <svg
-          key={via}
-          viewBox="0 0 800 300"
-          role="img"
-          aria-label={t.aria}
-          className="min-w-[600px]"
-        >
-          <ArrowDefs />
-          <Edge d="M140 160 H178" />
-          {Object.values(PROVIDERS).map(([y]) => (
-            <React.Fragment key={y}>
-              <Edge d={`M310 160 H330 V${y + 24} H348`} />
-              <Edge d={`M490 ${y + 24} H510 V160 H528`} />
-            </React.Fragment>
-          ))}
-          {OUTPUTS.map((y) => (
-            <Edge key={y} d={`M640 160 H655 V${y + 20} H668`} />
-          ))}
-          <Box
-            x={20}
-            y={136}
-            w={120}
-            label={t.checkout[0]}
-            sub={t.checkout[1]}
-          />
-          <Box
-            x={180}
-            y={130}
-            w={130}
-            h={60}
-            label={t.charge[0]}
-            sub={t.charge[1]}
-          />
-          {Object.entries(PROVIDERS).map(([k, [y]]) => (
-            <Box
-              key={k}
-              x={350}
-              y={y}
-              w={140}
-              label={provider(k)[0]}
-              sub={provider(k)[1]}
-              accent={k === via}
-            />
-          ))}
-          <Box
-            x={530}
-            y={130}
-            w={110}
-            h={60}
-            label="confirm()"
-            sub={t.confirm}
-            accent
-          />
-          {OUTPUTS.map((y, i) => (
-            <Box
-              key={y}
-              x={670}
-              y={y}
-              w={120}
-              h={40}
-              label={t.outputs[i][0]}
-              sub={t.outputs[i][1]}
-            />
-          ))}
-          {!still && (
-            <>
-              <circle r="7" fill="rgb(var(--p-warn))" stroke="rgb(var(--p-sunk))" strokeWidth="2">
-                <animateMotion
-                  dur="5s"
-                  repeatCount="indefinite"
-                  path={`M80 160 H330 V${py} H510 V160 H585`}
-                  keyPoints="0;1;1"
-                  keyTimes={`0;${SPLIT};1`}
-                  calcMode="linear"
-                />
-                <animate
-                  attributeName="opacity"
-                  dur="5s"
-                  repeatCount="indefinite"
-                  values="1;1;0;0"
-                  keyTimes={`0;${SPLIT};0.62;1`}
-                />
-              </circle>
-              {OUTPUTS.map((y) => (
-                <circle key={y} r="5" fill="rgb(var(--p-ok))" opacity="0">
-                  <animateMotion
-                    dur="5s"
-                    repeatCount="indefinite"
-                    path={`M585 160 H655 V${y + 20} H730`}
-                    keyPoints="0;0;1;1"
-                    keyTimes={`0;${SPLIT};0.9;1`}
-                    calcMode="linear"
-                  />
-                  <animate
-                    attributeName="opacity"
-                    dur="5s"
-                    repeatCount="indefinite"
-                    values="0;0;1;1;0"
-                    keyTimes={`0;${SPLIT};0.61;0.9;1`}
-                  />
-                </circle>
-              ))}
-            </>
-          )}
-        </svg>
-      </div>
-    </figure>
-  );
-};
-
-// --- the VAT picker and its invoice ----------------------------------------
+// --- the VAT invoice ---------------------------------------------------------
 
 const BUYERS = { de: 19, eu: 0, consumer: 19, world: 0 }; // VAT %; text in COPY
 const NET = 100; // made-up example price
@@ -546,33 +241,25 @@ const Shop = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="p≡p Security · 2019–2022"
         title={t.title}
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.problemH}</H>
-      <p>{t.problem}</p>
-      <H>{t.pathH}</H>
-      <p className="mb-4">{t.path}</p>
-      <ShopDiagram />
+      <p className="mt-6">{t.problem}</p>
       <H>{t.archiveH}</H>
       <Shots
         wide
         items={ARCHIVE.map(([src, href], i) => [src, t.archive[i], href])}
       />
       <H>{t.builtH}</H>
-      <p className="mb-2">{t.built}</p>
-      <Bullets items={t.bullets} />
+      <Prose items={t.built} />
       <H>{t.vatH}</H>
       <p className="mb-4">{t.vat}</p>
       <Invoice />
       <div className="mt-4">
         <Snippet file="tax.py" language="python" code={TAX} />
       </div>
-      <H>{t.confirmH}</H>
-      <Snippet file="payments/models.py" language="python" code={CONFIRM} />
     </Article>
   );
 };

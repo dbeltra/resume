@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Article, Bullets, Chip, H, Intro, Snippet, useCopy } from "./ui";
+import { Article, Bullets, Chip, H, Intro, Prose, Snippet, useCopy } from "./ui";
 import ChatShot from "../../assets/images/sprint/chat.jpg";
 import ChangesShot from "../../assets/images/sprint/changes.jpg";
 import TasksShot from "../../assets/images/sprint/tasks.jpg";
@@ -97,15 +97,22 @@ const Carousel = ({ shots, caps }) => {
 
 const COPY = {
   en: {
+    story: "I built it because I kept doing the same loop by hand, sprint after sprint, and it was worth automating. It started as a bare /sprint skill in the terminal, then got a web dashboard next to the terminal, and in the end I moved the terminal into the dashboard so everything is in one place. Colleagues have been suggesting features since, and several of them have used it, or a fork of their own.",
+    inside: [
+      "It trusts what happened over what the board says: a ticket has landed when its merge request is merged and not reverted, whatever its status is. Each ticket gets its own worktree and fresh sessions for plan, build, ship and review, so the sprint session only dispatches and can run all day. It had about 25 releases in its first two months, on top of the team’s shared plugins, which I’ve contributed to as well.",
+    ],
+    dash: "The dashboard is a local web page to watch it from: every Claude session in a tab, the sprint beside it, and anything that needs a person brought to the front. Here it is running on a made-up sprint and repo:",
+    dashBullets: [
+      "Each tab is a real Claude Code session with a terminal, held by a separate process, so restarting the page or the server loses nothing.",
+      "The chat view is rebuilt from the session’s log and screen. Questions and permission prompts become cards you answer with a click, and edits and subagents are summed up.",
+      "Merge requests are reviewed in place: diffs, threads, failed CI logs, approve and merge. Reviews of colleagues’ work are proposed comments that only go out when you press Post.",
+      "A small Claude Code mod reports when a session finishes or needs you, within a couple of seconds, with a notification and a chime.",
+      "Since the page can open shells, it only listens locally, checks every request’s origin, and never lets a link run a command.",
+    ],
     realCaps: [
       "The chat view: a Claude session as a conversation, the files it edited, and the sprint beside it",
       "Changes: the session’s uncommitted diff; a note on a line goes to Claude",
       "My tasks: each ticket’s place in the piv cycle, and what waits on me",
-    ],
-    stats: [
-      ["6", "stages per ticket"],
-      ["Jira → MR", "end to end"],
-      ["A yes", "before it starts anything"],
     ],
     stages: ["To do", "Plan", "Build", "Ship", "Review", "Landed"],
     tickets: [
@@ -146,59 +153,27 @@ const COPY = {
     title: "A sprint, run by an agent",
     pitch:
       "A Claude Code plugin I wrote that runs our sprints end to end, with a local dashboard to watch it and a person approving every step.",
-    howH: "How it works",
     how: "it loops: checks every ticket against what really happened in GitLab and CI, lands merged work, drives open merge requests through review, and proposes the next task, favouring whatever unblocks the other layer. It never starts anything without a yes. Step through a sprint:",
     point: ["Point", "at a Jira board and"],
-    insideH: "What’s inside",
-    inside: [
-      [
-        "Truth over the board.",
-        "Landed means merged and not reverted, whatever the ticket says.",
-      ],
-      [
-        "Clean context.",
-        "Each ticket gets its own worktree and fresh sessions for plan, build, ship and review, so the sprint session stays a dispatcher that can run all day.",
-      ],
-      [
-        "Fast.",
-        "Two months, about 25 releases, on top of the team’s shared plugins, which I contribute to as well.",
-      ],
-    ],
     dashH: "The dashboard",
-    dash: "An agent that runs all day needs somewhere to watch it. The dashboard is a local web page: every Claude session in a tab, the sprint beside it, and anything that needs a person brought to the front. The real thing, run on a made-up sprint and repo:",
-    dashBullets: [
-      [
-        "Sessions that stay.",
-        "Each tab is a real Claude Code session with a terminal, held by a separate process, so restarting the page or the server loses nothing.",
-      ],
-      [
-        "A chat view.",
-        "Rebuilt from the session’s log and screen: questions and permission prompts become cards you answer with a click, and edits and subagents are summed up.",
-      ],
-      [
-        "Review in place.",
-        "Merge request diffs, threads, failed CI logs, approve and merge. Reviews of colleagues’ work are proposed comments that only go out when you press Post.",
-      ],
-      [
-        "It tells you.",
-        "A small Claude Code mod reports when a session finishes or needs you, within a couple of seconds, with a notification and a chime.",
-      ],
-      [
-        "Safe by default.",
-        "A page that can open shells only listens locally, checks every request’s origin, and never lets a link run a command.",
-      ],
-    ],
   },
   es: {
+    story: "Lo construí porque me encontraba haciendo el mismo ciclo a mano, sprint tras sprint, y valía la pena automatizarlo. Empezó como una skill /sprint a secas en el terminal, luego tuvo un dashboard web al lado del terminal, y al final metí el terminal dentro del dashboard para tenerlo todo en un sitio. Desde entonces otras personas del equipo han ido proponiendo funcionalidades, y varias lo han usado, o han usado su propio fork.",
+    inside: [
+      "Se fía de lo que ha pasado y no de lo que dice el tablero: un ticket está integrado cuando su merge request está mergeada y no revertida, diga lo que diga su estado. Cada ticket tiene su worktree y sesiones nuevas para plan, build, ship y revisión, así que la sesión del sprint solo reparte trabajo y puede funcionar todo el día. Tuvo unas 25 versiones en sus dos primeros meses, encima de los plugins compartidos del equipo, en los que también he contribuido.",
+    ],
+    dash: "El dashboard es una página web local desde donde seguirlo: cada sesión de Claude en una pestaña, el sprint al lado y, delante, todo lo que necesita a una persona. Aquí funcionando con un sprint y un repo inventados:",
+    dashBullets: [
+      "Cada pestaña es una sesión real de Claude Code con su terminal, sostenida por un proceso aparte, así que reiniciar la página o el servidor no pierde nada.",
+      "La vista de chat se reconstruye a partir del log y la pantalla de la sesión. Las preguntas y los permisos se convierten en tarjetas que respondes con un clic, y las ediciones y los subagentes se resumen.",
+      "Las merge requests se revisan ahí mismo: diffs, hilos, logs de CI fallidos, aprobar y mergear. Las revisiones del trabajo de otras personas son comentarios propuestos que solo salen cuando pulsas Post.",
+      "Un pequeño mod de Claude Code avisa cuando una sesión termina o te necesita, en un par de segundos, con una notificación y un sonido.",
+      "Como la página puede abrir shells, solo escucha en local, comprueba el origen de cada petición y nunca deja que un enlace ejecute un comando.",
+    ],
     realCaps: [
       "La vista de chat: una sesión de Claude como conversación, los ficheros que ha tocado y el sprint al lado",
       "Cambios: el diff sin commitear de la sesión; una nota en una línea le llega a Claude",
       "Mis tareas: en qué punto del ciclo piv está cada ticket y qué espera de mí",
-    ],
-    stats: [
-      ["6", "fases por ticket"],
-      ["Jira → MR", "de punta a punta"],
-      ["Un sí", "antes de empezar nada"],
     ],
     stages: ["Por hacer", "Plan", "Build", "Ship", "Revisión", "Integrado"],
     tickets: [
@@ -243,59 +218,27 @@ const COPY = {
     title: "Un sprint, llevado por un agente",
     pitch:
       "Un plugin de Claude Code que escribí y que lleva nuestros sprints de principio a fin, con un dashboard local para seguirlo y una persona aprobando cada paso.",
-    howH: "Cómo funciona",
     how: "y entra en bucle: contrasta cada ticket con lo que de verdad pasó en GitLab y en CI, cierra el trabajo mergeado, lleva las merge requests abiertas por la revisión y propone la siguiente tarea, priorizando lo que desbloquea a la otra capa. Nunca empieza nada sin un sí. Avanza por un sprint:",
     point: ["Apunta", "a un tablero de Jira"],
-    insideH: "Qué hay dentro",
-    inside: [
-      [
-        "La realidad por encima del tablero.",
-        "Integrado quiere decir mergeado y no revertido, diga lo que diga el ticket.",
-      ],
-      [
-        "Contexto limpio.",
-        "Cada ticket tiene su worktree y sesiones nuevas para plan, build, ship y revisión, así que la sesión del sprint se queda en despachador y puede funcionar todo el día.",
-      ],
-      [
-        "Rápido.",
-        "Dos meses, unas 25 versiones, encima de los plugins compartidos del equipo, en los que también contribuyo.",
-      ],
-    ],
     dashH: "El dashboard",
-    dash: "Un agente que funciona todo el día necesita un sitio desde donde seguirlo. El dashboard es una página web local: cada sesión de Claude en una pestaña, el sprint al lado y, delante, todo lo que necesita a una persona. El de verdad, con un sprint y un repo inventados:",
-    dashBullets: [
-      [
-        "Sesiones que se quedan.",
-        "Cada pestaña es una sesión real de Claude Code con su terminal, sostenida por un proceso aparte, así que reiniciar la página o el servidor no pierde nada.",
-      ],
-      [
-        "Una vista de chat.",
-        "Reconstruida a partir del log y la pantalla de la sesión: las preguntas y los permisos se convierten en tarjetas que respondes con un clic, y las ediciones y los subagentes se resumen.",
-      ],
-      [
-        "Revisión en el sitio.",
-        "Diffs de merge requests, hilos, logs de CI fallidos, aprobar y mergear. Las revisiones del trabajo de otras personas son comentarios propuestos que solo salen cuando pulsas Post.",
-      ],
-      [
-        "Te avisa.",
-        "Un pequeño mod de Claude Code informa cuando una sesión termina o te necesita, en un par de segundos, con una notificación y un sonido.",
-      ],
-      [
-        "Seguro por defecto.",
-        "Una página que puede abrir shells solo escucha en local, comprueba el origen de cada petición y nunca deja que un enlace ejecute un comando.",
-      ],
-    ],
   },
   ca: {
+    story: "El vaig construir perquè em trobava fent el mateix cicle a mà, sprint rere sprint, i valia la pena automatitzar-lo. Va començar com una skill /sprint sense res més al terminal, després va tenir un dashboard web al costat del terminal, i al final vaig ficar el terminal dins del dashboard per tenir-ho tot en un lloc. Des d’aleshores altres persones de l’equip hi han anat proposant funcionalitats, i diverses l’han fet servir, o n’han fet servir el seu propi fork.",
+    inside: [
+      "Es refia del que ha passat i no del que diu el tauler: un tiquet està integrat quan la seva merge request té merge i no s’ha revertit, digui el que digui el seu estat. Cada tiquet té el seu worktree i sessions noves per a pla, build, ship i revisió, així que la sessió del sprint només reparteix feina i pot funcionar tot el dia. Va tenir unes 25 versions en els seus dos primers mesos, a sobre dels plugins compartits de l’equip, als quals també he contribuït.",
+    ],
+    dash: "El dashboard és una pàgina web local des d’on seguir-lo: cada sessió de Claude en una pestanya, el sprint al costat i, al davant, tot el que necessita una persona. Aquí funcionant amb un sprint i un repo inventats:",
+    dashBullets: [
+      "Cada pestanya és una sessió real de Claude Code amb el seu terminal, sostinguda per un procés a part, així que reiniciar la pàgina o el servidor no perd res.",
+      "La vista de xat es reconstrueix a partir del log i la pantalla de la sessió. Les preguntes i els permisos es converteixen en targetes que respons amb un clic, i les edicions i els subagents es resumeixen.",
+      "Les merge requests es revisen al mateix lloc: diffs, fils, logs de CI fallits, aprovar i fer merge. Les revisions de la feina d’altres persones són comentaris proposats que només surten quan prems Post.",
+      "Un petit mod de Claude Code avisa quan una sessió acaba o et necessita, en un parell de segons, amb una notificació i un so.",
+      "Com que la pàgina pot obrir shells, només escolta en local, comprova l’origen de cada petició i mai no deixa que un enllaç executi una ordre.",
+    ],
     realCaps: [
       "La vista de xat: una sessió de Claude com a conversa, els fitxers que ha tocat i el sprint al costat",
       "Canvis: el diff sense commit de la sessió; una nota en una línia li arriba a Claude",
       "Les meves tasques: en quin punt del cicle piv és cada tiquet i què espera de mi",
-    ],
-    stats: [
-      ["6", "fases per tiquet"],
-      ["Jira → MR", "de punta a punta"],
-      ["Un sí", "abans de començar res"],
     ],
     stages: ["Per fer", "Pla", "Build", "Ship", "Revisió", "Integrat"],
     tickets: [
@@ -340,48 +283,9 @@ const COPY = {
     title: "Un sprint, portat per un agent",
     pitch:
       "Un plugin de Claude Code que vaig escriure i que porta els nostres sprints de cap a peus, amb un dashboard local per seguir-lo i una persona aprovant cada pas.",
-    howH: "Com funciona",
     how: "i entra en bucle: contrasta cada tiquet amb el que de debò ha passat a GitLab i a CI, tanca la feina amb merge, porta les merge requests obertes per la revisió i proposa la tasca següent, prioritzant el que desbloqueja l’altra capa. Mai no comença res sense un sí. Avança per un sprint:",
     point: ["Apunta", "a un tauler de Jira"],
-    insideH: "Què hi ha a dins",
-    inside: [
-      [
-        "La realitat per sobre del tauler.",
-        "Integrat vol dir amb merge i no revertit, digui el que digui el tiquet.",
-      ],
-      [
-        "Context net.",
-        "Cada tiquet té el seu worktree i sessions noves per a pla, build, ship i revisió, així que la sessió del sprint es queda en despatxador i pot funcionar tot el dia.",
-      ],
-      [
-        "Ràpid.",
-        "Dos mesos, unes 25 versions, a sobre dels plugins compartits de l’equip, als quals també contribueixo.",
-      ],
-    ],
     dashH: "El dashboard",
-    dash: "Un agent que funciona tot el dia necessita un lloc des d’on seguir-lo. El dashboard és una pàgina web local: cada sessió de Claude en una pestanya, el sprint al costat i, al davant, tot el que necessita una persona. El de debò, amb un sprint i un repo inventats:",
-    dashBullets: [
-      [
-        "Sessions que es queden.",
-        "Cada pestanya és una sessió real de Claude Code amb el seu terminal, sostinguda per un procés a part, així que reiniciar la pàgina o el servidor no perd res.",
-      ],
-      [
-        "Una vista de xat.",
-        "Reconstruïda a partir del log i la pantalla de la sessió: les preguntes i els permisos es converteixen en targetes que respons amb un clic, i les edicions i els subagents es resumeixen.",
-      ],
-      [
-        "Revisió al mateix lloc.",
-        "Diffs de merge requests, fils, logs de CI fallits, aprovar i fer merge. Les revisions de la feina d’altres persones són comentaris proposats que només surten quan prems Post.",
-      ],
-      [
-        "T’avisa.",
-        "Un petit mod de Claude Code informa quan una sessió acaba o et necessita, en un parell de segons, amb una notificació i un so.",
-      ],
-      [
-        "Segur per defecte.",
-        "Una pàgina que pot obrir shells només escolta en local, comprova l’origen de cada petició i mai no deixa que un enllaç executi una ordre.",
-      ],
-    ],
   },
 };
 
@@ -479,20 +383,20 @@ const SprintAgent = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="011h · 2026"
         title={t.title}
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.howH}</H>
-      <p className="mb-3">
+      <p className="mt-6">{t.story}</p>
+      <p className="my-3">
         {t.point[0]} <code className="text-p-pop-text">/sprint</code>{" "}
         {t.point[1]} {t.how}
       </p>
       <Sprint />
-      <H>{t.insideH}</H>
-      <Bullets items={t.inside} />
+      <div className="mt-4">
+        <Prose items={t.inside} />
+      </div>
       <div className="mt-4">
         <Snippet file="snapshot.js" language="javascript" code={GATE} />
       </div>

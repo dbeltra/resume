@@ -10,7 +10,7 @@ const resources = {
       aboutDescription: [
         "I'm a full-stack developer in Barcelona, building web products end to end since 2014: Django sites and payment systems, Rust email security, and now construction software at 011h.",
         "Six years at p≡p and Planck made security and privacy second nature. I took their website from static HTML to a CMS, built the licence shop with its EU invoicing, and was the main author of the Rust Security Hub, which lets antivirus scanners read encrypted email.",
-        "At 011h I'm the main contributor to the Builder planning service, after doing the same for Procurement, and I put AI to work: WhatsApp voice notes that become lessons learned on site, and a Claude Code plugin that runs our sprints with a person approving every step.",
+        "At 011h I've built large parts of two services, Procurement and then Builder's planning, and I put AI to work: WhatsApp voice notes that become lessons learned on site, and a Claude Code plugin that runs our sprints with a person approving every step.",
       ],
       experienceTitle: "My Experience",
       experienceExperiences: [
@@ -51,7 +51,7 @@ const resources = {
           dates: "2025 - Present",
           responsibilities: [
             "My team is in charge of the Builder, a React and FastAPI web application that allows construction workers to organize schedules and tasks for people working on a construction site.",
-            "I'm the main contributor to its API, the planning service behind it: trains of trades, multi-day bars, the Look-Ahead, and snapshots to measure delays against. Before that I was the main contributor to the Procurement service: offer comparisons, approvals, contracts with e-signature, and the monthly finance that follows.",
+            "Since July 2026 I've worked on its API, the planning service behind it: trains of trades, multi-day bars, the Look-Ahead, and snapshots to measure delays against. Before that I built much of the Procurement service: offer comparisons, approvals, contracts with e-signature, and the monthly finance that follows.",
             "I also build AI features and tools: the WhatsApp channel that turns site voice notes into lessons learned, and a Claude Code plugin with its own dashboard that runs our sprints.",
           ],
         },
@@ -470,7 +470,7 @@ const resources = {
       aboutDescription: [
         "Soy desarrollador full-stack en Barcelona y construyo productos web de principio a fin desde 2014: webs en Django y sistemas de pago, seguridad de correo en Rust y, ahora, software para la construcción en 011h.",
         "Seis años en p≡p y Planck me hicieron pensar siempre en seguridad y privacidad. Pasé su web de HTML estático a un CMS, construí la tienda de licencias con su facturación europea y fui el autor principal del Security Hub en Rust, que permite a los antivirus leer correo cifrado.",
-        "En 011h soy el principal contribuidor del servicio de planificación de Builder, después de serlo del de Procurement, y pongo la IA a trabajar: notas de voz de WhatsApp que se convierten en lecciones aprendidas en obra, y un plugin de Claude Code que lleva nuestros sprints con una persona aprobando cada paso.",
+        "En 011h he construido buena parte de dos servicios, Procurement y después la planificación de Builder, y pongo la IA a trabajar: notas de voz de WhatsApp que se convierten en lecciones aprendidas en obra, y un plugin de Claude Code que lleva nuestros sprints con una persona aprobando cada paso.",
       ],
       experienceTitle: "Mi Experiencia",
       experienceExperiences: [
@@ -511,7 +511,7 @@ const resources = {
           dates: "2025 - Actualidad",
           responsibilities: [
             "Mi equipo se encarga del Builder, una aplicación web con React y FastAPI que permite a los trabajadores de la construcción organizar horarios y tareas para las personas que trabajan en una obra.",
-            "Soy el principal contribuidor de su API, el servicio de planificación que hay detrás: trenes de oficios, barras de varios días, el Look-Ahead e instantáneas para medir los retrasos. Antes fui el principal contribuidor del servicio de Procurement: comparativos de ofertas, aprobaciones, contratos con firma electrónica y la gestión financiera mensual que viene después.",
+            "Desde julio de 2026 he trabajado en su API, el servicio de planificación que hay detrás: trenes de oficios, barras de varios días, el Look-Ahead e instantáneas para medir los retrasos. Antes construí buena parte del servicio de Procurement: comparativos de ofertas, aprobaciones, contratos con firma electrónica y la gestión financiera mensual que viene después.",
             "También construyo funcionalidades y herramientas con IA: el canal de WhatsApp que convierte notas de voz de obra en lecciones aprendidas, y un plugin de Claude Code con su propio dashboard que lleva nuestros sprints.",
           ],
         },
@@ -935,7 +935,7 @@ const resources = {
       aboutDescription: [
         "Soc desenvolupador full-stack a Barcelona i construeixo productes web de cap a peus des del 2014: webs en Django i sistemes de pagament, seguretat de correu en Rust i, ara, programari per a la construcció a 011h.",
         "Sis anys a p≡p i Planck em van fer pensar sempre en seguretat i privadesa. Vaig passar el seu web d'HTML estàtic a un CMS, vaig construir la botiga de llicències amb la seva facturació europea i vaig ser l'autor principal del Security Hub en Rust, que permet als antivirus llegir correu xifrat.",
-        "A 011h soc el principal contribuïdor del servei de planificació de Builder, després d'haver-ho estat del de Procurement, i poso la IA a treballar: notes de veu de WhatsApp que es converteixen en lliçons apreses a l'obra, i un plugin de Claude Code que porta els nostres sprints amb una persona aprovant cada pas.",
+        "A 011h he construït bona part de dos serveis, Procurement i després la planificació de Builder, i poso la IA a treballar: notes de veu de WhatsApp que es converteixen en lliçons apreses a l'obra, i un plugin de Claude Code que porta els nostres sprints amb una persona aprovant cada pas.",
       ],
       experienceTitle: "La Meva Experiència",
       experienceExperiences: [
@@ -976,7 +976,7 @@ const resources = {
           dates: "2025 - Actualitat",
           responsibilities: [
             "El meu equip s'encarrega del Builder, una aplicació web amb React i FastAPI que permet als treballadors de la construcció organitzar horaris i tasques per a les persones que treballen en una obra.",
-            "Soc el principal contribuïdor de la seva API, el servei de planificació que hi ha al darrere: trens d'oficis, barres de diversos dies, el Look-Ahead i instantànies per mesurar els retards. Abans vaig ser el principal contribuïdor del servei de Procurement: comparatius d'ofertes, aprovacions, contractes amb signatura electrònica i la gestió financera mensual que ve després.",
+            "Des del juliol del 2026 he treballat a la seva API, el servei de planificació que hi ha al darrere: trens d'oficis, barres de diversos dies, el Look-Ahead i instantànies per mesurar els retards. Abans vaig construir bona part del servei de Procurement: comparatius d'ofertes, aprovacions, contractes amb signatura electrònica i la gestió financera mensual que ve després.",
             "També construeixo funcionalitats i eines amb IA: el canal de WhatsApp que converteix notes de veu d'obra en lliçons apreses, i un plugin de Claude Code amb el seu propi dashboard que porta els nostres sprints.",
           ],
         },

@@ -87,10 +87,16 @@ const QUOTE = [
 
 const COPY = {
   en: {
-    stats: [
-      ["~15", "bounded contexts"],
-      ["Hexagonal", "architecture"],
-      ["Offer → payment", "in one module"],
+    story: "A lot of my time went into refactoring the contract generator, so every template follows the same standard and every document looks the same, and into the AI price import. The hard part was understanding the business: what each concept means, and the maths behind every calculation.",
+    builtH: "What I built",
+    how: "Domain-driven design with a hexagonal architecture: about fifteen bounded contexts, each with its own domain (entities, value objects like Price and Status, repository ports), one use case per class, and adapters for Postgres, object storage, the LLM, documents and RabbitMQ. The APIs are versioned, their OpenAPI contracts are checked in CI, and the integration tests are Gherkin scenarios run against a real database:",
+    bullets: [
+      "The comparative, with each provider’s offer per line, the best price, and how far it is from the estimate and the savings goal.",
+      "Approvals with notifications, including taking a validated order back to draft without leaving a live signature request behind.",
+      "Contracts assembled from templates with ordered annexes, turned into PDFs, signed electronically and announced to the rest of the platform as events.",
+      "The finance that follows: extensions, advance payments, monthly proformas and accounting periods, with Excel in and out.",
+      "The AI price import, which reads a provider’s PDF or Excel quote into the comparative and asks a person to confirm anything the matcher isn’t sure about.",
+      "Decimal money with consistent rounding, database locks against races, and connection pool hygiene.",
     ],
     lines: [
       "PVC window 120×140",
@@ -142,51 +148,27 @@ const COPY = {
     title: "Procurement for construction",
     pitch:
       "The service behind 011h Procurement: comparing providers’ offers for each part of a building’s budget, approving the award, and carrying the contract from signature to the last payment.",
-    problemH: "The problem",
     problem:
       "A building’s budget is split into dozens of purchase groups, from windows to plumbing, and each one is bought by comparing offers from several providers. The module carries that whole path inside the platform, with the money adding up and an audit trail at every step.",
     walkH: "Walk a purchase group through it",
     walk: "Made-up project, providers, prices and approvers:",
-    builtH: "What I built",
     built:
       "Before moving to Builder, I was the service’s main contributor, across most of its domains:",
-    bullets: [
-      [
-        "The comparative.",
-        "Providers, offers per line, the best price, the difference from the estimate and the savings goal.",
-      ],
-      [
-        "Approvals.",
-        "The validation chain, accept and reject with notifications, and taking a validated order back to draft without leaving a live signature request behind.",
-      ],
-      [
-        "Contracts.",
-        "Documents assembled from templates, with ordered annexes, turned into PDFs, signed electronically and announced to the rest of the platform as events.",
-      ],
-      [
-        "Finance.",
-        "Extensions, advance payments, monthly proformas and accounting periods, with Excel in and out.",
-      ],
-      [
-        "The AI price import.",
-        "A provider’s PDF or Excel quote read into the comparative, with a person confirming anything the matcher isn’t sure about.",
-      ],
-      [
-        "The unglamorous part.",
-        "Decimal money with consistent rounding, database locks against races, connection pool hygiene.",
-      ],
-    ],
     howH: "How it’s built",
-    how: "Domain-driven design with a hexagonal architecture: about fifteen bounded contexts, each with its domain (entities, value objects like Price and Status, repository ports), one use case per class, and adapters for Postgres, object storage, the LLM, documents and RabbitMQ. Versioned APIs with their OpenAPI contracts checked in CI, and integration tests written as Gherkin scenarios against a real database.",
     matchH: "Matching a quote to the budget",
     lockH: "Numbering without deadlocks",
-    testH: "Tests that read like the spec",
   },
   es: {
-    stats: [
-      ["~15", "contextos delimitados"],
-      ["Hexagonal", "arquitectura"],
-      ["Oferta → pago", "en un módulo"],
+    story: "Buena parte de mi tiempo se fue en refactorizar el generador de contratos, para que todas las plantillas siguieran el mismo estándar y todos los documentos se vieran iguales, y en la importación de precios con IA. Lo difícil fue entender el negocio: qué significa cada concepto y las matemáticas detrás de cada cálculo.",
+    builtH: "Lo que construí",
+    how: "Diseño guiado por el dominio con arquitectura hexagonal: unos quince bounded contexts, cada uno con su dominio (entidades, value objects como Price y Status, puertos de repositorio), un caso de uso por clase, y adaptadores para Postgres, almacenamiento de objetos, el LLM, documentos y RabbitMQ. Las APIs están versionadas, sus contratos OpenAPI se comprueban en CI, y los tests de integración son escenarios Gherkin contra una base de datos real:",
+    bullets: [
+      "El comparativo, con la oferta de cada proveedor por partida, el mejor precio y cuánto se aleja del estimado y del objetivo de ahorro.",
+      "Aprobaciones con notificaciones, incluido devolver un pedido validado a borrador sin dejar viva una solicitud de firma.",
+      "Contratos montados a partir de plantillas con anexos ordenados, convertidos a PDF, firmados electrónicamente y anunciados al resto de la plataforma como eventos.",
+      "Las finanzas que vienen después: ampliaciones, anticipos, proformas mensuales y periodos contables, con Excel de entrada y salida.",
+      "La importación de precios con IA, que vuelca en el comparativo el presupuesto de un proveedor en PDF o Excel y pide a una persona que confirme lo que el emparejador no tiene claro.",
+      "Dinero en Decimal con redondeo coherente, bloqueos de base de datos contra condiciones de carrera e higiene del pool de conexiones.",
     ],
     lines: [
       "Ventana de PVC 120×140",
@@ -247,51 +229,27 @@ const COPY = {
     title: "Compras para la construcción",
     pitch:
       "El servicio detrás de 011h Procurement: comparar las ofertas de los proveedores para cada parte del presupuesto de un edificio, aprobar la adjudicación y llevar el contrato desde la firma hasta el último pago.",
-    problemH: "El problema",
     problem:
       "El presupuesto de un edificio se divide en decenas de grupos de compra, de las ventanas a la fontanería, y cada uno se compra comparando ofertas de varios proveedores. El módulo lleva todo ese camino dentro de la plataforma, con las cuentas cuadrando y un registro de auditoría en cada paso.",
     walkH: "Lleva un grupo de compra de principio a fin",
     walk: "Proyecto, proveedores, precios y aprobadores inventados:",
-    builtH: "Lo que construí",
     built:
       "Antes de pasar a Builder, fui el principal contribuidor del servicio, en la mayoría de sus dominios:",
-    bullets: [
-      [
-        "El comparativo.",
-        "Proveedores, ofertas por partida, el mejor precio, la diferencia con el estimado y el objetivo de ahorro.",
-      ],
-      [
-        "Aprobaciones.",
-        "La cadena de validación, aceptar y rechazar con notificaciones, y devolver un pedido validado a borrador sin dejar una solicitud de firma viva.",
-      ],
-      [
-        "Contratos.",
-        "Documentos montados a partir de plantillas, con anexos ordenados, convertidos a PDF, firmados electrónicamente y anunciados al resto de la plataforma como eventos.",
-      ],
-      [
-        "Finanzas.",
-        "Ampliaciones, anticipos, proformas mensuales y periodos contables, con Excel de entrada y salida.",
-      ],
-      [
-        "La importación de precios con IA.",
-        "El presupuesto de un proveedor, en PDF o Excel, volcado en el comparativo, con una persona confirmando lo que el emparejador no tiene claro.",
-      ],
-      [
-        "La parte menos vistosa.",
-        "Dinero en Decimal con redondeo coherente, bloqueos de base de datos contra condiciones de carrera e higiene del pool de conexiones.",
-      ],
-    ],
     howH: "Cómo está hecho",
-    how: "Diseño guiado por el dominio con arquitectura hexagonal: unos quince bounded contexts, cada uno con su dominio (entidades, value objects como Price y Status, puertos de repositorio), un caso de uso por clase, y adaptadores para Postgres, almacenamiento de objetos, el LLM, documentos y RabbitMQ. APIs versionadas con sus contratos OpenAPI comprobados en CI, y tests de integración escritos como escenarios Gherkin contra una base de datos real.",
     matchH: "Emparejar un presupuesto con la obra",
     lockH: "Numerar sin interbloqueos",
-    testH: "Tests que se leen como la especificación",
   },
   ca: {
-    stats: [
-      ["~15", "contextos delimitats"],
-      ["Hexagonal", "arquitectura"],
-      ["Oferta → pagament", "en un mòdul"],
+    story: "Bona part del meu temps se’n va anar a refactoritzar el generador de contractes, perquè totes les plantilles seguissin el mateix estàndard i tots els documents es veiessin iguals, i a la importació de preus amb IA. El difícil va ser entendre el negoci: què vol dir cada concepte i les matemàtiques darrere de cada càlcul.",
+    builtH: "El que vaig construir",
+    how: "Disseny guiat pel domini amb arquitectura hexagonal: uns quinze bounded contexts, cadascun amb el seu domini (entitats, value objects com Price i Status, ports de repositori), un cas d’ús per classe, i adaptadors per a Postgres, emmagatzematge d’objectes, l’LLM, documents i RabbitMQ. Les APIs estan versionades, els seus contractes OpenAPI es comproven a CI, i els tests d’integració són escenaris Gherkin contra una base de dades real:",
+    bullets: [
+      "El comparatiu, amb l’oferta de cada proveïdor per partida, el millor preu i quant s’allunya de l’estimat i de l’objectiu d’estalvi.",
+      "Aprovacions amb notificacions, inclòs tornar una comanda validada a esborrany sense deixar viva una sol·licitud de signatura.",
+      "Contractes muntats a partir de plantilles amb annexos ordenats, convertits a PDF, signats electrònicament i anunciats a la resta de la plataforma com a esdeveniments.",
+      "Les finances que venen després: ampliacions, bestretes, proformes mensuals i períodes comptables, amb Excel d’entrada i de sortida.",
+      "La importació de preus amb IA, que bolca al comparatiu el pressupost d’un proveïdor en PDF o Excel i demana a una persona que confirmi el que l’aparellador no té clar.",
+      "Diners en Decimal amb un arrodoniment coherent, bloquejos de base de dades contra condicions de cursa i higiene del pool de connexions.",
     ],
     lines: [
       "Finestra de PVC 120×140",
@@ -352,45 +310,15 @@ const COPY = {
     title: "Compres per a la construcció",
     pitch:
       "El servei darrere de 011h Procurement: comparar les ofertes dels proveïdors per a cada part del pressupost d’un edifici, aprovar l’adjudicació i portar el contracte des de la signatura fins a l’últim pagament.",
-    problemH: "El problema",
     problem:
       "El pressupost d’un edifici es divideix en desenes de grups de compra, de les finestres a la fontaneria, i cadascun es compra comparant ofertes de diversos proveïdors. El mòdul porta tot aquest camí dins de la plataforma, amb els comptes quadrant i un registre d’auditoria a cada pas.",
     walkH: "Porta un grup de compra de cap a peus",
     walk: "Projecte, proveïdors, preus i aprovadors inventats:",
-    builtH: "El que vaig construir",
     built:
       "Abans de passar a Builder, vaig ser el principal contribuïdor del servei, en la majoria dels seus dominis:",
-    bullets: [
-      [
-        "El comparatiu.",
-        "Proveïdors, ofertes per partida, el millor preu, la diferència amb l’estimat i l’objectiu d’estalvi.",
-      ],
-      [
-        "Aprovacions.",
-        "La cadena de validació, acceptar i rebutjar amb notificacions, i tornar una comanda validada a esborrany sense deixar una sol·licitud de signatura viva.",
-      ],
-      [
-        "Contractes.",
-        "Documents muntats a partir de plantilles, amb annexos ordenats, convertits a PDF, signats electrònicament i anunciats a la resta de la plataforma com a esdeveniments.",
-      ],
-      [
-        "Finances.",
-        "Ampliacions, bestretes, proformes mensuals i períodes comptables, amb Excel d’entrada i de sortida.",
-      ],
-      [
-        "La importació de preus amb IA.",
-        "El pressupost d’un proveïdor, en PDF o Excel, bolcat al comparatiu, amb una persona confirmant el que l’aparellador no té clar.",
-      ],
-      [
-        "La part menys vistosa.",
-        "Diners en Decimal amb un arrodoniment coherent, bloquejos de base de dades contra condicions de cursa i higiene del pool de connexions.",
-      ],
-    ],
     howH: "Com està fet",
-    how: "Disseny guiat pel domini amb arquitectura hexagonal: uns quinze bounded contexts, cadascun amb el seu domini (entitats, value objects com Price i Status, ports de repositori), un cas d’ús per classe, i adaptadors per a Postgres, emmagatzematge d’objectes, l’LLM, documents i RabbitMQ. APIs versionades amb els seus contractes OpenAPI comprovats a CI, i tests d’integració escrits com a escenaris Gherkin contra una base de dades real.",
     matchH: "Aparellar un pressupost amb l’obra",
     lockH: "Numerar sense interbloquejos",
-    testH: "Tests que es llegeixen com l’especificació",
   },
 };
 
@@ -640,32 +568,30 @@ const Procurement = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="011h · 2025–2026"
         title={t.title}
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.problemH}</H>
-      <p>{t.problem}</p>
+      <p className="mt-6">{t.problem}</p>
       <H>{t.walkH}</H>
       <p className="mb-4">{t.walk}</p>
       <Walkthrough />
       <H>{t.builtH}</H>
       <p className="mb-2">{t.built}</p>
       <Bullets items={t.bullets} />
+      <p className="mt-3">{t.story}</p>
       <H>{t.howH}</H>
-      <p>{t.how}</p>
-      <H>{t.matchH}</H>
-      <Snippet file="line_matcher.py" language="python" code={MATCH} />
-      <H>{t.lockH}</H>
-      <Snippet file="attachments_repository.py" language="python" code={LOCK} />
-      <H>{t.testH}</H>
+      <p className="mb-4">{t.how}</p>
       <Snippet
         file="comparative_action_request.feature"
         language="gherkin"
         code={SCENARIO}
       />
+      <H>{t.matchH}</H>
+      <Snippet file="line_matcher.py" language="python" code={MATCH} />
+      <H>{t.lockH}</H>
+      <Snippet file="attachments_repository.py" language="python" code={LOCK} />
     </Article>
   );
 };

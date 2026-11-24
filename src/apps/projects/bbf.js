@@ -1,5 +1,5 @@
 import React from "react";
-import { Article, Bullets, H, Intro, Shots, Snippet, useCopy } from "./ui";
+import { Article, H, Intro, Prose, Shots, Snippet, useCopy } from "./ui";
 import ListShot from "../../assets/images/bbf/list.jpg";
 import RatingShot from "../../assets/images/bbf/rating.jpg";
 import FilterShot from "../../assets/images/bbf/filter.jpg";
@@ -33,10 +33,13 @@ function findRating(html, targetBrewery) {
 
 const COPY = {
   en: {
+    built: [
+      "The festival’s beers came as a tab-separated file, with tags like New, Gluten Free or 0% written into the names, the way the festival did it, and parsed back out. A Node script looks each beer up on Untappd, matches the brewery, saves the rating to the same file, and stops politely when it gets rate-limited. The app itself is plain JavaScript modules and a service worker, so it opens offline at a festival with no signal, and it’s hosted on Netlify.",
+      "The festival used to have an official app, but they discontinued it, and what I wanted was each beer’s rating at a glance, to decide what to taste.",
+    ],
     stats: [
       ["347", "beers"],
       ["1", "afternoon"],
-      ["Offline", "no signal needed"],
     ],
     title: "Barcelona Beer Festival list",
     pitch:
@@ -49,28 +52,17 @@ const COPY = {
       "Filters: style, brewery, origin, tags and search",
     ],
     builtH: "How it works",
-    bullets: [
-      [
-        "The list.",
-        "The festival’s beers as a tab-separated file, with tags like New, Gluten Free or 0% written into the name the way the festival did, parsed back out.",
-      ],
-      [
-        "The ratings.",
-        "A Node script looks each beer up on Untappd, matches the brewery, saves the rating to the same file, and stops politely when it gets rate-limited.",
-      ],
-      [
-        "The app.",
-        "Plain JavaScript modules and a service worker, so it opens offline in a festival with no signal, hosted on Netlify.",
-      ],
-    ],
     codeH: "Finding the right beer",
     caption: "scripts/scraper.js · trimmed from the public repo",
   },
   es: {
+    built: [
+      "Las cervezas del festival venían en un fichero separado por tabuladores, con etiquetas como Nueva, Sin gluten o 0% escritas dentro del nombre, como hacía el festival, y se separan al leerlo. Un script en Node busca cada cerveza en Untappd, comprueba la cervecera, guarda la nota en el mismo fichero y para con educación cuando le limitan las peticiones. La app son módulos de JavaScript sin framework y un service worker, para que abra sin conexión en un festival sin cobertura, y está alojada en Netlify.",
+      "El festival tenía una app oficial, pero la retiraron, y yo quería ver la nota de cada cerveza de un vistazo para decidir qué probar.",
+    ],
     stats: [
       ["347", "cervezas"],
       ["1", "tarde"],
-      ["Sin conexión", "no hace falta cobertura"],
     ],
     title: "Lista del Barcelona Beer Festival",
     pitch:
@@ -83,28 +75,17 @@ const COPY = {
       "Filtros: estilo, cervecera, origen, etiquetas y búsqueda",
     ],
     builtH: "Cómo funciona",
-    bullets: [
-      [
-        "La lista.",
-        "Las cervezas del festival en un fichero separado por tabuladores, con etiquetas como Nueva, Sin gluten o 0% escritas dentro del nombre, como hacía el festival, y separadas al leerlo.",
-      ],
-      [
-        "Las notas.",
-        "Un script en Node busca cada cerveza en Untappd, comprueba la cervecera, guarda la nota en el mismo fichero y para con educación cuando le limitan las peticiones.",
-      ],
-      [
-        "La app.",
-        "Módulos de JavaScript sin framework y un service worker, para que abra sin conexión en un festival sin cobertura, alojada en Netlify.",
-      ],
-    ],
     codeH: "Encontrar la cerveza correcta",
     caption: "scripts/scraper.js · recortado del repo público",
   },
   ca: {
+    built: [
+      "Les cerveses del festival venien en un fitxer separat per tabuladors, amb etiquetes com Nova, Sense gluten o 0% escrites dins del nom, com feia el festival, i se separen en llegir-lo. Un script en Node busca cada cervesa a Untappd, comprova la cervesera, desa la nota al mateix fitxer i s’atura amb educació quan li limiten les peticions. L’app són mòduls de JavaScript sense framework i un service worker, perquè s’obri sense connexió en un festival sense cobertura, i està allotjada a Netlify.",
+      "El festival tenia una app oficial, però la van retirar, i jo volia veure la nota de cada cervesa d’un cop d’ull per decidir què tastar.",
+    ],
     stats: [
       ["347", "cerveses"],
       ["1", "tarda"],
-      ["Sense connexió", "no cal cobertura"],
     ],
     title: "Llista del Barcelona Beer Festival",
     pitch:
@@ -117,20 +98,6 @@ const COPY = {
       "Filtres: estil, cervesera, origen, etiquetes i cerca",
     ],
     builtH: "Com funciona",
-    bullets: [
-      [
-        "La llista.",
-        "Les cerveses del festival en un fitxer separat per tabuladors, amb etiquetes com Nova, Sense gluten o 0% escrites dins del nom, com feia el festival, i separades en llegir-lo.",
-      ],
-      [
-        "Les notes.",
-        "Un script en Node busca cada cervesa a Untappd, comprova la cervesera, desa la nota al mateix fitxer i s’atura amb educació quan li limiten les peticions.",
-      ],
-      [
-        "L’app.",
-        "Mòduls de JavaScript sense framework i un service worker, perquè s’obri sense connexió en un festival sense cobertura, allotjada a Netlify.",
-      ],
-    ],
     codeH: "Trobar la cervesa correcta",
     caption: "scripts/scraper.js · retallat del repo públic",
   },
@@ -163,7 +130,7 @@ const Bbf = () => {
       <H>{t.shotsH}</H>
       <Shots items={SHOTS.map((src, i) => [src, t.shots[i]])} />
       <H>{t.builtH}</H>
-      <Bullets items={t.bullets} />
+      <Prose items={t.built} />
       <H>{t.codeH}</H>
       <Snippet caption={t.caption} language="javascript" code={MATCH} />
     </Article>

@@ -3,9 +3,9 @@ import {
   ArrowDefs,
   Article,
   Box,
-  Bullets,
   Edge,
   H,
+  Prose,
   Intro,
   Pick,
   Snippet,
@@ -58,10 +58,12 @@ if not jpype.isJVMStarted():
 
 const COPY = {
   en: {
-    stats: [
-      ["3", "panes: sender, wire, receiver"],
-      ["3", "trust levels"],
-      ["2", "MQ clients, one API"],
+    problem: "The connector sat between two message queues and encrypted everything that crossed between them, without anyone noticing. That was the whole idea, and it made it very hard to demo, because there was nothing to see. The team needed to show a message going in, what an eavesdropper would get, and what came out the other side. The sales team used it to demo the product to several banks; I didn’t give the demos, I got it ready so they could.",
+    builtH: "How it grew",
+    built: [
+      "I wrote every version. It started as a spike, a Django form that put messages on a queue and a small reader that printed them, which was enough to learn queue managers, channels and TLS. The first real demo had two endpoints, XML messages, queue browsing, ratings read from the connector’s log and an auto-send mode.",
+      "Then I rewrote it in real time with Django Channels: three panes, a mode that drives the connector through its Java client, and a command that builds the demo’s config from the deployed connector’s own settings, so nobody had to write it by hand.",
+      "Later it turned into a test harness: a JSON API that puts and gets messages through either the C or the Java MQ client, with exact message descriptors and many threads, plus load scripts and a Grafana dashboard over the connector’s Prometheus metrics.",
     ],
     trust: {
       verified: [
@@ -102,42 +104,21 @@ const COPY = {
     title: "Encrypted financial messaging, live",
     pitch:
       "A live demo, and later a test harness, for p≡p’s connector that encrypts financial messages as they travel over IBM MQ.",
-    problemH: "The problem",
-    problem:
-      "The connector sat invisibly between two message queues and encrypted everything that crossed between them. Invisible is the point, but it makes for a hard demo: there’s nothing to see. The team needed to show a message going in, what an eavesdropper would get, and what came out the other side.",
     tryH: "Try it",
     try: "A miniature of the demo I built. Send a message and pick how far the receiver’s keys are trusted:",
     wiredH: "How the real one was wired",
     wired:
       "The browser and Django talk over a WebSocket. Django puts messages on the sender’s queue, and reader threads poll the receiver’s queue and a copy of the network traffic, pushing each message to its pane.",
-    builtH: "What I built",
-    built: "I wrote every version, start to finish:",
-    bullets: [
-      [
-        "A spike.",
-        "A Django form that put messages on a queue and a small reader that printed them: enough to learn queue managers, channels and TLS.",
-      ],
-      [
-        "The first demo.",
-        "Two endpoints, XML messages, queue browsing, ratings read from the connector’s log and an auto-send mode.",
-      ],
-      [
-        "The real-time rewrite.",
-        "Django Channels, three panes, a mode that drives the connector through its Java client, and a command that builds the demo’s config from the deployed connector’s own settings instead of by hand.",
-      ],
-      [
-        "The test harness.",
-        "A JSON API that puts and gets messages through either the C or the Java MQ client, with exact message descriptors and many threads, plus load scripts and a Grafana dashboard over the connector’s Prometheus metrics.",
-      ],
-    ],
     orderH: "Network before receiver",
     apiH: "One API, two MQ clients",
   },
   es: {
-    stats: [
-      ["3", "paneles: emisor, red, receptor"],
-      ["3", "niveles de confianza"],
-      ["2", "clientes MQ, una API"],
+    problem: "El conector estaba entre dos colas de mensajes y cifraba todo lo que pasaba entre ellas sin que nadie lo notara. Esa era justo la idea, y por eso era tan difícil hacer una demo: no había nada que ver. El equipo necesitaba enseñar un mensaje entrando, lo que vería alguien escuchando y lo que salía por el otro lado. El equipo de ventas la usó para enseñar el producto a varios bancos; yo no hacía las demos, la dejaba lista para que pudieran hacerlas.",
+    builtH: "Cómo fue creciendo",
+    built: [
+      "Escribí todas las versiones. Empezó como un spike, un formulario de Django que ponía mensajes en una cola y un pequeño lector que los mostraba, lo justo para aprender queue managers, canales y TLS. La primera demo de verdad tenía dos endpoints, mensajes XML, exploración de colas, valoraciones leídas del log del conector y un modo de envío automático.",
+      "Después la reescribí en tiempo real con Django Channels: tres paneles, un modo que maneja el conector a través de su cliente Java y un comando que genera la configuración de la demo a partir de los ajustes del conector desplegado, para que nadie tuviera que escribirla a mano.",
+      "Más tarde se convirtió en un banco de pruebas: una API JSON que pone y recoge mensajes con el cliente MQ de C o el de Java, con descriptores de mensaje exactos y muchos hilos, además de scripts de carga y un panel de Grafana sobre las métricas de Prometheus del conector.",
     ],
     trust: {
       verified: [
@@ -178,42 +159,21 @@ const COPY = {
     title: "Mensajería financiera cifrada, en directo",
     pitch:
       "Una demo en directo, y más tarde un banco de pruebas, para el conector de p≡p que cifra mensajes financieros mientras viajan por IBM MQ.",
-    problemH: "El problema",
-    problem:
-      "El conector estaba, invisible, entre dos colas de mensajes y cifraba todo lo que pasaba entre ellas. Ser invisible es la gracia, pero hace difícil la demo: no hay nada que ver. El equipo necesitaba enseñar un mensaje entrando, lo que vería alguien escuchando y lo que salía por el otro lado.",
     tryH: "Pruébalo",
     try: "Una miniatura de la demo que construí. Envía un mensaje y elige hasta qué punto se confía en las claves del receptor:",
     wiredH: "Cómo estaba montada la de verdad",
     wired:
       "El navegador y Django hablan por WebSocket. Django pone los mensajes en la cola del emisor, y unos hilos lectores consultan la cola del receptor y una copia del tráfico de red, y envían cada mensaje a su panel.",
-    builtH: "Lo que construí",
-    built: "Escribí todas las versiones, de principio a fin:",
-    bullets: [
-      [
-        "Un spike.",
-        "Un formulario de Django que ponía mensajes en una cola y un pequeño lector que los mostraba: lo justo para aprender queue managers, canales y TLS.",
-      ],
-      [
-        "La primera demo.",
-        "Dos endpoints, mensajes XML, exploración de colas, valoraciones leídas del log del conector y un modo de envío automático.",
-      ],
-      [
-        "La reescritura en tiempo real.",
-        "Django Channels, tres paneles, un modo que maneja el conector a través de su cliente Java, y un comando que genera la configuración de la demo a partir de los ajustes del conector desplegado, en lugar de a mano.",
-      ],
-      [
-        "El banco de pruebas.",
-        "Una API JSON que pone y recoge mensajes con el cliente MQ de C o el de Java, con descriptores de mensaje exactos y muchos hilos, además de scripts de carga y un panel de Grafana sobre las métricas de Prometheus del conector.",
-      ],
-    ],
     orderH: "La red antes que el receptor",
     apiH: "Una API, dos clientes MQ",
   },
   ca: {
-    stats: [
-      ["3", "panells: emissor, xarxa, receptor"],
-      ["3", "nivells de confiança"],
-      ["2", "clients MQ, una API"],
+    problem: "El connector era entre dues cues de missatges i xifrava tot el que hi passava sense que ningú se n’adonés. Aquesta era justament la idea, i per això era tan difícil fer-ne una demo: no hi havia res a veure. L’equip necessitava ensenyar un missatge entrant, el que veuria algú escoltant i el que sortia per l’altra banda. L’equip de vendes la va fer servir per ensenyar el producte a diversos bancs; jo no feia les demos, la deixava a punt perquè les poguessin fer.",
+    builtH: "Com va anar creixent",
+    built: [
+      "Vaig escriure totes les versions. Va començar com un spike, un formulari de Django que posava missatges en una cua i un petit lector que els mostrava, el just per aprendre queue managers, canals i TLS. La primera demo de debò tenia dos endpoints, missatges XML, exploració de cues, valoracions llegides del log del connector i un mode d’enviament automàtic.",
+      "Després la vaig reescriure en temps real amb Django Channels: tres panells, un mode que fa anar el connector a través del seu client Java i una ordre que genera la configuració de la demo a partir de la del connector desplegat, perquè ningú no l’hagués d’escriure a mà.",
+      "Més endavant es va convertir en un banc de proves: una API JSON que posa i recull missatges amb el client MQ de C o el de Java, amb descriptors de missatge exactes i molts fils, a més d’scripts de càrrega i un tauler de Grafana sobre les mètriques de Prometheus del connector.",
     ],
     trust: {
       verified: [
@@ -254,34 +214,11 @@ const COPY = {
     title: "Missatgeria financera xifrada, en directe",
     pitch:
       "Una demo en directe, i més endavant un banc de proves, per al connector de p≡p que xifra missatges financers mentre viatgen per IBM MQ.",
-    problemH: "El problema",
-    problem:
-      "El connector era, invisible, entre dues cues de missatges i xifrava tot el que hi passava. Ser invisible és la gràcia, però fa difícil la demo: no hi ha res a veure. L’equip necessitava ensenyar un missatge entrant, el que veuria algú escoltant i el que sortia per l’altra banda.",
     tryH: "Prova-ho",
     try: "Una miniatura de la demo que vaig construir. Envia un missatge i tria fins a quin punt es confia en les claus del receptor:",
     wiredH: "Com estava muntada la de debò",
     wired:
       "El navegador i Django parlen per WebSocket. Django posa els missatges a la cua de l’emissor, i uns fils lectors consulten la cua del receptor i una còpia del trànsit de xarxa, i envien cada missatge al seu panell.",
-    builtH: "El que vaig construir",
-    built: "Vaig escriure totes les versions, de principi a fi:",
-    bullets: [
-      [
-        "Un spike.",
-        "Un formulari de Django que posava missatges en una cua i un petit lector que els mostrava: el just per aprendre queue managers, canals i TLS.",
-      ],
-      [
-        "La primera demo.",
-        "Dos endpoints, missatges XML, exploració de cues, valoracions llegides del log del connector i un mode d’enviament automàtic.",
-      ],
-      [
-        "La reescriptura en temps real.",
-        "Django Channels, tres panells, un mode que fa anar el connector a través del seu client Java, i una ordre que genera la configuració de la demo a partir de la configuració del connector desplegat, en lloc de fer-ho a mà.",
-      ],
-      [
-        "El banc de proves.",
-        "Una API JSON que posa i recull missatges amb el client MQ de C o el de Java, amb descriptors de missatge exactes i molts fils, a més d’scripts de càrrega i un tauler de Grafana sobre les mètriques de Prometheus del connector.",
-      ],
-    ],
     orderH: "La xarxa abans que el receptor",
     apiH: "Una API, dos clients MQ",
   },
@@ -503,14 +440,12 @@ const Mq = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="p≡p Security · 2020–2022"
         title={t.title}
         pitch={t.pitch}
         stack={STACK}
       />
-      <H>{t.problemH}</H>
-      <p>{t.problem}</p>
+      <p className="mt-6">{t.problem}</p>
       <H>{t.tryH}</H>
       <p className="mb-4">{t.try}</p>
       <Demo />
@@ -518,8 +453,7 @@ const Mq = () => {
       <p className="mb-4">{t.wired}</p>
       <Wiring />
       <H>{t.builtH}</H>
-      <p className="mb-2">{t.built}</p>
-      <Bullets items={t.bullets} />
+      <Prose items={t.built} />
       <H>{t.orderH}</H>
       <Snippet file="consumers.py" language="python" code={CONSUMER} />
       <H>{t.apiH}</H>
