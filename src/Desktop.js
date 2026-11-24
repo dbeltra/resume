@@ -596,6 +596,9 @@ const Desktop = ({ phone }) => {
         setCtx({ x: e.clientX, y: e.clientY });
       }}
     >
+      {/* the page's heading for screen readers and search engines; the menu
+          bar shows the name, but as a menu, not a heading */}
+      <h1 className="sr-only">David Beltrà, full stack developer in Barcelona</h1>
       {crash && crash !== "glitch" && (
         <Crash phase={crash} offText={t("desktop.off")} onWake={restart} />
       )}
