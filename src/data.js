@@ -1,17 +1,23 @@
 import PythonLogo from "./assets/icons/color/python.png";
 import JavascriptLogo from "./assets/icons/color/js.png";
 import RustLogo from "./assets/icons/color/rust.png";
-import HTMLLogo from "./assets/icons/color/html-5.png";
 import CSSLogo from "./assets/icons/color/css-3.png";
 import SassLogo from "./assets/icons/color/sass.png";
 import GitLogo from "./assets/icons/color/git.png";
 import GithubLogo from "./assets/icons/color/github.png";
 import DockerLogo from "./assets/icons/color/docker.png";
-import DBLogo from "./assets/icons/color/database.png";
+import PostgresLogo from "./assets/icons/color/postgresql.png";
+import RabbitLogo from "./assets/icons/color/rabbitmq.png";
+import PytestLogo from "./assets/icons/color/pytest.png";
+import JiraLogo from "./assets/icons/color/jira.png";
 import ClaudeLogo from "./assets/icons/skills/claude.png";
 import PuzzleLogo from "./assets/icons/skills/puzzle.png";
 import McpLogo from "./assets/icons/skills/mcp.png";
-import AgentLogo from "./assets/icons/skills/agent.png";
+import LoupeLogo from "./assets/icons/skills/loupe.png";
+import AncoraLogo from "./assets/images/logos/ancora.png";
+import PepLogo from "./assets/images/logos/pep.png";
+import PlanckLogo from "./assets/images/logos/planck.png";
+import O11hLogo from "./assets/images/logos/011h.png";
 
 // Tech per role, same order; taken from the experience text itself.
 export const JOB_STACKS = [
@@ -20,6 +26,9 @@ export const JOB_STACKS = [
   ["Rust", "Docker", "React", "Postfix"],
   ["React", "FastAPI"],
 ];
+
+// company logo per job, same order as JOB_STACKS
+export const JOB_LOGOS = [AncoraLogo, PepLogo, PlanckLogo, O11hLogo];
 
 // Projects case studies per job, same order as JOB_STACKS
 export const JOB_CASES = [
@@ -34,24 +43,28 @@ export const PAGES = ["about", "experience", "skills", "contact"];
 export const SKILLS = {
   languages: [
     { icon: PythonLogo, name: "Python · Django · FastAPI" },
-    { icon: JavascriptLogo, name: "JavaScript · React" },
+    { icon: JavascriptLogo, name: "JavaScript · React · Node" },
     { icon: RustLogo, name: "Rust" },
-    { icon: HTMLLogo, name: "HTML" },
-    { icon: CSSLogo, name: "CSS · Tailwind · Bootstrap" },
-    { icon: SassLogo, name: "Sass · Stylus · SCSS" },
+    { icon: CSSLogo, name: "CSS · Tailwind" },
+    { icon: SassLogo, name: "Sass" },
   ],
+  // `symbol`: a Material Symbol where there's no colour icon
   tools: [
-    { icon: GitLogo, name: "Git · GitHub · Mercurial" },
+    { icon: GitLogo, name: "Git · GitHub · GitLab" },
     { icon: GithubLogo, name: "GitHub Actions" },
     { icon: DockerLogo, name: "Docker" },
-    { icon: DBLogo, name: "SQL · Redis" },
+    { icon: PostgresLogo, name: "PostgreSQL · SQLAlchemy · Redis" },
+    { icon: RabbitLogo, name: "RabbitMQ · IBM MQ · protobuf" },
+    { icon: PytestLogo, name: "pytest · Behave" },
+    { icon: JiraLogo, name: "Jira" },
   ],
   ai: [
     { icon: ClaudeLogo, name: "Claude Code" },
     { icon: PuzzleLogo, nameKey: "desktop.skills.skillsHooks" },
     // the MCP logo is white; render it black on the light tile
     { icon: McpLogo, iconClass: "brightness-0", nameKey: "desktop.skills.mcp" },
-    { icon: AgentLogo, nameKey: "desktop.skills.review" },
+    { icon: LoupeLogo, nameKey: "desktop.skills.review" },
+    { symbol: "graphic_eq", nameKey: "desktop.skills.llm" },
   ],
 };
 

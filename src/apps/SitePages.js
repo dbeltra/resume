@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { JOB_CASES, JOB_STACKS, SKILLS } from "../data";
+import { JOB_CASES, JOB_LOGOS, JOB_STACKS, SKILLS } from "../data";
 import { CASES } from "./Projects";
 import Foam from "../assets/textures/foam.jpg";
 
@@ -243,7 +243,7 @@ const CaseLinks = ({ ids, onOpenProject }) => {
 const Experience = ({ onOpenProject }) => {
   const { t } = useTranslation();
   const jobs = t("experienceExperiences", { returnObjects: true })
-    .map((job, i) => ({ ...job, stack: JOB_STACKS[i], cases: JOB_CASES[i] }))
+    .map((job, i) => ({ ...job, stack: JOB_STACKS[i], cases: JOB_CASES[i], logo: JOB_LOGOS[i] }))
     .reverse(); // newest first
   const cols = ["flex-[1_1_130px]", "flex-[4_1_420px]", "flex-[1.4_1_150px]"];
   return (
@@ -269,6 +269,12 @@ const Experience = ({ onOpenProject }) => {
               className={`${cols[0]} pt-0.5 font-mono text-[13.5px] text-[#17151f]`}
             >
               {j.dates}
+              <img
+                src={j.logo}
+                alt={j.company}
+                loading="lazy"
+                className="mt-4 size-auto max-h-8 max-w-[150px] object-contain"
+              />
             </div>
             <div className={`${cols[1]} min-w-0`}>
               <h2 className="text-[19px] font-semibold text-[#17151f]">
@@ -313,11 +319,20 @@ const Skills = () => {
                 className="reveal flex min-h-[56px] items-center gap-3 border-b border-r border-[#e7e4ec] px-4 py-3 text-[15px] font-medium text-[#17151f] hover:bg-[#f7f5f9]"
                 style={{ "--d": `${i * 40}ms` }}
               >
-                <img
-                  src={s.icon}
-                  alt=""
-                  className={`h-5 w-5 flex-none object-contain ${s.iconClass || ""}`}
-                />
+                {s.symbol ? (
+                  <i
+                    aria-hidden="true"
+                    className="material-symbols-outlined w-5 flex-none !text-[20px] text-[#6b6775]"
+                  >
+                    {s.symbol}
+                  </i>
+                ) : (
+                  <img
+                    src={s.icon}
+                    alt=""
+                    className={`size-5 flex-none object-contain ${s.iconClass || ""}`}
+                  />
+                )}
                 {skillName(t, s)}
               </li>
             ))}
