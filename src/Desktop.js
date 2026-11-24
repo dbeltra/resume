@@ -34,6 +34,7 @@ import { confetti } from "./components/confetti";
 import { prefersReducedMotion } from "./components/genie";
 import PdfIcon from "./assets/icons/apps/doc-pdf.svg";
 import FolderIcon from "./assets/icons/apps/folder.png";
+import CaseIcon from "./assets/icons/apps/case.png";
 import FileIcon from "./assets/icons/apps/doc-md.svg";
 import TrashIcon from "./assets/icons/apps/trash.png";
 import PhotosIcon from "./assets/icons/apps/photos.png";
@@ -470,7 +471,7 @@ const Desktop = ({ phone }) => {
     {
       id: "projects",
       label: t("desktop.apps.projects"),
-      icon: FolderIcon,
+      icon: CaseIcon,
       act: () => open("projects"),
     },
     {

@@ -99,7 +99,7 @@ const Spotify = ({ win }) => {
       className="border border-[#2a2a2a] bg-[#121212] text-white"
       barClassName="h-10 bg-black"
       toolbar={
-        <span className="flex-1 text-center text-[13px] font-semibold">
+        <span className="pointer-events-none absolute inset-x-0 text-center text-[13px] font-semibold">
           Spotify
         </span>
       }

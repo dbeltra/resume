@@ -41,7 +41,7 @@ const Photos = ({ win }) => {
       className="border border-[#343741] bg-[#1e2026] text-ink-text"
       barClassName="h-11 border-b border-[#343741] bg-[#262932]"
       toolbar={
-        <span className="flex-1 text-center text-[13px] font-semibold">
+        <span className="pointer-events-none absolute inset-x-0 text-center text-[13px] font-semibold">
           {t("desktop.apps.photos")}
         </span>
       }
