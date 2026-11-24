@@ -3,7 +3,7 @@
    Symbols icon subset. No visitor request goes to Google.
    Downloaded from (latin + latin-ext blocks kept):
    https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap
-   https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_tree,arrow_back,arrow_forward,auto_stories,bolt,chevron_left,chevron_right,code,data_object,delete,description,download,fast_forward,fast_rewind,folder,grid_view,link,location_on,lock,mail,north_east,open_in_new,pause,person,photo_camera,play_arrow,power_settings_new,refresh,restart_alt,search,send,skip_next,skip_previous,terminal,translate,work&display=block
+   https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_tree,arrow_back,arrow_forward,auto_stories,bolt,check_circle,chevron_left,chevron_right,code,data_object,delete,description,download,fast_forward,fast_rewind,folder,graphic_eq,grid_view,link,location_on,lock,mail,north_east,open_in_new,pause,person,photo_camera,play_arrow,power_settings_new,refresh,restart_alt,search,send,skip_next,skip_previous,sync_alt,terminal,translate,view_kanban,work&display=block
    To add an icon: put its name in icon_names (alphabetical), fetch that CSS
    with a desktop browser User-Agent and swap in the new woff2. */
 /* latin-ext */
@@ -173,7 +173,7 @@
   font-style: normal;
   font-weight: 100 700;
   font-display: block;
-  src: url(material-symbols-outlined-icons-b1884a.woff2) format('woff2');
+  src: url(material-symbols-outlined-icons-b8dced.woff2) format('woff2');
 }
 /* NEOPIXEL by its Behance author, "Free for Personal Use":
    https://www.behance.net/gallery/165413157/NEOPIXEL-(free-font)

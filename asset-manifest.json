@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.45712d9c.css",
-    "main.js": "/static/js/main.80ce8657.js",
+    "main.css": "/static/css/main.9b52acad.css",
+    "main.js": "/static/js/main.e7465041.js",
     "static/js/453.f19e9853.chunk.js": "/static/js/453.f19e9853.chunk.js",
     "static/media/shore.jpg": "/static/media/shore.7821c11cd7e56209aca0.jpg",
     "static/media/forest.jpg": "/static/media/forest.744466f8dbbdba140ec5.jpg",
@@ -33,6 +33,7 @@
     "static/media/puzzle.png": "/static/media/puzzle.cb202ddd8ed2e5207e8a.png",
     "static/media/git.png": "/static/media/git.7f54640113ee8f7463bd.png",
     "static/media/rust.png": "/static/media/rust.c83e4e2e3eb246b69495.png",
+    "static/media/planck.png": "/static/media/planck.0c56106d26d77ee0cbfb.png",
     "index.html": "/index.html",
     "static/media/clawd.svg": "/static/media/clawd.96c4081d5c08bb0922497e8aa8ab02da.svg",
     "static/media/code.svg": "/static/media/code.b41105e38b1454fff1e7eb4bd7e08919.svg",
@@ -40,12 +41,12 @@
     "static/media/doc-md.svg": "/static/media/doc-md.8f31c6b3422b87822b28d58a4be40ec2.svg",
     "static/media/doc-pdf.svg": "/static/media/doc-pdf.9f27d30bf423c9140a156d0689ef1cb7.svg",
     "static/media/icon-d.svg": "/static/media/icon-d.defa5c7a62b98606991729cd54f81dc0.svg",
-    "main.45712d9c.css.map": "/static/css/main.45712d9c.css.map",
-    "main.80ce8657.js.map": "/static/js/main.80ce8657.js.map",
+    "main.9b52acad.css.map": "/static/css/main.9b52acad.css.map",
+    "main.e7465041.js.map": "/static/js/main.e7465041.js.map",
     "453.f19e9853.chunk.js.map": "/static/js/453.f19e9853.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.45712d9c.css",
-    "static/js/main.80ce8657.js"
+    "static/css/main.9b52acad.css",
+    "static/js/main.e7465041.js"
   ]
 }
