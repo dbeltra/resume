@@ -52,13 +52,15 @@ const ALL = {
 const NEXT = { en: "Next", es: "Siguiente", ca: "Següent" };
 const PREV = { en: "Previous", es: "Anterior", ca: "Anterior" };
 
-// the chips on a card and the gallery's filters; "side" comes from c.side
+// the chips on a card and the gallery's filters; work and personal come
+// from c.side rather than from the tags
 const TAGS = {
   all: { en: "All", es: "Todo", ca: "Tot" },
+  work: { en: "Work", es: "Trabajo", ca: "Feina" },
+  personal: { en: "Personal", es: "Personales", ca: "Personals" },
   back: { en: "Backend", es: "Backend", ca: "Backend" },
   front: { en: "Frontend", es: "Frontend", ca: "Frontend" },
   ai: { en: "AI", es: "IA", ca: "IA" },
-  side: { en: "Side", es: "Personales", ca: "Personals" },
 };
 
 // newest first. `Thumb` is the case's own diagram or mock, shrunk for its
@@ -355,9 +357,11 @@ const Projects = ({ win, tab }) => {
   const shown = CASES.filter((c) =>
     filter === "all"
       ? true
-      : filter === "side"
-        ? c.side
-        : c.tags.includes(filter),
+      : filter === "work"
+        ? !c.side
+        : filter === "personal"
+          ? c.side
+          : c.tags.includes(filter),
   );
   // a link elsewhere on the site can open a given case study, or "all"
   useEffect(() => {
@@ -420,14 +424,14 @@ const Projects = ({ win, tab }) => {
             ))}
           </div>
           {/* floating filters, like the wall's own menu */}
-          <div className="sticky bottom-4 z-10 mx-auto mb-4 mt-2 flex w-fit max-w-full gap-1 overflow-x-auto rounded-xl bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.18)]">
+          <div className="sticky bottom-4 z-10 mx-auto mb-4 mt-2 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-xl bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.18)] sm:flex-nowrap">
             {Object.keys(TAGS).map((f) => (
               <button
                 key={f}
                 type="button"
                 aria-pressed={filter === f}
                 onClick={() => setFilter(f)}
-                className={`flex-none rounded-lg bg-[#f0eee9] bg-[linear-gradient(#17151f,#17151f)] bg-left bg-no-repeat px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide transition-[background-size,color] duration-300 [transition-timing-function:var(--ease-io)] ${filter === f ? "bg-[length:100%_100%] text-white" : "bg-[length:0%_100%] text-[#17151f] hover:bg-[#e4e1da]"}`}
+                className={`flex-none rounded-lg bg-[#f0eee9] bg-[linear-gradient(#17151f,#17151f)] bg-left bg-no-repeat px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wide transition-[background-size,color] duration-300 [transition-timing-function:var(--ease-io)] sm:px-3 ${filter === f ? "bg-[length:100%_100%] text-white" : "bg-[length:0%_100%] text-[#17151f] hover:bg-[#e4e1da]"}`}
               >
                 {label(TAGS[f], lang)}
               </button>
