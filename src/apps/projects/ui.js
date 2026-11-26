@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { highlightLines } from "../Code";
 
@@ -39,7 +39,7 @@ export const Snippet = ({ caption, file, code, language }) => {
 };
 
 export const H = ({ children }) => (
-  <h3 className="mb-2 mt-8 text-[11px] font-semibold uppercase tracking-[0.18em] text-p-fg">
+  <h3 className="case-h mb-2 mt-8 text-[11px] font-semibold uppercase tracking-[0.18em] text-p-fg">
     {children}
   </h3>
 );
@@ -135,31 +135,30 @@ export const Pick = ({ label, options, value, onChange }) => (
   </>
 );
 
-// kicker, title, pitch, a few numbers and stack chips at the top of a case
+// p≡p is always lower case, even inside uppercase labels
+export const brand = (s) =>
+  s.split("p≡p").flatMap((part, i) =>
+    i
+      ? [
+          <span key={i} className="normal-case">
+            p≡p
+          </span>,
+          part,
+        ]
+      : [part],
+  );
+
+// kicker, title, pitch and stack chips at the top of a case
 // study; the colour is the company's, set as --accent by the Projects window
-export const Intro = ({ kicker, title, pitch, stats = [], stack }) => (
+export const Intro = ({ kicker, title, pitch, stack }) => (
   <>
     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:color-mix(in_srgb,var(--accent,#c49bc4)_80%,rgb(var(--p-fg)))]">
-      {kicker}
+      {brand(kicker)}
     </p>
     <h2 className="mt-1 text-[30px] font-semibold leading-tight text-p-fg">
       {title}
     </h2>
     <p className="mt-2 text-[16px] text-p-fg">{pitch}</p>
-    {stats.length > 0 && (
-      <dl className="mt-5 grid grid-cols-3 gap-3 border-y border-p-fg/10 py-4">
-        {stats.map(([value, label]) => (
-          <div key={label}>
-            <dt className="text-[20px] font-semibold leading-tight text-[color:color-mix(in_srgb,var(--accent,#c49bc4)_80%,rgb(var(--p-fg)))]">
-              {value}
-            </dt>
-            <dd className="mt-0.5 text-[11px] leading-snug text-p-muted">
-              {label}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    )}
     <ul className="mt-4 flex flex-wrap gap-1.5">
       {stack.map((s) => (
         <li
@@ -198,9 +197,7 @@ export const Prose = ({ items }) =>
 
 // a plain bulleted list of sentences
 export const Bullets = ({ items, className = "" }) => (
-  <ul
-    className={`list-disc space-y-1.5 pl-5 marker:text-p-muted ${className}`}
-  >
+  <ul className={`list-disc space-y-1.5 pl-5 marker:text-p-muted ${className}`}>
     {items.map((it) => (
       <li key={it}>{it}</li>
     ))}
@@ -210,34 +207,74 @@ export const Bullets = ({ items, className = "" }) => (
 // real screenshots, side by side, scrolling sideways when they don't fit:
 // [[image, caption, link?], ...]. Phone frames by default; `wide` for pages
 // shot in a desktop browser.
-export const Shots = ({ items, wide }) => (
-  <div className="-mx-1 flex snap-x gap-4 overflow-x-auto px-1 pb-2">
-    {items.map(([src, caption, href]) => (
-      <figure
-        key={src}
-        className={`${wide ? "w-[300px]" : "w-[170px]"} flex-none snap-start`}
-      >
-        <img
-          src={src}
-          alt={caption}
-          loading="lazy"
-          className={`w-full bg-p-sunk object-cover object-top shadow-[0_12px_28px_rgba(0,0,0,0.45)] ${wide ? "aspect-[16/10] rounded-md border border-p-line" : "aspect-[390/844] rounded-[18px] border-[3px] border-p-line"}`}
-        />
-        <figcaption className="mt-2 text-[11px] leading-snug text-p-muted">
-          {href ? (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-p-fg/20 underline-offset-2 hover:text-p-fg"
-            >
-              {caption} ↗
-            </a>
-          ) : (
-            caption
-          )}
-        </figcaption>
-      </figure>
-    ))}
-  </div>
-);
+// The row slides sideways as the page scrolls past it: it starts as it comes
+// up from the bottom and reaches its last shot as it nears the top, so the
+// page never stops scrolling. Dragging or swiping the row still works.
+const useScrollLinked = () => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const page = el.closest(".proj") || window;
+    // fade the right edge while there's more to see
+    const fade = () =>
+      (el.dataset.more = el.scrollLeft < el.scrollWidth - el.clientWidth - 2);
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const top = page.getBoundingClientRect?.().top ?? 0;
+      const h = page.clientHeight ?? window.innerHeight;
+      const y = (el.getBoundingClientRect().top - top) / h; // 1 = bottom edge
+      const t = Math.min(1, Math.max(0, (0.85 - y) / 0.6)); // 85% → 25%
+      if (max > 0) el.scrollLeft = t * max;
+      fade();
+    };
+    update();
+    page.addEventListener("scroll", update, { passive: true });
+    el.addEventListener("scroll", fade, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      page.removeEventListener("scroll", update);
+      el.removeEventListener("scroll", fade);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+  return ref;
+};
+
+export const Shots = ({ items, wide }) => {
+  const ref = useScrollLinked();
+  return (
+    <div
+      ref={ref}
+      className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-4 pt-1 data-[more=true]:[mask-image:linear-gradient(to_right,#000_calc(100%_-_96px),transparent)]"
+    >
+      {items.map(([src, caption, href]) => (
+        <figure
+          key={src}
+          className={`${wide ? "w-[300px]" : "w-[170px]"} flex-none snap-start`}
+        >
+          <img
+            src={src}
+            alt={caption}
+            loading="lazy"
+            className={`w-full bg-p-sunk object-cover object-top shadow-[0_1px_3px_rgba(0,0,0,0.08),0_4px_12px_rgba(0,0,0,0.1)] ${wide ? "aspect-[16/10] rounded-md border border-p-line" : "aspect-[390/844] rounded-[18px] border-[3px] border-p-line"}`}
+          />
+          <figcaption className="mt-3 text-[11px] leading-snug text-p-muted">
+            {href ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-p-fg/20 underline-offset-2 hover:text-p-fg"
+              >
+                {caption} ↗
+              </a>
+            ) : (
+              caption
+            )}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+};

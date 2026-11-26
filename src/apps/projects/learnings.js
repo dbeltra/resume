@@ -27,9 +27,10 @@ async def save(self, capture: Capture, read_version: int) -> bool:
 
 // --- part 1: a lesson learned, by voice note --------------------------------
 
-const COPY = {
+export const COPY = {
   en: {
-    story: "By late 2026 workers on site were using it, and it had captured several real lessons.",
+    story:
+      "By late 2026 workers on site were using it, and it had captured several real lessons.",
     idea: "Nobody on a construction site stops to fill in a form, so lessons learned get lost. Try it:",
     bullets: [
       "The WhatsApp gateway: signed webhooks, voice notes and photos, sessions, and a router that tells a delivery note from a lesson learned.",
@@ -85,7 +86,8 @@ const COPY = {
       "The assistant’s agent loop is a colleague’s work. I built the WhatsApp channel and the learnings on top of it:",
   },
   es: {
-    story: "A finales de 2026 el personal de obra ya lo usaba, y había recogido varias lecciones reales.",
+    story:
+      "A finales de 2026 el personal de obra ya lo usaba, y había recogido varias lecciones reales.",
     idea: "En una obra nadie se para a rellenar un formulario, así que las lecciones aprendidas se pierden. Pruébalo:",
     bullets: [
       "La pasarela de WhatsApp: webhooks firmados, notas de voz y fotos, sesiones, y un enrutador que distingue un albarán de una lección aprendida.",
@@ -141,7 +143,8 @@ const COPY = {
       "El bucle de agente del asistente es obra de otra persona del equipo. Yo construí el canal de WhatsApp y las lecciones encima:",
   },
   ca: {
-    story: "A finals del 2026 el personal d’obra ja el feia servir, i havia recollit diverses lliçons reals.",
+    story:
+      "A finals del 2026 el personal d’obra ja el feia servir, i havia recollit diverses lliçons reals.",
     idea: "En una obra ningú no s’atura a omplir un formulari, així que les lliçons apreses es perden. Prova-ho:",
     bullets: [
       "La passarel·la de WhatsApp: webhooks signats, notes de veu i fotos, sessions, i un enrutador que distingeix un albarà d’una lliçó apresa.",
@@ -206,10 +209,11 @@ const Bubble = ({ me, children }) => (
   </div>
 );
 
-export const Capture = () => {
+// `start` a later step, for the Projects card's still
+export const Capture = ({ start = 0 }) => {
   const t = useCopy(COPY);
   // 0 voice note sent · 1 recap · 2 corrected · 3 confirmed · 4 approved
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(start);
   const [fixed, setFixed] = useState(false);
   const recap = fixed ? { ...t.recap, impact: t.fixedImpact } : t.recap;
 
@@ -273,10 +277,10 @@ export const Capture = () => {
           </p>
         ) : (
           <div className="rounded border border-p-line bg-p-raised p-2.5 text-[11px] motion-safe:animate-[app-open_0.3s_ease-out]">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-start justify-between gap-2">
               <span className="font-semibold text-p-fg">{t.card}</span>
               <span
-                className={`rounded-full px-1.5 py-px text-[9px] font-semibold uppercase tracking-[0.1em] ${step === 4 ? "bg-p-ok/20 text-p-ok" : "bg-p-warn/20 text-p-warn"}`}
+                className={`mt-px flex-none whitespace-nowrap rounded-full px-1.5 py-px text-[9px] font-semibold uppercase tracking-wider ${step === 4 ? "bg-p-ok/20 text-p-ok" : "bg-p-warn/20 text-p-warn"}`}
               >
                 {step === 4 ? t.shared : t.inReview}
               </span>

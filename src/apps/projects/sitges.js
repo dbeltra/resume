@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Article,
-  Prose,
-  Chip,
-  H,
-  Intro,
-  Shots,
-  Snippet,
-  useCopy,
-} from "./ui";
+import { Article, Prose, Chip, H, Intro, Shots, Snippet, useCopy } from "./ui";
 import ScheduleShot from "../../assets/images/sitges/schedule.jpg";
 import FilmsShot from "../../assets/images/sitges/films.jpg";
 import FilmShot from "../../assets/images/sitges/film.jpg";
@@ -119,7 +110,7 @@ const autoPlan = () => {
   return best.plan;
 };
 
-const COPY = {
+export const COPY = {
   en: {
     shotsH: "Screenshots",
     built: [

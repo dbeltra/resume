@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Article,
-  H,
-  Intro,
-  Pick,
-  Prose,
-  Snippet,
-  useCopy,
-} from "./ui";
+import { Article, H, Intro, Pick, Prose, Snippet, useCopy } from "./ui";
 
 // Autopractik, the driving-school platform at Ancora Dual. Closed source, so
 // the snippet is rewritten from scratch; the school's rules, prices and
@@ -35,7 +27,7 @@ const RULES = [
 ];
 const PRICE = 32;
 
-const COPY = {
+export const COPY = {
   en: {
     built: [
       "Each school runs its staff, teachers’ timetables, vehicles and holidays from the back office, and students book practical lessons into the free slots. They pay with lesson packs or a balance they top up by card through Redsys, PayPal, transfer or cash, and the platform does the invoices and refunds. It also keeps track of theory and practical exams, who’s sitting them and how they did, and has a small CRM for selling it to new schools.",

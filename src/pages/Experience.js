@@ -25,7 +25,7 @@ const Code = `{
   ]
 },{
   title: "Web and Python developer",
-  company: "pEp Security & Planck Security",
+  company: "p≡p Security & Planck Security",
   dates: "2018 - 2024",
   responsibilities: [
     "Migration of static HTML websites to a customised CMS",

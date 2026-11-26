@@ -33,7 +33,7 @@ def pretrust(new, old):
             if job.exception():  # one bad user doesn't stop the run
                 report.fail(*jobs[job], job.exception())`;
 
-const COPY = {
+export const COPY = {
   en: {
     poc: "It never ran for a real customer. The trust pairs grow with the square of the number of people, so it got heavy fast, and we didn’t land a customer in that period anyway, so it stayed a proof of concept.",
     aria: (o, n) =>

@@ -56,9 +56,10 @@ if not jpype.isJVMStarted():
         classpath=MQ_JARS,
     )`;
 
-const COPY = {
+export const COPY = {
   en: {
-    problem: "The connector sat between two message queues and encrypted everything that crossed between them, without anyone noticing. That was the whole idea, and it made it very hard to demo, because there was nothing to see. The team needed to show a message going in, what an eavesdropper would get, and what came out the other side. The sales team used it to demo the product to several banks; I didn’t give the demos, I got it ready so they could.",
+    problem:
+      "The connector sat between two message queues and encrypted everything that crossed between them, without anyone noticing. That was the whole idea, and it made it very hard to demo, because there was nothing to see. The team needed to show a message going in, what an eavesdropper would get, and what came out the other side. The sales team used it to demo the product to several banks; I didn’t give the demos, I got it ready so they could.",
     builtH: "How it grew",
     built: [
       "I wrote every version. It started as a spike, a Django form that put messages on a queue and a small reader that printed them, which was enough to learn queue managers, channels and TLS. The first real demo had two endpoints, XML messages, queue browsing, ratings read from the connector’s log and an auto-send mode.",
@@ -113,7 +114,8 @@ const COPY = {
     apiH: "One API, two MQ clients",
   },
   es: {
-    problem: "El conector estaba entre dos colas de mensajes y cifraba todo lo que pasaba entre ellas sin que nadie lo notara. Esa era justo la idea, y por eso era tan difícil hacer una demo: no había nada que ver. El equipo necesitaba enseñar un mensaje entrando, lo que vería alguien escuchando y lo que salía por el otro lado. El equipo de ventas la usó para enseñar el producto a varios bancos; yo no hacía las demos, la dejaba lista para que pudieran hacerlas.",
+    problem:
+      "El conector estaba entre dos colas de mensajes y cifraba todo lo que pasaba entre ellas sin que nadie lo notara. Esa era justo la idea, y por eso era tan difícil hacer una demo: no había nada que ver. El equipo necesitaba enseñar un mensaje entrando, lo que vería alguien escuchando y lo que salía por el otro lado. El equipo de ventas la usó para enseñar el producto a varios bancos; yo no hacía las demos, la dejaba lista para que pudieran hacerlas.",
     builtH: "Cómo fue creciendo",
     built: [
       "Escribí todas las versiones. Empezó como un spike, un formulario de Django que ponía mensajes en una cola y un pequeño lector que los mostraba, lo justo para aprender queue managers, canales y TLS. La primera demo de verdad tenía dos endpoints, mensajes XML, exploración de colas, valoraciones leídas del log del conector y un modo de envío automático.",
@@ -168,7 +170,8 @@ const COPY = {
     apiH: "Una API, dos clientes MQ",
   },
   ca: {
-    problem: "El connector era entre dues cues de missatges i xifrava tot el que hi passava sense que ningú se n’adonés. Aquesta era justament la idea, i per això era tan difícil fer-ne una demo: no hi havia res a veure. L’equip necessitava ensenyar un missatge entrant, el que veuria algú escoltant i el que sortia per l’altra banda. L’equip de vendes la va fer servir per ensenyar el producte a diversos bancs; jo no feia les demos, la deixava a punt perquè les poguessin fer.",
+    problem:
+      "El connector era entre dues cues de missatges i xifrava tot el que hi passava sense que ningú se n’adonés. Aquesta era justament la idea, i per això era tan difícil fer-ne una demo: no hi havia res a veure. L’equip necessitava ensenyar un missatge entrant, el que veuria algú escoltant i el que sortia per l’altra banda. L’equip de vendes la va fer servir per ensenyar el producte a diversos bancs; jo no feia les demos, la deixava a punt perquè les poguessin fer.",
     builtH: "Com va anar creixent",
     built: [
       "Vaig escriure totes les versions. Va començar com un spike, un formulari de Django que posava missatges en una cua i un petit lector que els mostrava, el just per aprendre queue managers, canals i TLS. La primera demo de debò tenia dos endpoints, missatges XML, exploració de cues, valoracions llegides del log del connector i un mode d’enviament automàtic.",

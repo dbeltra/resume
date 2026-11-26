@@ -78,6 +78,29 @@ export function genie(el, iconEl, { reverse = false, from, onDone } = {}) {
   el.parentNode.appendChild(layer);
   const o = layer.getBoundingClientRect(); // offset if an ancestor is transformed
 
+  // The strips are 24 clones of the window, so a long one (the Projects
+  // wall, 12 live mocks) made the warp drop most of its frames. Mark what the
+  // window doesn't show, scrolled out of view, so the clones skip drawing it
+  // while keeping its size; and note scroll offsets, which clones lose.
+  const marked = [];
+  for (const n of el.querySelectorAll("*")) {
+    if (n.scrollTop || n.scrollLeft) {
+      n.dataset.genieScroll = `${n.scrollTop},${n.scrollLeft}`;
+      marked.push(n);
+    }
+    if (n.closest("[data-genie-off]")) continue;
+    const b = n.getBoundingClientRect();
+    if (
+      b.bottom < r.top ||
+      b.top > r.bottom ||
+      b.right < r.left ||
+      b.left > r.right
+    ) {
+      n.dataset.genieOff = `${b.width}px ${b.height}px`;
+      marked.push(n);
+    }
+  }
+
   const strips = Array.from({ length: STRIPS }, (_, j) => {
     const y0 = (j / STRIPS) * H;
     const y1 = ((j + 1) / STRIPS) * H;
@@ -95,9 +118,22 @@ export function genie(el, iconEl, { reverse = false, from, onDone } = {}) {
         }),
       );
     });
+    c.querySelectorAll("[data-genie-off]").forEach((x) => {
+      x.style.contentVisibility = "hidden";
+      x.style.containIntrinsicSize = x.dataset.genieOff;
+    });
     wrap.appendChild(c);
     layer.appendChild(wrap);
+    c.querySelectorAll("[data-genie-scroll]").forEach((x) => {
+      const [top, left] = x.dataset.genieScroll.split(",");
+      x.scrollTop = +top;
+      x.scrollLeft = +left;
+    });
     return { wrap, y0, y1 };
+  });
+  marked.forEach((n) => {
+    delete n.dataset.genieOff;
+    delete n.dataset.genieScroll;
   });
 
   const draw = (p) => {

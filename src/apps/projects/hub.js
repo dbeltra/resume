@@ -92,7 +92,7 @@ const NODES = [
   [400, 280, 120, "Redis", 8],
 ];
 
-const COPY = {
+export const COPY = {
   en: {
     nodes: [
       "Sender",

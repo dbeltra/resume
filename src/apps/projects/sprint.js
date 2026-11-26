@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Article, Bullets, Chip, H, Intro, Prose, Snippet, useCopy } from "./ui";
+import {
+  Article,
+  Bullets,
+  Chip,
+  H,
+  Intro,
+  Prose,
+  Snippet,
+  useCopy,
+} from "./ui";
 import ChatShot from "../../assets/images/sprint/chat.jpg";
 import ChangesShot from "../../assets/images/sprint/changes.jpg";
 import TasksShot from "../../assets/images/sprint/tasks.jpg";
@@ -50,15 +59,26 @@ const Carousel = ({ shots, caps }) => {
   const [i, setI] = useState(0);
   const go = (d) => setI((i + d + shots.length) % shots.length);
   const arrow =
-    "absolute top-1/2 -translate-y-1/2 rounded-full bg-black/55 px-2.5 py-1 text-[16px] text-white hover:bg-black/75";
+    "absolute top-1/2 -translate-y-1/2 rounded-full bg-black/55 px-2.5 py-1 text-[16px] text-white transition-colors hover:bg-black/75";
   return (
     <figure>
       <div className="relative">
-        <img
-          src={shots[i]}
-          alt={caps[i]}
-          className="aspect-[14/9] w-full rounded-lg border border-p-line object-cover shadow-[0_12px_28px_rgba(0,0,0,0.15)]"
-        />
+        <div className="overflow-hidden rounded-lg border border-p-line shadow-[0_1px_3px_rgba(0,0,0,0.08),0_6px_16px_rgba(0,0,0,0.1)]">
+          <div
+            style={{ transform: `translateX(-${i * 100}%)` }}
+            className="flex transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] motion-reduce:transition-none"
+          >
+            {shots.map((src, k) => (
+              <img
+                key={src}
+                src={src}
+                alt={caps[k]}
+                aria-hidden={k !== i}
+                className={`aspect-[14/9] w-full flex-none object-cover transition-opacity duration-700 ${k === i ? "" : "opacity-40"}`}
+              />
+            ))}
+          </div>
+        </div>
         <button
           type="button"
           aria-label="Previous"
@@ -77,7 +97,12 @@ const Carousel = ({ shots, caps }) => {
         </button>
       </div>
       <figcaption className="mt-2 flex items-start gap-3 text-[11px] leading-snug text-p-muted">
-        <span className="flex-1">{caps[i]}</span>
+        <span
+          key={i}
+          className="flex-1 motion-safe:animate-[case-rise_0.5s_cubic-bezier(0.165,0.84,0.44,1)_both]"
+        >
+          {caps[i]}
+        </span>
         <span className="flex flex-none gap-1.5 pt-1">
           {shots.map((src, k) => (
             <button
@@ -86,7 +111,7 @@ const Carousel = ({ shots, caps }) => {
               aria-label={`${k + 1}`}
               aria-current={k === i}
               onClick={() => setI(k)}
-              className={`size-2 rounded-full ${k === i ? "bg-p-fg" : "bg-p-fg/25"}`}
+              className={`h-2 rounded-full transition-all duration-500 ${k === i ? "w-5 bg-p-fg" : "w-2 bg-p-fg/25 hover:bg-p-fg/50"}`}
             />
           ))}
         </span>
@@ -95,9 +120,10 @@ const Carousel = ({ shots, caps }) => {
   );
 };
 
-const COPY = {
+export const COPY = {
   en: {
-    story: "I built it because I kept doing the same loop by hand, sprint after sprint, and it was worth automating. It started as a bare /sprint skill in the terminal, then got a web dashboard next to the terminal, and in the end I moved the terminal into the dashboard so everything is in one place. Colleagues have been suggesting features since, and several of them have used it, or a fork of their own.",
+    story:
+      "I built it because I kept doing the same loop by hand, sprint after sprint, and it was worth automating. It started as a bare /sprint skill in the terminal, then got a web dashboard next to the terminal, and in the end I moved the terminal into the dashboard so everything is in one place. Colleagues have been suggesting features since, and several of them have used it, or a fork of their own.",
     inside: [
       "It trusts what happened over what the board says: a ticket has landed when its merge request is merged and not reverted, whatever its status is. Each ticket gets its own worktree and fresh sessions for plan, build, ship and review, so the sprint session only dispatches and can run all day. It had about 25 releases in its first two months, on top of the team’s shared plugins, which I’ve contributed to as well.",
     ],
@@ -158,7 +184,8 @@ const COPY = {
     dashH: "The dashboard",
   },
   es: {
-    story: "Lo construí porque me encontraba haciendo el mismo ciclo a mano, sprint tras sprint, y valía la pena automatizarlo. Empezó como una skill /sprint a secas en el terminal, luego tuvo un dashboard web al lado del terminal, y al final metí el terminal dentro del dashboard para tenerlo todo en un sitio. Desde entonces otras personas del equipo han ido proponiendo funcionalidades, y varias lo han usado, o han usado su propio fork.",
+    story:
+      "Lo construí porque me encontraba haciendo el mismo ciclo a mano, sprint tras sprint, y valía la pena automatizarlo. Empezó como una skill /sprint a secas en el terminal, luego tuvo un dashboard web al lado del terminal, y al final metí el terminal dentro del dashboard para tenerlo todo en un sitio. Desde entonces otras personas del equipo han ido proponiendo funcionalidades, y varias lo han usado, o han usado su propio fork.",
     inside: [
       "Se fía de lo que ha pasado y no de lo que dice el tablero: un ticket está integrado cuando su merge request está mergeada y no revertida, diga lo que diga su estado. Cada ticket tiene su worktree y sesiones nuevas para plan, build, ship y revisión, así que la sesión del sprint solo reparte trabajo y puede funcionar todo el día. Tuvo unas 25 versiones en sus dos primeros meses, encima de los plugins compartidos del equipo, en los que también he contribuido.",
     ],
@@ -223,7 +250,8 @@ const COPY = {
     dashH: "El dashboard",
   },
   ca: {
-    story: "El vaig construir perquè em trobava fent el mateix cicle a mà, sprint rere sprint, i valia la pena automatitzar-lo. Va començar com una skill /sprint sense res més al terminal, després va tenir un dashboard web al costat del terminal, i al final vaig ficar el terminal dins del dashboard per tenir-ho tot en un lloc. Des d’aleshores altres persones de l’equip hi han anat proposant funcionalitats, i diverses l’han fet servir, o n’han fet servir el seu propi fork.",
+    story:
+      "El vaig construir perquè em trobava fent el mateix cicle a mà, sprint rere sprint, i valia la pena automatitzar-lo. Va començar com una skill /sprint sense res més al terminal, després va tenir un dashboard web al costat del terminal, i al final vaig ficar el terminal dins del dashboard per tenir-ho tot en un lloc. Des d’aleshores altres persones de l’equip hi han anat proposant funcionalitats, i diverses l’han fet servir, o n’han fet servir el seu propi fork.",
     inside: [
       "Es refia del que ha passat i no del que diu el tauler: un tiquet està integrat quan la seva merge request té merge i no s’ha revertit, digui el que digui el seu estat. Cada tiquet té el seu worktree i sessions noves per a pla, build, ship i revisió, així que la sessió del sprint només reparteix feina i pot funcionar tot el dia. Va tenir unes 25 versions en els seus dos primers mesos, a sobre dels plugins compartits de l’equip, als quals també he contribuït.",
     ],
@@ -289,9 +317,10 @@ const COPY = {
   },
 };
 
-export const Sprint = () => {
+// `start` a later pass, for the Projects card's still
+export const Sprint = ({ start = 0 }) => {
   const t = useCopy(COPY);
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(start);
   const shown = PASSES.slice(0, n + 1);
   const at = Object.assign({}, ...shown.map((p) => p.at));
   const pass = PASSES[n];

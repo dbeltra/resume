@@ -37,7 +37,7 @@ const TRADES = [
 const SLIP = { area: 1, trade: 1, days: 2 }; // MEP on floor 2
 const HOLIDAY = 7; // the 8th working day
 
-const COPY = {
+export const COPY = {
   en: {
     endH: "Delays against a snapshot",
     built: [
@@ -143,11 +143,16 @@ const layout = (holidays, slipped) => {
   return bars;
 };
 
-export const Schedule = () => {
+// `slip` starts with a snapshot saved and a floor slipped against it, for the
+// Projects card's still
+export const Schedule = ({ slip = false }) => {
   const t = useCopy(COPY);
   const [holiday, setHoliday] = useState(false);
-  const [slipped, setSlipped] = useState(false);
-  const [snapshot, setSnapshot] = useState(null); // the bars, on its calendar
+  const [slipped, setSlipped] = useState(slip);
+  // the bars, on its calendar
+  const [snapshot, setSnapshot] = useState(() =>
+    slip ? layout(new Set(), false) : null,
+  );
   const holidays = new Set(holiday ? [HOLIDAY] : []);
   const bars = layout(holidays, slipped);
   const working = (from, to) =>

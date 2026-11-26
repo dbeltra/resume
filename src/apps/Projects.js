@@ -1,39 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Window from "../components/Window";
-import SecurityHub, { HubDiagram } from "./projects/hub";
-import Shop from "./projects/shop";
-import Mq, { Wiring } from "./projects/mq";
-import Sites from "./projects/sites";
-import Cli, { Mesh } from "./projects/cli";
-import Procurement, { Compare } from "./projects/procurement";
-import Builder, { Schedule } from "./projects/builder";
-import Sitges from "./projects/sitges";
-import Bbf from "./projects/bbf";
-import Learnings, { Capture } from "./projects/learnings";
-import SprintAgent, { Sprint } from "./projects/sprint";
-import Autopractik, { Cancel } from "./projects/autopractik";
+import SecurityHub, { HubDiagram, COPY as hubCopy } from "./projects/hub";
+import Shop, { COPY as shopCopy } from "./projects/shop";
+import Mq, { Wiring, COPY as mqCopy } from "./projects/mq";
+import Sites, { COPY as sitesCopy } from "./projects/sites";
+import Cli, { Mesh, COPY as cliCopy } from "./projects/cli";
+import Procurement, {
+  Compare,
+  COPY as procurementCopy,
+} from "./projects/procurement";
+import Builder, { Schedule, COPY as builderCopy } from "./projects/builder";
+import Sitges, { COPY as sitgesCopy } from "./projects/sitges";
+import Bbf, { COPY as bbfCopy } from "./projects/bbf";
+import Learnings, {
+  Capture,
+  COPY as learningsCopy,
+} from "./projects/learnings";
+import SprintAgent, { Sprint, COPY as sprintCopy } from "./projects/sprint";
+import Autopractik, {
+  Cancel,
+  COPY as autopractikCopy,
+} from "./projects/autopractik";
 import ShopShot from "../assets/images/archive/shop-2020.jpg";
 import SitesShot from "../assets/images/archive/pep-2019.jpg";
 import SitgesShot from "../assets/images/sitges/schedule.jpg";
 import SitgesPlan from "../assets/images/sitges/plan.jpg";
 import BbfShot from "../assets/images/bbf/rating.jpg";
 import BbfFilter from "../assets/images/bbf/filter.jpg";
+import { brand } from "./projects/ui";
 
 // Case studies of past work. That code is closed source, so the snippets are
 // rewritten and simplified for this page, never copied from the real repos.
-// sidebar group headings: work first, then side projects
-const GROUPS = {
-  work: { en: "Work", es: "Trabajo", ca: "Feina" },
-  side: {
-    en: "Side projects",
-    es: "Proyectos personales",
-    ca: "Projectes personals",
-  },
-};
 
-// each company's brand colour, sampled from its logo: the cards, the sidebar
-// dots and the case headers. Autopractik takes Ancora Dual's blue
+// each company's brand colour, sampled from its logo: a card's hover
+// underline and the case headers. Autopractik takes Ancora Dual's blue
 const ACCENT = {
   "011h": "#3b683a",
   planck: "#a868e8",
@@ -48,12 +49,28 @@ const ALL = {
   ca: "Tots els projectes",
 };
 
+const NEXT = { en: "Next", es: "Siguiente", ca: "Següent" };
+const PREV = { en: "Previous", es: "Anterior", ca: "Anterior" };
+
+// the chips on a card and the gallery's filters; "side" comes from c.side
+const TAGS = {
+  all: { en: "All", es: "Todo", ca: "Tot" },
+  back: { en: "Backend", es: "Backend", ca: "Backend" },
+  front: { en: "Frontend", es: "Frontend", ca: "Frontend" },
+  ai: { en: "AI", es: "IA", ca: "IA" },
+  side: { en: "Side", es: "Personales", ca: "Personals" },
+};
+
 // newest first. `Thumb` is the case's own diagram or mock, shrunk for its
 // card; `img` a screenshot instead, `phones` two
 // phone screenshots, kept small since they're only 369px wide
 export const CASES = [
   {
     id: "sprint",
+    props: { start: 3 },
+    look: { w: 560, zoom: 0.7, h: 235 },
+    copy: sprintCopy,
+    tags: ["ai", "front"],
     co: "011h",
     Thumb: Sprint,
     title: {
@@ -66,6 +83,10 @@ export const CASES = [
   },
   {
     id: "builder",
+    props: { slip: true },
+    look: { w: 560, zoom: 0.7, h: 240 },
+    copy: builderCopy,
+    tags: ["back"],
     co: "011h",
     Thumb: Schedule,
     title: { en: "Builder", es: "Builder", ca: "Builder" },
@@ -74,6 +95,10 @@ export const CASES = [
   },
   {
     id: "learnings",
+    props: { start: 3 },
+    look: { w: 560, zoom: 0.72, h: 340 },
+    copy: learningsCopy,
+    tags: ["ai", "back"],
     co: "011h",
     Thumb: Capture,
     title: {
@@ -86,6 +111,10 @@ export const CASES = [
   },
   {
     id: "procurement",
+    props: {},
+    look: { w: 540, zoom: 0.7, h: 205, pad: 16 },
+    copy: procurementCopy,
+    tags: ["back", "ai"],
     co: "011h",
     Thumb: Compare,
     title: { en: "Procurement", es: "Compras", ca: "Compres" },
@@ -94,6 +123,10 @@ export const CASES = [
   },
   {
     id: "hub",
+    props: {},
+    look: { w: 560, zoom: 0.85, h: 290 },
+    copy: hubCopy,
+    tags: ["back"],
     co: "planck",
     Thumb: HubDiagram,
     title: { en: "Security Hub", es: "Security Hub", ca: "Security Hub" },
@@ -102,6 +135,10 @@ export const CASES = [
   },
   {
     id: "cli",
+    props: {},
+    look: { w: 560, zoom: 0.62, h: 215 },
+    copy: cliCopy,
+    tags: ["back"],
     co: "pep",
     Thumb: Mesh,
     title: {
@@ -114,6 +151,10 @@ export const CASES = [
   },
   {
     id: "mq",
+    props: {},
+    look: { w: 640, zoom: 0.85, x: 150, h: 205 },
+    copy: mqCopy,
+    tags: ["back"],
     co: "pep",
     Thumb: Wiring,
     title: {
@@ -126,6 +167,8 @@ export const CASES = [
   },
   {
     id: "shop",
+    copy: shopCopy,
+    tags: ["back", "front"],
     co: "pep",
     img: ShopShot,
     title: {
@@ -138,6 +181,8 @@ export const CASES = [
   },
   {
     id: "sites",
+    copy: sitesCopy,
+    tags: ["front"],
     co: "pep",
     img: SitesShot,
     title: {
@@ -150,6 +195,10 @@ export const CASES = [
   },
   {
     id: "autopractik",
+    props: {},
+    look: { w: 390, zoom: 0.72, h: 240 },
+    copy: autopractikCopy,
+    tags: ["back", "front"],
     co: "ancora",
     Thumb: Cancel,
     title: {
@@ -163,6 +212,8 @@ export const CASES = [
   // side projects, after the work, newest first
   {
     id: "sitges",
+    copy: sitgesCopy,
+    tags: ["front"],
     co: "side",
     phones: [SitgesShot, SitgesPlan],
     title: {
@@ -176,6 +227,8 @@ export const CASES = [
   },
   {
     id: "bbf",
+    copy: bbfCopy,
+    tags: ["front"],
     co: "side",
     phones: [BbfShot, BbfFilter],
     title: {
@@ -189,79 +242,154 @@ export const CASES = [
   },
 ];
 
-// a case on the cover, like a file in Finder's gallery: its diagram or
-// screenshot as the preview, the name and company underneath
-const Card = ({ c, lang, onOpen }) => (
-  <div style={{ "--accent": ACCENT[c.co] }} className="group relative">
-    <div className="thumb h-[160px] overflow-hidden rounded-lg bg-p-sunk ring-1 ring-p-fg/10 transition group-hover:ring-2 group-hover:ring-[color:var(--accent)] group-has-[:focus-visible]:ring-2 group-has-[:focus-visible]:ring-[color:var(--accent)]">
-      {c.phones ? (
-        <div className="flex justify-center gap-3 pt-4">
-          {c.phones.map((src) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              loading="lazy"
-              className="w-[110px] rounded-[14px] border-[3px] border-p-line shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
-            />
-          ))}
-        </div>
-      ) : c.img ? (
-        <img
-          src={c.img}
-          alt=""
-          loading="lazy"
-          className="size-full object-cover object-top"
-        />
-      ) : (
-        // ponytail: the live mock at half size, inert so it stays out of the tab order
-        <div
-          aria-hidden="true"
-          inert=""
-          className="pointer-events-none w-[200%] origin-top-left scale-50 p-4"
-        >
-          <c.Thumb />
-        </div>
-      )}
-    </div>
-    {/* the title's click area covers the whole card; a card can't be one
-        button since the mocks inside have buttons of their own */}
-    <button
-      type="button"
-      onClick={onOpen}
-      className="mt-2.5 text-left text-[13px] font-semibold text-p-fg outline-none after:absolute after:inset-0"
+const label = (o, lang) => o[lang] || o.en;
+
+// a case on the cover: a tile in a masonry wall, a grey ground with the
+// case's mock, screenshot or phones set in it, and under it a caption the
+// way a portfolio lists its case studies: what and when, the case's own
+// headline and pitch. A mock sits at its own height, which is what varies
+// the tiles and makes the columns interlock
+const Card = ({ c, lang, onOpen }) => {
+  const copy = c.copy[lang] || c.copy.en;
+  return (
+    <div
+      style={{ "--accent": ACCENT[c.co] }}
+      className="card group relative mb-7 break-inside-avoid"
     >
-      {c.title[lang] || c.title.en}
-    </button>
-    <div className="text-[11px] text-p-muted">{c.sub}</div>
-  </div>
-);
+      <div
+        style={{ height: c.phones ? 340 : c.img ? 250 : undefined }}
+        // grey to black for every tile; the company's colour is only in the
+        // hover underline
+        className="relative overflow-hidden rounded-2xl bg-[linear-gradient(155deg,#6b6a70,#2a292d_55%,#0f0f11)] ring-p-fg/80 ring-offset-2 ring-offset-[#f4f2ee] group-has-[:focus-visible]:ring-2"
+      >
+        {c.phones ? (
+          <div className="absolute inset-x-0 top-12 flex justify-center transition duration-300 group-hover:-translate-y-1.5">
+            {c.phones.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt=""
+                loading="lazy"
+                className={`w-[118px] rounded-[16px] border-[3px] border-black/80 shadow-[0_18px_40px_rgba(0,0,0,0.45)] ${i ? "-ml-6 mt-6 rotate-[5deg]" : "rotate-[-5deg]"}`}
+              />
+            ))}
+          </div>
+        ) : c.img ? (
+          <img
+            src={c.img}
+            alt=""
+            loading="lazy"
+            className="absolute bottom-0 left-6 right-0 top-12 size-auto rounded-tl-xl object-cover object-left-top shadow-[0_18px_50px_rgba(0,0,0,0.4)] transition duration-300 group-hover:-translate-y-1.5"
+          />
+        ) : (
+          // the mock as a window running off the right edge: laid out `w`
+          // wide, shrunk by `zoom`, shifted by x/y to its best part
+          <div
+            style={{ height: c.look.h }}
+            className="thumb ml-6 mt-12 overflow-hidden rounded-tl-xl bg-p-sunk shadow-[0_18px_50px_rgba(0,0,0,0.35)] transition duration-300 group-hover:-translate-y-1"
+          >
+            {/* ponytail: the live mock, inert so it stays out of the tab order */}
+            <div
+              aria-hidden="true"
+              inert=""
+              style={{
+                width: c.look.w,
+                zoom: c.look.zoom,
+                margin: `${-(c.look.y || 0)}px 0 0 ${-(c.look.x || 0)}px`,
+                padding: c.look.pad,
+              }}
+              className="pointer-events-none text-p-body"
+            >
+              <c.Thumb {...c.props} />
+            </div>
+          </div>
+        )}
+        <ul className="absolute left-3.5 top-3.5 flex gap-1">
+          {c.tags.map((t) => (
+            <li
+              key={t}
+              className="rounded-md bg-white px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#17151f]"
+            >
+              {label(TAGS[t], lang)}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mt-3 px-0.5">
+        <div
+          style={{ "--d": "250ms" }}
+          className="rise font-mono text-[10.5px] uppercase tracking-wide text-p-muted"
+        >
+          {brand(c.sub)}
+        </div>
+        {/* the title's click area covers the whole card; a card can't be one
+            button since the mocks inside have buttons of their own */}
+        <button
+          type="button"
+          onClick={onOpen}
+          style={{ "--d": "310ms" }}
+          className="rise mt-1 text-left text-[18px] font-semibold leading-snug text-p-fg outline-none after:absolute after:inset-0"
+        >
+          {/* an underline in the company's colour grows in on hover */}
+          <span className="bg-[linear-gradient(var(--accent),var(--accent))] bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 [transition-timing-function:var(--ease-io)] group-hover:bg-[length:100%_2px]">
+            {copy.title || label(c.title, lang)}
+          </span>
+        </button>
+        <p
+          style={{ "--d": "370ms" }}
+          className="rise mt-1 line-clamp-3 text-[13px] leading-relaxed text-p-body"
+        >
+          {copy.pitch}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const Projects = ({ win, tab }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage;
   // null is the cover with every project on it
   const [id, setId] = useState(null);
+  const [filter, setFilter] = useState("all");
+  const shown = CASES.filter((c) =>
+    filter === "all"
+      ? true
+      : filter === "side"
+        ? c.side
+        : c.tags.includes(filter),
+  );
   // a link elsewhere on the site can open a given case study, or "all"
   useEffect(() => {
     if (tab === "all") setId(null);
     else if (CASES.some((c) => c.id === tab)) setId(tab);
   }, [tab]);
   const open = CASES.find((c) => c.id === id);
-  // phones: bring the open case's tab into the row's view
+  // cover cards build in (index.css .card) the first time they scroll into
+  // view; keyed on the filter, so changing it plays them again
+  const cover = useRef(null);
   useEffect(() => {
-    document
-      .querySelector('[data-cases] [aria-current="true"]')
-      ?.scrollIntoView({ block: "nearest", inline: "nearest" });
-  }, [id]);
-  const group = (side) => GROUPS[side ? "side" : "work"];
-  const heading = (side) => (
-    <div
-      className={`flex-none self-center px-3 pb-1 pt-3 text-[10px] uppercase tracking-[0.14em] text-p-muted sm:self-auto`}
-    >
-      {group(side)[lang] || group(side).en}
-    </div>
-  );
+    const root = cover.current;
+    if (!root) return;
+    const cards = root.querySelectorAll(".card:not(.in)");
+    // jsdom has no IntersectionObserver
+    if (!window.IntersectionObserver)
+      return cards.forEach((el) => el.classList.add("in"));
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }),
+      { root, rootMargin: "0px 0px -6% 0px" },
+    );
+    cards.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [filter, id]);
+  const at = CASES.indexOf(open);
+  const next = open && CASES[(at + 1) % CASES.length];
+  const prev = open && CASES[(at - 1 + CASES.length) % CASES.length];
 
   return (
     <Window
@@ -277,73 +405,92 @@ const Projects = ({ win, tab }) => {
       }
     >
       {!open ? (
-        <div className="proj min-h-0 flex-1 overflow-y-auto bg-p-surface px-4 pb-8 pt-2 text-p-fg sm:px-6">
-          {[false, true].map((side) => (
-            <section key={String(side)}>
-              <h3 className="mb-3 mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-p-muted">
-                {group(side)[lang] || group(side).en}
-              </h3>
-              <div className="grid grid-cols-1 gap-x-5 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-                {CASES.filter((c) => !!c.side === side).map((c) => (
-                  <Card
-                    key={c.id}
-                    c={c}
-                    lang={lang}
-                    onOpen={() => setId(c.id)}
-                  />
-                ))}
-              </div>
-            </section>
-          ))}
+        <div
+          ref={cover}
+          className="proj min-h-0 flex-1 overflow-y-auto bg-[#f4f2ee] px-4 pt-4 text-p-fg sm:px-5"
+        >
+          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+            {shown.map((c) => (
+              <Card
+                key={filter + c.id}
+                c={c}
+                lang={lang}
+                onOpen={() => setId(c.id)}
+              />
+            ))}
+          </div>
+          {/* floating filters, like the wall's own menu */}
+          <div className="sticky bottom-4 z-10 mx-auto mb-4 mt-2 flex w-fit max-w-full gap-1 overflow-x-auto rounded-xl bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.18)]">
+            {Object.keys(TAGS).map((f) => (
+              <button
+                key={f}
+                type="button"
+                aria-pressed={filter === f}
+                onClick={() => setFilter(f)}
+                className={`flex-none rounded-lg bg-[#f0eee9] bg-[linear-gradient(#17151f,#17151f)] bg-left bg-no-repeat px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide transition-[background-size,color] duration-300 [transition-timing-function:var(--ease-io)] ${filter === f ? "bg-[length:100%_100%] text-white" : "bg-[length:0%_100%] text-[#17151f] hover:bg-[#e4e1da]"}`}
+              >
+                {label(TAGS[f], lang)}
+              </button>
+            ))}
+          </div>
         </div>
       ) : (
-        // phones: the list is a row of tabs on top
-        <div className="proj flex min-h-0 flex-1 flex-col bg-p-surface text-p-fg sm:flex-row">
-          <nav
-            data-cases
-            className="flex flex-none gap-0.5 overflow-x-auto border-b border-p-line bg-p-side p-2 sm:w-[190px] sm:flex-col sm:border-b-0 sm:border-r"
-          >
+        // keyed so a new case starts at the top
+        <div
+          key={id}
+          className="proj case-in min-h-0 flex-1 overflow-y-auto bg-p-surface text-p-fg"
+          style={{
+            "--accent": ACCENT[open.co],
+            backgroundImage: `linear-gradient(180deg, color-mix(in srgb, ${ACCENT[open.co]} 16%, transparent), transparent 320px)`,
+            backgroundAttachment: "local",
+          }}
+        >
+          {/* back to the wall, floating like its filter bar */}
+          <div className="sticky top-3 z-10 h-0 px-3">
             <button
               type="button"
               onClick={() => setId(null)}
-              className="flex-none rounded-md px-3 py-2 text-left text-[13px] font-semibold text-p-muted hover:bg-p-fg/5 hover:text-p-fg"
+              className="rounded-lg bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-[#17151f] shadow-[0_6px_20px_rgba(0,0,0,0.15)] hover:bg-[#f0eee9]"
             >
-              ← {ALL[lang] || ALL.en}
+              ← {label(ALL, lang)}
             </button>
-            {CASES.map((c, i) => (
-              <React.Fragment key={c.id}>
-                {(i === 0 || !!c.side !== !!CASES[i - 1].side) &&
-                  heading(c.side)}
-                <button
-                  type="button"
-                  aria-current={c.id === id}
-                  onClick={() => setId(c.id)}
-                  className={`flex-none rounded-md px-3 py-2 text-left ${c.id === id ? "bg-p-fg/10" : "hover:bg-p-fg/5"}`}
-                >
-                  <div className="flex items-center gap-2 text-[13px] font-semibold">
-                    <i
-                      className="size-2 flex-none rounded-full"
-                      style={{ background: ACCENT[c.co] }}
-                    />
-                    {c.title[lang] || c.title.en}
-                  </div>
-                  <div className="pl-4 text-[11px] text-p-muted">{c.sub}</div>
-                </button>
-              </React.Fragment>
-            ))}
-          </nav>
-          {/* keyed so a new case starts at the top */}
-          <div
-            key={id}
-            className="min-h-0 min-w-0 flex-1 overflow-y-auto"
-            style={{
-              "--accent": ACCENT[open.co],
-              backgroundImage: `linear-gradient(180deg, color-mix(in srgb, ${ACCENT[open.co]} 16%, transparent), transparent 320px)`,
-              backgroundAttachment: "local",
-            }}
-          >
+          </div>
+          <div className="pt-8">
             <open.Body />
           </div>
+          {/* the cases either side, newest to oldest and round */}
+          <nav className="mx-6 grid gap-4 border-t border-p-fg/10 pb-12 pt-5 sm:grid-cols-2 md:mx-auto md:max-w-[672px]">
+            {[
+              [prev, PREV, "←"],
+              [next, NEXT, "→"],
+            ].map(([c, word, arrow], i) => (
+              <button
+                key={word.en}
+                type="button"
+                onClick={() => setId(c.id)}
+                className={`group flex flex-col gap-1 ${i ? "sm:items-end sm:text-right" : "items-start text-left"}`}
+              >
+                <span className="font-mono text-[10.5px] uppercase tracking-wide text-p-muted">
+                  {label(word, lang)}
+                </span>
+                <span className="text-[17px] font-semibold leading-snug text-p-fg">
+                  {!i && (
+                    <span className="mr-1 inline-block transition-transform duration-300 [transition-timing-function:var(--ease-out)] group-hover:-translate-x-1">
+                      {arrow}
+                    </span>
+                  )}
+                  <span className="group-hover:underline">
+                    {(c.copy[lang] || c.copy.en).title || label(c.title, lang)}
+                  </span>
+                  {!!i && (
+                    <span className="ml-1 inline-block transition-transform duration-300 [transition-timing-function:var(--ease-out)] group-hover:translate-x-1">
+                      {arrow}
+                    </span>
+                  )}
+                </span>
+              </button>
+            ))}
+          </nav>
         </div>
       )}
     </Window>

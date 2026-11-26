@@ -144,7 +144,7 @@ export const CODE = {
   "stack": ["Rust", "Docker", "React"]
 },{
   "title": "Web and Python developer",
-  "company": "pEp Security & Planck Security",
+  "company": "p≡p Security & Planck Security",
   "dates": "2018 - 2024",
   "stack": ["Python", "Django", "Docker"]
 },{

@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Article,
-  H,
-  Intro,
-  Prose,
-  Shots,
-  Snippet,
-  useCopy,
-} from "./ui";
+import { Article, H, Intro, Prose, Shots, Snippet, useCopy } from "./ui";
 import Pep2018 from "../../assets/images/archive/pep-2018.jpg";
 import Pep2019 from "../../assets/images/archive/pep-2019.jpg";
 import Planck2023 from "../../assets/images/archive/planck-2023.jpg";
@@ -55,7 +47,7 @@ class Download(models.Model):
 // --- the eras --------------------------------------------------------------
 
 const YEARS = ["2018", "2018", "2020", "2023"]; // text in COPY.eras
-const COPY = {
+export const COPY = {
   en: {
     builtH: "The CMS and around it",
     trialH: "Trial signups",

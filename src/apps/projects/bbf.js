@@ -31,15 +31,11 @@ function findRating(html, targetBrewery) {
   return null;
 }`;
 
-const COPY = {
+export const COPY = {
   en: {
     built: [
       "The festival’s beers came as a tab-separated file, with tags like New, Gluten Free or 0% written into the names, the way the festival did it, and parsed back out. A Node script looks each beer up on Untappd, matches the brewery, saves the rating to the same file, and stops politely when it gets rate-limited. The app itself is plain JavaScript modules and a service worker, so it opens offline at a festival with no signal, and it’s hosted on Netlify.",
       "The festival used to have an official app, but they discontinued it, and what I wanted was each beer’s rating at a glance, to decide what to taste.",
-    ],
-    stats: [
-      ["347", "beers"],
-      ["1", "afternoon"],
     ],
     title: "Barcelona Beer Festival list",
     pitch:
@@ -60,10 +56,6 @@ const COPY = {
       "Las cervezas del festival venían en un fichero separado por tabuladores, con etiquetas como Nueva, Sin gluten o 0% escritas dentro del nombre, como hacía el festival, y se separan al leerlo. Un script en Node busca cada cerveza en Untappd, comprueba la cervecera, guarda la nota en el mismo fichero y para con educación cuando le limitan las peticiones. La app son módulos de JavaScript sin framework y un service worker, para que abra sin conexión en un festival sin cobertura, y está alojada en Netlify.",
       "El festival tenía una app oficial, pero la retiraron, y yo quería ver la nota de cada cerveza de un vistazo para decidir qué probar.",
     ],
-    stats: [
-      ["347", "cervezas"],
-      ["1", "tarde"],
-    ],
     title: "Lista del Barcelona Beer Festival",
     pitch:
       "Trescientas cuarenta y siete cervezas y una tarde. Una lista para el móvil con todo lo que había en el festival y la nota de Untappd de cada cerveza, para poder ordenar por lo que de verdad está bueno.",
@@ -82,10 +74,6 @@ const COPY = {
     built: [
       "Les cerveses del festival venien en un fitxer separat per tabuladors, amb etiquetes com Nova, Sense gluten o 0% escrites dins del nom, com feia el festival, i se separen en llegir-lo. Un script en Node busca cada cervesa a Untappd, comprova la cervesera, desa la nota al mateix fitxer i s’atura amb educació quan li limiten les peticions. L’app són mòduls de JavaScript sense framework i un service worker, perquè s’obri sense connexió en un festival sense cobertura, i està allotjada a Netlify.",
       "El festival tenia una app oficial, però la van retirar, i jo volia veure la nota de cada cervesa d’un cop d’ull per decidir què tastar.",
-    ],
-    stats: [
-      ["347", "cerveses"],
-      ["1", "tarda"],
     ],
     title: "Llista del Barcelona Beer Festival",
     pitch:
@@ -111,7 +99,6 @@ const Bbf = () => {
   return (
     <Article>
       <Intro
-        stats={t.stats}
         kicker="Side project · 2026"
         title={t.title}
         pitch={t.pitch}

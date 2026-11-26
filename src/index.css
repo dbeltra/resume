@@ -136,6 +136,18 @@ body {
   filter: none !important;
   backdrop-filter: none !important;
 }
+/* a Projects card in the strips is shown built in, not mid-fade, and its
+   live mock left out: laying out a dozen mocks in each of the 24 strips
+   dropped the warp to a few frames. The tile, its window and caption still
+   pour, and nobody reads a mock mid-warp */
+.genie-layer .card > :first-child,
+.genie-layer .card .rise {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.genie-layer .thumb > * {
+  display: none !important;
+}
 
 /* now-playing equalizer bars */
 @keyframes eq {
@@ -261,6 +273,102 @@ body {
   to {
     stroke-dashoffset: -24;
   }
+}
+/* Projects motion, after danielneath.com: ease-out-quart for things that
+   move into place, in-out-quart for fills and wipes */
+:root {
+  --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+}
+/* a cover card fades in: its art comes up out of a slight blur, settling
+   from a touch larger, then the caption rises line by line (--d staggers) */
+.card > :first-child {
+  opacity: 0;
+  filter: blur(8px);
+  transform: scale(1.03);
+  transition:
+    opacity 0.6s var(--ease-out),
+    filter 0.6s var(--ease-out),
+    transform 0.8s var(--ease-out);
+}
+.card.in > :first-child {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+.card .rise {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.3s var(--ease-out) var(--d),
+    transform 0.3s var(--ease-out) var(--d);
+}
+.card.in .rise {
+  opacity: 1;
+  transform: none;
+}
+/* an opened case: its first blocks rise in one after another */
+@keyframes case-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+.case-in article > * {
+  animation: case-rise 0.5s var(--ease-out) both;
+  animation-delay: 360ms;
+}
+.case-in article > :nth-child(1) {
+  animation-delay: 0ms;
+}
+.case-in article > :nth-child(2) {
+  animation-delay: 60ms;
+}
+.case-in article > :nth-child(3) {
+  animation-delay: 120ms;
+}
+.case-in article > :nth-child(4) {
+  animation-delay: 180ms;
+}
+.case-in article > :nth-child(5) {
+  animation-delay: 240ms;
+}
+.case-in article > :nth-child(6) {
+  animation-delay: 300ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card > :first-child {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+  .card .rise {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .case-in article > * {
+    animation: none;
+  }
+}
+
+/* a case study's headings numbered 01, 02… as a portfolio numbers its sections */
+.proj article {
+  counter-reset: case-h;
+}
+.case-h::before {
+  counter-increment: case-h;
+  content: counter(case-h, decimal-leading-zero);
+  margin-right: 0.9em;
+  font-family: "Neopixel", "JetBrains Mono", ui-monospace, monospace;
+  font-size: 1.25em;
+  color: rgb(var(--p-muted));
+}
+/* a card's mock sits straight in its window: no frame of its own */
+.thumb > div > :first-child {
+  border-width: 0;
+  border-radius: 0;
 }
 .thumb .flow {
   display: none;

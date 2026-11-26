@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Article,
-  H,
-  Intro,
-  Pick,
-  Prose,
-  Shots,
-  Snippet,
-  useCopy,
-} from "./ui";
+import { Article, H, Intro, Pick, Prose, Shots, Snippet, useCopy } from "./ui";
 import ShopShot from "../../assets/images/archive/shop-2020.jpg";
 import DonateShot from "../../assets/images/archive/donate-2020.jpg";
 
@@ -39,7 +30,7 @@ def client_tax(country: str, vat_id: str | None) -> TaxRule:
         return TaxRule(rate=current_rate("DE"))       # EU consumer
     return TaxRule(rate=0)                            # outside the EU`;
 
-const COPY = {
+export const COPY = {
   en: {
     builtH: "What I did",
     vatH: "Who pays the VAT",

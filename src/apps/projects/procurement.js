@@ -85,9 +85,10 @@ const QUOTE = [
   [null, "unmatched"],
 ];
 
-const COPY = {
+export const COPY = {
   en: {
-    story: "A lot of my time went into refactoring the contract generator, so every template follows the same standard and every document looks the same, and into the AI price import. The hard part was understanding the business: what each concept means, and the maths behind every calculation.",
+    story:
+      "A lot of my time went into refactoring the contract generator, so every template follows the same standard and every document looks the same, and into the AI price import. The hard part was understanding the business: what each concept means, and the maths behind every calculation.",
     builtH: "What I built",
     how: "Domain-driven design with a hexagonal architecture: about fifteen bounded contexts, each with its own domain (entities, value objects like Price and Status, repository ports), one use case per class, and adapters for Postgres, object storage, the LLM, documents and RabbitMQ. The APIs are versioned, their OpenAPI contracts are checked in CI, and the integration tests are Gherkin scenarios run against a real database:",
     bullets: [
@@ -159,7 +160,8 @@ const COPY = {
     lockH: "Numbering without deadlocks",
   },
   es: {
-    story: "Buena parte de mi tiempo se fue en refactorizar el generador de contratos, para que todas las plantillas siguieran el mismo estándar y todos los documentos se vieran iguales, y en la importación de precios con IA. Lo difícil fue entender el negocio: qué significa cada concepto y las matemáticas detrás de cada cálculo.",
+    story:
+      "Buena parte de mi tiempo se fue en refactorizar el generador de contratos, para que todas las plantillas siguieran el mismo estándar y todos los documentos se vieran iguales, y en la importación de precios con IA. Lo difícil fue entender el negocio: qué significa cada concepto y las matemáticas detrás de cada cálculo.",
     builtH: "Lo que construí",
     how: "Diseño guiado por el dominio con arquitectura hexagonal: unos quince bounded contexts, cada uno con su dominio (entidades, value objects como Price y Status, puertos de repositorio), un caso de uso por clase, y adaptadores para Postgres, almacenamiento de objetos, el LLM, documentos y RabbitMQ. Las APIs están versionadas, sus contratos OpenAPI se comprueban en CI, y los tests de integración son escenarios Gherkin contra una base de datos real:",
     bullets: [
@@ -240,7 +242,8 @@ const COPY = {
     lockH: "Numerar sin interbloqueos",
   },
   ca: {
-    story: "Bona part del meu temps se’n va anar a refactoritzar el generador de contractes, perquè totes les plantilles seguissin el mateix estàndard i tots els documents es veiessin iguals, i a la importació de preus amb IA. El difícil va ser entendre el negoci: què vol dir cada concepte i les matemàtiques darrere de cada càlcul.",
+    story:
+      "Bona part del meu temps se’n va anar a refactoritzar el generador de contractes, perquè totes les plantilles seguissin el mateix estàndard i tots els documents es veiessin iguals, i a la importació de preus amb IA. El difícil va ser entendre el negoci: què vol dir cada concepte i les matemàtiques darrere de cada càlcul.",
     builtH: "El que vaig construir",
     how: "Disseny guiat pel domini amb arquitectura hexagonal: uns quinze bounded contexts, cadascun amb el seu domini (entitats, value objects com Price i Status, ports de repositori), un cas d’ús per classe, i adaptadors per a Postgres, emmagatzematge d’objectes, l’LLM, documents i RabbitMQ. Les APIs estan versionades, els seus contractes OpenAPI es comproven a CI, i els tests d’integració són escenaris Gherkin contra una base de dades real:",
     bullets: [
@@ -365,9 +368,7 @@ export const Compare = () => {
                     · {qty} {unit}
                   </span>
                 </td>
-                <td className="py-1.5 text-right text-p-muted">
-                  {eur(cost)}
-                </td>
+                <td className="py-1.5 text-right text-p-muted">{eur(cost)}</td>
                 {prices.map((p, j) => (
                   <td
                     key={j}
@@ -381,9 +382,7 @@ export const Compare = () => {
           })}
           <tr className="border-t border-p-line2 font-semibold">
             <td className="py-1.5">{t.total}</td>
-            <td className="py-1.5 text-right text-p-muted">
-              {eur(estimate)}
-            </td>
+            <td className="py-1.5 text-right text-p-muted">{eur(estimate)}</td>
             {totals.map((sum, j) => (
               <td
                 key={j}
@@ -514,8 +513,7 @@ const Contract = () => {
         </div>
       ) : (
         <p className="mt-1 text-p-muted">
-          {t.statusL} <b className="text-p-fg">{t.signed[0]}</b>.{" "}
-          {t.signed[1]}
+          {t.statusL} <b className="text-p-fg">{t.signed[0]}</b>. {t.signed[1]}
         </p>
       )}
     </div>

@@ -230,6 +230,7 @@ const Desktop = ({ phone }) => {
       "claude",
       "spotify",
       "pdf",
+      "projects",
       "mail",
       "trash",
     ].map((id) => ({
@@ -243,7 +244,6 @@ const Desktop = ({ phone }) => {
     ...[
       ...(hasPhotos ? [["photos", "photo_camera"]] : []),
       ["shelf", "auto_stories"],
-      ["projects", "deployed_code"],
     ].map(([id, icon]) => ({
       id: `app-${id}`,
       kind: "app",

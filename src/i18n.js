@@ -26,7 +26,7 @@ const resources = {
         },
         {
           title: "Web and Python developer",
-          company: "pEp Security → Planck Security",
+          company: "p≡p Security → Planck Security",
           dates: "2018 - 2024",
           responsibilities: [
             "I joined the company as a frontend developer in charge of the website. My task was migrating a static HTML system to Mezzanine, a Django-based CMS. The website ended up including a custom payment and invoicing system.",
@@ -250,7 +250,7 @@ const resources = {
                 "Backend highlights:",
                 "- FastAPI at 011h: budgets, contracts, finance.",
                 "- Rust at Planck: Docker services that decrypt and store email.",
-                "- Python at pEp: CLI toolchain, MQ demo, Django CMS.",
+                "- Python at p≡p: CLI toolchain, MQ demo, Django CMS.",
               ],
             },
             agents: {
@@ -486,7 +486,7 @@ const resources = {
         },
         {
           title: "Desarrollador Web y Python",
-          company: "pEp Security → Planck Security",
+          company: "p≡p Security → Planck Security",
           dates: "2018 - 2024",
           responsibilities: [
             "Me uní a la empresa como desarrollador frontend encargado del sitio web. Mi tarea fue migrar un sistema HTML estático a Mezzanine, un CMS basado en Django. El sitio web incluyó un sistema personalizado de pago y facturación.",
@@ -715,7 +715,7 @@ const resources = {
                 "Lo más destacado en backend:",
                 "- FastAPI en 011h: presupuestos, contratos y finanzas.",
                 "- Rust en Planck: servicios Docker que descifran y guardan correo.",
-                "- Python en pEp: herramientas CLI, demo con MQ, CMS en Django.",
+                "- Python en p≡p: herramientas CLI, demo con MQ, CMS en Django.",
               ],
             },
             agents: {
@@ -951,7 +951,7 @@ const resources = {
         },
         {
           title: "Desenvolupador Web i Python",
-          company: "pEp Security → Planck Security",
+          company: "p≡p Security → Planck Security",
           dates: "2018 - 2024",
           responsibilities: [
             "Em vaig incorporar a l'empresa com a desenvolupador frontend a càrrec del lloc web. La meva tasca era migrar un sistema HTML estàtic a Mezzanine, un CMS basat en Django. El lloc web va incloure un sistema de pagament i facturació personalitzat.",
@@ -1181,7 +1181,7 @@ const resources = {
                 "El més destacat en backend:",
                 "- FastAPI a 011h: pressupostos, contractes i finances.",
                 "- Rust a Planck: serveis Docker que desxifren i desen correu.",
-                "- Python a pEp: eines CLI, demo amb MQ, CMS en Django.",
+                "- Python a p≡p: eines CLI, demo amb MQ, CMS en Django.",
               ],
             },
             agents: {

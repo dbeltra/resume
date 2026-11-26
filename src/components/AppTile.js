@@ -5,6 +5,7 @@ import TerminalIcon from "../assets/icons/apps/terminal.png";
 import AdobeIcon from "../assets/icons/apps/adobe.png";
 import MailIcon from "../assets/icons/apps/mail.png";
 import ClaudeIcon from "../assets/icons/apps/claude.png";
+import CaseIcon from "../assets/icons/apps/case.png";
 import SpotifyIcon from "../assets/icons/apps/spotify.png"; // Spotify brand asset
 
 // App icons: Flaticon, free licence with attribution (see the credit link).
@@ -22,6 +23,12 @@ export const APPS = {
   claude: { icon: ClaudeIcon, tile: "bg-[#faf9f5]", img: "h-[100%] w-[100%]" },
   spotify: { icon: SpotifyIcon, tile: "bg-black", img: "h-[72%] w-[72%]" },
   pdf: { icon: AdobeIcon, tile: "", img: "h-[102%] w-[102%] max-w-none" },
+  // the briefcase on the Projects wall's warm white
+  projects: {
+    icon: CaseIcon,
+    tile: "bg-[linear-gradient(155deg,#5fc4c0,#2a8f8f_55%,#17666b)]",
+    img: "h-[78%] w-[78%]",
+  },
   mail: { icon: MailIcon, tile: "bg-white", img: "h-[76%] w-[76%]" },
 };
 
