@@ -265,7 +265,7 @@ const Card = ({ c, lang, onOpen }) => {
         className="relative overflow-hidden rounded-2xl bg-[linear-gradient(155deg,#6b6a70,#2a292d_55%,#0f0f11)] ring-p-fg/80 ring-offset-2 ring-offset-[#f4f2ee] group-has-[:focus-visible]:ring-2"
       >
         {c.phones ? (
-          <div className="absolute inset-x-0 top-12 flex justify-center transition duration-300 group-hover:-translate-y-1.5">
+          <div className="absolute inset-x-0 top-12 flex origin-bottom justify-center transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]">
             {c.phones.map((src, i) => (
               <img
                 key={src}
@@ -281,14 +281,14 @@ const Card = ({ c, lang, onOpen }) => {
             src={c.img}
             alt=""
             loading="lazy"
-            className="absolute bottom-0 left-6 right-0 top-12 size-auto rounded-tl-xl object-cover object-left-top shadow-[0_18px_50px_rgba(0,0,0,0.4)] transition duration-300 group-hover:-translate-y-1.5"
+            className="absolute bottom-0 left-6 right-0 top-12 size-auto origin-top-left rounded-tl-xl object-cover object-left-top shadow-[0_18px_50px_rgba(0,0,0,0.4)] transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]"
           />
         ) : (
           // the mock as a window running off the right edge: laid out `w`
           // wide, shrunk by `zoom`, shifted by x/y to its best part
           <div
             style={{ height: c.look.h }}
-            className="thumb ml-6 mt-12 overflow-hidden rounded-tl-xl bg-p-sunk shadow-[0_18px_50px_rgba(0,0,0,0.35)] transition duration-300 group-hover:-translate-y-1"
+            className="thumb ml-6 mt-12 origin-top-left overflow-hidden rounded-tl-xl bg-p-sunk shadow-[0_18px_50px_rgba(0,0,0,0.35)] transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]"
           >
             {/* ponytail: the live mock, inert so it stays out of the tab order */}
             <div
