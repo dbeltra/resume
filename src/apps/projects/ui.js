@@ -152,18 +152,18 @@ export const brand = (s) =>
 // study; the colour is the company's, set as --accent by the Projects window
 export const Intro = ({ kicker, title, pitch, stack }) => (
   <>
-    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[color:color-mix(in_srgb,var(--accent,#c49bc4)_80%,rgb(var(--p-fg)))]">
+    <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-p-fg">
       {brand(kicker)}
     </p>
-    <h2 className="mt-1 text-[30px] font-semibold leading-tight text-p-fg">
+    <h2 className="mt-2 text-[34px] font-light leading-[1.08] tracking-tight text-p-fg sm:text-[40px]">
       {title}
     </h2>
-    <p className="mt-2 text-[16px] text-p-fg">{pitch}</p>
+    <p className="mt-3 text-[16px] leading-relaxed text-p-muted">{pitch}</p>
     <ul className="mt-4 flex flex-wrap gap-1.5">
       {stack.map((s) => (
         <li
           key={s}
-          className="rounded-full bg-p-fg/10 px-2 py-0.5 text-[11px] text-p-fg"
+          className="rounded-full bg-p-fg/[0.07] px-2.5 py-0.5 text-[11px] text-p-fg"
         >
           {s}
         </li>
@@ -173,7 +173,7 @@ export const Intro = ({ kicker, title, pitch, stack }) => (
 );
 
 export const Article = ({ children }) => (
-  <article className="mx-auto max-w-[720px] px-6 pb-10 pt-6 text-[14px] leading-relaxed text-p-body">
+  <article className="mx-auto max-w-[720px] px-6 pb-10 pt-[max(24px,calc(50%_-_376px))] text-[14px] leading-relaxed text-p-body">
     {children}
   </article>
 );

@@ -140,7 +140,7 @@ body {
    live mock left out: laying out a dozen mocks in each of the 24 strips
    dropped the warp to a few frames. The tile, its window and caption still
    pour, and nobody reads a mock mid-warp */
-.genie-layer .card > :first-child,
+.genie-layer .card .art,
 .genie-layer .card .rise {
   opacity: 1 !important;
   transform: none !important;
@@ -282,7 +282,7 @@ body {
 }
 /* a cover card fades in: its art comes up out of a slight blur, settling
    from a touch larger, then the caption rises line by line (--d staggers) */
-.card > :first-child {
+.card .art {
   opacity: 0;
   filter: blur(8px);
   transform: scale(1.03);
@@ -291,7 +291,7 @@ body {
     filter 0.6s var(--ease-out),
     transform 0.8s var(--ease-out);
 }
-.card.in > :first-child {
+.card.in .art {
   opacity: 1;
   filter: none;
   transform: none;
@@ -337,7 +337,7 @@ body {
   animation-delay: 300ms;
 }
 @media (prefers-reduced-motion: reduce) {
-  .card > :first-child {
+  .card .art {
     opacity: 1;
     filter: none;
     transform: none;

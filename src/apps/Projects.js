@@ -69,8 +69,9 @@ const TAGS = {
 export const CASES = [
   {
     id: "sprint",
+    glow: ["#1f1a17", "#ff6a2b", "#f2b8c6"],
     props: { start: 3 },
-    look: { w: 560, zoom: 0.7, h: 235 },
+    look: { w: 560, zoom: 0.7 },
     copy: sprintCopy,
     tags: ["ai", "front"],
     co: "011h",
@@ -85,8 +86,9 @@ export const CASES = [
   },
   {
     id: "builder",
+    glow: ["#1b261d", "#5f8f4e", "#c9d8a8"],
     props: { slip: true },
-    look: { w: 560, zoom: 0.7, h: 240 },
+    look: { w: 560, zoom: 0.7 },
     copy: builderCopy,
     tags: ["back"],
     co: "011h",
@@ -97,8 +99,9 @@ export const CASES = [
   },
   {
     id: "learnings",
+    glow: ["#e6ecf1", "#93c2e4", "#f3d3b5"],
     props: { start: 3 },
-    look: { w: 560, zoom: 0.72, h: 340 },
+    look: { w: 560, zoom: 0.72 },
     copy: learningsCopy,
     tags: ["ai", "back"],
     co: "011h",
@@ -113,8 +116,9 @@ export const CASES = [
   },
   {
     id: "procurement",
+    glow: ["#241d33", "#8b6cd9", "#f0a3c0"],
     props: {},
-    look: { w: 540, zoom: 0.7, h: 205, pad: 16 },
+    look: { w: 700, zoom: 0.7, pad: 16 },
     copy: procurementCopy,
     tags: ["back", "ai"],
     co: "011h",
@@ -125,8 +129,9 @@ export const CASES = [
   },
   {
     id: "hub",
+    glow: ["#17132a", "#a868e8", "#5ab0ff"],
     props: {},
-    look: { w: 560, zoom: 0.85, h: 290 },
+    look: { w: 640, zoom: 0.85 },
     copy: hubCopy,
     tags: ["back"],
     co: "planck",
@@ -137,8 +142,9 @@ export const CASES = [
   },
   {
     id: "cli",
+    glow: ["#0d241a", "#03aa4b", "#9be3b5"],
     props: {},
-    look: { w: 560, zoom: 0.62, h: 215 },
+    look: { w: 560, zoom: 0.62 },
     copy: cliCopy,
     tags: ["back"],
     co: "pep",
@@ -153,8 +159,9 @@ export const CASES = [
   },
   {
     id: "mq",
+    glow: ["#e4e9ee", "#7fb7d9", "#5d7c99"],
     props: {},
-    look: { w: 640, zoom: 0.85, x: 150, h: 205 },
+    look: { w: 640, zoom: 0.85 },
     copy: mqCopy,
     tags: ["back"],
     co: "pep",
@@ -169,6 +176,7 @@ export const CASES = [
   },
   {
     id: "shop",
+    glow: ["#260d10", "#d6453d", "#f5a07a"],
     copy: shopCopy,
     tags: ["back", "front"],
     co: "pep",
@@ -183,6 +191,7 @@ export const CASES = [
   },
   {
     id: "sites",
+    glow: ["#ebeee7", "#4cc27c", "#c3e6cf"],
     copy: sitesCopy,
     tags: ["front"],
     co: "pep",
@@ -197,8 +206,9 @@ export const CASES = [
   },
   {
     id: "autopractik",
+    glow: ["#0e1729", "#297ffa", "#8fd0ff"],
     props: {},
-    look: { w: 390, zoom: 0.72, h: 240 },
+    look: { w: 390, zoom: 0.72 },
     copy: autopractikCopy,
     tags: ["back", "front"],
     co: "ancora",
@@ -214,6 +224,7 @@ export const CASES = [
   // side projects, after the work, newest first
   {
     id: "sitges",
+    glow: ["#f3e4d1", "#f0a35e", "#f6c7d0"],
     copy: sitgesCopy,
     tags: ["front"],
     co: "side",
@@ -229,6 +240,7 @@ export const CASES = [
   },
   {
     id: "bbf",
+    glow: ["#24170a", "#e0a21b", "#f4d58d"],
     copy: bbfCopy,
     tags: ["front"],
     co: "side",
@@ -246,58 +258,66 @@ export const CASES = [
 
 const label = (o, lang) => o[lang] || o.en;
 
-// a case on the cover: a tile in a masonry wall, a grey ground with the
-// case's mock, screenshot or phones set in it, and under it a caption the
-// way a portfolio lists its case studies: what and when, the case's own
-// headline and pitch. A mock sits at its own height, which is what varies
-// the tiles and makes the columns interlock
-const Card = ({ c, lang, onOpen }) => {
-  const copy = c.copy[lang] || c.copy.en;
+// a case's glow of colours: behind its card's preview, and alone as the
+// band across the top of its page
+const glow = ([base, a, b]) => ({
+  background: `radial-gradient(60% 70% at 18% 22%, ${a}, transparent 72%), radial-gradient(55% 65% at 85% 85%, ${b}, transparent 70%), ${base}`,
+});
+
+// a case's preview on the cover: its mock, screenshot or phones floating
+// on its glow
+const Art = ({ c, wide }) => {
+  // a mock shrinks further when its frame is too narrow for it, so it's
+  // never cut off on either side
+  const frame = useRef(null);
+  const [fit, setFit] = useState(c.look?.zoom);
+  useEffect(() => {
+    const el = frame.current;
+    if (!c.look || !el || !window.ResizeObserver) return;
+    const ro = new ResizeObserver(() =>
+      setFit(
+        Math.min(c.look.zoom, (el.clientWidth * 0.86) / c.look.w),
+      ),
+    );
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [c.look]);
   return (
     <div
-      style={{ "--accent": ACCENT[c.co] }}
-      className="card group relative mb-7 break-inside-avoid"
+      style={glow(c.glow)}
+      ref={frame}
+      className={`art relative flex items-center justify-center overflow-hidden rounded-[20px] ring-p-fg/80 ring-offset-2 ring-offset-[#f4f2ee] [container-type:size] group-has-[:focus-visible]:ring-2 ${wide ? "aspect-[16/10]" : "aspect-[4/5]"}`}
     >
-      <div
-        style={{ height: c.phones ? 340 : c.img ? 250 : undefined }}
-        // grey to black for every tile; the company's colour is only in the
-        // hover underline
-        className="relative overflow-hidden rounded-2xl bg-[linear-gradient(155deg,#6b6a70,#2a292d_55%,#0f0f11)] ring-p-fg/80 ring-offset-2 ring-offset-[#f4f2ee] group-has-[:focus-visible]:ring-2"
-      >
+      <div className="flex max-w-[86%] justify-center transition duration-700 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.035]">
         {c.phones ? (
-          <div className="absolute inset-x-0 top-12 flex origin-bottom justify-center transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]">
-            {c.phones.map((src, i) => (
-              <img
-                key={src}
-                src={src}
-                alt=""
-                loading="lazy"
-                className={`w-[118px] rounded-[16px] border-[3px] border-black/80 shadow-[0_18px_40px_rgba(0,0,0,0.45)] ${i ? "-ml-6 mt-6 rotate-[5deg]" : "rotate-[-5deg]"}`}
-              />
-            ))}
-          </div>
+          c.phones.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              loading="lazy"
+              className={`w-[118px] rounded-[16px] border-[3px] border-black/80 shadow-[0_18px_40px_rgba(0,0,0,0.4)] ${i ? "-ml-6 mt-6 rotate-[5deg]" : "rotate-[-5deg]"}`}
+            />
+          ))
         ) : c.img ? (
           <img
             src={c.img}
             alt=""
             loading="lazy"
-            className="absolute bottom-0 left-6 right-0 top-12 size-auto origin-top-left rounded-tl-xl object-cover object-left-top shadow-[0_18px_50px_rgba(0,0,0,0.4)] transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]"
+            className={`aspect-[16/10] max-h-[78cqh] w-[440px] max-w-full rounded-lg object-cover object-top shadow-[0_18px_50px_rgba(0,0,0,0.35)]`}
           />
         ) : (
-          // the mock as a window running off the right edge: laid out `w`
-          // wide, shrunk by `zoom`, shifted by x/y to its best part
-          <div
-            style={{ height: c.look.h }}
-            className="thumb ml-6 mt-12 origin-top-left overflow-hidden rounded-tl-xl bg-p-sunk shadow-[0_18px_50px_rgba(0,0,0,0.35)] transition duration-500 [transition-timing-function:var(--ease-out)] group-hover:scale-[1.04]"
-          >
+          // the mock as a small window: laid out `w` wide, shrunk by
+          // `zoom` (or more, to fit), shifted up by y to its best part
+          <div className="thumb max-h-[80cqh] max-w-full overflow-hidden rounded-xl bg-p-sunk shadow-[0_18px_50px_rgba(0,0,0,0.3)]">
             {/* ponytail: the live mock, inert so it stays out of the tab order */}
             <div
               aria-hidden="true"
               inert=""
               style={{
                 width: c.look.w,
-                zoom: c.look.zoom,
-                margin: `${-(c.look.y || 0)}px 0 0 ${-(c.look.x || 0)}px`,
+                zoom: fit,
+                marginTop: -(c.look.y || 0),
                 padding: c.look.pad,
               }}
               className="pointer-events-none text-p-body"
@@ -306,43 +326,52 @@ const Card = ({ c, lang, onOpen }) => {
             </div>
           </div>
         )}
-        <ul className="absolute left-3.5 top-3.5 flex gap-1">
-          {c.tags.map((t) => (
-            <li
-              key={t}
-              className="rounded-md bg-white px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#17151f]"
-            >
-              {label(TAGS[t], lang)}
-            </li>
-          ))}
-        </ul>
       </div>
-      <div className="mt-3 px-0.5">
-        <div
-          style={{ "--d": "250ms" }}
-          className="rise font-mono text-[10.5px] uppercase tracking-wide text-p-muted"
-        >
-          {brand(c.sub)}
-        </div>
+    </div>
+  );
+};
+
+const VIEW = { en: "View", es: "Ver", ca: "Veure" };
+
+// a case on the cover, the way a portfolio shows one: a light title with a
+// one-line pitch under it, the case's mock, screenshot or phones floating
+// on a soft glow of colours, and under it what and when, and "View"
+const Card = ({ c, lang, wide, onOpen }) => {
+  const copy = c.copy[lang] || c.copy.en;
+  // the pitch's first sentence is the line beside the title
+  const line = copy.pitch.split(/(?<=[.!?])\s/)[0];
+  return (
+    <div className="card group relative">
+      <div className="mb-4 px-0.5">
         {/* the title's click area covers the whole card; a card can't be one
             button since the mocks inside have buttons of their own */}
         <button
           type="button"
           onClick={onOpen}
-          style={{ "--d": "310ms" }}
-          className="rise mt-1 text-left text-[18px] font-semibold leading-snug text-p-fg outline-none after:absolute after:inset-0"
+          style={{ "--d": "250ms" }}
+          className="rise block text-left text-[26px] font-light leading-[1.05] tracking-tight text-p-fg outline-none after:absolute after:inset-0 after:z-10 sm:text-[30px]"
         >
-          {/* an underline in the company's colour grows in on hover */}
-          <span className="bg-[linear-gradient(var(--accent),var(--accent))] bg-[length:0%_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 [transition-timing-function:var(--ease-io)] group-hover:bg-[length:100%_2px]">
-            {copy.title || label(c.title, lang)}
-          </span>
+          {label(c.title, lang)}
         </button>
         <p
-          style={{ "--d": "370ms" }}
-          className="rise mt-1 line-clamp-3 text-[13px] leading-relaxed text-p-body"
+          style={{ "--d": "310ms" }}
+          className="rise mt-1.5 line-clamp-2 max-w-[520px] text-[13px] leading-snug text-p-muted"
         >
-          {copy.pitch}
+          {line}
         </p>
+      </div>
+      <Art c={c} wide={wide} />
+      <div
+        style={{ "--d": "370ms" }}
+        className="rise mt-3 flex justify-between gap-4 px-0.5 text-[11px] font-medium uppercase tracking-[0.08em] text-p-fg"
+      >
+        <span>{brand(c.sub)}</span>
+        <span className="flex-none">
+          {label(VIEW, lang)}{" "}
+          <span className="inline-block transition-transform duration-300 [transition-timing-function:var(--ease-out)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+            ↗
+          </span>
+        </span>
       </div>
     </div>
   );
@@ -411,17 +440,27 @@ const Projects = ({ win, tab }) => {
       {!open ? (
         <div
           ref={cover}
-          className="proj min-h-0 flex-1 overflow-y-auto bg-[#f4f2ee] px-4 pt-4 text-p-fg sm:px-5"
+          className="proj min-h-0 flex-1 overflow-y-auto bg-[#f4f2ee] px-5 pt-4 text-p-fg sm:px-8"
         >
-          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-            {shown.map((c) => (
-              <Card
-                key={filter + c.id}
-                c={c}
-                lang={lang}
-                onOpen={() => setId(c.id)}
-              />
-            ))}
+          {/* pairs of a narrow and a wide card, swapping sides each row, the
+              second of each pair set lower */}
+          <div className="mx-auto grid max-w-[1200px] gap-x-10 gap-y-14 pb-6 pt-4 md:grid-cols-12">
+            {shown.map((c, i) => {
+              const wide = (i % 2 === 1) === (Math.floor(i / 2) % 2 === 0);
+              return (
+                <div
+                  key={filter + c.id}
+                  className={`min-w-0 ${wide ? "md:col-span-7" : "md:col-span-5"} ${i % 2 ? "md:mt-28" : ""}`}
+                >
+                  <Card
+                    c={c}
+                    lang={lang}
+                    wide={wide}
+                    onOpen={() => setId(c.id)}
+                  />
+                </div>
+              );
+            })}
           </div>
           {/* floating filters, like the wall's own menu */}
           <div className="sticky bottom-4 z-10 mx-auto mb-4 mt-2 flex w-fit max-w-full flex-wrap justify-center gap-1 rounded-xl bg-white p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.18)] sm:flex-nowrap">
@@ -442,12 +481,8 @@ const Projects = ({ win, tab }) => {
         // keyed so a new case starts at the top
         <div
           key={id}
-          className="proj case-in min-h-0 flex-1 overflow-y-auto bg-p-surface text-p-fg"
-          style={{
-            "--accent": ACCENT[open.co],
-            backgroundImage: `linear-gradient(180deg, color-mix(in srgb, ${ACCENT[open.co]} 16%, transparent), transparent 320px)`,
-            backgroundAttachment: "local",
-          }}
+          className="proj case-in min-h-0 flex-1 overflow-y-auto bg-[#f4f2ee] text-p-fg"
+          style={{ "--accent": ACCENT[open.co] }}
         >
           {/* back to the wall, floating like its filter bar */}
           <div className="sticky top-3 z-10 h-0 px-3">
@@ -459,7 +494,16 @@ const Projects = ({ win, tab }) => {
               ← {label(ALL, lang)}
             </button>
           </div>
-          <div className="pt-8">
+          {/* the case's glow, edge to edge, as its cover */}
+          {/* the glow kept at a card's 16:10 and cropped to a band, so it
+              isn't stretched */}
+          <div className="relative h-[180px] overflow-hidden sm:h-[320px]">
+            <div
+              style={glow(open.glow)}
+              className="absolute inset-x-0 top-1/2 aspect-[16/10] -translate-y-1/2"
+            />
+          </div>
+          <div className="relative mx-auto -mt-20 max-w-[880px] rounded-t-[24px] bg-[#f4f2ee] sm:-mt-48">
             <open.Body />
           </div>
           {/* the cases either side, newest to oldest and round */}
@@ -474,17 +518,17 @@ const Projects = ({ win, tab }) => {
                 onClick={() => setId(c.id)}
                 className={`group flex flex-col gap-1 ${i ? "sm:items-end sm:text-right" : "items-start text-left"}`}
               >
-                <span className="font-mono text-[10.5px] uppercase tracking-wide text-p-muted">
+                <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-p-muted">
                   {label(word, lang)}
                 </span>
-                <span className="text-[17px] font-semibold leading-snug text-p-fg">
+                <span className="text-[24px] font-light leading-tight tracking-tight text-p-fg">
                   {!i && (
                     <span className="mr-1 inline-block transition-transform duration-300 [transition-timing-function:var(--ease-out)] group-hover:-translate-x-1">
                       {arrow}
                     </span>
                   )}
-                  <span className="group-hover:underline">
-                    {(c.copy[lang] || c.copy.en).title || label(c.title, lang)}
+                  <span className="group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
+                    {label(c.title, lang)}
                   </span>
                   {!!i && (
                     <span className="ml-1 inline-block transition-transform duration-300 [transition-timing-function:var(--ease-out)] group-hover:translate-x-1">
