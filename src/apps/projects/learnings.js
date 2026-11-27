@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Article, Bullets, Chip, H, Intro, Snippet, useCopy } from "./ui";
+import {
+  Article,
+  Bullets,
+  Carousel,
+  Chip,
+  H,
+  Intro,
+  Snippet,
+  useCopy,
+} from "./ui";
+import ValidationShot from "../../assets/images/learnings/validacion.jpg";
+import DistributionShot from "../../assets/images/learnings/difusion.jpg";
 
 // 011h site learnings: a WhatsApp voice note turned into a structured lesson
 // learned. The real code is closed source, so the snippet is rewritten and
@@ -82,6 +93,13 @@ export const COPY = {
     pitch:
       "A site worker sends a WhatsApp voice note; the assistant turns it into a structured lesson learned, checks it back with them, and sends it for review and on to other sites.",
     builtH: "What I built",
+    realH: "Where the learnings end up",
+    realNote:
+      "These are the product’s own screens, built by the frontend team, running on demo data. The learnings in them are the ones the capture pipeline delivers.",
+    realCaps: [
+      "Validation: each captured learning waits here for a team to review it",
+      "Distribution: validated learnings, where they’re shown and how many projects applied them",
+    ],
     built:
       "The assistant’s agent loop is a colleague’s work. I built the WhatsApp channel and the learnings on top of it:",
   },
@@ -139,6 +157,13 @@ export const COPY = {
     pitch:
       "Un trabajador de obra envía una nota de voz por WhatsApp; el asistente la convierte en una lección aprendida estructurada, la repasa con quien la envió y la envía a revisión y a otras obras.",
     builtH: "Lo que construí",
+    realH: "Dónde acaban los aprendizajes",
+    realNote:
+      "Son las pantallas del propio producto, hechas por el equipo de frontend, con datos de demostración. Los aprendizajes que muestran son los que entrega el flujo de captura.",
+    realCaps: [
+      "Validación: cada aprendizaje capturado espera aquí a que un equipo lo revise",
+      "Difusión: los aprendizajes validados, dónde se muestran y cuántos proyectos los han aplicado",
+    ],
     built:
       "El bucle de agente del asistente es obra de otra persona del equipo. Yo construí el canal de WhatsApp y las lecciones encima:",
   },
@@ -196,6 +221,13 @@ export const COPY = {
     pitch:
       "Un treballador d’obra envia una nota de veu per WhatsApp; l’assistent la converteix en una lliçó apresa estructurada, la repassa amb qui l’ha enviat i l’envia a revisió i a altres obres.",
     builtH: "El que vaig construir",
+    realH: "On acaben els aprenentatges",
+    realNote:
+      "Són les pantalles del mateix producte, fetes per l’equip de frontend, amb dades de demostració. Els aprenentatges que mostren són els que lliura el flux de captura.",
+    realCaps: [
+      "Validació: cada aprenentatge capturat espera aquí que un equip el revisi",
+      "Difusió: els aprenentatges validats, on es mostren i quants projectes els han aplicat",
+    ],
     built:
       "El bucle d’agent de l’assistent és obra d’una altra persona de l’equip. Jo vaig construir el canal de WhatsApp i les lliçons a sobre:",
   },
@@ -345,6 +377,9 @@ const Learnings = () => {
           </li>
         ))}
       </ol>
+      <H>{t.realH}</H>
+      <p className="mb-3">{t.realNote}</p>
+      <Carousel shots={[ValidationShot, DistributionShot]} caps={t.realCaps} />
       <H>{t.builtH}</H>
       <p className="mb-2">{t.built}</p>
       <Bullets items={t.bullets} />

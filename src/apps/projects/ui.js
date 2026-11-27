@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { highlightLines } from "../Code";
 
@@ -276,5 +276,77 @@ export const Shots = ({ items, wide }) => {
         </figure>
       ))}
     </div>
+  );
+};
+
+// one screenshot at a time, with arrows and dots
+export const Carousel = ({ shots, caps }) => {
+  const [i, setI] = useState(0);
+  const go = (d) => setI((i + d + shots.length) % shots.length);
+  const arrow =
+    "absolute top-1/2 -translate-y-1/2 rounded-full bg-black/55 px-2.5 py-1 text-[16px] text-white transition-colors hover:bg-black/75";
+  return (
+    <figure>
+      <div className="relative">
+        <div className="overflow-hidden rounded-lg border border-p-line shadow-[0_1px_3px_rgba(0,0,0,0.08),0_6px_16px_rgba(0,0,0,0.1)]">
+          <div
+            style={{ transform: `translateX(-${i * 100}%)` }}
+            className="flex transition-transform duration-700 ease-[cubic-bezier(0.77,0,0.175,1)] motion-reduce:transition-none"
+          >
+            {shots.map((src, k) => (
+              <img
+                key={src}
+                src={src}
+                alt={caps[k]}
+                aria-hidden={k !== i}
+                className={`aspect-[14/9] w-full flex-none object-cover transition-opacity duration-700 ${k === i ? "" : "opacity-40"}`}
+              />
+            ))}
+          </div>
+        </div>
+        {shots.length > 1 && (
+          <>
+            <button
+              type="button"
+              aria-label="Previous"
+              onClick={() => go(-1)}
+              className={`${arrow} left-2`}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              aria-label="Next"
+              onClick={() => go(1)}
+              className={`${arrow} right-2`}
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+      <figcaption className="mt-2 flex items-start gap-3 text-[11px] leading-snug text-p-muted">
+        <span
+          key={i}
+          className="flex-1 motion-safe:animate-[case-rise_0.5s_cubic-bezier(0.165,0.84,0.44,1)_both]"
+        >
+          {caps[i]}
+        </span>
+        {shots.length > 1 && (
+          <span className="flex flex-none gap-1.5 pt-1">
+            {shots.map((src, k) => (
+              <button
+                key={src}
+                type="button"
+                aria-label={`${k + 1}`}
+                aria-current={k === i}
+                onClick={() => setI(k)}
+                className={`h-2 rounded-full transition-all duration-500 ${k === i ? "w-5 bg-p-fg" : "w-2 bg-p-fg/25 hover:bg-p-fg/50"}`}
+              />
+            ))}
+          </span>
+        )}
+      </figcaption>
+    </figure>
   );
 };

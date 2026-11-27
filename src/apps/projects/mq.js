@@ -3,6 +3,7 @@ import {
   ArrowDefs,
   Article,
   Box,
+  Carousel,
   Edge,
   H,
   Prose,
@@ -11,6 +12,7 @@ import {
   Snippet,
   useCopy,
 } from "./ui";
+import DemoShot from "../../assets/images/mq/demo.jpg";
 
 // The financial-messaging demo and its test harness. The real code is closed
 // source, so the snippets are rewritten and simplified for this page.
@@ -107,6 +109,10 @@ export const COPY = {
       "A live demo, and later a test harness, for p≡p’s connector that encrypts financial messages as they travel over IBM MQ.",
     tryH: "Try it",
     try: "A miniature of the demo I built. Send a message and pick how far the receiver’s keys are trusted:",
+    shotH: "The original page",
+    shot: "The demo’s own page from 2021, running again from its source. There are no queues behind it any more, so I replayed a made-up payment into it: the encrypted block on the network pane is a stand-in, not real ciphertext.",
+    shotCap:
+      "Input on the left, the network below it, and the receiving bank on the right",
     wiredH: "How the real one was wired",
     wired:
       "The browser and Django talk over a WebSocket. Django puts messages on the sender’s queue, and reader threads poll the receiver’s queue and a copy of the network traffic, pushing each message to its pane.",
@@ -163,6 +169,10 @@ export const COPY = {
       "Una demo en directo, y más tarde un banco de pruebas, para el conector de p≡p que cifra mensajes financieros mientras viajan por IBM MQ.",
     tryH: "Pruébalo",
     try: "Una miniatura de la demo que construí. Envía un mensaje y elige hasta qué punto se confía en las claves del receptor:",
+    shotH: "La página original",
+    shot: "La página de la demo de 2021, funcionando otra vez desde su código. Ya no hay colas detrás, así que le reproduje un pago inventado: el bloque cifrado del panel de red es un sustituto, no un cifrado real.",
+    shotCap:
+      "La entrada a la izquierda, la red debajo y el banco receptor a la derecha",
     wiredH: "Cómo estaba montada la de verdad",
     wired:
       "El navegador y Django hablan por WebSocket. Django pone los mensajes en la cola del emisor, y unos hilos lectores consultan la cola del receptor y una copia del tráfico de red, y envían cada mensaje a su panel.",
@@ -219,6 +229,10 @@ export const COPY = {
       "Una demo en directe, i més endavant un banc de proves, per al connector de p≡p que xifra missatges financers mentre viatgen per IBM MQ.",
     tryH: "Prova-ho",
     try: "Una miniatura de la demo que vaig construir. Envia un missatge i tria fins a quin punt es confia en les claus del receptor:",
+    shotH: "La pàgina original",
+    shot: "La pàgina de la demo del 2021, funcionant un altre cop des del seu codi. Ja no hi ha cues al darrere, així que hi vaig reproduir un pagament inventat: el bloc xifrat del panell de xarxa és un substitut, no un xifratge real.",
+    shotCap:
+      "L’entrada a l’esquerra, la xarxa a sota i el banc receptor a la dreta",
     wiredH: "Com estava muntada la de debò",
     wired:
       "El navegador i Django parlen per WebSocket. Django posa els missatges a la cua de l’emissor, i uns fils lectors consulten la cua del receptor i una còpia del trànsit de xarxa, i envien cada missatge al seu panell.",
@@ -455,6 +469,9 @@ const Mq = () => {
       <H>{t.wiredH}</H>
       <p className="mb-4">{t.wired}</p>
       <Wiring />
+      <H>{t.shotH}</H>
+      <p className="mb-3">{t.shot}</p>
+      <Carousel shots={[DemoShot]} caps={[t.shotCap]} />
       <H>{t.builtH}</H>
       <Prose items={t.built} />
       <H>{t.orderH}</H>

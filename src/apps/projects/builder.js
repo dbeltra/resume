@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Article, Chip, H, Intro, Prose, Snippet, useCopy } from "./ui";
+import {
+  Article,
+  Carousel,
+  Chip,
+  H,
+  Intro,
+  Prose,
+  Snippet,
+  useCopy,
+} from "./ui";
+import LookAheadShot from "../../assets/images/builder/lookahead.jpg";
 
 // 011h Builder, the construction planning service. The real code is closed
 // source, so the snippets are rewritten and simplified for this page, and
@@ -63,6 +73,10 @@ export const COPY = {
       "The service behind 011h Builder, where site teams plan a building as trains of trades rolling floor by floor, and see what slipped against the plan they promised.",
     idea: "A building goes up floor by floor, and each floor goes through the same trades in the same order: a train. Builder lays those trains out on a calendar as bars, keeps a few weeks’ Look-Ahead for the site, and lets the team save snapshots of the plan to measure delays against later. Try it:",
     builtH: "What I’ve built",
+    realH: "The real screen",
+    realNote:
+      "The product’s look-ahead view, built by the frontend team and running on demo data: the coming weeks for each supplier, with the work that slipped waiting on the left to be replanned. The bars, dates and delays come from the planning API.",
+    realCap: "Look-ahead: what each supplier has on site in the weeks ahead",
   },
   es: {
     endH: "Retrasos respecto a una instantánea",
@@ -94,6 +108,10 @@ export const COPY = {
       "El servicio detrás de 011h Builder, donde los equipos de obra planifican un edificio como trenes de oficios que avanzan planta a planta, y ven qué se ha retrasado respecto al plan que prometieron.",
     idea: "Un edificio sube planta a planta, y cada planta pasa por los mismos oficios en el mismo orden: un tren. Builder coloca esos trenes en un calendario como barras, mantiene un Look-Ahead de unas semanas para la obra, y deja guardar instantáneas del plan para medir después los retrasos. Pruébalo:",
     builtH: "Lo que he construido",
+    realH: "La pantalla real",
+    realNote:
+      "La vista de próximas semanas del producto, hecha por el equipo de frontend, con datos de demostración: lo que tiene cada proveedor en obra, con lo que se ha retrasado esperando a la izquierda para replanificarlo. Las barras, las fechas y los retrasos salen de la API de planificación.",
+    realCap: "Próximas semanas: lo que tiene cada proveedor en obra",
   },
   ca: {
     endH: "Retards respecte a una instantània",
@@ -125,6 +143,10 @@ export const COPY = {
       "El servei darrere de 011h Builder, on els equips d’obra planifiquen un edifici com a trens d’oficis que avancen planta a planta, i veuen què s’ha retardat respecte al pla que van prometre.",
     idea: "Un edifici puja planta a planta, i cada planta passa pels mateixos oficis en el mateix ordre: un tren. Builder col·loca aquests trens en un calendari com a barres, manté un Look-Ahead d’unes setmanes per a l’obra, i permet desar instantànies del pla per mesurar-hi després els retards. Prova-ho:",
     builtH: "El que he construït",
+    realH: "La pantalla real",
+    realNote:
+      "La vista de les properes setmanes del producte, feta per l’equip de frontend, amb dades de demostració: el que té cada proveïdor a l’obra, amb el que s’ha endarrerit esperant a l’esquerra per replanificar-lo. Les barres, les dates i els retards surten de l’API de planificació.",
+    realCap: "Properes setmanes: el que té cada proveïdor a l’obra",
   },
 };
 
@@ -308,6 +330,9 @@ const Builder = () => {
       />
       <p className="mb-4 mt-6">{t.idea}</p>
       <Schedule />
+      <H>{t.realH}</H>
+      <p className="mb-3">{t.realNote}</p>
+      <Carousel shots={[LookAheadShot]} caps={[t.realCap]} />
       <H>{t.builtH}</H>
       <Prose items={t.built} />
       <H>{t.endH}</H>
