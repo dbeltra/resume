@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import AppTile from "./components/AppTile";
 import NowPlaying from "./desktop/NowPlaying";
 import FolderIcon from "./assets/icons/apps/folder.png";
-import CaseIcon from "./assets/icons/apps/case.png";
 import FileIcon from "./assets/icons/apps/doc-md.svg";
 import PhotosIcon from "./assets/icons/apps/photos.png";
 import BooksIcon from "./assets/icons/apps/books.png";
@@ -45,8 +44,7 @@ const PhoneHome = ({ onOpen, onGo, page, hasPhotos }) => {
     },
     {
       label: t("desktop.apps.projects"),
-      icon: CaseIcon,
-      tile: "bg-white",
+      app: "projects",
       act: () => onOpen("projects"),
     },
     {
