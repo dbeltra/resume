@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T21:37:20.317Z",
+ "updated": "2026-11-27T08:39:13.328Z",
  "items": [
   {
    "kind": "show",
@@ -256,9 +256,9 @@
    "reading": false,
    "at": "2026-10-01",
    "about": "Mary Shelley (then Godwin) and Percy Bysshe Shelley were visiting their friend Lord Byron in Geneva one rainy summer. With the weather against them, they decided to spend their time writing ghost stories for each other. Frankenstein is Mary Shelley’s submission to their contest, later published anonymously in 1818.",
-   "pages": 352,
+   "pages": 303,
    "url": "https://hardcover.app/books/frankenstein",
-   "src": "feeds/shelf/19.jpg"
+   "src": "feeds/shelf/19.jpeg"
   },
   {
    "kind": "book",
